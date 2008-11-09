@@ -14,7 +14,7 @@
  * 工程版本仓库: http://code.google.com/p/pymotwcn/source/browse/
 
 == 待作事项 ==
-总述
+=== 总述 ===
  * 联系作者,原作者版权声明
  * 创建code上project并不断增补相关描述,,,
  * 中文pdf制作, 参考啄木鸟上 [http://wiki.woodpecker.org.cn/moin/UsageRstReportlabExPdf 资料一]和[http://wiki.woodpecker.org.cn/moin/MiscItems/2008-08-08 资料二]
