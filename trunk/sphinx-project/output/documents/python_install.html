@@ -1,0 +1,302 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>1&nbsp;&nbsp;&nbsp;Python环境搭建 &mdash; PyMOTW v1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="PyMOTW v1.0 documentation" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="../index.html">PyMOTW v1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="python">
+<h1><a class="toc-backref" href="#id6">1&nbsp;&nbsp;&nbsp;Python环境搭建<a class="headerlink" href="#python" title="Permalink to this headline">¶</a></a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">vbarter &lt;<a class="reference" href="mailto:caijunjie&#37;&#52;&#48;baidu&#46;com">caijunjie<span>&#64;</span>baidu<span>&#46;</span>com</a>&gt;</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic">
+<p class="topic-title first"><a id="contents" name="contents">Contents</a></p>
+<ul class="auto-toc simple">
+<li><a class="reference" href="#python" id="id6" name="id6">1&nbsp;&nbsp;&nbsp;Python环境搭建</a><ul class="auto-toc">
+<li><a class="reference" href="#id1" id="id7" name="id7">1.1&nbsp;&nbsp;&nbsp;准备工作</a></li>
+<li><a class="reference" href="#id2" id="id8" name="id8">1.2&nbsp;&nbsp;&nbsp;安装python解释器</a></li>
+<li><a class="reference" href="#easy-install" id="id9" name="id9">1.3&nbsp;&nbsp;&nbsp;安装easy_install</a></li>
+<li><a class="reference" href="#mysqldb" id="id10" name="id10">1.4&nbsp;&nbsp;&nbsp;安装MySQLdb</a><ul class="auto-toc">
+<li><a class="reference" href="#setup-cfg-15" id="id11" name="id11">1.4.1&nbsp;&nbsp;&nbsp;修改 <tt class="docutils literal"><span class="pre">setup.cfg</span></tt> 文件第 <tt class="docutils literal"><span class="pre">15行</span></tt></a></li>
+<li><a class="reference" href="#site-cfg-13" id="id12" name="id12">1.4.2&nbsp;&nbsp;&nbsp;修改 <tt class="docutils literal"><span class="pre">site.cfg</span></tt> 文件第 <tt class="docutils literal"><span class="pre">13行</span></tt></a></li>
+<li><a class="reference" href="#id3" id="id13" name="id13">1.4.3&nbsp;&nbsp;&nbsp;安装MySQLdb</a></li>
+<li><a class="reference" href="#id4" id="id14" name="id14">1.4.4&nbsp;&nbsp;&nbsp;测试验证是否安装成功</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#pysqlite2" id="id15" name="id15">1.5&nbsp;&nbsp;&nbsp;安装pysqlite2</a></li>
+<li><a class="reference" href="#mod-python" id="id16" name="id16">1.6&nbsp;&nbsp;&nbsp;安装mod_python</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>线上系统安装的python版本有2.2.1，2.3.4，当前稳定版本建议使用2.4.4。本文将介绍如何为非root账户搭建一个完整的python环境，一个完整的环境基本要求如下：</p>
+<ol class="arabic simple">
+<li>独立的可执行环境，不同版本之间方便切换。</li>
+<li>模块安装便捷，具有类似CPAN环境。</li>
+<li>基本的数据库操作支持</li>
+</ol>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">建议在可以访问外网的机器上搭建，这样可以通过网络安装一些需要的第三方模块。</p>
+</div>
+<div class="section" id="id1">
+<h2><a class="toc-backref" href="#id7">1.1&nbsp;&nbsp;&nbsp;准备工作<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></a></h2>
+<div class="highlight-python"><pre>Python-2.4.4.tgz ：python2.4.4
+
+ez_setup.py ：setuptool-0.6c8 支持模块搜索安装
+
+MySQL-python-1.2.2.tar.gz ：操作mysql的python接口</pre>
+</div>
+</div>
+<div class="section" id="id2">
+<h2><a class="toc-backref" href="#id8">1.2&nbsp;&nbsp;&nbsp;安装python解释器<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></a></h2>
+<div class="highlight-python"><pre>wget ftp://tc-nsop-test2.tc.baidu.com/home/caijunjie/download/Python-2.4.4.tgz
+
+tar zxvf Python-2.4.4.tgz
+
+# /home/caijunjie/software/python2.4可以替换成你想要安装的目的路径
+./configure --prefix=/home/caijunjie/software/python2.4
+
+make
+
+make install</pre>
+</div>
+<p>修改默认使用的python解释器</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">vim</span> <span class="o">.</span><span class="n">bash_profile</span>
+</pre></div>
+</div>
+<p>修改 <tt class="docutils literal"><span class="pre">PATH</span></tt> 为：</p>
+<div class="highlight-python"><pre>PATH=/home/caijunjie/software/python2.4/bin:$PATH:$HOME/bin</pre>
+</div>
+<p>保存 <tt class="docutils literal"><span class="pre">.bash_profile</span></tt></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">source</span> <span class="o">.</span><span class="n">bash_profile</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="easy-install">
+<h2><a class="toc-backref" href="#id9">1.3&nbsp;&nbsp;&nbsp;安装easy_install<a class="headerlink" href="#easy-install" title="Permalink to this headline">¶</a></a></h2>
+<div class="highlight-python"><pre>wget ftp://tc-nsop-test2.tc.baidu.com/home/caijunjie/download/ez_setup.py
+
+python ez_setup.py</pre>
+</div>
+<p>ez_setup.py安装玩后，提供一个easy_install命令，可以通过网络来安装第三方的模块，例如，安装paramiko，模块存放在/home/caijunjie/software/python2.4/lib/python2.4/site-packages中。</p>
+<div class="highlight-python"><pre>easy_install paramiko</pre>
+</div>
+</div>
+<div class="section" id="mysqldb">
+<h2><a class="toc-backref" href="#id10">1.4&nbsp;&nbsp;&nbsp;安装MySQLdb<a class="headerlink" href="#mysqldb" title="Permalink to this headline">¶</a></a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">安装MySQLdb之前，需要确保mysql已经正确安装，建议使用mysql5.x版本。</p>
+</div>
+<div class="highlight-python"><pre>wget ftp://tc-nsop-test2.tc.baidu.com/home/caijunjie/download/MySQL-python-1.2.2.tar.gz
+
+tar zxvf MySQL-python-1.2.2.tar.gz
+
+cd MySQL-python-1.2.2</pre>
+</div>
+<div class="section" id="setup-cfg-15">
+<h3><a class="toc-backref" href="#id11">1.4.1&nbsp;&nbsp;&nbsp;修改 <tt class="docutils literal"><span class="pre">setup.cfg</span></tt> 文件第 <tt class="docutils literal"><span class="pre">15行</span></tt><a class="headerlink" href="#setup-cfg-15" title="Permalink to this headline">¶</a></a></h3>
+<div class="highlight-python"><pre># rpath修改为你mysql的安装目录
+rpath=/home/caijunjie/mysql/lib/mysql</pre>
+</div>
+</div>
+<div class="section" id="site-cfg-13">
+<h3><a class="toc-backref" href="#id12">1.4.2&nbsp;&nbsp;&nbsp;修改 <tt class="docutils literal"><span class="pre">site.cfg</span></tt> 文件第 <tt class="docutils literal"><span class="pre">13行</span></tt><a class="headerlink" href="#site-cfg-13" title="Permalink to this headline">¶</a></a></h3>
+<div class="highlight-python"><pre># mysql_config修改为mysql的安装路径
+mysql_config = /home/caijunjig/mysql/bin/mysql_config</pre>
+</div>
+</div>
+<div class="section" id="id3">
+<h3><a class="toc-backref" href="#id13">1.4.3&nbsp;&nbsp;&nbsp;安装MySQLdb<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></a></h3>
+<div class="highlight-python"><pre>python setup.py build
+
+python setup.py install</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">build过程中可能会失败，原因一般会有二个：(1)Python.h文件找不到。(2)mysqlclient_r动态连接库找不到。解决方法：
+(1)如果python是源码安装，一般都包含Python.h，需要搜索下路径，比如Ubuntu中，/usr/include/python2.5。如果非源码安装，那么就需要安装python2.5-dev包或者是python2.4-dev包。
+(2)mysqlclient_r无法定位的原因在MySQL-python-1.2.2中出现，解决方法是site.cfg配置中的threadsafe值设置为False。</p>
+</div>
+</div>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id14">1.4.4&nbsp;&nbsp;&nbsp;测试验证是否安装成功<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></a></h3>
+<p>如果没有 <tt class="docutils literal"><span class="pre">ImportError:</span> <span class="pre">No</span> <span class="pre">module</span> <span class="pre">named</span> <span class="pre">MySQLdb</span></tt> 报错，即安装成功。</p>
+</div>
+</div>
+<div class="section" id="pysqlite2">
+<h2><a class="toc-backref" href="#id15">1.5&nbsp;&nbsp;&nbsp;安装pysqlite2<a class="headerlink" href="#pysqlite2" title="Permalink to this headline">¶</a></a></h2>
+<p>pysqlite2是操作sqlite数据库的api接口。</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">需要两个文件:
+wget <a class="reference" href="ftp://tc-nsop-test1.tc.baidu.com/home/caijunjie/share/sqlite-amalgamation-3.5.9.tar.gz">ftp://tc-nsop-test1.tc.baidu.com/home/caijunjie/share/sqlite-amalgamation-3.5.9.tar.gz</a>
+wget <a class="reference" href="ftp://tc-nsop-test1.tc.baidu.com/home/caijunjie/share/python-pysqlite2_2.4.1.orig.tar.gz">ftp://tc-nsop-test1.tc.baidu.com/home/caijunjie/share/python-pysqlite2_2.4.1.orig.tar.gz</a></p>
+</div>
+<p>首先安装 <tt class="docutils literal"><span class="pre">sqlite-amalgamation-3.5.9.tar.gz</span></tt></p>
+<div class="highlight-python"><pre>tar zxvf sqlite-amalgamation-3.5.9.tar.gz
+cd sqlite-amalgamation-3.5.9
+./configure --prefix=/home/caijunjie/software/sqlite
+make &amp;&amp; make install</pre>
+</div>
+<p>接下来安装 <tt class="docutils literal"><span class="pre">python-pysqlite2_2.4.1.orig.tar.gz</span></tt></p>
+<div class="highlight-python"><pre>tar zxvf python-pysqlite2_2.4.1.orig.tar.gz
+cd pysqlite-2.4.1
+vim setup.cfg
+修改如下：
+include_dirs=/home/caijunjie/software/sqlite/include
+library_dirs=/home/caijunjie/software/sqlite/lib
+python setup.py build
+python setup.py install</pre>
+</div>
+<p>设置动态连接库的搜索路径</p>
+<div class="highlight-python"><pre>LD_LIBRARY_PATH=LD_LIBRARY_PATH:/home/caijunjie/software/ssqlite/lib
+source .bash_profile</pre>
+</div>
+<p>最后，测试是否成功安装</p>
+</div>
+<div class="section" id="mod-python">
+<h2><a class="toc-backref" href="#id16">1.6&nbsp;&nbsp;&nbsp;安装mod_python<a class="headerlink" href="#mod-python" title="Permalink to this headline">¶</a></a></h2>
+<p>mod_python是apache对python的扩展支持。</p>
+<p>下载mod_python</p>
+<div class="highlight-python"><pre>wget http://apache.mirror.phpchina.com/httpd/modpython/mod_python-3.3.1.tgz</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">需要apache2版本。</p>
+</div>
+<p>解压安装</p>
+<div class="highlight-python"><pre>tar zxvf mod_python-3.3.1.tgz
+cd mod_python-3.3.1
+./configure --with-apxs=/home/caijunjie/software/apache2/bin/apxs --with-python=/home/caijunjie/software/python2.5/bin/python
+make
+make install</pre>
+</div>
+<p>到 <tt class="docutils literal"><span class="pre">make</span></tt> 时候会出现如下错误</p>
+<div class="highlight-python"><pre>/usr/lib64/apr-1/build/libtool --silent --mode=link gcc -o mod_python.la \
+-rpath /usr/lib64/httpd/modules -module -avoid-version    finfoobject.lo \
+hlistobject.lo hlist.lo filterobject.lo connobject.lo serverobject.lo util.lo \
+tableobject.lo requestobject.lo _apachemodule.lo mod_python.lo\
+-L/usr/local/lib/python2.5/config -Xlinker -export-dynamic -lm\
+-lpython2.5 -lpthread -ldl -lutil -lm
+/usr/bin/ld: /usr/local/lib/python2.5/config/libpython2.5.a(abstract.o):
+relocation R_X86_64_32 against `a local symbol' can not be used when making a shared object;
+recompile with -fPIC
+/usr/local/lib/python2.5/config/libpython2.5.a: could not read symbols: Bad value
+collect2: ld returned 1 exit status
+apxs:Error: Command failed with rc=65536</pre>
+</div>
+<p>主要问题是64位机器上编译会出现问题，参考 <a class="reference" href="http://mail.python.org/pipermail/python-bugs-list/2006-October/035809.html">这里</a></p>
+<p>解决方法，重启编译python，使其 <tt class="docutils literal"><span class="pre">enable</span> <span class="pre">shared</span></tt> 。</p>
+<div class="highlight-python"><pre>cd Python-2.5.2
+rm -fr build
+./configure --prefix=/home/caijunjie/software/python2.5 --enable-shared
+make
+make install</pre>
+</div>
+<p>安装完成后运行python2.5，会发现：</p>
+<div class="highlight-python"><pre># /usr/local/bin/python
+python: error while loading shared libraries: libpython2.5.so.1.0: cannot open shared object file: No such file or directory</pre>
+</div>
+<p>原因少了libpython2.5.so文件，解决方法:</p>
+<div class="highlight-python"><pre>vim .bash_profile
+在 LD_LIBRARY_PATH变量中增加/home/caijunjie/software/python2.5/lib/
+source .bash_profile</pre>
+</div>
+<p>现在python2.5将没有问题，然后再次编译安装mod_python，将成功。</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference" href="">1&nbsp;&nbsp;&nbsp;Python环境搭建</a><ul>
+<li><a class="reference" href="#id1">1.1&nbsp;&nbsp;&nbsp;准备工作</a></li>
+<li><a class="reference" href="#id2">1.2&nbsp;&nbsp;&nbsp;安装python解释器</a></li>
+<li><a class="reference" href="#easy-install">1.3&nbsp;&nbsp;&nbsp;安装easy_install</a></li>
+<li><a class="reference" href="#mysqldb">1.4&nbsp;&nbsp;&nbsp;安装MySQLdb</a><ul>
+<li><a class="reference" href="#setup-cfg-15">1.4.1&nbsp;&nbsp;&nbsp;修改 <tt class="docutils literal"><span class="pre">setup.cfg</span></tt> 文件第 <tt class="docutils literal"><span class="pre">15行</span></tt></a></li>
+<li><a class="reference" href="#site-cfg-13">1.4.2&nbsp;&nbsp;&nbsp;修改 <tt class="docutils literal"><span class="pre">site.cfg</span></tt> 文件第 <tt class="docutils literal"><span class="pre">13行</span></tt></a></li>
+<li><a class="reference" href="#id3">1.4.3&nbsp;&nbsp;&nbsp;安装MySQLdb</a></li>
+<li><a class="reference" href="#id4">1.4.4&nbsp;&nbsp;&nbsp;测试验证是否安装成功</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#pysqlite2">1.5&nbsp;&nbsp;&nbsp;安装pysqlite2</a></li>
+<li><a class="reference" href="#mod-python">1.6&nbsp;&nbsp;&nbsp;安装mod_python</a></li>
+</ul>
+</li>
+</ul>
+
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/python_install.txt">Show Source</a></li>
+            </ul>
+          <h3>Quick search</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="Go" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="../index.html">PyMOTW v1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2008, caijunjie.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1.
+    </div>
+  </body>
+</html>
