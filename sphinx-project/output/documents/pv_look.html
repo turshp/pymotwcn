@@ -1,0 +1,179 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>1&nbsp;&nbsp;&nbsp;PV_LOOK &mdash; PyMOTW v1.0 documentation</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="top" title="PyMOTW v1.0 documentation" href="../index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="../index.html">PyMOTW v1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="pv-look">
+<h1><a class="toc-backref" href="#id6">1&nbsp;&nbsp;&nbsp;PV_LOOK<a class="headerlink" href="#pv-look" title="Permalink to this headline">¶</a></a></h1>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field"><th class="field-name">Author:</th><td class="field-body">vbarter &lt;<a class="reference" href="mailto:caijunjie&#37;&#52;&#48;baidu&#46;com">caijunjie<span>&#64;</span>baidu<span>&#46;</span>com</a>&gt;</td>
+</tr>
+</tbody>
+</table>
+<div class="contents topic">
+<p class="topic-title first"><a id="contents" name="contents">Contents</a></p>
+<ul class="auto-toc simple">
+<li><a class="reference" href="#pv-look" id="id6" name="id6">1&nbsp;&nbsp;&nbsp;PV_LOOK</a><ul class="auto-toc">
+<li><a class="reference" href="#id1" id="id7" name="id7">1.1&nbsp;&nbsp;&nbsp;基本介绍</a><ul class="auto-toc">
+<li><a class="reference" href="#id2" id="id8" name="id8">1.1.1&nbsp;&nbsp;&nbsp;运行方法</a></li>
+<li><a class="reference" href="#id3" id="id9" name="id9">1.1.2&nbsp;&nbsp;&nbsp;依赖关系</a></li>
+<li><a class="reference" href="#id4" id="id10" name="id10">1.1.3&nbsp;&nbsp;&nbsp;下载方法</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#id5" id="id11" name="id11">1.2&nbsp;&nbsp;&nbsp;脚本基本逻辑</a><ul class="auto-toc">
+<li><a class="reference" href="#get-pv-py" id="id12" name="id12">1.2.1&nbsp;&nbsp;&nbsp;get_pv.py</a></li>
+<li><a class="reference" href="#pv-look-py" id="id13" name="id13">1.2.2&nbsp;&nbsp;&nbsp;pv_look.py</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#todo" id="id14" name="id14">1.3&nbsp;&nbsp;&nbsp;TODO</a></li>
+</ul>
+</li>
+</ul>
+</div>
+<p>当前由于服务器数量众多，查看各个服务器apache、ui、transmit等流量实时变化比较麻烦，一般的做法是抽样检查，本工具能够显示各个模块的流量变化，能够辅助网络检查。</p>
+<div class="section" id="id1">
+<h2><a class="toc-backref" href="#id7">1.1&nbsp;&nbsp;&nbsp;基本介绍<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></a></h2>
+<p>本工具包含三个文件：</p>
+<p>servers中配置需要监控的服务器列表。
+get_pv.py分发到需要监控的服务器的apache目录中</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">目前get_pv.py可以直接针对apache日志的access_log文件进行分析，所以建议建立apache小时文件的软链接。针对ui、transmit等日志的监控，需要修改代码第19行的日志文件名。</p>
+</div>
+<div class="section" id="id2">
+<h3><a class="toc-backref" href="#id8">1.1.1&nbsp;&nbsp;&nbsp;运行方法<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></a></h3>
+<div class="highlight-python"><pre>python ./pv_look.py</pre>
+</div>
+</div>
+<div class="section" id="id3">
+<h3><a class="toc-backref" href="#id9">1.1.2&nbsp;&nbsp;&nbsp;依赖关系<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></a></h3>
+<p>paramiko模块可以基于SSH2协议与远程服务器进行通信。signal模块用于处理系统信号量，如ctrl+c中断。curses模块用于构建交互式的文本模式程序。
+安装paramiko和curses的方法：</p>
+<div class="highlight-python"><pre>easy_install paramiko
+easy_install curses</pre>
+</div>
+</div>
+<div class="section" id="id4">
+<h3><a class="toc-backref" href="#id10">1.1.3&nbsp;&nbsp;&nbsp;下载方法<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></a></h3>
+<div class="highlight-python"><pre>wget ftp://tc-nsop-test1.tc.baidu.com//home/caijunjie/share/pv_look.tar.gz</pre>
+</div>
+</div>
+</div>
+<div class="section" id="id5">
+<h2><a class="toc-backref" href="#id11">1.2&nbsp;&nbsp;&nbsp;脚本基本逻辑<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></a></h2>
+<div class="section" id="get-pv-py">
+<h3><a class="toc-backref" href="#id12">1.2.1&nbsp;&nbsp;&nbsp;get_pv.py<a class="headerlink" href="#get-pv-py" title="Permalink to this headline">¶</a></a></h3>
+<p>模拟 <tt class="docutils literal"><span class="pre">tail</span> <span class="pre">-f</span></tt> 功能。</p>
+</div>
+<div class="section" id="pv-look-py">
+<h3><a class="toc-backref" href="#id13">1.2.2&nbsp;&nbsp;&nbsp;pv_look.py<a class="headerlink" href="#pv-look-py" title="Permalink to this headline">¶</a></a></h3>
+<p>支持多线程模式监控服务器的日志流量，并采用交互式文本显示相关信息。</p>
+<p>以上为针对paramiko链接功能的多线程封装。每增加一台机器服务器的监控，即增加一个Ssh。</p>
+<p>draw()为交互式文本输出的核心函数。</p>
+<p>交互式模式的关闭：</p>
+<p>交互式模式接收用户的按键事件：</p>
+</div>
+</div>
+<div class="section" id="todo">
+<h2><a class="toc-backref" href="#id14">1.3&nbsp;&nbsp;&nbsp;TODO<a class="headerlink" href="#todo" title="Permalink to this headline">¶</a></a></h2>
+<p>目前该工具的使用按存在一些易用性问题，比如需要分发一个 <tt class="docutils literal"><span class="pre">get_pv.py</span></tt> 脚本来完成pv量的采集。对不同日志的监控需要修改源代码。</p>
+<ol class="arabic simple">
+<li>数据获取方式优化，简化 <tt class="docutils literal"><span class="pre">get_pv.py</span></tt> 脚本运行方式。</li>
+<li>配置优化。增加可定制性。</li>
+<li>交互式模式显示优化，现在模式支持单列显示，对于服务器较多情况还支持不好，可以考虑多列。</li>
+<li>安装优化，能支持setup方式安装。</li>
+</ol>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference" href="">1&nbsp;&nbsp;&nbsp;PV_LOOK</a><ul>
+<li><a class="reference" href="#id1">1.1&nbsp;&nbsp;&nbsp;基本介绍</a><ul>
+<li><a class="reference" href="#id2">1.1.1&nbsp;&nbsp;&nbsp;运行方法</a></li>
+<li><a class="reference" href="#id3">1.1.2&nbsp;&nbsp;&nbsp;依赖关系</a></li>
+<li><a class="reference" href="#id4">1.1.3&nbsp;&nbsp;&nbsp;下载方法</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#id5">1.2&nbsp;&nbsp;&nbsp;脚本基本逻辑</a><ul>
+<li><a class="reference" href="#get-pv-py">1.2.1&nbsp;&nbsp;&nbsp;get_pv.py</a></li>
+<li><a class="reference" href="#pv-look-py">1.2.2&nbsp;&nbsp;&nbsp;pv_look.py</a></li>
+</ul>
+</li>
+<li><a class="reference" href="#todo">1.3&nbsp;&nbsp;&nbsp;TODO</a></li>
+</ul>
+</li>
+</ul>
+
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/pv_look.txt">Show Source</a></li>
+            </ul>
+          <h3>Quick search</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="Go" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li><a href="../index.html">PyMOTW v1.0 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; Copyright 2008, caijunjie.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1.
+    </div>
+  </body>
+</html>

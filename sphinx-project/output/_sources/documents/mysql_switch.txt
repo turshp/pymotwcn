@@ -1,0 +1,53 @@
+音乐盒mysql单点切换
+====================
+
+:Author: vbarter <caijunjie@baidu.com>
+
+.. contents::
+.. sectnum::
+
+2008年8月12日进行了音乐盒的mysql主从数据库切换，期间遇到一些问题，现重新整理一份较为正确的文档。
+
+准备工作
+--------
+
+#. 操作前的状况：tc-mbox03.tc（主数据库），tc-mbox00/01/02.tc（从数据库）。
+#. 检查虚ip的有效性。现在音乐盒所使用的虚ip是 ``10.22.239.249`` 。虚ip和服务器ip需要在同一网段内。
+#. 模块的配置文件，如果连接主数据库，需要修改为连接 ``10.22.239.249`` 。涉及到的配置文件有2个， ``mbdc.conf`` 和 ``mbmq.conf`` 。修改完毕后重启模块。
+#. 由于主从数据库需要切换，可以提前做好主数据库对从数据库的授权问题。
+
+切换步骤
+--------
+
+1. 启动主数据库服务器上crontab中update_mbmq.sh。注释从数据库服务器上crontab中update_mbmq.sh。因为mbmq模块会写本机的主数据库。
+2. 停止所有服务器的mbox程序，执行 ``stop_mbox.sh``
+3. 停止tc-mbox03.tc上的虚ip。 ``/sbin/start_v_mp3box.sh stop`` 。检查虚ip是否停止。ping ``10.22.239.249`` 。
+4. 进入mysql。 ``cd ~/mysql/database/bin/; ./mysql -uroot -p`` 。确认无数据写入， ``show master sataus`` ，position需要停止更新。
+5. 当主数据库停止写入后，停止tc-mbox00/01/02.tc的数据库同步。 ``stop slave io_thread`` 。
+
+.. note::
+   
+    切记，停主从同步最好使用 ``stop slave io_thread``。如果 ``Relay_Log_Pos`` 和 ``Exec_Master_Log_Pos`` 不一致时候，就开始scp数据库文件，那么数据会产生不一致，直接使用 ``stop slave`` 往往就会出现两个数值不一致情况
+        
+6. 在tc-mbox00/01/02.tc上执行 ``flush logs`` ，备份var目录下的新创建的bin-log日志（以便紧急恢复）。
+7. 备份tc-mbox00/03.tc上的 ``my.cnf`` 。交换两台机器上的 ``my.cnf`` 文件。重启mysql数据库。
+8. 启动tc-mbox00.tc上的虚ip。 ``/sbin/start_v_mp3box.sh start`` 。
+9. 进入tc-mbox00.tc的数据库。 ``cd ~/mysql/database/bin/;./mysql -uroot -p`` ， 执行 ``show master status;`` 。position如果在变化，则标明数据已经写入。 ``记录下File名称`` 以便从数据库同步。
+10. 分别针对tc-mbox01/02/03.tc的从数据库做如下操作：
+
+- 进入mysql ``cd ~/mysql/database/bin/;./mysql -uroot -p``
+- 执行 ``CHANGE MASTER TO MASTER_HOST='10.22.239.249',MASTER_USER='root',MASTER_PASSWORD='',MASTER_PORT=3306,MASTER_LOG_FILE='第9步记录的File文件名',MASTER_LOG_POS=0;``
+- 执行 ``start slave;`` 。
+
+.. note::
+
+    数据库主从切换中，肯定需要重启主数据库，所以在第10步更新同步点时要注意MASTER_LOG_FILE值取当前master的文件名，MASTER_LOG_POS取值0。
+
+补充遗漏点
+------------
+
+.. note::
+
+    #. tc-search-mis0.tc:/home/mp3order/mp3order/mp3root/tool/updatetomb.sh会往mbox主数据库写数据，如果脚本中不是配置的虚ip，那么需要更新该脚本。
+    #. 一定要注意主数据库要对tc-search-mis0.tc进行授权，由于虚ip是10.22网段，所以授权时务必要对 ``10.22`` 网段授权。
+
