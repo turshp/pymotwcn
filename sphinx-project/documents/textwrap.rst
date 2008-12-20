@@ -1,10 +1,7 @@
 PyMOTW: textwrap
 =================
 
-:Author: vbarter <yzcaijunjie@gmail.com>,lizze <shengyan1985@gmail.com>
-
-.. contents::
-.. sectnum::
+.. currentmodule:: textwrap
 
 * 模块：textwrap
 * 目的: 通过调整段落中的换行符位置来格式化文本

@@ -1,11 +1,7 @@
 PyMOTW: os
 ===============
 
-:Author: vbarter <yzcaijunjie@gmail.com>,lizze <shengyan1985@gmail.com>
-
-
-.. contents::
-.. sectnum::
+.. currentmodule:: os
 
 * 模块：os
 * 目的：为访问操作系统的特定属性提供方便。

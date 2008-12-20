@@ -1,10 +1,7 @@
 PyMOTW: shutil
 =================
 
-:Author: vbarter <yzcaijunjie@gmail.com>,lizze <shengyan1985@gmail.com>
-
-.. contents::
-.. sectnum::
+.. currentmodule:: shutil
 
 * 模块：shutil
 * 目的: 高层次的文件操作.

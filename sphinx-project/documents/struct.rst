@@ -1,10 +1,7 @@
 PyMOTW: Struct
 =================
 
-:Author: vbarter <yzcaijunjie@gmail.com>,lizze <shengyan1985@gmail.com>
-
-.. contents::
-.. sectnum::
+.. currentmodule:: struct
 
 * 模块：Struct
 * 目的: 实现字符串和二进制数据之间的相互转换

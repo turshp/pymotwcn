@@ -1,11 +1,7 @@
 PyMOTW: os(3)
 ===============
 
-:Author: vbarter <yzcaijunjie@gmail.com>,lizze <shengyan1985@gmail.com>
-
-.. contents::
-.. sectnum::
-
+.. currentmodule:: os(3)
 
 描述
 ----

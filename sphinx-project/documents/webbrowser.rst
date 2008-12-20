@@ -1,12 +1,9 @@
 PyMOTW: webbrowser
 ===================
 
-:Author: vbarter <yzcaijunjie@gmail.com>,lizze <shengyan1985@gmail.com>
+.. currentmodule:: webbrowser
 
 利用webbrowser模块可以向用户显示web页面。
-
-.. contents::
-.. sectnum::
 
 * 模块：webbrowser
 * 目的：在浏览器中打开web页面

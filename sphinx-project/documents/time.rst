@@ -1,11 +1,7 @@
 PyMOTW: time
 ============
 
-:Author: vbarter <yzcaijunjie@gmail.com>,lizze <shengyan1985@gmail.com>
-
-.. contents::
-.. sectnum::
-
+.. currentmodule:: time
 
 time模块提供了操作日期和时间的函数
 
