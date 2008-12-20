@@ -1,12 +1,10 @@
-PyMOTW: os
+PyMOTW: base64
 ===============
 
-:Author: vbarter <yzcaijunjie@gmail.com>,lizze <shengyan1985@gmail.com>
+.. currentmodule:: base64
 
 base64模块提供一些函数l来把二进制数据转换为ASCII集，通常在明文协议的传输中使用。
 
-.. contents::
-.. sectnum::
 
 * 模块：base64
 * 目的：编码二进制数据转化为ASCII码

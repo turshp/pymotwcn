@@ -1,10 +1,7 @@
 PyMOTW: smtplib
 =================
 
-:Author: vbarter <yzcaijunjie@gmail.com>,lizze <shengyan1985@gmail.com>
-
-.. contents::
-.. sectnum::
+.. currentmodule:: smtplib
 
 * 模块：smtplib
 * 目的: 与smtp服务器交互，提供邮件发送

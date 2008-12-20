@@ -1,12 +1,9 @@
 PyMOTW: datetime
 ==================
 
-:Author: vbarter <yzcaijunjie@gmail.com>,lizze <shengyan1985@gmail.com>
+.. currentmodule:: datetime
 
 datetime模块包含了一些用于时间解析、格式化、计算的函数。
-
-.. contents::
-.. sectnum::
 
 * 模块：datetime
 * 目的: 日期/时间处理

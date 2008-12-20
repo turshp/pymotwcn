@@ -1,11 +1,6 @@
 PyMOTW: Trace
 =================
 
-:Author: vbarter <yzcaijunjie@gmail.com>,lizze <shengyan1985@gmail.com>
-
-.. contents::
-.. sectnum::
-
 * 模块：Trace
 * 目的: 监控程序语句和函数运行情况,并且产生报告信息.
 * python版本：2.3+

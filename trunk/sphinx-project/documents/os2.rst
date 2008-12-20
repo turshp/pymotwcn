@@ -1,11 +1,7 @@
 PyMOTW: os(2)
 ===============
 
-:Author: vbarter <yzcaijunjie@gmail.com>,lizze <shengyan1985@gmail.com>
-
-.. contents::
-.. sectnum::
-
+.. currentmodule:: os(2)
 
 描述
 ----

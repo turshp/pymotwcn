@@ -1,10 +1,7 @@
 PyMOTW: anydbm
 =================
 
-:Author: vbarter <yzcaijunjie@gmail.com>,lizze <shengyan1985@gmail.com>
-
-.. contents::
-.. sectnum::
+.. currentmodule:: anydbm
 
 * 模块：anydbm
 * 目的：anydbm提供了针对DBM-style、String-keyed数据库的字典接口。

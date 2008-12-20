@@ -1,12 +1,9 @@
 PyMOTW: pickle & cPickle
 =============================
 
-:Author: vbarter <yzcaijunjie@gmail.com>,lizze <shengyan1985@gmail.com>
+.. currentmodule:: pickle
 
 Python对象序列化
-
-.. contents::
-.. sectnum::
 
 * 模块：pickle 和 cPickle
 * 目的: Python对象序列化

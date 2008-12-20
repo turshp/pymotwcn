@@ -1,10 +1,7 @@
 PyMOTW: Queue
 ===============
 
-:Author: vbarter <yzcaijunjie@gmail.com>,lizze <shengyan1985@gmail.com>
-
-.. contents::
-.. sectnum::
+.. currentmodule:: queue
 
 * 模块：Queue
 * 目的：提供一个线程安全的FIFO功能。

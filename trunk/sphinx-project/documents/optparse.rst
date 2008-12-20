@@ -1,11 +1,7 @@
 PyMOTW: optparse
 ================
 
-:Author: vbarter <yzcaijunjie@gmail.com>,lizze <shengyan1985@gmail.com>
-
-.. contents::
-.. sectnum::
-
+.. currentmodule:: optparse
 
 * 模块：optparse
 * 目的：命令行参数解析，可以取代getopt

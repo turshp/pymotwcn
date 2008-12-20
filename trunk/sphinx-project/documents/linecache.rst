@@ -1,10 +1,7 @@
 PyMOTW: linecache
 ===================
 
-:Author: vbarter <yzcaijunjie@gmail.com>,lizze <shengyan1985@gmail.com>
-
-.. contents::
-.. sectnum::
+.. currentmodule:: linecache
 
 * 模块：linecache
 * 目的: 从文件或者导入模块中检索文本行，对结果采用缓冲来提高读文件的效率。
