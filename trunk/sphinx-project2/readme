@@ -1,0 +1,21 @@
+sphinx－project2
+|-- src
+|    |-- index.rst 顶层目录
+|    |-- introduce.rst 相关介绍
+|    |-- about.rst 关于
+|    |-- bugs.rst
+|    |-- copyright.rst
+|    |-- license.rst
+|    |-- Makefile  自动生成的, 使用: make html
+|    |-- conf.py  直接拷贝了sphinx－project中的. 所以设置相同
+|    |-- documents Documents二级目录
+|    |      |-- index.rst
+|    |      |-- *.rst: 所有PyMOTW文档
+|    |-- .build 自动生成的构建目录
+|    |-- .static 静态文件, 空
+|    |-- .templates 自定义模板, 空
+|-- output 输出结果目录
+
+tocjj:
+    我直接使用sphinx-build -b html src output生成出来的就是像Python文档的样子了,没出现章节序号. 而table of content里面的项目是根据rst中标题来定的, 出现了几个标题就显示在那, 所以因为现在我们首页, 也就是index.rst里面只有一个Weclome大标, 所以就只有一个了...就这些, 你看看是否ok:P
+    -- liz
