@@ -42,3 +42,4 @@ sphinx/environment.py中line291~293修改为
         html_title = (lambda self: u'%s v%s 文档' %  (self.project, self.release), False),
 
 到这,,,除了copyright没有翻译外, 其他都中文化, to vbarter: 看看这样汉化是否可以, 如果里面哪个地方翻译的不好, 告诉liz
+
