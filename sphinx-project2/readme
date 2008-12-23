@@ -16,6 +16,29 @@ sphinx－project2
 |    |-- .templates 自定义模板, 空
 |-- output 输出结果目录
 
-tocjj:
-    我直接使用sphinx-build -b html src output生成出来的就是像Python文档的样子了,没出现章节序号. 而table of content里面的项目是根据rst中标题来定的, 出现了几个标题就显示在那, 所以因为现在我们首页, 也就是index.rst里面只有一个Weclome大标, 所以就只有一个了...就这些, 你看看是否ok:P
-    -- liz
+汉化所作修改
+1, 拷贝sphinx的.templates, 并且把里面html文档中有_('some title')的翻译成中文
+2, 拷贝sphinx的.static, 样式可以自定义, 但现在没有修改
+3, src/index.rst及相关rst文件中, 修改成中文说明 
+到此大致上可以完成汉化. 只是还剩页面顶端的导航条和首页下方的索引表的特殊模块默认名字还是英文,因为这个是在源代码中有所涉及, 所以对sphinx源码做了些修改如下
+4, 
+sphinx/builder.py中
+line428~430修改为
+        rellinks = []
+        if self.config.html_use_index:
+            rellinks.append(('genindex', _(u'一般索引'), 'I', _(u'索引')))#General Index index
+        if self.config.html_use_modindex and self.env.modules:
+            rellinks.append(('modindex', _(u'全局模块索引'), 'M', _(u'模块')))#Global Module Index modules
+line468修改为
+                rellinks.append((related[2], next['title'], 'N', _(u'后一篇')))
+line475修改为
+                rellinks.append((related[1], prev['title'], 'P', _(u'前一篇')))
+
+sphinx/environment.py中line291~293修改为
+        self.labels['genindex'] = ('genindex', '', _(u'索引'))# Index
+        self.labels['modindex'] = ('modindex', '', _(u'模块索引'))# Module Index
+        self.labels['search']   = ('search', '', _(u'搜索页面'))# Search Page
+5, conf.py中修改项目名称为中文, 其中想自定义html_title为<project> v<release> 文档, 直接将html_title = u"<project> v<release> documentation"修改中文无法在页面上正确显示, 所以修改sphinx/config.py中line54为
+        html_title = (lambda self: u'%s v%s 文档' %  (self.project, self.release), False),
+
+到这,,,除了copyright没有翻译外, 其他都中文化, to vbarter: 看看这样汉化是否可以, 如果里面哪个地方翻译的不好, 告诉liz
