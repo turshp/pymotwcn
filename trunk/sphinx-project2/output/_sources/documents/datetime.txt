@@ -1,16 +1,15 @@
 PyMOTW: datetime
-==================
+===================
 
 .. currentmodule:: datetime
 
-datetime模块包含了一些用于时间解析、格式化、计算的函数。
+datetime 模块包含了一些用于时间解析、格式化、计算的函数。
 
 * 模块：datetime
-* 目的: 日期/时间处理
+* 目的：日期/时间处理
 * python版本：2.3+
 
-
-描述
+时间
 ----
 
 时间值由time类来表示，Times有小时，分，秒和微秒属性，以及包含时区信息。初始化time实例的参数是可选的，但这样的话，你将获得初始值0（也许不是你所想要的）。
@@ -47,7 +46,7 @@ datetime模块包含了一些用于时间解析、格式化、计算的函数。
     print 'Latest    :', datetime.time.max
     print 'Resolution:', datetime.time.resolution
 
-   
+
 类属性中的最大最小值反应了一天中的时间范围。
 
 ::
@@ -71,23 +70,26 @@ datetime模块包含了一些用于时间解析、格式化、计算的函数。
 ::
 
    $ python datetime_time_resolution.py
-
    /home/cjj/python/pymotw/datetime_time_resolution.py:14: DeprecationWarning: integer argument expected, got float
 
-   print '%02.1f :' % m, datetime.time(0, 0, 0, microsecond=m)
+.. code-block:: python
+
+    print '%02.1f :' % m, datetime.time(0, 0, 0, microsecond=m)
+
+::
 
    1.0 : 00:00:00.000001
    0.0 : 00:00:00
    0.1 : 00:00:00
    0.6 : 00:00:00
-   
+
 日期
 ------
 
-日期值可以由date类来表示，实例有年、月、日属性，使用data类的today()方法可以方便的表示出今天的日期。
+日期值可以由date类来表示，实例有年、月、日属性，使用data类的 ``today()`` 方法可以方便的表示出今天的日期。
 
 .. code-block:: python
-        
+
     import datetime
 
     today = datetime.date.today()
@@ -98,7 +100,7 @@ datetime模块包含了一些用于时间解析、格式化、计算的函数。
     print 'Year:', today.year
     print 'Mon :', today.month
     print 'Day :', today.day
-    
+
 示例演示了今天日期的多种表示方法：
 
 ::
@@ -126,7 +128,7 @@ datetime模块包含了一些用于时间解析、格式化、计算的函数。
     print 't:', t
     print 'fromtimestamp(t):', datetime.date.fromtimestamp(t)
 
-示例显示了函数fromordinal()和fromtimestamp()返回了不同的结果。
+示例显示了函数 ``fromordinal()`` 和 ``fromtimestamp()`` 返回了不同的结果。
 
 ::
 
@@ -142,8 +144,8 @@ datetime模块包含了一些用于时间解析、格式化、计算的函数。
 
     import datetime
 
-    print 'Earliest  :', datetime.date.min
-    print 'Latest    :', datetime.date.max
+    print 'Earliest :', datetime.date.min
+    print 'Latest :', datetime.date.max
     print 'Resolution:', datetime.date.resolution
 
 一个日期的单位就是1天。
@@ -173,11 +175,10 @@ datetime模块包含了一些用于时间解析、格式化、计算的函数。
    d1: 2008-03-12
    d2: 2009-03-12
 
-
 timedelta
 -----------
 
-除了replace()函数可以计算过去或者未来的时间，还可以使用timedelta类对日期值进行基本运算。通过timedelta可以加减一个日期来产生另外一个日期。timedelta中的内部值可以用天、秒和微秒来表示。
+除了 ``replace()`` 函数可以计算过去或者未来的时间，还可以使用timedelta类对日期值进行基本运算。通过timedelta可以加减一个日期来产生另外一个日期。timedelta中的内部值可以用天、秒和微秒来表示。
 
 .. code-block:: python
 
@@ -185,11 +186,11 @@ timedelta
 
     print "microseconds:", datetime.timedelta(microseconds=1)
     print "milliseconds:", datetime.timedelta(milliseconds=1)
-    print "seconds     :", datetime.timedelta(seconds=1)
-    print "minutes     :", datetime.timedelta(minutes=1)
-    print "hours       :", datetime.timedelta(hours=1)
-    print "days        :", datetime.timedelta(days=1)
-    print "weeks       :", datetime.timedelta(weeks=1)
+    print "seconds :", datetime.timedelta(seconds=1)
+    print "minutes :", datetime.timedelta(minutes=1)
+    print "hours :", datetime.timedelta(hours=1)
+    print "days :", datetime.timedelta(days=1)
+    print "weeks :", datetime.timedelta(weeks=1)
 
 传递给构造器的中间值被转换为天、秒和微秒。
 
@@ -199,45 +200,11 @@ timedelta
 
    microseconds: 0:00:00.000001
    milliseconds: 0:00:00.001000
-   seconds     : 0:00:01
-   minutes     : 0:01:00
-   hours       : 1:00:00
-   days        : 1 day, 0:00:00
-   weeks       : 7 days, 0:00:00
-
-运算
------
-
-日期运算使用标准的算术运算符，示例演示了使用date对象的timedelta来计算一个新的日期，然后减去一个日期实例来产生timedelta[包括一个负的delta值]。
-
-.. code-block:: python
-
-    import datetime
-
-    today = datetime.date.today()
-    print 'Today    :', today
-
-    one_day = datetime.timedelta(days=1)
-    print 'One day  :', one_day
-
-    yesterday = today - one_day
-    print 'Yesterday:', yesterday
-
-    tomorrow = today + one_day
-    print 'Tomorrow :', tomorrow
-
-    print 'tomorrow - yesterday:', tomorrow - yesterday
-    print 'yesterday - tomorrow:', yesterday - tomorrow
-
-::
-
-   $ python datetime_date_math.py
-   Today    : 2008-03-13
-   One day  : 1 day, 0:00:00
-   Yesterday: 2008-03-12
-   Tomorrow : 2008-03-14
-   tomorrow - yesterday: 2 days, 0:00:00
-   yesterday - tomorrow: -2 days, 0:00:00
+   seconds : 0:00:01
+   minutes : 0:01:00
+   hours : 1:00:00
+   days : 1 day, 0:00:00
+   weeks : 7 days, 0:00:00
 
 比较
 ------
@@ -270,9 +237,10 @@ timedelta
         t1: 12:55:00
         t2: 13:05:00
         t1 < t2: True
+                    
    Dates:
-        d1: 2008-03-13
-        d2: 2008-03-14
+        d1: 2008-03-13 
+        d2: 2008-03-14              
         d1 > d2: False
 
 日期和时间组合
@@ -284,8 +252,8 @@ timedelta
 
     import datetime
 
-    print 'Now    :', datetime.datetime.now()
-    print 'Today  :', datetime.datetime.today()
+    print 'Now :', datetime.datetime.now()
+    print 'Today :', datetime.datetime.today()
     print 'UTC Now:', datetime.datetime.utcnow()
 
     d = datetime.datetime.now()
@@ -297,8 +265,8 @@ timedelta
 ::
 
    $ python datetime_datetime.py
-   Now    : 2008-03-15 22:58:14.770074
-   Today  : 2008-03-15 22:58:14.779804
+   Now : 2008-03-15 22:58:14.770074
+   Today : 2008-03-15 22:58:14.779804
    UTC Now: 2008-03-16 03:58:14.779858
    year : 2008
    month : 3
@@ -308,7 +276,7 @@ timedelta
    second : 14
    microsecond : 780399
 
-datetime类提供了一些类方法来创建新的实例，当然它也包含fromordinal()和fromtimestamp()，如果你已经有一个日期实例和时间实例，并需要创建datetime的话，combine()方法比较有用。
+datetime类提供了一些类方法来创建新的实例，当然它也包含 ``fromordinal()`` 和 ``fromtimestamp()`` ，如果你已经有一个日期实例和时间实例，并需要创建datetime的话，combine()方法比较有用。
 
 .. code-block:: python
 
@@ -316,10 +284,8 @@ datetime类提供了一些类方法来创建新的实例，当然它也包含fro
 
     t = datetime.time(1, 2, 3)
     print 't :', t
-
     d = datetime.date.today()
     print 'd :', d
-
     dt = datetime.datetime.combine(d, t)
     print 'dt:', dt
 
@@ -331,9 +297,9 @@ datetime类提供了一些类方法来创建新的实例，当然它也包含fro
    dt: 2008-03-16 01:02:03
 
 格式化和解析
--------------
+--------------
 
-datetime对象的字符串表示方法默认使用的是ISO 8601格式（YYYY-MM-DDTHH:MM:SS.mmmmmm），使用strftime()可以产生其他格式，同样，如果你的输入值是用time.strptime() 解析的时间戳，那么strptime() 是一个合适的方法来把它转换为datetime实例。
+datetime对象的字符串表示方法默认使用的是ISO 8601格式（YYYY-MM-DDTHH:MM:SS.mmmmmm），使用 ``strftime()`` 可以产生其他格式，同样，如果你的输入值是用 ``time.strptime()`` 解析的时间戳，那么 ``strptime()`` 是一个合适的方法来把它转换为datetime实例。
 
 .. code-block:: python
 
@@ -342,7 +308,7 @@ datetime对象的字符串表示方法默认使用的是ISO 8601格式（YYYY-MM
     format = "%a %b %d %H:%M:%S %Y"
 
     today = datetime.datetime.today()
-    print 'ISO     :', today
+    print 'ISO :', today
 
     s = today.strftime(format)
     print 'strftime:', s
@@ -351,7 +317,7 @@ datetime对象的字符串表示方法默认使用的是ISO 8601格式（YYYY-MM
     print 'strptime:', d.strftime(format)
 
 ::
-
+   
    $ python datetime_datetime_strptime.py
    ISO     : 2008-03-16 08:08:16.275134
    strftime: Sun Mar 16 08:08:16 2008
@@ -363,7 +329,7 @@ datetime对象的字符串表示方法默认使用的是ISO 8601格式（YYYY-MM
 时区是由子类datetime.tzinfo来表示的，tzinfo是一个抽象的基类，你需要定义子类，并提供相应的方法去实现一些方法。很可惜，dateime不包含任何实际可用的实现，可以参考 `文档 <http://docs.python.org/lib/datetime-tzinfo.html>`_ 来获取一些示例。
 
 参考
------
+-------
 
 * `PLEAC - Dates and Times <http://pleac.sourceforge.net/pleac_python/datesandtimes.html>`_
 * `WikiPedia: Proleptic Gregorian calendar <http://en.wikipedia.org/wiki/Proleptic_Gregorian_calendar>`_
