@@ -12,6 +12,7 @@
     os.rst
     os2.rst
     os3.rst
+    os4.rst
     pickle.rst
     queue.rst
     shutil.rst
@@ -23,3 +24,4 @@
     webbrowser.rst
     locale.rst
     urllib.rst
+    logging.rst
