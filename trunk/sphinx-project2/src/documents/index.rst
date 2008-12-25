@@ -25,3 +25,5 @@
     locale.rst
     urllib.rst
     logging.rst
+    bisect.rst
+    configparser.rst
