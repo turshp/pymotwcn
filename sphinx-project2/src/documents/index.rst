@@ -21,3 +21,5 @@
     time.rst
     trace.rst
     webbrowser.rst
+    locale.rst
+    urllib.rst

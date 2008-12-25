@@ -1,5 +1,5 @@
 PyMOTW: urllib
-============
+================
 
 .. currentmodule:: urllib
 
