@@ -27,3 +27,5 @@
     logging.rst
     bisect.rst
     configparser.rst
+    shelve.rst
+    StringIO.rst
