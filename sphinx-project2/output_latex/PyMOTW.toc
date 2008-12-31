@@ -1,0 +1,158 @@
+\select@language {english}
+\contentsline {section}{\numberline {0.1}介绍}{1}{section.0.1}
+\contentsline {section}{\numberline {0.2}所有文档}{1}{section.0.2}
+\contentsline {subsection}{\numberline {0.2.1}PyMOTW: anydbm}{1}{subsection.0.2.1}
+\contentsline {subsubsection}{描述}{1}{subsubsection*.2}
+\contentsline {subsubsection}{创建一个新的数据库}{1}{subsubsection*.3}
+\contentsline {subsubsection}{打开一个存在的数据库}{2}{subsubsection*.4}
+\contentsline {subsubsection}{错误案例}{2}{subsubsection*.5}
+\contentsline {subsubsection}{参考}{3}{subsubsection*.6}
+\contentsline {subsection}{\numberline {0.2.2}PyMOTW: base64}{3}{subsection.0.2.2}
+\contentsline {subsubsection}{描述}{3}{subsubsection*.7}
+\contentsline {subsubsection}{Base64 编码}{3}{subsubsection*.8}
+\contentsline {subsubsection}{Base64 解码}{4}{subsubsection*.9}
+\contentsline {subsubsection}{URL-Safe变化}{5}{subsubsection*.10}
+\contentsline {subsubsection}{其他编码}{5}{subsubsection*.11}
+\contentsline {subsubsection}{参考}{6}{subsubsection*.12}
+\contentsline {subsection}{\numberline {0.2.3}PyMOTW: datetime}{6}{subsection.0.2.3}
+\contentsline {subsubsection}{时间}{6}{subsubsection*.13}
+\contentsline {subsubsection}{日期}{7}{subsubsection*.14}
+\contentsline {subsubsection}{timedelta}{9}{subsubsection*.15}
+\contentsline {subsubsection}{比较}{9}{subsubsection*.16}
+\contentsline {subsubsection}{日期和时间组合}{10}{subsubsection*.17}
+\contentsline {subsubsection}{格式化和解析}{11}{subsubsection*.18}
+\contentsline {subsubsection}{时区}{11}{subsubsection*.19}
+\contentsline {subsubsection}{参考}{11}{subsubsection*.20}
+\contentsline {subsection}{\numberline {0.2.4}PyMOTW: linecache}{11}{subsection.0.2.4}
+\contentsline {subsubsection}{描述}{11}{subsubsection*.21}
+\contentsline {subsubsection}{示例}{12}{subsubsection*.22}
+\contentsline {subsubsection}{示例输出}{13}{subsubsection*.23}
+\contentsline {subsubsection}{参考}{13}{subsubsection*.24}
+\contentsline {subsection}{\numberline {0.2.5}PyMOTW: optparse}{13}{subsection.0.2.5}
+\contentsline {subsubsection}{描述}{13}{subsubsection*.25}
+\contentsline {subsubsection}{创建一个OptionParser}{13}{subsubsection*.26}
+\contentsline {subsubsection}{定义选项}{14}{subsubsection*.27}
+\contentsline {subsubsection}{分析一个命令行}{14}{subsubsection*.28}
+\contentsline {subsubsection}{简单示例}{14}{subsubsection*.29}
+\contentsline {subsubsection}{与getopt的比较}{15}{subsubsection*.30}
+\contentsline {subsubsection}{Option Callbacks(选项回调)}{16}{subsubsection*.31}
+\contentsline {subsubsection}{帮助信息}{17}{subsubsection*.32}
+\contentsline {subsection}{\numberline {0.2.6}PyMOTW: os}{18}{subsection.0.2.6}
+\contentsline {subsubsection}{描述}{18}{subsubsection*.33}
+\contentsline {subsubsection}{属主处理}{18}{subsubsection*.34}
+\contentsline {subsubsection}{环境处理}{20}{subsubsection*.35}
+\contentsline {subsubsection}{工作目录处理}{20}{subsubsection*.36}
+\contentsline {subsubsection}{后续...}{21}{subsubsection*.37}
+\contentsline {subsubsection}{参考}{21}{subsubsection*.38}
+\contentsline {subsection}{\numberline {0.2.7}PyMOTW: os(2)}{21}{subsection.0.2.7}
+\contentsline {subsubsection}{描述}{21}{subsubsection*.39}
+\contentsline {subsubsection}{管道}{21}{subsubsection*.40}
+\contentsline {subsubsection}{后续}{23}{subsubsection*.41}
+\contentsline {subsubsection}{参考}{24}{subsubsection*.42}
+\contentsline {subsection}{\numberline {0.2.8}PyMOTW: os(3)}{24}{subsection.0.2.8}
+\contentsline {subsubsection}{描述}{24}{subsubsection*.43}
+\contentsline {subsubsection}{文件描述符}{24}{subsubsection*.44}
+\contentsline {subsubsection}{文件系统权限}{24}{subsubsection*.45}
+\contentsline {subsubsection}{目录}{25}{subsubsection*.46}
+\contentsline {subsubsection}{符号链接}{26}{subsubsection*.47}
+\contentsline {subsubsection}{访问目录树}{27}{subsubsection*.48}
+\contentsline {subsubsection}{后续}{28}{subsubsection*.49}
+\contentsline {subsubsection}{参考}{28}{subsubsection*.50}
+\contentsline {subsection}{\numberline {0.2.9}PyMOTW: os(4)}{28}{subsection.0.2.9}
+\contentsline {subsubsection}{描述}{28}{subsubsection*.51}
+\contentsline {subsubsection}{申明}{28}{subsubsection*.52}
+\contentsline {subsubsection}{运行外部命令}{28}{subsubsection*.53}
+\contentsline {subsubsection}{使用os.fork()创建进程}{29}{subsubsection*.54}
+\contentsline {subsubsection}{等待一个子进程}{31}{subsubsection*.55}
+\contentsline {subsubsection}{Spawn（孵化）}{33}{subsubsection*.56}
+\contentsline {subsubsection}{结论}{33}{subsubsection*.57}
+\contentsline {subsubsection}{参考}{33}{subsubsection*.58}
+\contentsline {subsection}{\numberline {0.2.10}PyMOTW: pickle \& cPickle}{33}{subsection.0.2.10}
+\contentsline {subsubsection}{描述}{33}{subsubsection*.59}
+\contentsline {subsubsection}{例子}{34}{subsubsection*.60}
+\contentsline {subsubsection}{参考}{37}{subsubsection*.61}
+\contentsline {subsection}{\numberline {0.2.11}PyMOTW: Queue}{38}{subsection.0.2.11}
+\contentsline {subsubsection}{描述}{38}{subsubsection*.62}
+\contentsline {subsubsection}{示例}{38}{subsubsection*.63}
+\contentsline {subsection}{\numberline {0.2.12}PyMOTW: shutil}{40}{subsection.0.2.12}
+\contentsline {subsubsection}{描述:}{40}{subsubsection*.64}
+\contentsline {subsubsection}{复制文件:}{40}{subsubsection*.65}
+\contentsline {subsubsection}{复制文件元信息:}{42}{subsubsection*.66}
+\contentsline {subsubsection}{目录树:}{43}{subsubsection*.67}
+\contentsline {subsubsection}{参考}{45}{subsubsection*.68}
+\contentsline {subsection}{\numberline {0.2.13}PyMOTW: smtplib}{45}{subsection.0.2.13}
+\contentsline {subsubsection}{发送一封邮件}{45}{subsubsection*.69}
+\contentsline {subsubsection}{认证和加密}{46}{subsubsection*.70}
+\contentsline {subsubsection}{验证一个邮件地址}{48}{subsubsection*.71}
+\contentsline {subsubsection}{参考}{49}{subsubsection*.72}
+\contentsline {subsection}{\numberline {0.2.14}PyMOTW: Struct}{49}{subsection.0.2.14}
+\contentsline {subsubsection}{函数 vs Struct类}{49}{subsubsection*.73}
+\contentsline {subsubsection}{封装和解封}{49}{subsubsection*.74}
+\contentsline {subsubsection}{字节序}{50}{subsubsection*.75}
+\contentsline {subsubsection}{缓冲}{51}{subsubsection*.76}
+\contentsline {subsubsection}{参考}{52}{subsubsection*.77}
+\contentsline {subsection}{\numberline {0.2.15}PyMOTW: textwrap}{52}{subsection.0.2.15}
+\contentsline {subsubsection}{描述}{52}{subsubsection*.78}
+\contentsline {subsubsection}{例子}{52}{subsubsection*.79}
+\contentsline {subsubsection}{参考}{54}{subsubsection*.80}
+\contentsline {subsection}{\numberline {0.2.16}PyMOTW: time}{55}{subsection.0.2.16}
+\contentsline {subsubsection}{描述}{55}{subsubsection*.81}
+\contentsline {subsubsection}{Wall Clock Time}{55}{subsubsection*.82}
+\contentsline {subsubsection}{处理器时钟}{55}{subsubsection*.83}
+\contentsline {subsubsection}{struct\_time}{56}{subsubsection*.84}
+\contentsline {subsubsection}{解析和格式化时间}{57}{subsubsection*.85}
+\contentsline {subsubsection}{使用Time Zone(时区)}{57}{subsubsection*.86}
+\contentsline {subsubsection}{参考}{59}{subsubsection*.87}
+\contentsline {subsection}{\numberline {0.2.17}PyMOTW: Trace}{59}{subsection.0.2.17}
+\contentsline {subsubsection}{命令行接口}{59}{subsubsection*.88}
+\contentsline {subsubsection}{跟踪时的异常}{59}{subsubsection*.89}
+\contentsline {subsubsection}{代码报告}{60}{subsubsection*.90}
+\contentsline {subsubsection}{调用关系}{62}{subsubsection*.91}
+\contentsline {subsubsection}{编程接口}{63}{subsubsection*.92}
+\contentsline {subsubsection}{保存结果数据}{64}{subsubsection*.93}
+\contentsline {subsubsection}{Trace选项}{65}{subsubsection*.94}
+\contentsline {subsubsection}{参考}{65}{subsubsection*.95}
+\contentsline {subsection}{\numberline {0.2.18}PyMOTW: webbrowser}{65}{subsection.0.2.18}
+\contentsline {subsubsection}{描述}{66}{subsubsection*.96}
+\contentsline {subsubsection}{简单示例}{66}{subsubsection*.97}
+\contentsline {subsubsection}{窗口 Vs 标签}{66}{subsubsection*.98}
+\contentsline {subsubsection}{使用特定的浏览器}{66}{subsubsection*.99}
+\contentsline {subsubsection}{BROWSER 变量}{66}{subsubsection*.100}
+\contentsline {subsubsection}{命令行接口}{67}{subsubsection*.101}
+\contentsline {subsection}{\numberline {0.2.19}PyMOTW: locale}{67}{subsection.0.2.19}
+\contentsline {subsubsection}{描述}{67}{subsubsection*.102}
+\contentsline {subsubsection}{例子}{67}{subsubsection*.103}
+\contentsline {subsubsection}{参考}{72}{subsubsection*.104}
+\contentsline {subsection}{\numberline {0.2.20}PyMOTW: urllib}{72}{subsection.0.2.20}
+\contentsline {subsubsection}{HTTP GET:}{72}{subsubsection*.105}
+\contentsline {subsubsection}{编码参数：}{73}{subsubsection*.106}
+\contentsline {subsubsection}{HTTP POST:}{75}{subsubsection*.107}
+\contentsline {subsubsection}{Paths vs. URLs:}{75}{subsubsection*.108}
+\contentsline {subsubsection}{带Cache简单检索：}{76}{subsubsection*.109}
+\contentsline {subsubsection}{URLopener:}{77}{subsubsection*.110}
+\contentsline {subsubsection}{参考}{77}{subsubsection*.111}
+\contentsline {subsection}{\numberline {0.2.21}PyMOTW: logging}{78}{subsection.0.2.21}
+\contentsline {subsubsection}{描述}{78}{subsubsection*.112}
+\contentsline {subsubsection}{例子}{78}{subsubsection*.113}
+\contentsline {subsubsection}{参考}{81}{subsubsection*.114}
+\contentsline {subsection}{\numberline {0.2.22}PyMOTW: bisect}{81}{subsection.0.2.22}
+\contentsline {subsubsection}{描述}{81}{subsubsection*.115}
+\contentsline {subsubsection}{示例}{81}{subsubsection*.116}
+\contentsline {subsubsection}{参考}{82}{subsubsection*.117}
+\contentsline {subsection}{\numberline {0.2.23}PyMOTW: ConfigParser}{83}{subsection.0.2.23}
+\contentsline {subsubsection}{描述}{83}{subsubsection*.118}
+\contentsline {subsection}{\numberline {0.2.24}PyMOTW: shelve}{84}{subsection.0.2.24}
+\contentsline {subsubsection}{描述}{84}{subsubsection*.119}
+\contentsline {subsubsection}{创建一Shelf对象}{84}{subsubsection*.120}
+\contentsline {subsubsection}{写回}{85}{subsubsection*.121}
+\contentsline {subsubsection}{指定Shelf类型}{86}{subsubsection*.122}
+\contentsline {subsubsection}{参考}{86}{subsubsection*.123}
+\contentsline {subsection}{\numberline {0.2.25}PyMOTW: StringIO and cStringIO}{86}{subsection.0.2.25}
+\contentsline {subsubsection}{描述}{86}{subsubsection*.124}
+\contentsline {subsubsection}{例子}{86}{subsubsection*.125}
+\contentsline {subsubsection}{\GenericError {(inputenc) }{Package inputenc Error: Unicode char \u 8:参 not set up for use with LaTeX}{See the inputenc package documentation for explanation.}{Your command was ignored.\MessageBreak Type I <command> <return> to replace it with another command,\MessageBreak or <return> to continue without it.}\GenericError {(inputenc) }{Package inputenc Error: Unicode char \u 8:考 not set up for use with LaTeX}{See the inputenc package documentation for explanation.}{Your command was ignored.\MessageBreak Type I <command> <return> to replace it with another command,\MessageBreak or <return> to continue without it.}}{87}{subsubsection*.126}
+\contentsline {section}{\numberline {0.3}\GenericError {(inputenc) }{Package inputenc Error: Unicode char \u 8:关 not set up for use with LaTeX}{See the inputenc package documentation for explanation.}{Your command was ignored.\MessageBreak Type I <command> <return> to replace it with another command,\MessageBreak or <return> to continue without it.}\GenericError {(inputenc) }{Package inputenc Error: Unicode char \u 8:于 not set up for use with LaTeX}{See the inputenc package documentation for explanation.}{Your command was ignored.\MessageBreak Type I <command> <return> to replace it with another command,\MessageBreak or <return> to continue without it.} PyMOTW}{87}{section.0.3}
+\contentsline {section}{\numberline {0.4}\GenericError {(inputenc) }{Package inputenc Error: Unicode char \u 8:一 not set up for use with LaTeX}{See the inputenc package documentation for explanation.}{Your command was ignored.\MessageBreak Type I <command> <return> to replace it with another command,\MessageBreak or <return> to continue without it.}\GenericError {(inputenc) }{Package inputenc Error: Unicode char \u 8:些 not set up for use with LaTeX}{See the inputenc package documentation for explanation.}{Your command was ignored.\MessageBreak Type I <command> <return> to replace it with another command,\MessageBreak or <return> to continue without it.}\GenericError {(inputenc) }{Package inputenc Error: Unicode char \u 8:问 not set up for use with LaTeX}{See the inputenc package documentation for explanation.}{Your command was ignored.\MessageBreak Type I <command> <return> to replace it with another command,\MessageBreak or <return> to continue without it.}\GenericError {(inputenc) }{Package inputenc Error: Unicode char \u 8:题 not set up for use with LaTeX}{See the inputenc package documentation for explanation.}{Your command was ignored.\MessageBreak Type I <command> <return> to replace it with another command,\MessageBreak or <return> to continue without it.}}{87}{section.0.4}
+\contentsline {section}{\numberline {0.5}\GenericError {(inputenc) }{Package inputenc Error: Unicode char \u 8:版 not set up for use with LaTeX}{See the inputenc package documentation for explanation.}{Your command was ignored.\MessageBreak Type I <command> <return> to replace it with another command,\MessageBreak or <return> to continue without it.}\GenericError {(inputenc) }{Package inputenc Error: Unicode char \u 8:权 not set up for use with LaTeX}{See the inputenc package documentation for explanation.}{Your command was ignored.\MessageBreak Type I <command> <return> to replace it with another command,\MessageBreak or <return> to continue without it.}\GenericError {(inputenc) }{Package inputenc Error: Unicode char \u 8:所 not set up for use with LaTeX}{See the inputenc package documentation for explanation.}{Your command was ignored.\MessageBreak Type I <command> <return> to replace it with another command,\MessageBreak or <return> to continue without it.}\GenericError {(inputenc) }{Package inputenc Error: Unicode char \u 8:有 not set up for use with LaTeX}{See the inputenc package documentation for explanation.}{Your command was ignored.\MessageBreak Type I <command> <return> to replace it with another command,\MessageBreak or <return> to continue without it.}}{87}{section.0.5}
+\contentsline {section}{\numberline {0.6}\GenericError {(inputenc) }{Package inputenc Error: Unicode char \u 8:许 not set up for use with LaTeX}{See the inputenc package documentation for explanation.}{Your command was ignored.\MessageBreak Type I <command> <return> to replace it with another command,\MessageBreak or <return> to continue without it.}\GenericError {(inputenc) }{Package inputenc Error: Unicode char \u 8:可 not set up for use with LaTeX}{See the inputenc package documentation for explanation.}{Your command was ignored.\MessageBreak Type I <command> <return> to replace it with another command,\MessageBreak or <return> to continue without it.}\GenericError {(inputenc) }{Package inputenc Error: Unicode char \u 8:证 not set up for use with LaTeX}{See the inputenc package documentation for explanation.}{Your command was ignored.\MessageBreak Type I <command> <return> to replace it with another command,\MessageBreak or <return> to continue without it.}}{87}{section.0.6}
+\contentsline {section}{\numberline {0.7}\GenericError {(inputenc) }{Package inputenc Error: Unicode char \u 8:索 not set up for use with LaTeX}{See the inputenc package documentation for explanation.}{Your command was ignored.\MessageBreak Type I <command> <return> to replace it with another command,\MessageBreak or <return> to continue without it.}\GenericError {(inputenc) }{Package inputenc Error: Unicode char \u 8:引 not set up for use with LaTeX}{See the inputenc package documentation for explanation.}{Your command was ignored.\MessageBreak Type I <command> <return> to replace it with another command,\MessageBreak or <return> to continue without it.}\GenericError {(inputenc) }{Package inputenc Error: Unicode char \u 8:表 not set up for use with LaTeX}{See the inputenc package documentation for explanation.}{Your command was ignored.\MessageBreak Type I <command> <return> to replace it with another command,\MessageBreak or <return> to continue without it.}}{87}{section.0.7}
