@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2008.12.30)  31 DEC 2008 13:46
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2009.1.1)  1 JAN 2009 12:45
 entering extended mode
  %&-line parsing enabled.
 **PyMOTW.tex
@@ -243,6 +243,92 @@ Now handling font encoding U ...
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
 ))
+(/usr/share/texmf/tex/latex/CJK/CJKutf8.sty
+File: CJKutf8.sty 2006/10/17 4.7.0
+
+(/usr/share/texmf-texlive/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2006/02/20 v1.4 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in pdf mode detected.
+)
+(/usr/share/texmf/tex/latex/CJK/CJK.sty
+Package: CJK 2006/10/17 4.7.0
+
+(/usr/share/texmf/tex/latex/CJK/mule/MULEenc.sty
+File: MULEenc.sty 2006/10/17 4.7.0
+)
+(/usr/share/texmf/tex/latex/CJK/CJK.enc
+File: CJK.enc 2006/10/17 4.7.0
+Now handling font encoding C00 ...
+... no UTF-8 mapping file for font encoding C00
+Now handling font encoding C05 ...
+... no UTF-8 mapping file for font encoding C05
+Now handling font encoding C09 ...
+... no UTF-8 mapping file for font encoding C09
+Now handling font encoding C10 ...
+... no UTF-8 mapping file for font encoding C10
+Now handling font encoding C20 ...
+... no UTF-8 mapping file for font encoding C20
+Now handling font encoding C19 ...
+... no UTF-8 mapping file for font encoding C19
+Now handling font encoding C40 ...
+... no UTF-8 mapping file for font encoding C40
+Now handling font encoding C42 ...
+... no UTF-8 mapping file for font encoding C42
+Now handling font encoding C43 ...
+... no UTF-8 mapping file for font encoding C43
+Now handling font encoding C50 ...
+... no UTF-8 mapping file for font encoding C50
+Now handling font encoding C52 ...
+... no UTF-8 mapping file for font encoding C52
+Now handling font encoding C49 ...
+... no UTF-8 mapping file for font encoding C49
+Now handling font encoding C60 ...
+... no UTF-8 mapping file for font encoding C60
+Now handling font encoding C61 ...
+... no UTF-8 mapping file for font encoding C61
+Now handling font encoding C63 ...
+... no UTF-8 mapping file for font encoding C63
+Now handling font encoding C64 ...
+... no UTF-8 mapping file for font encoding C64
+Now handling font encoding C65 ...
+... no UTF-8 mapping file for font encoding C65
+Now handling font encoding C70 ...
+... no UTF-8 mapping file for font encoding C70
+Now handling font encoding C31 ...
+... no UTF-8 mapping file for font encoding C31
+Now handling font encoding C32 ...
+... no UTF-8 mapping file for font encoding C32
+Now handling font encoding C33 ...
+... no UTF-8 mapping file for font encoding C33
+Now handling font encoding C34 ...
+... no UTF-8 mapping file for font encoding C34
+Now handling font encoding C35 ...
+... no UTF-8 mapping file for font encoding C35
+Now handling font encoding C36 ...
+... no UTF-8 mapping file for font encoding C36
+Now handling font encoding C37 ...
+... no UTF-8 mapping file for font encoding C37
+Now handling font encoding C80 ...
+... no UTF-8 mapping file for font encoding C80
+Now handling font encoding C81 ...
+... no UTF-8 mapping file for font encoding C81
+Now handling font encoding C01 ...
+... no UTF-8 mapping file for font encoding C01
+Now handling font encoding C11 ...
+... no UTF-8 mapping file for font encoding C11
+Now handling font encoding C21 ...
+... no UTF-8 mapping file for font encoding C21
+Now handling font encoding C41 ...
+... no UTF-8 mapping file for font encoding C41
+Now handling font encoding C62 ...
+... no UTF-8 mapping file for font encoding C62
+)
+LaTeX Info: Redefining \selectfont on input line 741.
+\CJK@indent=\box26
+)
+(/usr/share/texmf-texlive/tex/latex/base/fontenc.sty
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+))
 (/usr/share/texmf-texlive/tex/latex/base/fontenc.sty
 Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 
@@ -435,13 +521,13 @@ Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 326.
 \f@ncyO@olf=\skip57
 \f@ncyO@orf=\skip58
 )
-(/usr/share/texmf-texlive/tex/latex/seminar/fancybox.sty
+(/usr/share/texmf-texlive/tex/latex/fancybox/fancybox.sty
 Package: fancybox 2000/09/19 1.3
 
 Style option: `fancybox' v1.3 <2000/09/19> (tvz)
-\@fancybox=\box26
+\@fancybox=\box27
 \shadowsize=\dimen104
-\@Sbox=\box27
+\@Sbox=\box28
 \do@VerbBox=\toks16
 \the@fancyput=\toks17
 \this@fancyput=\toks18
@@ -450,7 +536,7 @@ Style option: `fancybox' v1.3 <2000/09/19> (tvz)
 \Verbatim@Infile=\read1
 ) (./titlesec.sty
 Package: titlesec 2007/08/12 v2.8 Sectioning titles
-\ttl@box=\box28
+\ttl@box=\box29
 \beforetitleunit=\skip59
 \aftertitleunit=\skip60
 \ttl@plus=\dimen105
@@ -506,8 +592,8 @@ LaTeX Info: Redefining \overline on input line 307.
 LaTeX Info: Redefining \ldots on input line 379.
 LaTeX Info: Redefining \dots on input line 382.
 LaTeX Info: Redefining \cdots on input line 467.
-\Mathstrutbox@=\box29
-\strutbox@=\box30
+\Mathstrutbox@=\box30
+\strutbox@=\box31
 \big@size=\dimen118
 LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
@@ -564,7 +650,7 @@ Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 )
 \FV@CodeLineNo=\count105
 \FV@InFile=\read2
-\FV@TabBox=\box31
+\FV@TabBox=\box32
 \c@FancyVerbLine=\count106
 \FV@StepNumber=\count107
 \FV@OutFile=\write4
@@ -572,7 +658,7 @@ Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 No file fancyvrb.cfg.
 ) (/usr/share/texmf-texlive/tex/latex/ltxmisc/threeparttable.sty
 Package: threeparttable 2003/06/13  v 3.0
-\@tempboxb=\box32
+\@tempboxb=\box33
 )
 (/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
@@ -597,7 +683,7 @@ Package graphics Info: Driver file: pdftex.def on input line 90.
 \py@argswidth=\skip68
 \py@noticelength=\skip69
 \lineblockindentation=\skip70
-\image@box=\box33
+\image@box=\box34
 \image@width=\dimen129
 )
 (/usr/share/texmf-texlive/tex/latex/hyperref/hyperref.sty
@@ -652,218 +738,122 @@ Package hyperref Info: Link coloring ON on input line 3120.
 File: hpdftex.def 2007/02/07 v6.75r Hyperref driver for pdfTeX
 \Fld@listcount=\count114
 )
-(/usr/share/texmf/tex/latex/CJK/CJKutf8.sty
-File: CJKutf8.sty 2006/10/17 4.7.0
-
-(/usr/share/texmf-texlive/tex/generic/oberdiek/ifpdf.sty
-Package: ifpdf 2006/02/20 v1.4 Provides the ifpdf switch (HO)
-Package ifpdf Info: pdfTeX in pdf mode detected.
-)
-(/usr/share/texmf/tex/latex/CJK/CJK.sty
-Package: CJK 2006/10/17 4.7.0
-
-(/usr/share/texmf/tex/latex/CJK/mule/MULEenc.sty
-File: MULEenc.sty 2006/10/17 4.7.0
-)
-(/usr/share/texmf/tex/latex/CJK/CJK.enc
-File: CJK.enc 2006/10/17 4.7.0
-Now handling font encoding C00 ...
-... no UTF-8 mapping file for font encoding C00
-Now handling font encoding C05 ...
-... no UTF-8 mapping file for font encoding C05
-Now handling font encoding C09 ...
-... no UTF-8 mapping file for font encoding C09
-Now handling font encoding C10 ...
-... no UTF-8 mapping file for font encoding C10
-Now handling font encoding C20 ...
-... no UTF-8 mapping file for font encoding C20
-Now handling font encoding C19 ...
-... no UTF-8 mapping file for font encoding C19
-Now handling font encoding C40 ...
-... no UTF-8 mapping file for font encoding C40
-Now handling font encoding C42 ...
-... no UTF-8 mapping file for font encoding C42
-Now handling font encoding C43 ...
-... no UTF-8 mapping file for font encoding C43
-Now handling font encoding C50 ...
-... no UTF-8 mapping file for font encoding C50
-Now handling font encoding C52 ...
-... no UTF-8 mapping file for font encoding C52
-Now handling font encoding C49 ...
-... no UTF-8 mapping file for font encoding C49
-Now handling font encoding C60 ...
-... no UTF-8 mapping file for font encoding C60
-Now handling font encoding C61 ...
-... no UTF-8 mapping file for font encoding C61
-Now handling font encoding C63 ...
-... no UTF-8 mapping file for font encoding C63
-Now handling font encoding C64 ...
-... no UTF-8 mapping file for font encoding C64
-Now handling font encoding C65 ...
-... no UTF-8 mapping file for font encoding C65
-Now handling font encoding C70 ...
-... no UTF-8 mapping file for font encoding C70
-Now handling font encoding C31 ...
-... no UTF-8 mapping file for font encoding C31
-Now handling font encoding C32 ...
-... no UTF-8 mapping file for font encoding C32
-Now handling font encoding C33 ...
-... no UTF-8 mapping file for font encoding C33
-Now handling font encoding C34 ...
-... no UTF-8 mapping file for font encoding C34
-Now handling font encoding C35 ...
-... no UTF-8 mapping file for font encoding C35
-Now handling font encoding C36 ...
-... no UTF-8 mapping file for font encoding C36
-Now handling font encoding C37 ...
-... no UTF-8 mapping file for font encoding C37
-Now handling font encoding C80 ...
-... no UTF-8 mapping file for font encoding C80
-Now handling font encoding C81 ...
-... no UTF-8 mapping file for font encoding C81
-Now handling font encoding C01 ...
-... no UTF-8 mapping file for font encoding C01
-Now handling font encoding C11 ...
-... no UTF-8 mapping file for font encoding C11
-Now handling font encoding C21 ...
-... no UTF-8 mapping file for font encoding C21
-Now handling font encoding C41 ...
-... no UTF-8 mapping file for font encoding C41
-Now handling font encoding C62 ...
-... no UTF-8 mapping file for font encoding C62
-)
-LaTeX Info: Redefining \selectfont on input line 741.
-\CJK@indent=\box34
-)
-(/usr/share/texmf-texlive/tex/latex/base/fontenc.sty
-Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
-))
 \@indexfile=\write5
 \openout5 = `PyMOTW.idx'.
 
 
 Writing index file PyMOTW.idx
 \modindexfile=\write6
-No file PyMOTW.aux.
+(./PyMOTW.aux)
 \openout1 = `PyMOTW.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 85.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 85.
-(/usr/share/texmf-texlive/tex/latex/base/ts1cmr.fd
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C00/song/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C05/song/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C09/song/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C10/song/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C20/song/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C19/song/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C40/song/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C42/song/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C43/song/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C50/song/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C52/song/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C49/song/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C60/mj/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C61/mj/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C63/mj/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C64/mj/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C65/mj/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C70/song/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C31/song/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C32/song/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C33/song/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C34/song/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C35/song/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C36/song/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C37/song/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C80/song/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C81/song/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C01/song/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C11/song/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C21/song/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C41/song/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for C62/song/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 83.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 83.
+ (/usr/share/texmf-texlive/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C00/song/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C05/song/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C09/song/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C10/song/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C20/song/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C19/song/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C40/song/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C42/song/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C43/song/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C50/song/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C52/song/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C49/song/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C60/mj/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C61/mj/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C63/mj/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C64/mj/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C65/mj/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C70/song/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C31/song/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C32/song/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C33/song/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C34/song/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C35/song/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C36/song/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C37/song/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C80/song/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C81/song/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C01/song/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C11/song/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C21/song/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C41/song/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Checking defaults for C62/song/m/n on input line 85.
-LaTeX Font Info:    ... okay on input line 85.
-LaTeX Font Info:    Try loading font information for T1+ptm on input line 85.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 83.
+LaTeX Font Info:    ... okay on input line 83.
+LaTeX Font Info:    Try loading font information for T1+ptm on input line 83.
 
 (/usr/share/texmf-texlive/tex/latex/psnfss/t1ptm.fd
 File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
 )
-(/usr/share/texmf/tex/context/base/supp-pdf.tex
-[Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count115
-\scratchdimen=\dimen133
-\scratchbox=\box35
-\nofMPsegments=\count116
-\nofMParguments=\count117
-\MPscratchCnt=\count118
-\MPscratchDim=\dimen134
-\MPnumerator=\count119
-\everyMPtoPDFconversion=\toks30
-)
-Package hyperref Info: Link coloring ON on input line 85.
- (/usr/share/texmf-texlive/tex/latex/hyperref/nameref.sty
+Package hyperref Info: Link coloring ON on input line 83.
+
+(/usr/share/texmf-texlive/tex/latex/hyperref/nameref.sty
 Package: nameref 2006/12/27 v2.28 Cross-referencing by name of section
 
 (/usr/share/texmf-texlive/tex/latex/oberdiek/refcount.sty
 Package: refcount 2006/02/20 v3.0 Data extraction from references (HO)
 )
-\c@section@level=\count120
+\c@section@level=\count115
 )
-LaTeX Info: Redefining \ref on input line 85.
-LaTeX Info: Redefining \pageref on input line 85.
+LaTeX Info: Redefining \ref on input line 83.
+LaTeX Info: Redefining \pageref on input line 83.
+ (./PyMOTW.out)
+(./PyMOTW.out)
 \@outlinefile=\write7
 \openout7 = `PyMOTW.out'.
 
-
-(/usr/share/texmf/tex/latex/CJK/UTF8/UTF8.bdg
+ (/usr/share/texmf/tex/latex/CJK/UTF8/UTF8.bdg
 File: UTF8.bdg 2006/10/17 4.7.0
 )
 (/usr/share/texmf/tex/latex/CJK/UTF8/UTF8.enc
@@ -872,172 +862,66 @@ File: UTF8.enc 2006/10/17 4.7.0
 (/usr/share/texmf/tex/latex/CJK/UTF8/UTF8.chr
 File: UTF8.chr 2006/10/17 4.7.0
 )
-LaTeX Font Info:    Try loading font information for T1+phv on input line 88.
+LaTeX Font Info:    Try loading font information for T1+phv on input line 86.
 
 (/usr/share/texmf-texlive/tex/latex/psnfss/t1phv.fd
 File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
 )
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <24.88> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 88.
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 86.
 LaTeX Font Info:    Font shape `T1/phv/m/it' in size <17.28> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 88.
+(Font)              Font shape `T1/phv/m/sl' tried instead on input line 86.
 LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <17.28> not available
-(Font)              Font shape `T1/phv/b/it' tried instead on input line 88.
+(Font)              Font shape `T1/phv/b/it' tried instead on input line 86.
 LaTeX Font Info:    Font shape `T1/phv/b/it' in size <17.28> not available
-(Font)              Font shape `T1/phv/b/sl' tried instead on input line 88.
+(Font)              Font shape `T1/phv/b/sl' tried instead on input line 86.
 LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <17.28> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 88.
- [1
+(Font)              Font shape `T1/phv/b/n' tried instead on input line 86.
+
+! Misplaced alignment tab character &.
+\@author ->vbarter &
+                     liz
+l.86 \tableofcontents
+                     
+? 
+[1
 
 \openout6 = `modPyMOTW.idx'.
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}] [2
+{/home/cjj/.texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2
 
-]
-\tf@toc=\write8
-\openout8 = `PyMOTW.toc'.
+] (./PyMOTW.toc
+LaTeX Font Info:    Try loading font information for C70+kai on input line 2.
 
-
-Adding blank page after the table of contents.
-pdfTeX warning (ext4): destination with the same identifier (name{page.i}) has 
-been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.88 \tableofcontents
-                     
-LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <10> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 88.
- [1
-
-]pdfTeX warning (ext4): destination with the same identifier (name{page.ii}) ha
-s been already used, duplicate ignored
-<to be read again> 
-                   \relax 
-l.88 \tableofcontents
-                      [2]
-LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <14.4> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 95.
-LaTeX Font Info:    Try loading font information for C70+gbsn on input line 95.
-
- (/usr/share/texmf/tex/latex/CJK/UTF8/c70gbsn.fd
-File: c70gkai.fd 2005/08/11 4.6.0
+(/home/cjj/.texmf-var/tex/latex/CJK/UTF8/c70kai.fd
+File: c70kai.fd 
 )
-(/usr/share/texmf/tex/latex/CJK/UTF8/c70gbsn.fdx
-File: c70gbsn.fdx 2006/10/17 4.7.0
-)
-LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <12> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 105.
-LaTeX Font Info:    Try loading font information for TS1+ptm on input line 107.
 
+! Package inputenc Error: Unicode char \u 8:关 not set up for use with LaTeX.
 
-(/usr/share/texmf-texlive/tex/latex/psnfss/ts1ptm.fd
-File: ts1ptm.fd 2001/06/04 font definitions for TS1/ptm.
-)
-LaTeX Font Info:    Try loading font information for T1+pcr on input line 149.
-
-(/usr/share/texmf-texlive/tex/latex/psnfss/t1pcr.fd
-File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
-)
-LaTeX Font Info:    Font shape `T1/pcr/bx/n' in size <9> not available
-(Font)              Font shape `T1/pcr/b/n' tried instead on input line 150.
- [1
-
-] [2]
-LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <9> not available
-(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 308.
- [3] [4] [5]
-[6] [7] [8] [9] [10] [11]
-
-LaTeX Font Warning: Font shape `C70/gbsn/m/it' undefined
-(Font)              using `C70/gbsn/m/n' instead on input line 845.
-
-[12] [13] [14] [15] [16] [17]
-LaTeX Font Info:    Font shape `T1/ptm/bx/n' in size <10> not available
-(Font)              Font shape `T1/ptm/b/n' tried instead on input line 1201.
- [18] [19] [20] [21] [22] [23] [24] [25] [26]
-[27] [28] [29] [30] [31] [32] [33] [34] [35] [36] [37] [38] [39] [40] [41]
-[42] [43] [44] [45] [46] [47] [48] [49] [50] [51] [52] [53] [54] [55] [56]
-[57] [58] [59] [60] [61] [62] [63] [64] [65] [66] [67] [68] [69] [70] [71]
-[72] [73] [74] [75] [76] [77] [78] [79] [80] [81] [82] [83] [84] [85] [86]
-No file modPyMOTW.ind.
-No file PyMOTW.ind.
-[87] (./PyMOTW.aux)
-
-LaTeX Font Warning: Some font shapes were not available, defaults substituted.
-
- ) 
+See the inputenc package documentation for explanation.
+Type  H <return>  for immediate help.
+ ...                                              
+                                                  
+l.154 ...nue without it.} PyMOTW}{87}{section.0.3}
+                                                  
+? exit
+ 
 Here is how much of TeX's memory you used:
- 10128 strings out of 95080
- 133978 string characters out of 1183096
- 176183 words of memory out of 1500000
- 12567 multiletter control sequences out of 10000+50000
- 94813 words of font info for 207 fonts, out of 1200000 for 2000
+ 6954 strings out of 95080
+ 87128 string characters out of 1183098
+ 157556 words of memory out of 1500000
+ 9948 multiletter control sequences out of 10000+50000
+ 31237 words of font info for 39 fonts, out of 1200000 for 2000
  29 hyphenation exceptions out of 8191
- 37i,12n,45p,1436b,1989s stack positions out of 5000i,500n,6000p,200000b,5000s
-{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf/fonts
-/type1/arphic/gbsnu/gbsnu30.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsn
-u4e.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu4f.pfb></usr/share/texm
-f/fonts/type1/arphic/gbsnu/gbsnu50.pfb></usr/share/texmf/fonts/type1/arphic/gbs
-nu/gbsnu51.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu52.pfb></usr/sha
-re/texmf/fonts/type1/arphic/gbsnu/gbsnu53.pfb></usr/share/texmf/fonts/type1/arp
-hic/gbsnu/gbsnu54.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu55.pfb></
-usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu56.pfb></usr/share/texmf/fonts/ty
-pe1/arphic/gbsnu/gbsnu57.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu58
-.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu59.pfb></usr/share/texmf/f
-onts/type1/arphic/gbsnu/gbsnu5b.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/
-gbsnu5c.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu5d.pfb></usr/share/
-texmf/fonts/type1/arphic/gbsnu/gbsnu5e.pfb></usr/share/texmf/fonts/type1/arphic
-/gbsnu/gbsnu5f.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu60.pfb></usr
-/share/texmf/fonts/type1/arphic/gbsnu/gbsnu61.pfb></usr/share/texmf/fonts/type1
-/arphic/gbsnu/gbsnu62.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu63.pf
-b></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu64.pfb></usr/share/texmf/font
-s/type1/arphic/gbsnu/gbsnu65.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbs
-nu66.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu67.pfb></usr/share/tex
-mf/fonts/type1/arphic/gbsnu/gbsnu68.pfb></usr/share/texmf/fonts/type1/arphic/gb
-snu/gbsnu69.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu6a.pfb></usr/sh
-are/texmf/fonts/type1/arphic/gbsnu/gbsnu6b.pfb></usr/share/texmf/fonts/type1/ar
-phic/gbsnu/gbsnu6c.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu6d.pfb><
-/usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu6e.pfb></usr/share/texmf/fonts/t
-ype1/arphic/gbsnu/gbsnu6f.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu7
-0.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu71.pfb></usr/share/texmf/
-fonts/type1/arphic/gbsnu/gbsnu72.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu
-/gbsnu73.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu74.pfb></usr/share
-/texmf/fonts/type1/arphic/gbsnu/gbsnu75.pfb></usr/share/texmf/fonts/type1/arphi
-c/gbsnu/gbsnu76.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu77.pfb></us
-r/share/texmf/fonts/type1/arphic/gbsnu/gbsnu78.pfb></usr/share/texmf/fonts/type
-1/arphic/gbsnu/gbsnu79.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu7a.p
-fb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu7b.pfb></usr/share/texmf/fon
-ts/type1/arphic/gbsnu/gbsnu7c.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gb
-snu7d.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu7e.pfb></usr/share/te
-xmf/fonts/type1/arphic/gbsnu/gbsnu7f.pfb></usr/share/texmf/fonts/type1/arphic/g
-bsnu/gbsnu80.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu81.pfb></usr/s
-hare/texmf/fonts/type1/arphic/gbsnu/gbsnu82.pfb></usr/share/texmf/fonts/type1/a
-rphic/gbsnu/gbsnu83.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu84.pfb>
-</usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu85.pfb></usr/share/texmf/fonts/
-type1/arphic/gbsnu/gbsnu86.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu
-88.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu89.pfb></usr/share/texmf
-/fonts/type1/arphic/gbsnu/gbsnu8a.pfb></usr/share/texmf/fonts/type1/arphic/gbsn
-u/gbsnu8b.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu8c.pfb></usr/shar
-e/texmf/fonts/type1/arphic/gbsnu/gbsnu8d.pfb></usr/share/texmf/fonts/type1/arph
-ic/gbsnu/gbsnu8e.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu8f.pfb></u
-sr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu90.pfb></usr/share/texmf/fonts/typ
-e1/arphic/gbsnu/gbsnu91.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu92.
-pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu94.pfb></usr/share/texmf/fo
-nts/type1/arphic/gbsnu/gbsnu95.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/g
-bsnu96.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu97.pfb></usr/share/t
-exmf/fonts/type1/arphic/gbsnu/gbsnu98.pfb></usr/share/texmf/fonts/type1/arphic/
-gbsnu/gbsnu99.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnu9a.pfb></usr/
-share/texmf/fonts/type1/arphic/gbsnu/gbsnu9b.pfb></usr/share/texmf/fonts/type1/
-arphic/gbsnu/gbsnu9e.pfb></usr/share/texmf/fonts/type1/arphic/gbsnu/gbsnuff.pfb
-></usr/share/texmf-texlive/fonts/type1/urw/courier/ucrb8a.pfb></usr/share/texmf
--texlive/fonts/type1/urw/courier/ucrr8a.pfb></usr/share/texmf-texlive/fonts/typ
-e1/urw/courier/ucrro8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/helvetic/u
-hvb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/helvetic/uhvbo8a.pfb></usr/
-share/texmf-texlive/fonts/type1/urw/times/utmb8a.pfb></usr/share/texmf-texlive/
-fonts/type1/urw/times/utmr8a.pfb>
-Output written on PyMOTW.pdf (91 pages, 1089307 bytes).
+ 34i,5n,45p,742b,976s stack positions out of 5000i,500n,6000p,200000b,5000s
+{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texlive
+/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/
+helvetic/uhvbo8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmr8a.pfb
+>
+Output written on PyMOTW.pdf (2 pages, 27148 bytes).
 PDF statistics:
- 1084 PDF objects out of 1200 (max. 8388607)
- 248 named destinations out of 1000 (max. 131072)
- 329 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 41 PDF objects out of 1000 (max. 8388607)
+ 3 named destinations out of 1000 (max. 131072)
+ 41 words of extra memory for PDF output out of 10000 (max. 10000000)
 
