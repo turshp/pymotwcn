@@ -1,4 +1,4 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2008.12.30)  31 DEC 2008 19:59
+This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=latex 2008.12.30)  31 DEC 2008 20:16
 entering extended mode
  %&-line parsing enabled.
 **test.tex
@@ -548,11 +548,13 @@ Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
 (/etc/texmf/tex/latex/config/color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
-Package color Info: Driver file: pdftex.def on input line 130.
+Package color Info: Driver file: dvips.def on input line 130.
 
-(/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
-File: pdftex.def 2007/01/08 v0.04d Graphics/color for pdfTeX
-\Gread@gobject=\count104
+(/usr/share/texmf-texlive/tex/latex/graphics/dvips.def
+File: dvips.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
+)
+(/usr/share/texmf-texlive/tex/latex/graphics/dvipsnam.def
+File: dvipsnam.def 1999/02/16 v3.0i Driver-dependant file (DPC,SPQR)
 ))
 (/usr/share/texmf-texlive/tex/latex/fancyvrb/fancyvrb.sty
 Package: fancyvrb 1998/07/17
@@ -562,11 +564,11 @@ Style option: `fancyvrb' v2.6, with DG/SPQR fixes <1998/07/17> (tvz)
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks27
 )
-\FV@CodeLineNo=\count105
+\FV@CodeLineNo=\count104
 \FV@InFile=\read2
 \FV@TabBox=\box31
-\c@FancyVerbLine=\count106
-\FV@StepNumber=\count107
+\c@FancyVerbLine=\count105
+\FV@StepNumber=\count106
 \FV@OutFile=\write4
 
 No file fancyvrb.cfg.
@@ -587,7 +589,11 @@ Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
 )
 Package graphics Info: Driver file: pdftex.def on input line 90.
-)
+
+(/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2007/01/08 v0.04d Graphics/color for pdfTeX
+\Gread@gobject=\count107
+))
 \Gin@req@height=\dimen127
 \Gin@req@width=\dimen128
 )
@@ -933,10 +939,10 @@ No file modtest.ind.
 No file test.ind.
 [5] (./test.aux) ) 
 Here is how much of TeX's memory you used:
- 7321 strings out of 95080
- 90853 string characters out of 1183096
- 156836 words of memory out of 1500000
- 10308 multiletter control sequences out of 10000+50000
+ 7494 strings out of 95081
+ 93689 string characters out of 1183119
+ 157349 words of memory out of 1500000
+ 10475 multiletter control sequences out of 10000+50000
  50493 words of font info for 50 fonts, out of 1200000 for 2000
  29 hyphenation exceptions out of 8191
  34i,11n,45p,241b,725s stack positions out of 5000i,500n,6000p,200000b,5000s
@@ -947,7 +953,7 @@ nts/type1/chinese/gbkkai/gbkkai51.pfb></usr/share/texmf-texlive/fonts/type1/urw
 .pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmb8a.pfb></usr/share/tex
 mf-texlive/fonts/type1/urw/times/utmr8a.pfb></usr/share/texmf-texlive/fonts/typ
 e1/urw/times/utmri8a.pfb>
-Output written on test.pdf (9 pages, 60701 bytes).
+Output written on test.pdf (9 pages, 60690 bytes).
 PDF statistics:
  97 PDF objects out of 1000 (max. 8388607)
  13 named destinations out of 1000 (max. 131072)
