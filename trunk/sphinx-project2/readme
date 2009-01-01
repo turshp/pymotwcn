@@ -43,3 +43,21 @@ sphinx/environment.py中line291~293修改为
 
 到这,,,除了copyright没有翻译外, 其他都中文化, to vbarter: 看看这样汉化是否可以, 如果里面哪个地方翻译的不好, 告诉liz
 
+###为了解决latex转pdf中的一些问题,需要注意以下事项##########
+（1）cony.py中不可以有中文，如果带有中文，那么编译出来的tex文件中不会带有\chapter标签。
+（2）编译生成tex文件时需要注意如下问题：
+	a. 编译中会遇到ascii decode的编码问题，可以修改：
+		/usr/lib/python2.5/site-packages/Sphinx-0.5.1-py2.5.egg/sphinx/latexwriter.py
+		import sys
+		reload(sys)
+		sys.setdefaultencoding('utf8')
+（3）tex->pdf中需要注意的问题
+	a. inputenc不支持unicode编码格式，解决方法使用utf8ttf。即在PyMOTW.tex的3、4行加入:
+		\usepackage[utf8ttf]{inputenc}
+		\usepackage{ttfucs}
+		utf8ttf.def和ttfucs.sty文件和PyMOTW.tex文件放在一起。
+	b. PyMOTW.tex第85行加入\begin{CJK}{UTF8}{kai}，这里的kai即自己编译的楷体
+	c. PyMOTW.tex第16行\author部分不能带有中文、且不能有&这种符号连接，否则会编译出错。
+	d. 为了使每个节(section)都能新一页显示，需要在\section前面加入\clearpage
+	d. 在PyMOTW.tex的\usepackage部分还需要加入\usepackage{CJKutf8}。
+
