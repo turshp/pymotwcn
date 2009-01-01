@@ -41,8 +41,13 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
+<<<<<<< .mine
+project = u'PyMOTW Document'
+copyright = u'2008, vbarter & liz'
+=======
 project = u'PyMOTW'
 copyright = u'2008, vbarter & liz'
+>>>>>>> .r25
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -160,7 +165,7 @@ htmlhelp_basename = 'PyMOTWdoc'
 # ------------------------
 
 # The paper size ('letter' or 'a4').
-#latex_paper_size = 'letter'
+latex_paper_size = 'a4'
 
 # The font size ('10pt', '11pt' or '12pt').
 #latex_font_size = '10pt'
@@ -168,8 +173,13 @@ htmlhelp_basename = 'PyMOTWdoc'
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, document class [howto/manual]).
 latex_documents = [
+<<<<<<< .mine
+  ('index', 'PyMOTW.tex', ur'PyMOTW Document',
+   ur'vbarter & liz', 'manual'),
+=======
   ('index', 'PyMOTW.tex', ur'PyMOTW',
    ur'vbarter & liz', 'manual'),
+>>>>>>> .r25
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
