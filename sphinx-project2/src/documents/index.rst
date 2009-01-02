@@ -25,12 +25,18 @@
 
     shutil.rst
 
+    urlparse.rst
+
     os.path.rst
 
     time.rst
     datetime.rst
 
     urllib.rst
+
+    fnmatch.rst
+
+    Cookie.rst
 
     base64.rst
 
@@ -43,3 +49,4 @@
     trace.rst
 
     struct.rst
+    array.rst

@@ -3,9 +3,9 @@ PyMOTW: bisect
 
 .. currentmodule:: bisect
 
-* 模块：bisect
-* 目的：维持一个有序列表，当每次增加一个元素到列表时无需调用sort过程。
-* python版本：1.4+
+* 模块： bisect
+* 目的： 维持一个有序列表，当每次增加一个元素到列表时无需调用sort过程。
+* python版本： 1.4+
 
 
 描述
