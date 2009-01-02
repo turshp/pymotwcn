@@ -3,9 +3,9 @@ PyMOTW: glob
 
 .. currentmodule:: glob
 
-* 模块：glob
-* 目的：使用Unix Shell规则来寻找文件名匹配某一模式的文件。
-* python版本：1.4+
+* 模块： glob
+* 目的： 使用Unix Shell规则来寻找文件名匹配某一模式的文件。
+* python版本： 1.4+
 
 
 描述

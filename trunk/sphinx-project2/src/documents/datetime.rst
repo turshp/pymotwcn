@@ -5,9 +5,9 @@ PyMOTW: datetime
 
 datetime 模块包含了一些用于时间解析、格式化、计算的函数。
 
-* 模块：datetime
-* 目的：日期/时间处理
-* python版本：2.3+
+* 模块： datetime
+* 目的： 日期/时间处理
+* python版本： 2.3+
 
 时间
 ----

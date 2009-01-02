@@ -3,9 +3,9 @@ PyMOTW: anydbm
 
 .. currentmodule:: anydbm
 
-* 模块：anydbm
-* 目的：anydbm提供了针对DBM-style、String-keyed数据库的字典接口。
-* python版本：1.4++
+* 模块： anydbm
+* 目的： anydbm提供了针对DBM-style、String-keyed数据库的字典接口。
+* python版本： 1.4+
 
 
 描述

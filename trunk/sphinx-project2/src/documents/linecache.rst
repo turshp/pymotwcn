@@ -3,9 +3,9 @@ PyMOTW: linecache
 
 .. currentmodule:: linecache
 
-* 模块：linecache
-* 目的: 从文件或者导入模块中检索文本行，对结果采用缓冲来提高读文件的效率。
-* python版本：1.4+
+* 模块： linecache
+* 目的： 从文件或者导入模块中检索文本行，对结果采用缓冲来提高读文件的效率。
+* python版本： 1.4+
 
 
 描述

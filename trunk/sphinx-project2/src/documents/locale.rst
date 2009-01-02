@@ -3,9 +3,9 @@ PyMOTW: locale
 
 .. currentmodule:: locale
 
-* 模块：locale
-* 目的：POSIX标准的本地化API
-* python版本：1.5,在2.5版本中有所扩展
+* 模块： locale
+* 目的： POSIX标准的本地化API
+* python版本： 1.5,在2.5版本中有所扩展
 
 
 描述
