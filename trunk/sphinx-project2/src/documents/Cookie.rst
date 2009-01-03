@@ -58,21 +58,21 @@ Morsels
 
     c = Cookie.SimpleCookie()
 
-    # 一个cookie, 其值必须经过编码以符合头的标准.
+    # A cookie with a value that has to be encoded to fit into the header
     c['encoded_value_cookie'] = '"cookie_value"'
     c['encoded_value_cookie']['comment'] = 'Notice that this cookie value has escaped quotes'
 
-    # 一个cookie, 仅适用于部分网站
+    # A cookie that only applies to part of a site
     c['restricted_cookie'] = 'cookie_value'
     c['restricted_cookie']['path'] = '/sub/path'
     c['restricted_cookie']['domain'] = 'PyMOTW'
     c['restricted_cookie']['secure'] = True
 
-    # 一个cookie, 期限为5分钟
+    # A cookie that expires in 5 minutes
     c['with_max_age'] = 'expires in 5 minutes'
-    c['with_max_age']['max-age'] = 300 # seconds 以秒为单位
+    c['with_max_age']['max-age'] = 300 # seconds 
 
-    # 一个cookie, 期限为某个指定的时间
+    # A cookie that expires at a specific time
     c['expires_at_time'] = 'cookie_value'
     expires = datetime.datetime.now() + datetime.timedelta(hours=1)
     c['expires_at_time']['expires'] = expires.strftime('%a, %d %b %Y %H:%M:%S')
