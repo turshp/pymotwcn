@@ -41,7 +41,7 @@ python标准库处理python源文件中linecache模块被广泛的使用。缓�
 
     sagittis porttitor eros.'''
 
-    # 创建一个临时文件
+    # Create a temporary text file with some text in it
     fd, temp_file_name = tempfile.mkstemp()
 
     os.close(fd)
@@ -56,8 +56,8 @@ python标准库处理python源文件中linecache模块被广泛的使用。缓�
 
 .. code-block:: python
 
-    # 原始形式和cache方式提取统一行。
-    # 注意linecache计算从1开始。
+    # Pick out the same line from source and cache.
+    # (Notice that linecache counts from 1)
     print 'SOURCE: ', lorem.split('\n')[4]
     print 'CACHE : ', linecache.getline(temp_file_name, 5).rstrip()
 
@@ -65,14 +65,16 @@ python标准库处理python源文件中linecache模块被广泛的使用。缓�
 
 .. code-block:: python
  
-    # 新的一行中为空行。
+    # Blank lines include the newline
     print '\nBLANK : "%s"' % linecache.getline(temp_file_name, 6)
 
 如果请求的行号超过了文件中有效行号的范围，那么linecache会返回一个空字符串。
 
 .. code-block:: python
 
-    # cache总会返回一个字符串，如果字符串为空即标明指代的行是不存在的。
+    # The cache always returns a string, and uses
+    # an empty string to indicate a line which does
+    # not exist.
     not_there = linecache.getline(temp_file_name, 500)
     print '\nNOT THERE: "%s" includes %d characters' %  (not_there, len(not_there))
 
@@ -80,7 +82,7 @@ python标准库处理python源文件中linecache模块被广泛的使用。缓�
 
 .. code-block:: python
 
-    # 即使linecache不能找到这个文件，Error也会被隐藏掉。
+    # Errors are even hidden if linecache cannot find the file
     no_such_file = linecache.getline('this_file_does_not_exist.txt', 1)
     print '\nNO FILE: ', no_such_file
 
@@ -88,7 +90,8 @@ python标准库处理python源文件中linecache模块被广泛的使用。缓�
 
 .. code-block:: python
 
-    # 利用内置子的sys.path，查询linecache中的模块名
+    # Look for the linecache module, using
+    # the built in sys.path search.
     module_line = linecache.getline('linecache.py', 3)
     print '\nMODULE : ', module_line
 

@@ -38,11 +38,11 @@ Queue提供了FIFO功能，一般常用于多线程编程，它可以在生产�
 
 .. code-block:: python
 
-    # 设置两个全局变量
+    # Set up some global variables
     num_fetch_threads = 2
     enclosure_queue = Queue()
 
-    # 实际情况中，一般不使用硬编码数据
+    # A real app wouldn't use hard-coded data...
     feed_urls = [ 'http://www.castsampler.com/cast/feed/rss/guest',]
 
 接下来，我们需要在工作线程中定义相应函数来处理下载。再次，这里为了便于说明模拟下载，实际下载可以参考 `urllib <http://docs.python.org/lib/module-urllib.html>`_ 模块(这再以后会介绍)。在这个示例中，我们只根据线程id，使其sleep一段时间。
@@ -50,13 +50,16 @@ Queue提供了FIFO功能，一般常用于多线程编程，它可以在生产�
 .. code-block:: python
         
     def downloadEnclosures(i, q):
-      """这是一个工作线程函数.它按队列中的先后次序来处理各个项. 这个守护进程将进入一个无限循环, 当主线程退出时它才退出
+      """This is the worker thread function.
+      It processes items in the queue one after another.
+      These daemon threads go into an infinite loop, 
+      and only exit when the main thread ends.
       """
       while True:
         print '%s: Looking for the next enclosure' % i
         url = q.get()
         print '%s: Downloading:' % i, url 
-        time.sleep(i + 2) # 这里只是模拟，不是实际下载
+        time.sleep(i + 2) # instead of really downloading the URL, we just pretend
         
         q.task_done()
 
@@ -64,7 +67,7 @@ Queue提供了FIFO功能，一般常用于多线程编程，它可以在生产�
 
 .. code-block:: python
 
-    # 建立多个线程去抓取内容
+    # Set up some threads to fetch the enclosures
     for i in range(num_fetch_threads):
       worker = Thread(target=downloadEnclosures, args=(i, enclosure_queue,))
       worker.setDaemon(True)
@@ -74,7 +77,7 @@ Queue提供了FIFO功能，一般常用于多线程编程，它可以在生产�
 
 .. code-block:: python
 
-    # 下载feed，并且把url添加到队列中
+    # Download the feed(s) and put the enclosure URLs into the queue.
     for url in feed_urls:
       response = feedparser.parse(url, agent='fetch_podcasts.py')
       for entry in response['entries']:
@@ -86,7 +89,8 @@ Queue提供了FIFO功能，一般常用于多线程编程，它可以在生产�
 
 .. code-block:: python
 
-    # 等待队列为空, 表明我们已经处理完所有下载。
+    # Now wait for the queue to be empty, indicating that we have
+    # processed all of the downloads.
     print '*** Main thread waiting'
     enclosure_queue.join()
     print '*** Done'
