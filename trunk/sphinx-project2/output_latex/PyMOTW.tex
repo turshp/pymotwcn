@@ -7,11 +7,21 @@
 \usepackage[Bjarne]{fncychap}
 \usepackage{sphinx}
 
+\usepackage{hyperref}
+\usepackage{fontspec}
+\usepackage{xunicode}
+\usepackage{xltxtra}
+%\setromanfont{WenQuanYi Zen Hei}
+\setromanfont{Vera Sans YuanTi Mono}
+\XeTeXlinebreaklocale "zh"
+\XeTeXlinebreakskip = 0pt plus 1pt
+%\usepackage{CJKutf8}
 
 \title{PyMOTW Document}
 \date{January 03, 2009}
 \release{1.0}
-\author{vbarter & liz}
+\author{Doug Hellmann}
+\footnotetext{Translator: vbarter and liz}
 \newcommand{\sphinxlogo}{}
 \renewcommand{\releasename}{Release}
 \makeindex
@@ -83,10 +93,14 @@
 \newcommand\PYGZrb{]}
 
 \begin{document}
-
+%\begin{CJK}{UTF8}{kai}
+%\title{PyMOTW Document}
+%\date{January 03, 2009}
+%\release{1.0}
+%\author{Doug Hellmann}
 \maketitle
-\tableofcontents
 
+\tableofcontents
 
 
 \resetcurrentobjects
@@ -7059,4 +7073,5 @@ Europe/Amsterdam :
 \printmodindex
 \renewcommand{\indexname}{Index}
 \printindex
+%\end{CJK}
 \end{document}
