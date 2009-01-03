@@ -30,14 +30,14 @@ locale模块是Python国际化和本地化支持库的一部分. 他提供一种
     for env_name in [ 'LC_ALL', 'LC_CTYPE', 'LANG', 'LANGUAGE' ]:
         print '\t%s = %s' % (env_name, os.environ.get(env_name, ''))
 
-    # What is the default locale?默认的本地设置是什么?
+    # What is the default locale?
     print
     print 'Default locale:', locale.getdefaultlocale()
 
-    # Default settings based on the user's environment.根据用户的环境做些默认设置
+    # Default settings based on the user's environment.
     locale.setlocale(locale.LC_ALL, '')
 
-    # If we do not have a locale, assume US English.如果没有本地设置, 假设为US English
+    # If we do not have a locale, assume US English.
     print 'From environment:', locale.getlocale()
 
     pprint.pprint(locale.localeconv())

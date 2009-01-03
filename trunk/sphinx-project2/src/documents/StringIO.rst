@@ -25,30 +25,30 @@ PyMOTW: StringIO and cStringIO
     #!/usr/bin/env python
 
     """
-    使用StringIO模块简单的例子
+    Simple examples with StringIO module
     """
 
-    # 找到此平台上最好的StringIO实现模块
+    # Find the best implementation available on this platform
 
     try:
         from cStringIO import StringIO
     except:
         from StringIO import StringIO
 
-    # 写入一个缓冲区
+    # Writing to a buffer
     output = StringIO()
-    output.write('This goes into the buffer. ') ##write方法将字符串写入缓冲区
+    output.write('This goes into the buffer. ')
 
-    print >>output, 'And so does this.' ##print 语句将字符串写入output
-    # 查询刚才被写入缓冲区的值
+    print >>output, 'And so does this.'
+    # Retrieve the value written
     print output.getvalue()
 
-    output.close() # 关闭(丢弃)缓冲区
+    output.close() # discard buffer memory
 
-    # 初始化一个只读缓冲区
+    # Initialize a read buffer
     input = StringIO('Inital value for read buffer')
 
-    # 从缓冲区中读取数据
+    # Read from the buffer
     print input.read()
 
 这个例子中使用了 ``read()`` ,但当然,函数 ``readline()`` 和 ``readlines()`` 也都是可用的.类StringIO提供 ``seek()`` 函数,因此在读取数据时可以任意跳到某个点上, 这也当你使用某些前看解析算法可以回头读取.

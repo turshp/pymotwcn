@@ -120,19 +120,19 @@ pickle除了提供dumps()和loads()，还提供非常方便的函数用于操作
     data.append(SimpleObject('cPickle'))
     data.append(SimpleObject('last'))
         
-    # 使用StringIO来模拟一个文件
+    # Simulate a file with StringIO
     out_s = StringIO()
 
-    # 写入到流中
+    # Write to the stream
     for o in data:
        print 'WRITING: %s (%s)' % (o.name, o.name_backwards)
        pickle.dump(o, out_s)
        out_s.flush()
 
-    # 设置可读流
+    # Set up a read-able stream
     in_s = StringIO(out_s.getvalue())
 
-    # 读取数据
+    # Read the data
     while True:
        try:
           o = pickle.load(in_s)
@@ -185,7 +185,7 @@ pickle除了提供dumps()和loads()，还提供非常方便的函数用于操作
           raise RuntimeError('Please specify a filename as an argument to %s' % sys.argv[0])
        out_s = open(filename, 'wb')
        try:
-          # 写入到流中
+          # Write to the stream
           for o in data:
              print 'WRITING: %s (%s)' % (o.name, o.name_backwards)
              pickle.dump(o, out_s)
@@ -220,7 +220,7 @@ pickle除了提供dumps()和loads()，还提供非常方便的函数用于操作
 
     in_s = open(filename, 'rb')
     try:
-       # 读取数据
+       # Read the data
        while True:
           try:
              o = pickle.load(in_s)

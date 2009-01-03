@@ -57,18 +57,18 @@ logging模块定义了一个标准API, 用于报告所有你使用的模块的�
 
     LOG_FILENAME = '/tmp/logging_rotatingfile_example.out'
 
-    # 设置一个我们希望的输出层次的日志记录器.
+    # Set up a specific logger with our desired output level
     my_logger = logging.getLogger('MyLogger')
     my_logger.setLevel(logging.DEBUG)
 
-    # 增加记录器的日志消息处理
+    # Add the log message handler to the logger
     handler = logging.handlers.RotatingFileHandler(LOG_FILENAME, maxBytes=20, backupCount=5)
     my_logger.addHandler(handler)
 
     for i in range(20):
         my_logger.debug('i = %d' % i)
 
-    # 查看新创建的文件
+    # See what files are created
     logfiles = glob.glob('%s*' % LOG_FILENAME) 
     
     for filename in logfiles:

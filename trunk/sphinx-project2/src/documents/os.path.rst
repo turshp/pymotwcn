@@ -325,7 +325,7 @@ os.path中的第一个函数集可以用于解析文件名字符串为不同部�
                 print ' %s/' % name
             else:
                 print ' %s' % name
-        # 不递归遍历.svn目录
+        # Do not recurse into .svn directory
         if '.svn' in names:
             names.remove('.svn') 
         print
