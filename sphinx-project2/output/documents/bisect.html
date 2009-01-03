@@ -1,0 +1,202 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: bisect &mdash; PyMOTW v1.0 文档</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="关于这些文档" href="../about.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="up" title="所有文档" href="index.html" />
+    <link rel="next" title="PyMOTW: logging" href="logging.html" />
+    <link rel="prev" title="PyMOTW: linecache" href="linecache.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="logging.html" title="PyMOTW: logging"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="linecache.html" title="PyMOTW: linecache"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="pymotw-bisect">
+<h1>PyMOTW: bisect<a class="headerlink" href="#pymotw-bisect" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>模块： bisect</li>
+<li>目的： 维持一个有序列表，当每次增加一个元素到列表时无需调用sort过程。</li>
+<li>python版本： 1.4+</li>
+</ul>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>bisect模块实现了一个算法，用于向一个有序列表中插入一个元素。这比重复排序一个列表, 或重构一个很大的有序列表要高效的多.</p>
+</div>
+<div class="section" id="id2">
+<h2>示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>使用 <tt class="docutils literal"><span class="pre">bisect.insort()</span></tt> 的简单示例，插入元素到一个有序列表中。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">bisect</span>
+<span class="k">import</span> <span class="nn">random</span>
+
+<span class="c"># 设置一个常数种子, 这在以后的循环中, 产生同样的伪随机数</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span>
+<span class="c"># 产生20个随机数, 并依次插入到有序列表中</span>
+<span class="n">l</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span> <span class="mf">20</span><span class="p">):</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span> <span class="mf">100</span><span class="p">)</span>
+    <span class="n">position</span> <span class="o">=</span> <span class="n">bisect</span><span class="o">.</span><span class="n">bisect</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+    <span class="n">bisect</span><span class="o">.</span><span class="n">insort</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;</span><span class="si">%2d</span><span class="s"> </span><span class="si">%2d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">position</span><span class="p">),</span> <span class="n">l</span>
+</pre></div>
+</div>
+<p>上述脚本的输出如下：</p>
+<div class="highlight-python"><pre>14 0 [14]
+85 1 [14, 85]
+77 1 [14, 77, 85]
+26 1 [14, 26, 77, 85]
+50 2 [14, 26, 50, 77, 85]
+45 2 [14, 26, 45, 50, 77, 85]
+66 4 [14, 26, 45, 50, 66, 77, 85]
+79 6 [14, 26, 45, 50, 66, 77, 79, 85]
+10 0 [10, 14, 26, 45, 50, 66, 77, 79, 85]
+3 0 [3, 10, 14, 26, 45, 50, 66, 77, 79, 85]
+84 9 [3, 10, 14, 26, 45, 50, 66, 77, 79, 84, 85]
+44 4 [3, 10, 14, 26, 44, 45, 50, 66, 77, 79, 84, 85]
+77 9 [3, 10, 14, 26, 44, 45, 50, 66, 77, 77, 79, 84, 85]
+1 0 [1, 3, 10, 14, 26, 44, 45, 50, 66, 77, 77, 79, 84, 85]
+45 7 [1, 3, 10, 14, 26, 44, 45, 45, 50, 66, 77, 77, 79, 84, 85]
+73 10 [1, 3, 10, 14, 26, 44, 45, 45, 50, 66, 73, 77, 77, 79, 84, 85]
+23 4 [1, 3, 10, 14, 23, 26, 44, 45, 45, 50, 66, 73, 77, 77, 79, 84, 85]
+95 17 [1, 3, 10, 14, 23, 26, 44, 45, 45, 50, 66, 73, 77, 77, 79, 84, 85, 95]
+91 17 [1, 3, 10, 14, 23, 26, 44, 45, 45, 50, 66, 73, 77, 77, 79, 84, 85, 91, 95]</pre>
+</div>
+<p>第一列显示了新的随机数，第二列显示了数被插入到列表中的位置。最后是当前排序列表中的元素。</p>
+<p>这是一个很简单的示例，我们处理的速度由于列表规模小以及每次只需排序一次, 变的非常快速。但对于一个很长的list，利用这种方法能得到时间和内存上的节省。</p>
+<p>你可能会注意到上述结果中存在一些重复值（45和77）.bisect模块提供了2种方法来处理重复，新值可以插入到已经存在值的左边或者右边。对应的是 insort_right()函数，可以将值插入已有值的后面（右边），insort_left()函数可以插入到之前（左边）。</p>
+<p>如果我们使用bisect_left()和bisect_right()来处理同样的数据，那么最后获得的list是相同的，只是中间插入的位置会有不同。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># 重设种子</span>
+<span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span>
+
+<span class="c"># 使用bisect_left 和 insort_left</span>
+<span class="n">l</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span> <span class="mf">20</span><span class="p">):</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span> <span class="mf">100</span><span class="p">)</span>
+    <span class="n">position</span> <span class="o">=</span> <span class="n">bisect</span><span class="o">.</span><span class="n">bisect_left</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+    <span class="n">bisect</span><span class="o">.</span><span class="n">insort_left</span><span class="p">(</span><span class="n">l</span><span class="p">,</span> <span class="n">r</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;</span><span class="si">%2d</span><span class="s"> </span><span class="si">%2d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">position</span><span class="p">),</span> <span class="n">l</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>14 0 [14]
+85 1 [14, 85]
+77 1 [14, 77, 85]
+26 1 [14, 26, 77, 85]
+50 2 [14, 26, 50, 77, 85]
+45 2 [14, 26, 45, 50, 77, 85]
+66 4 [14, 26, 45, 50, 66, 77, 85]
+79 6 [14, 26, 45, 50, 66, 77, 79, 85]
+10 0 [10, 14, 26, 45, 50, 66, 77, 79, 85]
+3 0 [3, 10, 14, 26, 45, 50, 66, 77, 79, 85]
+84 9 [3, 10, 14, 26, 45, 50, 66, 77, 79, 84, 85]
+44 4 [3, 10, 14, 26, 44, 45, 50, 66, 77, 79, 84, 85]
+77 8 [3, 10, 14, 26, 44, 45, 50, 66, 77, 77, 79, 84, 85]
+1 0 [1, 3, 10, 14, 26, 44, 45, 50, 66, 77, 77, 79, 84, 85]
+45 6 [1, 3, 10, 14, 26, 44, 45, 45, 50, 66, 77, 77, 79, 84, 85]
+73 10 [1, 3, 10, 14, 26, 44, 45, 45, 50, 66, 73, 77, 77, 79, 84, 85]
+23 4 [1, 3, 10, 14, 23, 26, 44, 45, 45, 50, 66, 73, 77, 77, 79, 84, 85]
+95 17 [1, 3, 10, 14, 23, 26, 44, 45, 45, 50, 66, 73, 77, 77, 79, 84, 85, 95]
+91 17 [1, 3, 10, 14, 23, 26, 44, 45, 45, 50, 66, 73, 77, 77, 79, 84, 85, 91, 95]</pre>
+</div>
+<p>除了python实现外，还有一个更快的c实现，如果c版本存在，那么 <tt class="docutils literal"><span class="pre">import</span> <span class="pre">bisect</span></tt> 模块时会自动调用c版本而不是调用python版本。</p>
+</div>
+<div class="section" id="id3">
+<h2>参考<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference" href="http://en.wikipedia.org/wiki/Insertion_sort">Insertion Sort</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">目录</a></h3>
+            <ul>
+<li><a class="reference" href="">PyMOTW: bisect</a><ul>
+<li><a class="reference" href="#id1">描述</a></li>
+<li><a class="reference" href="#id2">示例</a></li>
+<li><a class="reference" href="#id3">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>前一个主题</h4>
+            <p class="topless"><a href="linecache.html" title="前一章节">PyMOTW: linecache</a></p>
+            <h4>后一个主题</h4>
+            <p class="topless"><a href="logging.html" title="后一章节">PyMOTW: logging</a></p>
+            <h3>当前主题</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/bisect.txt">显示页面源码</a></li>
+            </ul>
+          <h3>快速搜索</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="提交" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="logging.html" title="PyMOTW: logging"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="linecache.html" title="PyMOTW: linecache"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2008, vbarter &amp; liz.
+      使用 <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1创建.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,394 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: os.path &mdash; PyMOTW v1.0 文档</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="关于这些文档" href="../about.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="up" title="所有文档" href="index.html" />
+    <link rel="next" title="PyMOTW: time" href="time.html" />
+    <link rel="prev" title="PyMOTW: urlparse" href="urlparse.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="time.html" title="PyMOTW: time"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="urlparse.html" title="PyMOTW: urlparse"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="pymotw-os-path">
+<h1>PyMOTW: os.path<a class="headerlink" href="#pymotw-os-path" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>模块：os.path</li>
+<li>目的：对文件名和路径进行解析, 创建, 测试和其他操作.</li>
+<li>python版本：1.4+</li>
+</ul>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>我们可以利用os.path模块提供的函数更容易地在跨平台上处理文件。即使我们的程序不是用于夸平台，也应该使用os.path来让路径名字更加可靠。</p>
+</div>
+<div class="section" id="id2">
+<h2>解析路径<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>os.path中的第一个函数集可以用于解析文件名字符串为不同部分。要注意到这些函数的解析不依赖于被解析的路径是否真正存在，他们只处理字符串。</p>
+<p>路径解析依赖于一些os实现定义好的变量，如：</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">os.sep</span></tt> ：表示路径的分隔符(如, &#8220;/&#8221;)。</li>
+<li><tt class="docutils literal"><span class="pre">os.extsep</span></tt> ：表示文件名和文件扩展名的分隔符(如, &#8220;.&#8221;)。</li>
+<li><tt class="docutils literal"><span class="pre">os.pardir</span></tt> ：表示上一层目录, 即父目录(如, &#8220;..&#8221;)。</li>
+<li><tt class="docutils literal"><span class="pre">os.curdir</span></tt> ：表示当前目录(如, &#8220;.&#8221;)。</li>
+</ul>
+<p><tt class="docutils literal"><span class="pre">split()</span></tt> 函数将路径切分成两个两部分并返回一个元组，它的第二个元素是路径的最后一部份, 第一个元素是路径的前面部分。</p>
+<div class="highlight-python"><pre>import os.path
+
+for path in [ '/one/two/three','/one/two/three/','/',.','']:
+    print '"%s" : "%s"' % (path, os.path.split(path))</pre>
+</div>
+<div class="highlight-python"><pre>$ python ospath_split.py
+"/one/two/three" : "('/one/two', 'three')"
+"/one/two/three/" : "('/one/two/three', '')"
+"/" : "('/', '')"
+"." : "('', '.')"
+"" : "('', '')"</pre>
+</div>
+<p><strong>basename()</strong> 返回的值和 <tt class="docutils literal"><span class="pre">split()</span></tt> 返回的第二个值相同。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">os.path</span>
+
+<span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="p">[</span> <span class="s">&#39;/one/two/three&#39;</span><span class="p">,</span><span class="s">&#39;/one/two/three/&#39;</span><span class="p">,</span><span class="s">&#39;/&#39;</span><span class="p">,</span><span class="s">&#39;.&#39;</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">]:</span>
+    <span class="k">print</span> <span class="s">&#39;&quot;</span><span class="si">%s</span><span class="s">&quot; : &quot;</span><span class="si">%s</span><span class="s">&quot;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">basename</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python ospath_basename.py
+"/one/two/three" : "three"
+"/one/two/three/" : ""
+"/" : ""
+"." : "."
+"" : ""</pre>
+</div>
+<p><strong>dirname()</strong> 返回的值是和 <tt class="docutils literal"><span class="pre">split()</span></tt> 返回的第一个值相同。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">os.path</span>
+
+<span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="p">[</span> <span class="s">&#39;/one/two/three&#39;</span><span class="p">,</span> <span class="s">&#39;/one/two/three/&#39;</span><span class="p">,</span><span class="s">&#39;/&#39;</span><span class="p">,</span><span class="s">&#39;.&#39;</span><span class="p">,</span><span class="s">&#39;&#39;</span><span class="p">]:</span>
+    <span class="k">print</span> <span class="s">&#39;&quot;</span><span class="si">%s</span><span class="s">&quot; : &quot;</span><span class="si">%s</span><span class="s">&quot;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python ospath_dirname.py
+
+"/one/two/three" : "/one/two"
+"/one/two/three/" : "/one/two/three"
+"/" : "/"
+"." : ""
+"" : ""</pre>
+</div>
+<p><strong>splitext()</strong> 和 <tt class="docutils literal"><span class="pre">split()</span></tt> 类似但是分隔路径的扩展名，而不是目录名。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">os.path</span>
+
+<span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="p">[</span> <span class="s">&#39;filename.txt&#39;</span><span class="p">,</span> <span class="s">&#39;filename&#39;</span><span class="p">,</span> <span class="s">&#39;/path/to/filename.txt&#39;</span><span class="p">,</span> <span class="s">&#39;/&#39;</span><span class="p">,</span> <span class="s">&#39;&#39;</span> <span class="p">]:</span>
+    <span class="k">print</span> <span class="s">&#39;&quot;</span><span class="si">%s</span><span class="s">&quot; :&#39;</span> <span class="o">%</span> <span class="n">path</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">splitext</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python ospath_splitext.py
+"filename.txt" : ('filename', '.txt')
+"filename" : ('filename', '')
+"/path/to/filename.txt" : ('/path/to/filename', '.txt')
+"/" : ('/', '')
+"" : ('', '')</pre>
+</div>
+<p><strong>commonprefix()</strong> 取一个路径列表作为参数，返回一个单一的字符串表示这些路径公共的前缀。这个值可能是一个实际上不存在的路径。路径分割符是被忽略的，所以前缀可能在在分割处被截断。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">os.path</span>
+
+<span class="n">paths</span> <span class="o">=</span> <span class="p">[</span><span class="s">&#39;/one/two/three/four&#39;</span><span class="p">,</span><span class="s">&#39;/one/two/threefold&#39;</span><span class="p">,</span><span class="s">&#39;/one/two/three/&#39;</span><span class="p">,]</span>
+<span class="k">print</span> <span class="n">paths</span>
+<span class="k">print</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">commonprefix</span><span class="p">(</span><span class="n">paths</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python ospath_commonprefix.py
+['/one/two/three/four', '/one/two/threefold', '/one/two/three/']
+/one/two/three</pre>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>创建路径<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>除了将现有的路径分隔外，你可能经常会将多个字符串组合成一个路径。</p>
+<p>可以使用 <tt class="docutils literal"><span class="pre">join()</span></tt> 将多个路径部分组合成一个单个值：</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">os.path</span>
+
+<span class="k">for</span> <span class="n">parts</span> <span class="ow">in</span> <span class="p">[</span> <span class="p">(</span><span class="s">&#39;one&#39;</span><span class="p">,</span> <span class="s">&#39;two&#39;</span><span class="p">,</span> <span class="s">&#39;three&#39;</span><span class="p">),(</span><span class="s">&#39;/&#39;</span><span class="p">,</span> <span class="s">&#39;one&#39;</span><span class="p">,</span> <span class="s">&#39;two&#39;</span><span class="p">,</span> <span class="s">&#39;three&#39;</span><span class="p">),(</span><span class="s">&#39;/one&#39;</span><span class="p">,</span> <span class="s">&#39;/two&#39;</span><span class="p">,</span> <span class="s">&#39;/three&#39;</span><span class="p">),]:</span>
+    <span class="k">print</span> <span class="n">parts</span><span class="p">,</span> <span class="s">&#39;:&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="o">*</span><span class="n">parts</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python ospath_join.py
+('one', 'two', 'three') : one/two/three
+('/', 'one', 'two', 'three') : /one/two/three
+('/one', '/two', '/three') : /three</pre>
+</div>
+<p>如果路径中包含变量部分，也能自动将她扩展出来. 例如， <tt class="docutils literal"><span class="pre">expanduser()</span></tt> 可以将波浪线(~)扩展成用户的主目录。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">os.path</span>
+
+<span class="k">for</span> <span class="n">user</span> <span class="ow">in</span> <span class="p">[</span> <span class="s">&#39;&#39;</span><span class="p">,</span> <span class="s">&#39;dhellmann&#39;</span><span class="p">,</span> <span class="s">&#39;postgres&#39;</span> <span class="p">]:</span>
+    <span class="n">lookup</span> <span class="o">=</span> <span class="s">&#39;~&#39;</span> <span class="o">+</span> <span class="n">user</span>
+    <span class="k">print</span> <span class="n">lookup</span><span class="p">,</span> <span class="s">&#39;:&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expanduser</span><span class="p">(</span><span class="n">lookup</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python ospath_expanduser.py
+~ : /Users/dhellmann
+~dhellmann : /Users/dhellmann
+~postgres : /var/empty</pre>
+</div>
+<p><strong>expandvars()</strong> 是能更一般的扩展出现在路径中的环境变量。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">os.path</span>
+<span class="k">import</span> <span class="nn">os</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&#39;MYVAR&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;VALUE&#39;</span>
+
+<span class="k">print</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">expandvars</span><span class="p">(</span><span class="s">&#39;/path/to/$MYVAR&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python ospath_expandvars.py
+/path/to/VALUE</pre>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>标准化路径<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>使用 <tt class="docutils literal"><span class="pre">join()</span></tt> 组装成的，或嵌入了变量的Paths路径可能会以多余的分隔符结束或含有相对路径部份。使用 <tt class="docutils literal"><span class="pre">normpath()</span></tt> 将这些清除：</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">os.path</span>
+
+<span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="p">[</span> <span class="s">&#39;one//two//three&#39;</span><span class="p">,</span> <span class="s">&#39;one/./two/./three&#39;</span><span class="p">,</span> <span class="s">&#39;one/../one/two/three&#39;</span><span class="p">,]:</span>
+    <span class="k">print</span> <span class="n">path</span><span class="p">,</span> <span class="s">&#39;:&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python ospath_normpath.py
+one//two//three : one/two/three
+one/./two/./three : one/two/three
+one/../one/two/three : one/two/three</pre>
+</div>
+<p>使用 <strong>abspath()</strong> 将一个相对路径转换成绝对路径。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">os.path</span>
+
+<span class="k">for</span> <span class="n">path</span> <span class="ow">in</span> <span class="p">[</span> <span class="s">&#39;.&#39;</span><span class="p">,</span> <span class="s">&#39;..&#39;</span><span class="p">,</span> <span class="s">&#39;./one/two/three&#39;</span><span class="p">,</span> <span class="s">&#39;../one/two/three&#39;</span><span class="p">]:</span>
+    <span class="k">print</span> <span class="s">&#39;&quot;</span><span class="si">%s</span><span class="s">&quot; : &quot;</span><span class="si">%s</span><span class="s">&quot;&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python ospath_abspath.py
+"." : "/Users/dhellmann/Documents/PyMOTW/in_progress/ospath"
+".." : "/Users/dhellmann/Documents/PyMOTW/in_progress"
+"./one/two/three" : "/Users/dhellmann/Documents/PyMOTW/in_progress/ospath/one/two/three"
+"../one/two/three" : "/Users/dhellmann/Documents/PyMOTW/in_progress/one/two/three"</pre>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>文件时间<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>除了处理路径外， <tt class="docutils literal"><span class="pre">os.path</span></tt> 还可以包含一些用于检索文件属性的函数，他们比 <tt class="docutils literal"><span class="pre">os.stat()</span></tt> 更方便：</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">os.path</span>
+<span class="k">import</span> <span class="nn">time</span>
+
+<span class="k">print</span> <span class="s">&#39;File :&#39;</span><span class="p">,</span> <span class="n">__file__</span>
+<span class="k">print</span> <span class="s">&#39;Access time :&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">ctime</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getatime</span><span class="p">(</span><span class="n">__file__</span><span class="p">))</span>
+<span class="k">print</span> <span class="s">&#39;Modified time:&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">ctime</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getmtime</span><span class="p">(</span><span class="n">__file__</span><span class="p">))</span>
+<span class="k">print</span> <span class="s">&#39;Change time :&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">ctime</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getctime</span><span class="p">(</span><span class="n">__file__</span><span class="p">))</span>
+<span class="k">print</span> <span class="s">&#39;Size :&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python ospath_properties.py
+File : /Users/dhellmann/Documents/PyMOTW/in_progress/ospath/ospath_properties.py
+Access time : Sun Jan 27 15:40:20 2008
+Modified time: Sun Jan 27 15:39:06 2008
+Change time : Sun Jan 27 15:39:06 2008
+Size : 478</pre>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>测试文件<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>当你的程序含一个路径名时，他通常需要知道这个路径是否是文件还是目录。如果你的平台支持它，你需要知道这个路径是指向一个符号链接还是是一个挂载点。你也可能想测试路径是否存在。 <tt class="docutils literal"><span class="pre">os.path</span></tt> 提供测试这些条件的函数。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">os.path</span>
+
+<span class="k">for</span> <span class="nb">file</span> <span class="ow">in</span> <span class="p">[</span> <span class="n">__file__</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">__file__</span><span class="p">),</span> <span class="s">&#39;/&#39;</span><span class="p">,</span> <span class="s">&#39;./broken_link&#39;</span><span class="p">]:</span>
+    <span class="k">print</span> <span class="s">&#39;File :&#39;</span><span class="p">,</span> <span class="nb">file</span>
+    <span class="k">print</span> <span class="s">&#39;Absolute :&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isabs</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;Is File? :&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isfile</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;Is Dir? :&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;Is Link? :&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">islink</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;Mountpoint? :&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">ismount</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;Exists? :&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;Link Exists?:&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">lexists</span><span class="p">(</span><span class="nb">file</span><span class="p">)</span>
+    <span class="k">print</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ ln -s /does/not/exist broken_link
+$ python ospath_tests.py
+File : /Users/dhellmann/Documents/PyMOTW/in_progress/ospath/ospath_tests.py
+Absolute : True
+Is File? : True
+Is Dir? : False
+Is Link? : False
+Mountpoint? : False
+Exists? : True
+Link Exists?: True
+
+File : /Users/dhellmann/Documents/PyMOTW/in_progress/ospath
+Absolute : True
+Is File? : False
+Is Dir? : True
+Is Link? : False
+Mountpoint? : False
+Exists? : True
+Link Exists?: True
+
+File : /
+Absolute : True
+Is File? : False
+Is Dir? : True
+Is Link? : False
+Mountpoint? : True
+Exists? : True
+Link Exists?: True
+
+File : ./broken_link
+Absolute : False
+Is File? : False
+Is Dir? : False
+Is Link? : True
+Mountpoint? : False
+Exists? : False
+Link Exists?: True</pre>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>遍历目录树<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">os.path.walk()</span></tt> 遍历树中的所有目录，并调用一个你提供的函数，同时将目录名和目录中包含内容的名字传递给这个函数。下面的例子将递归的列出目录，但忽略.svn目录。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">os.path</span>
+<span class="k">import</span> <span class="nn">pprint</span>
+
+<span class="k">def</span> <span class="nf">visit</span><span class="p">(</span><span class="n">arg</span><span class="p">,</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">names</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">dirname</span><span class="p">,</span> <span class="n">arg</span>
+    <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+        <span class="n">subname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="n">name</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">isdir</span><span class="p">(</span><span class="n">subname</span><span class="p">):</span>
+            <span class="k">print</span> <span class="s">&#39; </span><span class="si">%s</span><span class="s">/&#39;</span> <span class="o">%</span> <span class="n">name</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">print</span> <span class="s">&#39; </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">name</span>
+    <span class="c"># 不递归遍历.svn目录</span>
+    <span class="k">if</span> <span class="s">&#39;.svn&#39;</span> <span class="ow">in</span> <span class="n">names</span><span class="p">:</span>
+        <span class="n">names</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s">&#39;.svn&#39;</span><span class="p">)</span>
+    <span class="k">print</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="s">&#39;..&#39;</span><span class="p">,</span> <span class="n">visit</span><span class="p">,</span> <span class="s">&#39;(User data)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python ospath_walk.py
+.. (User data)
+   .svn/
+   ospath/
+
+../ospath (User data)
+   .svn/
+   __init__.py
+   ospath_abspath.py
+   ospath_basename.py
+   ospath_commonprefix.py
+   ospath_dirname.py
+   ospath_expanduser.py
+   ospath_expandvars.py
+   ospath_join.py
+   ospath_normpath.py
+   ospath_properties.py
+   ospath_split.py
+   ospath_splitext.py
+   ospath_tests.py
+   ospath_walk.py</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">目录</a></h3>
+            <ul>
+<li><a class="reference" href="">PyMOTW: os.path</a><ul>
+<li><a class="reference" href="#id1">描述</a></li>
+<li><a class="reference" href="#id2">解析路径</a></li>
+<li><a class="reference" href="#id3">创建路径</a></li>
+<li><a class="reference" href="#id4">标准化路径</a></li>
+<li><a class="reference" href="#id5">文件时间</a></li>
+<li><a class="reference" href="#id6">测试文件</a></li>
+<li><a class="reference" href="#id7">遍历目录树</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>前一个主题</h4>
+            <p class="topless"><a href="urlparse.html" title="前一章节">PyMOTW: urlparse</a></p>
+            <h4>后一个主题</h4>
+            <p class="topless"><a href="time.html" title="后一章节">PyMOTW: time</a></p>
+            <h3>当前主题</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/os.path.txt">显示页面源码</a></li>
+            </ul>
+          <h3>快速搜索</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="提交" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="time.html" title="PyMOTW: time"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="urlparse.html" title="PyMOTW: urlparse"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2008, vbarter &amp; liz.
+      使用 <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1创建.
+    </div>
+  </body>
+</html>

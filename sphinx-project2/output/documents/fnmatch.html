@@ -1,0 +1,224 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: fnmatch &mdash; PyMOTW v1.0 文档</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="关于这些文档" href="../about.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="up" title="所有文档" href="index.html" />
+    <link rel="next" title="PyMOTW: Cookie" href="Cookie.html" />
+    <link rel="prev" title="PyMOTW: urllib" href="urllib.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="Cookie.html" title="PyMOTW: Cookie"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="urllib.html" title="PyMOTW: urllib"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="pymotw-fnmatch">
+<h1>PyMOTW: fnmatch<a class="headerlink" href="#pymotw-fnmatch" title="Permalink to this headline">¶</a></h1>
+<p>使用fnmatch模块处理Unix风格的文件名的比较。</p>
+<ul class="simple">
+<li>模块： fnmatch</li>
+<li>目的： 对文件名和Unix风格模式进行比较。</li>
+<li>python版本：1.4+</li>
+</ul>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>fnmatch模块用来全局模式上比较文件名(比如在Unix Shell中的模式)。</p>
+</div>
+<div class="section" id="id2">
+<h2>简单匹配<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">fnmatch()</span></tt> 比较一个简单的文件名和一个模式并且返回一个布尔类型，即匹配返回True，不匹配返回Fasle。如果操作系统使用了一个大小写不敏感的文件系统，那么这种比较也是大小写不敏感的，否则是大小写敏感的。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">fnmatch</span>
+<span class="k">import</span> <span class="nn">os</span>
+
+<span class="n">pattern</span> <span class="o">=</span> <span class="s">&#39;fnmatch_*.py&#39;</span>
+<span class="k">print</span> <span class="s">&#39;Pattern :&#39;</span><span class="p">,</span> <span class="n">pattern</span>
+<span class="k">print</span>
+
+<span class="n">files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;Filename: </span><span class="si">%-25s</span><span class="s"> </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">fnmatch</span><span class="o">.</span><span class="n">fnmatch</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">pattern</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>这个例子中，模式匹配所有以fnmatch_开头，以 <tt class="docutils literal"><span class="pre">.py</span></tt> 结尾的文件名。</p>
+<div class="highlight-python"><pre>$ python fnmatch_fnmatch.py
+
+Pattern : fnmatch_*.py
+
+Filename: .svn False
+Filename: __init__.py False
+Filename: fnmatch_filter.py True
+Filename: fnmatch_fnmatch.py True
+Filename: fnmatch_fnmatchcase.py True
+Filename: fnmatch_translate.py True</pre>
+</div>
+<p>为了在各个不同文件系统或操作系统设置也能强制匹配大小写，可以使用 <tt class="docutils literal"><span class="pre">fnmatchcase()</span></tt> 。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">fnmatch</span>
+<span class="k">import</span> <span class="nn">os</span>
+
+<span class="n">pattern</span> <span class="o">=</span> <span class="s">&#39;FNMATCH_*.PY&#39;</span>
+<span class="k">print</span> <span class="s">&#39;Pattern :&#39;</span><span class="p">,</span> <span class="n">pattern</span>
+<span class="k">print</span>
+
+<span class="n">files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">files</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;Filename: </span><span class="si">%-25s</span><span class="s"> </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">fnmatch</span><span class="o">.</span><span class="n">fnmatchcase</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">pattern</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>由于我的笔记本使用大小写敏感的文件系统，所以修改后的模式不匹配任何一个文件。</p>
+<div class="highlight-python"><pre>$ python fnmatch_fnmatchcase.py
+Pattern : FNMATCH_*.PY
+
+Filename: .svn False
+Filename: __init__.py False
+Filename: fnmatch_filter.py False
+Filename: fnmatch_fnmatch.py False
+Filename: fnmatch_fnmatchcase.py False
+Filename: fnmatch_translate.py False</pre>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>过滤<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>你可以使用 <tt class="docutils literal"><span class="pre">filter()</span></tt> 来测试一系列的文件名。它返回匹配模式参数的名字列表。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">fnmatch</span>
+<span class="k">import</span> <span class="nn">os</span>
+
+<span class="n">pattern</span> <span class="o">=</span> <span class="s">&#39;fnmatch_*.py&#39;</span>
+<span class="k">print</span> <span class="s">&#39;Pattern :&#39;</span><span class="p">,</span> <span class="n">pattern</span>
+
+<span class="n">files</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;Files :&#39;</span><span class="p">,</span> <span class="n">files</span>
+
+<span class="k">print</span> <span class="s">&#39;Matches :&#39;</span><span class="p">,</span> <span class="n">fnmatch</span><span class="o">.</span><span class="n">filter</span><span class="p">(</span><span class="n">files</span><span class="p">,</span> <span class="n">pattern</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>在这个例子中， <tt class="docutils literal"><span class="pre">filter()</span></tt> 返回这篇文章中所有示例源文件的名字.# 即他们都以fnmatch_开头。</p>
+<div class="highlight-python"><pre>$ python fnmatch_filter.py
+
+Pattern : fnmatch_*.py
+Files : ['.svn', '__init__.py', 'fnmatch_filter.py', 'fnmatch_fnmatch.py', 'fnmatch_fnmatchcase.py', 'fnmatch_translate.py']
+Matches : ['fnmatch_filter.py', 'fnmatch_fnmatch.py', 'fnmatch_fnmatchcase.py', 'fnmatch_translate.py']</pre>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>翻译模式<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>在内部，fnmatch将这种全局模式转换成一个正则式，然后使用re模块来比较名字和模式。 <tt class="docutils literal"><span class="pre">translate()</span></tt> 函数是一个公共API用于将全局模式转换成正则式。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">fnmatch</span>
+
+<span class="n">pattern</span> <span class="o">=</span> <span class="s">&#39;fnmatch_*.py&#39;</span>
+<span class="k">print</span> <span class="s">&#39;Pattern :&#39;</span><span class="p">,</span> <span class="n">pattern</span>
+<span class="k">print</span> <span class="s">&#39;Regex :&#39;</span><span class="p">,</span> <span class="n">fnmatch</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">pattern</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">为了得到一个有效的表达式，有些特殊字符被转义。</p>
+</div>
+<div class="highlight-python"><pre>$ python fnmatch_translate.py
+Pattern : fnmatch_*.py
+Regex : fnmatch\_.*\.py$</pre>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>参考<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference" href="http://docs.python.org/lib/module-glob.html">glob module documentation</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">目录</a></h3>
+            <ul>
+<li><a class="reference" href="">PyMOTW: fnmatch</a><ul>
+<li><a class="reference" href="#id1">描述</a></li>
+<li><a class="reference" href="#id2">简单匹配</a></li>
+<li><a class="reference" href="#id3">过滤</a></li>
+<li><a class="reference" href="#id4">翻译模式</a></li>
+<li><a class="reference" href="#id5">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>前一个主题</h4>
+            <p class="topless"><a href="urllib.html" title="前一章节">PyMOTW: urllib</a></p>
+            <h4>后一个主题</h4>
+            <p class="topless"><a href="Cookie.html" title="后一章节">PyMOTW: Cookie</a></p>
+            <h3>当前主题</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/fnmatch.txt">显示页面源码</a></li>
+            </ul>
+          <h3>快速搜索</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="提交" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="Cookie.html" title="PyMOTW: Cookie"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="urllib.html" title="PyMOTW: urllib"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2008, vbarter &amp; liz.
+      使用 <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1创建.
+    </div>
+  </body>
+</html>

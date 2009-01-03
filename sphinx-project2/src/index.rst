@@ -8,11 +8,6 @@
     introduce.rst
     documents/index.rst
     
-    about.rst
-    bugs.rst
-    copyright.rst
-    license.rst
-
 
 索引表
 ==================
