@@ -15,9 +15,9 @@
 \XeTeXlinebreakskip = 0pt plus 1pt
 %\usepackage{CJKutf8}
 
-%标题控制, 可以不用了, 因为下面设置了两种字体
+%标题控制
 %\usepackage[indentafter]{titlesec}
-%\titleformat{\chapter}[hang]{\huge\bfseries\filcenter}{\thechapter}{1em}{}[\thispagestyle{empty}]
+%\titleformat{\chapter}[hang]{\huge}{\thechapter}{1em}{}[\thispagestyle{empty}]
 %\titlespacing{\chapter}{0pt}{-21pt}{18pt}
 %\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
 
@@ -27,16 +27,16 @@
 %\setCJKsansfont{Vera Sans YuanTi Mono}  
 %\setCJKmonofont{Vera Sans YuanTi Mono} 
 %\usepackage{verbatim} %way two
-\setsansfont{WenQuanYi Zen Hei}
-\setromanfont{WenQuanYi Zen Hei}
-%\setsansfont{Vera Sans YuanTi Mono}
-%\setromanfont{Vera Sans YuanTi Mono}
+%\setsansfont{WenQuanYi Zen Hei}
+%\setromanfont{WenQuanYi Zen Hei}
+\setsansfont{Vera Sans YuanTi Mono}
+\setromanfont{Vera Sans YuanTi Mono}
 
-\title{PyMOTW Document}
+\title{PyMOTW 文档}
 \date{January 03, 2009}
 \release{1.0}
-\author{Doug Hellmann}
-\footnotetext{翻译: 蔡俊杰, 盛艳}
+\author{作者: Doug Hellmann \\译者:  蔡俊杰, 盛艳}
+%\footnotetext{翻译: 蔡俊杰, 盛艳}
 \newcommand{\sphinxlogo}{}
 \renewcommand{\releasename}{Release}
 \makeindex
@@ -114,7 +114,9 @@
 
 %\begin{CJK}{UTF8}{kai}
 \maketitle
+\cleardoublepage
 \tableofcontents
+\cleardoublepage
 \resetcurrentobjects
 
 %\chapter{介绍}
