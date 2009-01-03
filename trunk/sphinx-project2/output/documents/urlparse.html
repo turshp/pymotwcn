@@ -1,0 +1,283 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: urlparse &mdash; PyMOTW v1.0 文档</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="关于这些文档" href="../about.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="up" title="所有文档" href="index.html" />
+    <link rel="next" title="PyMOTW: os.path" href="os.path.html" />
+    <link rel="prev" title="PyMOTW: shutil" href="shutil.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="os.path.html" title="PyMOTW: os.path"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="shutil.html" title="PyMOTW: shutil"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="pymotw-urlparse">
+<h1>PyMOTW: urlparse<a class="headerlink" href="#pymotw-urlparse" title="Permalink to this headline">¶</a></h1>
+<p>urlparse模块提供了切分统一资源定位符(URL)的接口。</p>
+<ul class="simple">
+<li>模块： urlparse</li>
+<li>目的： 将URL切分为几个组成部分。</li>
+<li>python版本： 1.4+</li>
+</ul>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>urlparse模块提供了一些将URL切分成对应与RFC中定义的组成部分的函数。</p>
+</div>
+<div class="section" id="parsing">
+<h2>Parsing:分解<a class="headerlink" href="#parsing" title="Permalink to this headline">¶</a></h2>
+<p>urlparse函数返回的值是一个包含6个元素的类似于元组的对象。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">from</span> <span class="nn">urlparse</span> <span class="k">import</span> <span class="n">urlparse</span>
+<span class="n">parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="s">&#39;http://netloc/path;parameters?query=argument#fragment&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">parsed</span>
+</pre></div>
+</div>
+<p>通过借口可以获得URL的各部分组成，网络位置，路径，参数，查询变量和剩余的部分。在下面的例子中，使用http语法来代替&#8221;scheme&#8221;。</p>
+<div class="highlight-python"><pre>$ python urlparse_urlparse.py
+('http', 'netloc', '/path', 'parameters', 'query=argument', 'fragment')</pre>
+</div>
+<p>虽然返回的值是类似于元组，但它不是元组的子类，它支持通过属性名字而不是索引来获取URL对应的部分。这在当你不记得索引顺序时是非常有用的。除了让程序员更容易的使用外，这些属性API还可以获得一些在元组API中不可用的值。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">from</span> <span class="nn">urlparse</span> <span class="k">import</span> <span class="n">urlparse</span>
+<span class="n">parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="s">&#39;http://user:pass@NetLoc:80/path;parameters?query=argument#fragment&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;scheme :&#39;</span><span class="p">,</span> <span class="n">parsed</span><span class="o">.</span><span class="n">scheme</span>
+<span class="k">print</span> <span class="s">&#39;netloc :&#39;</span><span class="p">,</span> <span class="n">parsed</span><span class="o">.</span><span class="n">netloc</span>
+<span class="k">print</span> <span class="s">&#39;path :&#39;</span><span class="p">,</span> <span class="n">parsed</span><span class="o">.</span><span class="n">path</span>
+<span class="k">print</span> <span class="s">&#39;params :&#39;</span><span class="p">,</span> <span class="n">parsed</span><span class="o">.</span><span class="n">params</span>
+<span class="k">print</span> <span class="s">&#39;query :&#39;</span><span class="p">,</span> <span class="n">parsed</span><span class="o">.</span><span class="n">query</span>
+<span class="k">print</span> <span class="s">&#39;fragment:&#39;</span><span class="p">,</span> <span class="n">parsed</span><span class="o">.</span><span class="n">fragment</span>
+<span class="k">print</span> <span class="s">&#39;username:&#39;</span><span class="p">,</span> <span class="n">parsed</span><span class="o">.</span><span class="n">username</span>
+<span class="k">print</span> <span class="s">&#39;password:&#39;</span><span class="p">,</span> <span class="n">parsed</span><span class="o">.</span><span class="n">password</span>
+<span class="k">print</span> <span class="s">&#39;hostname:&#39;</span><span class="p">,</span> <span class="n">parsed</span><span class="o">.</span><span class="n">hostname</span><span class="p">,</span> <span class="s">&#39;(netloc in lower case)&#39;</span>
+<span class="k">print</span> <span class="s">&#39;port :&#39;</span><span class="p">,</span> <span class="n">parsed</span><span class="o">.</span><span class="n">port</span>
+</pre></div>
+</div>
+<p>当URL中有包含用户名和密码时username和password就会有对应值，如果没有出现则为空。hostname和netloc的值是一样的，但所有字符被强制转换为小写字母。如果出现端口的话，port值被转换成一个对应的整数值，如果没有出现则为None。</p>
+<div class="highlight-python"><pre>$ python urlparse_urlparseattrs.py
+scheme : http
+netloc : user:pass@NetLoc:80
+path : /path
+params : parameters
+query : query=argument
+fragment: fragment
+username: user
+password: pass
+hostname: netloc (netloc in lower case)
+port : 80</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">urlsplit()</span></tt> 函数是 <tt class="docutils literal"><span class="pre">urlparse()</span></tt> 的一种替代函数。它不将参数从URL中切分出来。这对于遵循RFC 2396标准的URL, 即支持每段路径中包含参数时，是很有用的。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">from</span> <span class="nn">urlparse</span> <span class="k">import</span> <span class="n">urlsplit</span>
+<span class="n">parsed</span> <span class="o">=</span> <span class="n">urlsplit</span><span class="p">(</span><span class="s">&#39;http://user:pass@NetLoc:80/path;parameters/path2;parameters2?query=argument#fragment&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">parsed</span>
+<span class="k">print</span> <span class="s">&#39;scheme :&#39;</span><span class="p">,</span> <span class="n">parsed</span><span class="o">.</span><span class="n">scheme</span>
+<span class="k">print</span> <span class="s">&#39;netloc :&#39;</span><span class="p">,</span> <span class="n">parsed</span><span class="o">.</span><span class="n">netloc</span>
+<span class="k">print</span> <span class="s">&#39;path :&#39;</span><span class="p">,</span> <span class="n">parsed</span><span class="o">.</span><span class="n">path</span>
+<span class="k">print</span> <span class="s">&#39;query :&#39;</span><span class="p">,</span> <span class="n">parsed</span><span class="o">.</span><span class="n">query</span>
+<span class="k">print</span> <span class="s">&#39;fragment:&#39;</span><span class="p">,</span> <span class="n">parsed</span><span class="o">.</span><span class="n">fragment</span>
+<span class="k">print</span> <span class="s">&#39;username:&#39;</span><span class="p">,</span> <span class="n">parsed</span><span class="o">.</span><span class="n">username</span>
+<span class="k">print</span> <span class="s">&#39;password:&#39;</span><span class="p">,</span> <span class="n">parsed</span><span class="o">.</span><span class="n">password</span>
+<span class="k">print</span> <span class="s">&#39;hostname:&#39;</span><span class="p">,</span> <span class="n">parsed</span><span class="o">.</span><span class="n">hostname</span><span class="p">,</span> <span class="s">&#39;(netloc in lower case)&#39;</span>
+<span class="k">print</span> <span class="s">&#39;port :&#39;</span><span class="p">,</span> <span class="n">parsed</span><span class="o">.</span><span class="n">port</span>
+</pre></div>
+</div>
+<p>因为参数没有被切分出来，所以返回的元组只有5个元素而不是6个，因此也没有params属性。</p>
+<div class="highlight-python"><pre>$ python urlparse_urlsplit.py
+('http', 'user:pass@NetLoc:80', '/path;parameters/path2;parameters2', 'query=argument', 'fragment')
+scheme : http
+netloc : user:pass@NetLoc:80
+path : /path;parameters/path2;parameters2
+query : query=argument
+fragment: fragment
+username: user
+password: pass
+hostname: netloc (netloc in lower case)
+port : 80</pre>
+</div>
+<p>为了简单的从URL中获得fragment标识符，因为你有可能需要寻找URL指向的页面中特定的位置名称，可以使用urldefrag。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">from</span> <span class="nn">urlparse</span> <span class="k">import</span> <span class="n">urldefrag</span>
+<span class="n">original</span> <span class="o">=</span> <span class="s">&#39;http://netloc/path;parameters?query=argument#fragment&#39;</span>
+<span class="k">print</span> <span class="n">original</span>
+<span class="n">url</span><span class="p">,</span> <span class="n">fragment</span> <span class="o">=</span> <span class="n">urldefrag</span><span class="p">(</span><span class="n">original</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">url</span>
+<span class="k">print</span> <span class="n">fragment</span>
+</pre></div>
+</div>
+<p>返回的是包含基本URL和片段的元组。</p>
+<div class="highlight-python"><pre>$ python urlparse_urldefrag.py
+http://netloc/path;parameters?query=argument#fragment
+http://netloc/path;parameters?query=argument
+fragment</pre>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>组装<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>有很多方法可以将URL的各个部分组合回原来的单个字符串。被解析后的URL对象有一个叫做 <tt class="docutils literal"><span class="pre">geturl()</span></tt> 的方法。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">from</span> <span class="nn">urlparse</span> <span class="k">import</span> <span class="n">urlparse</span>
+<span class="n">original</span> <span class="o">=</span> <span class="s">&#39;http://netloc/path;parameters?query=argument#fragment&#39;</span>
+<span class="k">print</span> <span class="s">&#39;ORIG :&#39;</span><span class="p">,</span> <span class="n">original</span>
+<span class="n">parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">original</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;PARSED:&#39;</span><span class="p">,</span> <span class="n">parsed</span><span class="o">.</span><span class="n">geturl</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>当然，只有urlparse或者urlsplit返回的对象才起作用。</p>
+<div class="highlight-python"><pre>$ python urlparse_geturl.py
+ORIG : http://netloc/path;parameters?query=argument#fragment
+PARSED: http://netloc/path;parameters?query=argument#fragment</pre>
+</div>
+<p>如果你有一个元组，可以使用 <tt class="docutils literal"><span class="pre">urlunparse()</span></tt> 将它组装成URL。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">from</span> <span class="nn">urlparse</span> <span class="k">import</span> <span class="n">urlparse</span><span class="p">,</span> <span class="n">urlunparse</span>
+<span class="n">original</span> <span class="o">=</span> <span class="s">&#39;http://netloc/path;parameters?query=argument#fragment&#39;</span>
+<span class="k">print</span> <span class="s">&#39;ORIG :&#39;</span><span class="p">,</span> <span class="n">original</span>
+<span class="n">parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">original</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;PARSED:&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">parsed</span><span class="p">),</span> <span class="n">parsed</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">parsed</span><span class="p">[:]</span>
+<span class="k">print</span> <span class="s">&#39;TUPLE :&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">t</span>
+<span class="k">print</span> <span class="s">&#39;NEW :&#39;</span><span class="p">,</span> <span class="n">urlunparse</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>urlparse返回的ParseResult可以当元组用，如上面的例子中，创建了一个新的元组，并且urlunparse也可以处理一般的元组。</p>
+<div class="highlight-python"><pre>$ python urlparse_urlunparse.py
+ORIG : http://netloc/path;parameters?query=argument#fragment
+PARSED: &lt;class 'urlparse.ParseResult'&gt; ('http', 'netloc', '/path', 'parameters', 'query=argument', 'fragment')
+TUPLE : &lt;type 'tuple'&gt; ('http', 'netloc', '/path', 'parameters', 'query=argument', 'fragment')
+NEW : http://netloc/path;parameters?query=argument#fragment</pre>
+</div>
+<p>如果输入的URL包含多余的部分，那么，这些部分可能会被丢弃。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">from</span> <span class="nn">urlparse</span> <span class="k">import</span> <span class="n">urlparse</span><span class="p">,</span> <span class="n">urlunparse</span>
+<span class="n">original</span> <span class="o">=</span> <span class="s">&#39;http://netloc/path;?#&#39;</span>
+<span class="k">print</span> <span class="s">&#39;ORIG :&#39;</span><span class="p">,</span> <span class="n">original</span>
+<span class="n">parsed</span> <span class="o">=</span> <span class="n">urlparse</span><span class="p">(</span><span class="n">original</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;PARSED:&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">parsed</span><span class="p">),</span> <span class="n">parsed</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">parsed</span><span class="p">[:]</span>
+<span class="k">print</span> <span class="s">&#39;TUPLE :&#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">t</span><span class="p">),</span> <span class="n">t</span>
+<span class="k">print</span> <span class="s">&#39;NEW :&#39;</span><span class="p">,</span> <span class="n">urlunparse</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>在这个例子中，原始的URL中缺少参数，查询，片段。之后产生新的URL可能和原来的不一样，但是两者是等价的。</p>
+<div class="highlight-python"><pre>$ python urlparse_urlunparseextra.py
+ORIG : http://netloc/path;?#
+PARSED: &lt;class 'urlparse.ParseResult'&gt; ('http', 'netloc', '/path', '', '', '')
+TUPLE : &lt;type 'tuple'&gt; ('http', 'netloc', '/path', '', '', '')
+NEW : http://netloc/path</pre>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>连接<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>除了解析URL之外，urlparse模块包含 <tt class="docutils literal"><span class="pre">urljoin()</span></tt> 函数。用来从关联片段中构造绝对URL。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">from</span> <span class="nn">urlparse</span> <span class="k">import</span> <span class="n">urljoin</span>
+<span class="k">print</span> <span class="n">urljoin</span><span class="p">(</span><span class="s">&#39;http://www.example.com/path/file.html&#39;</span><span class="p">,</span> <span class="s">&#39;anotherfile.html&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">urljoin</span><span class="p">(</span><span class="s">&#39;http://www.example.com/path/file.html&#39;</span><span class="p">,</span> <span class="s">&#39;../anotherfile.html&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">相对路径(&#8220;../&#8221;)被作为第二URL来计算。</p>
+</div>
+<div class="highlight-python"><pre>$ python urlparse_urljoin.py
+http://www.example.com/path/anotherfile.html
+http://www.example.com/anotherfile.html</pre>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>参考<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference" href="http://www.faqs.org/rfcs/rfc1738.html">RFC 1378</a></li>
+<li><a class="reference" href="http://www.faqs.org/rfcs/rfc2396.html">RFC 2396</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">目录</a></h3>
+            <ul>
+<li><a class="reference" href="">PyMOTW: urlparse</a><ul>
+<li><a class="reference" href="#id1">描述</a></li>
+<li><a class="reference" href="#parsing">Parsing:分解</a></li>
+<li><a class="reference" href="#id2">组装</a></li>
+<li><a class="reference" href="#id3">连接</a></li>
+<li><a class="reference" href="#id4">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>前一个主题</h4>
+            <p class="topless"><a href="shutil.html" title="前一章节">PyMOTW: shutil</a></p>
+            <h4>后一个主题</h4>
+            <p class="topless"><a href="os.path.html" title="后一章节">PyMOTW: os.path</a></p>
+            <h3>当前主题</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/urlparse.txt">显示页面源码</a></li>
+            </ul>
+          <h3>快速搜索</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="提交" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="os.path.html" title="PyMOTW: os.path"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="shutil.html" title="PyMOTW: shutil"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2008, vbarter &amp; liz.
+      使用 <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1创建.
+    </div>
+  </body>
+</html>

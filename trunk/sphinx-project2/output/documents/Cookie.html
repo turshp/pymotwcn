@@ -1,0 +1,320 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: Cookie &mdash; PyMOTW v1.0 文档</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="关于这些文档" href="../about.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="up" title="所有文档" href="index.html" />
+    <link rel="next" title="PyMOTW: base64" href="base64.html" />
+    <link rel="prev" title="PyMOTW: fnmatch" href="fnmatch.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="base64.html" title="PyMOTW: base64"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="fnmatch.html" title="PyMOTW: fnmatch"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="pymotw-cookie">
+<h1>PyMOTW: Cookie<a class="headerlink" href="#pymotw-cookie" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>模块： Cookie</li>
+<li>目的： 处理来自服务器端的HTTP cookies</li>
+<li>python版本： 2.1+</li>
+</ul>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>很久以前，Cookies就已成为HTTP协议的一部分。现有的web开发框架提供了简单的访问cookies的接口。因此，程序员几乎不用担心怎样去格式化cookies数据或者确保头的正确发送。明白cookies是怎样工作以及有哪些工作模式是很让人受启发的事情。</p>
+<p>Cookie模块实现了对cookies的解析，其大多是兼容RFC 2109的。它没有严重按照标准是因为MSIE 3.0x不支持整个标准。</p>
+</div>
+<div class="section" id="cookie">
+<h2>创建和设置Cookie<a class="headerlink" href="#cookie" title="Permalink to this headline">¶</a></h2>
+<p>Cookies可以用作状态管理, 通常被服务器存储并由客户端返回。最普通的创建cookies的用法可以如下的样子：</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">Cookie</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">Cookie</span><span class="o">.</span><span class="n">SimpleCookie</span><span class="p">()</span>
+<span class="n">c</span><span class="p">[</span><span class="s">&#39;mycookie&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;cookie_value&#39;</span>
+<span class="k">print</span> <span class="n">c</span>
+</pre></div>
+</div>
+<p>输出是一个有效的Set-Cookie头，之后会作为HTTP响应传递给客户端。</p>
+<div class="highlight-python"><pre>$ python Cookie_setheaders.py
+Set-Cookie: mycookie=cookie_value</pre>
+</div>
+</div>
+<div class="section" id="morsels">
+<h2>Morsels<a class="headerlink" href="#morsels" title="Permalink to this headline">¶</a></h2>
+<p>控制cookie的其他方面也是有必要的，比如说期限、路径、域。事实上，RFC对应的所有的cookies属性可以通过代表cookie值的Morsel对象来操作。</p>
+<div class="highlight-python"><pre>import Cookie
+import datetime
+
+def show_cookie(c):
+    print c
+    for key, morsel in c.iteritems():
+    print
+    print 'key =', morsel.key
+    print ' value =', morsel.value
+    print ' coded_value =', morsel.coded_value
+    for name in morsel.keys():
+        if morsel[name]:
+            print ' %s = %s' % (name, morsel[name])
+
+c = Cookie.SimpleCookie()
+
+# 一个cookie, 其值必须经过编码以符合头的标准.
+c['encoded_value_cookie'] = '"cookie_value"'
+c['encoded_value_cookie']['comment'] = 'Notice that this cookie value has escaped quotes'
+
+# 一个cookie, 仅适用于部分网站
+c['restricted_cookie'] = 'cookie_value'
+c['restricted_cookie']['path'] = '/sub/path'
+c['restricted_cookie']['domain'] = 'PyMOTW'
+c['restricted_cookie']['secure'] = True
+
+# 一个cookie, 期限为5分钟
+c['with_max_age'] = 'expires in 5 minutes'
+c['with_max_age']['max-age'] = 300 # seconds 以秒为单位
+
+# 一个cookie, 期限为某个指定的时间
+c['expires_at_time'] = 'cookie_value'
+expires = datetime.datetime.now() + datetime.timedelta(hours=1)
+c['expires_at_time']['expires'] = expires.strftime('%a, %d %b %Y %H:%M:%S')
+
+show_cookie(c)</pre>
+</div>
+<p>以上的例子包括了两个不同的设置cookies期限的方法。你可以设置max-age为一些秒数，或者指定一个cookie失效的时间和日期。</p>
+<div class="highlight-python"><pre>$ python Cookie_Morsel.py
+Set-Cookie: encoded_value_cookie="\"cookie_value\""; Comment=Notice that this cookie value has escaped quotes
+Set-Cookie: expires_at_time=cookie_value; expires=Sun, 01 Jun 2008 11:37:00
+Set-Cookie: restricted_cookie=cookie_value; Domain=PyMOTW; Path=/sub/path; secure
+Set-Cookie: with_max_age="expires in 5 minutes"; Max-Age=300
+
+key = restricted_cookie
+value = cookie_value
+coded_value = cookie_value
+domain = PyMOTW
+secure = True
+path = /sub/path
+
+key = with_max_age
+value = expires in 5 minutes
+coded_value = "expires in 5 minutes"
+max-age = 300
+
+key = encoded_value_cookie
+value = "cookie_value"
+coded_value = "\"cookie_value\""
+comment = Notice that this cookie value has escaped quotes
+
+key = expires_at_time
+value = cookie_value
+coded_value = cookie_value
+expires = Sun, 01 Jun 2008 11:37:00</pre>
+</div>
+<p>Cookie和Morsel对象都像是一个字典。Morsel对应以下固定的键值：</p>
+<ul class="simple">
+<li>expires 期限</li>
+<li>path 路径</li>
+<li>comment 注释</li>
+<li>domain 域</li>
+<li>max-age 最大时间</li>
+<li>secure 安全性</li>
+<li>version 版本</li>
+</ul>
+<p>一个Cookie对象的键是一些独立的会被cookie存储的名字。来自于Morsel的键属性的信息也是可用的。</p>
+</div>
+<div class="section" id="id2">
+<h2>编码后的值<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>cookie头可能会需要编码后的值以便它们被正确的解析。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">Cookie</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">Cookie</span><span class="o">.</span><span class="n">SimpleCookie</span><span class="p">()</span>
+<span class="n">c</span><span class="p">[</span><span class="s">&#39;integer&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">5</span>
+<span class="n">c</span><span class="p">[</span><span class="s">&#39;string_with_quotes&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;He said, &quot;Hello, World!&quot;&#39;</span>
+
+<span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="p">[</span><span class="s">&#39;integer&#39;</span><span class="p">,</span> <span class="s">&#39;string_with_quotes&#39;</span><span class="p">]:</span>
+    <span class="k">print</span> <span class="n">c</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">key</span>
+    <span class="k">print</span> <span class="s">&#39; </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">c</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+    <span class="k">print</span> <span class="s">&#39; value=</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">c</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">c</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39; coded_value=</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">c</span><span class="p">[</span><span class="n">name</span><span class="p">]</span><span class="o">.</span><span class="n">coded_value</span>
+    <span class="k">print</span>
+</pre></div>
+</div>
+<p>Morsel.value常常是cookie中已经被解码的值，而 <tt class="docutils literal"><span class="pre">Morsel.coded_value</span></tt> 的值是以一种符合传递给客户端要求的形式来表示的。</p>
+<div class="highlight-python"><pre>$ python Cookie_coded_value.py
+integer
+  Set-Cookie: integer=5
+  value=5 &lt;type 'str'&gt;
+  coded_value=5
+
+string_with_quotes
+  Set-Cookie: string_with_quotes="He said, \"Hello, World!\""
+  value=He said, "Hello, World!" &lt;type 'str'&gt;
+  coded_value="He said, \"Hello, World!\""</pre>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>接收和解析Cookie头<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>一旦客户端收到Set-Cookie头，它会将这些cookies在接下来的请求中作为新的Cookie头返回给服务器。那么传入的头看起来是：</p>
+<div class="highlight-python"><pre>Cookie: integer=5; string_with_quotes="He said, \"Hello, World!\""</pre>
+</div>
+<p>cookies既可以直接从HTTP响应头，或环境变量HTTP_COOKIE，这依赖于你的web服务器/框架。实例化时，将经过解码的没有头前缀的字符串传递给SimpleCookie，或者使用 <tt class="docutils literal"><span class="pre">load()</span></tt> 。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">Cookie</span>
+
+<span class="n">HTTP_COOKIE</span> <span class="o">=</span> <span class="s">r&#39;integer=5; string_with_quotes=&quot;He said, \&quot;Hello, World!\&quot;&quot;&#39;</span>
+
+<span class="k">print</span> <span class="s">&#39;From constructor:&#39;</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">Cookie</span><span class="o">.</span><span class="n">SimpleCookie</span><span class="p">(</span><span class="n">HTTP_COOKIE</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">c</span>
+
+<span class="k">print</span>
+<span class="k">print</span> <span class="s">&#39;From load():&#39;</span>
+<span class="n">c</span> <span class="o">=</span> <span class="n">Cookie</span><span class="o">.</span><span class="n">SimpleCookie</span><span class="p">()</span>
+<span class="n">c</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">HTTP_COOKIE</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">c</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python Cookie_parse.py
+From constructor:
+Set-Cookie: integer=5
+Set-Cookie: string_with_quotes="He said, \"Hello, World!\""
+
+From load():
+Set-Cookie: integer=5
+Set-Cookie: string_with_quotes="He said, \"Hello, World!\""</pre>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>选择输出格式<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>除了使用Set-Cookie头外，使用JavaScript给客户端增加cookies也是可以的。SimpleCookie和Morsel提供一种JavaScript输出格式，通过使用 <tt class="docutils literal"><span class="pre">js_output()</span></tt> 方法：</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">Cookie</span>
+
+<span class="n">c</span> <span class="o">=</span> <span class="n">Cookie</span><span class="o">.</span><span class="n">SimpleCookie</span><span class="p">()</span>
+<span class="n">c</span><span class="p">[</span><span class="s">&#39;mycookie&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;cookie_value&#39;</span>
+<span class="n">c</span><span class="p">[</span><span class="s">&#39;another_cookie&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;second value&#39;</span>
+<span class="k">print</span> <span class="n">c</span><span class="o">.</span><span class="n">js_output</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python Cookie_js_output.py
+
+ &lt;script type="text/javascript"&gt;
+ &lt;!-- begin hiding
+ document.cookie = "another_cookie="second value"";
+ // end hiding --&gt;
+ &lt;/script&gt;
+
+ &lt;script type="text/javascript"&gt;
+ &lt;!-- begin hiding
+ document.cookie = "mycookie=cookie_value";
+ // end hiding --&gt;
+ &lt;/script&gt;</pre>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>不推荐使用的类<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>上面所有的例子中都是使用的SimpleCookie类。Cookie模块也提供2个其他的类，SerialCookie和SmartCookie。SerialCookie可以处理任何可以被pickle的值。SmartCookie指明了一个值是否需要被unpickle或者是否是一个简单的值。由于他们两者都使用了pickle，他们是你应用中的潜在安全漏洞，所以你最好不要使用他们。在服务器上存贮cookie状态。然后传递给客户端一个会话key，这是更安全的。</p>
+</div>
+<div class="section" id="id6">
+<h2>参考<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference" href="http://docs.python.org/lib/module-cookielib.html">cookielib</a></li>
+<li><a class="reference" href="http://www.ietf.org/rfc/rfc2109.txt">RFC 2109, HTTP State Management Mechanism</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">目录</a></h3>
+            <ul>
+<li><a class="reference" href="">PyMOTW: Cookie</a><ul>
+<li><a class="reference" href="#id1">描述</a></li>
+<li><a class="reference" href="#cookie">创建和设置Cookie</a></li>
+<li><a class="reference" href="#morsels">Morsels</a></li>
+<li><a class="reference" href="#id2">编码后的值</a></li>
+<li><a class="reference" href="#id3">接收和解析Cookie头</a></li>
+<li><a class="reference" href="#id4">选择输出格式</a></li>
+<li><a class="reference" href="#id5">不推荐使用的类</a></li>
+<li><a class="reference" href="#id6">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>前一个主题</h4>
+            <p class="topless"><a href="fnmatch.html" title="前一章节">PyMOTW: fnmatch</a></p>
+            <h4>后一个主题</h4>
+            <p class="topless"><a href="base64.html" title="后一章节">PyMOTW: base64</a></p>
+            <h3>当前主题</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/Cookie.txt">显示页面源码</a></li>
+            </ul>
+          <h3>快速搜索</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="提交" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="base64.html" title="PyMOTW: base64"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="fnmatch.html" title="PyMOTW: fnmatch"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2008, vbarter &amp; liz.
+      使用 <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1创建.
+    </div>
+  </body>
+</html>
