@@ -84,7 +84,7 @@ os.access()模块包含了2个特殊的含义，首先，在实际使用open()�
     import os
     import stat
 
-    # 使用stat来获取权限设置的时间
+    # Determine what permissions are already set using stat
     existing_permissions = stat.S_IMODE(os.stat(__file__).st_mode)
 
     if not os.access(__file__, os.X_OK):
@@ -92,7 +92,7 @@ os.access()模块包含了2个特殊的含义，首先，在实际使用open()�
       new_permissions = existing_permissions | stat.S_IXUSR
     else:
       print 'Removing execute permission'
-      # 使用xor来删除用户的可执行权限
+      # use xor to remove the user execute permission
       new_permissions = existing_permissions ^ stat.S_IXUSR
 
     os.chmod(__file__, new_permissions)
@@ -187,7 +187,7 @@ os.walk()可以递归遍历一个目录,对于每一个目录，可以产生一�
 
     import os, sys
 
-    # 如果没有给定目录列表，那么将使用/tmp
+    # If we are not given a path to list, use /tmp
     if len(sys.argv) == 1:
       root = '/tmp'
     else:
@@ -195,12 +195,12 @@ os.walk()可以递归遍历一个目录,对于每一个目录，可以产生一�
 
     for dir_name, sub_dirs, files in os.walk(root):
       print '\n', dir_name
-      # 每个子目录名以“/”结尾
+      # Make the subdirectory names stand out with /
       sub_dirs = [ '%s/' % n for n in sub_dirs ]
-      # 子目录内容的组合
+      # Mix the directory contents together
       contents = sub_dirs + files
       contents.sort()
-      # 显示内容
+      # Show the contents
       for c in contents:
         print '\t%s' % c
 

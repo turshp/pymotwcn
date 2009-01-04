@@ -22,7 +22,6 @@
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="copyright" title="Copyright" href="../copyright.html" />
     <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
-    <link rel="up" title="所有文档" href="index.html" />
     <link rel="next" title="PyMOTW: locale" href="locale.html" />
     <link rel="prev" title="PyMOTW: bisect" href="bisect.html" /> 
   </head>
@@ -39,8 +38,7 @@
         <li class="right" >
           <a href="bisect.html" title="PyMOTW: bisect"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
       </ul>
     </div>  
     <div class="document">
@@ -92,18 +90,18 @@ DEBUG:root:This message should go to the log file</pre>
 
 <span class="n">LOG_FILENAME</span> <span class="o">=</span> <span class="s">&#39;/tmp/logging_rotatingfile_example.out&#39;</span>
 
-<span class="c"># 设置一个我们希望的输出层次的日志记录器.</span>
+<span class="c"># Set up a specific logger with our desired output level</span>
 <span class="n">my_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s">&#39;MyLogger&#39;</span><span class="p">)</span>
 <span class="n">my_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
 
-<span class="c"># 增加记录器的日志消息处理</span>
+<span class="c"># Add the log message handler to the logger</span>
 <span class="n">handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">handlers</span><span class="o">.</span><span class="n">RotatingFileHandler</span><span class="p">(</span><span class="n">LOG_FILENAME</span><span class="p">,</span> <span class="n">maxBytes</span><span class="o">=</span><span class="mf">20</span><span class="p">,</span> <span class="n">backupCount</span><span class="o">=</span><span class="mf">5</span><span class="p">)</span>
 <span class="n">my_logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mf">20</span><span class="p">):</span>
     <span class="n">my_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;i = </span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
 
-<span class="c"># 查看新创建的文件</span>
+<span class="c"># See what files are created</span>
 <span class="n">logfiles</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">*&#39;</span> <span class="o">%</span> <span class="n">LOG_FILENAME</span><span class="p">)</span>
 
 <span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">logfiles</span><span class="p">:</span>
@@ -239,8 +237,7 @@ WARNING:package2.module2:And this message comes from another module</pre>
         <li class="right" >
           <a href="bisect.html" title="PyMOTW: bisect"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

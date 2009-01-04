@@ -22,7 +22,7 @@ PyMOTW: os(4)
 
     import os
 
-    # 简单的一条命令
+    # Simple command
     os.system('ls -l')
 
 ::
@@ -47,7 +47,7 @@ PyMOTW: os(4)
 
 .. code-block:: python
 
-    # 有shell扩展的命令
+    # Command with shell expansion
     os.system('ls -l $HOME')
 
 ::

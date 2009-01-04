@@ -22,7 +22,6 @@
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="copyright" title="Copyright" href="../copyright.html" />
     <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
-    <link rel="up" title="所有文档" href="index.html" />
     <link rel="next" title="PyMOTW: linecache" href="linecache.html" />
     <link rel="prev" title="PyMOTW: StringIO and cStringIO" href="StringIO.html" /> 
   </head>
@@ -39,8 +38,7 @@
         <li class="right" >
           <a href="StringIO.html" title="PyMOTW: StringIO and cStringIO"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
       </ul>
     </div>  
     <div class="document">
@@ -64,7 +62,7 @@
 <h2>例子<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">textwrap</span>
 
-<span class="c"># Provide some sample text 提供样本文本</span>
+<span class="c"># Provide some sample text</span>
 <span class="n">sample_text</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;</span>
 
 <span class="s"> The textwrap module can be used to format text for output in situations</span>
@@ -125,7 +123,8 @@ to the paragraph wrapping or filling features found in many text editors.</pre>
 </div>
 <p>接下来，让我们看下如果我们传递非缩进格式的文本给fill()，并使用一些不同的宽度值，会发生什么。</p>
 <p>使用不同行宽值进行格式化输出:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">width</span> <span class="ow">in</span> <span class="p">[</span> <span class="mf">20</span><span class="p">,</span> <span class="mf">60</span><span class="p">,</span> <span class="mf">80</span> <span class="p">]:</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Format the output with a few different max line width values</span>
+<span class="k">for</span> <span class="n">width</span> <span class="ow">in</span> <span class="p">[</span> <span class="mf">20</span><span class="p">,</span> <span class="mf">60</span><span class="p">,</span> <span class="mf">80</span> <span class="p">]:</span>
     <span class="k">print</span>
     <span class="k">print</span> <span class="s">&#39;</span><span class="si">%d</span><span class="s"> Columns:</span><span class="se">\n</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">width</span>
     <span class="k">print</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">dedented_text</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">)</span>
@@ -160,7 +159,7 @@ pretty-printing is desired.  It offers programmatic functionality similar to the
 paragraph wrapping or filling features found in many text editors.</pre>
 </div>
 <p>除了制定输出中的宽度，你可以控制首行缩进，他独立于接下来的行。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># 演示怎样去产生悬挂缩进</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Demonstrate how to produce a hanging indent</span>
 <span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">Hanging indent:</span><span class="se">\n</span><span class="s">&#39;</span>
 <span class="k">print</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">dedented_text</span><span class="p">,</span> <span class="n">initial_indent</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">subsequent_indent</span><span class="o">=</span><span class="s">&#39;    &#39;</span><span class="p">)</span>
 </pre></div>
@@ -229,8 +228,7 @@ The textwrap module can be used to format text for output in
         <li class="right" >
           <a href="StringIO.html" title="PyMOTW: StringIO and cStringIO"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

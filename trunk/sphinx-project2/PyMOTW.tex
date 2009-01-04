@@ -16,11 +16,11 @@
 %\usepackage{CJKutf8}
 
 %标题控制
-\usepackage[indentafter]{titlesec}
-\titleformat{\chapter}[hang]{\huge\filcenter}{\thechapter}{1em}{}[\thispagestyle{empty}]
-\titlespacing{\chapter}{0pt}{-21pt}{18pt}
+%\usepackage[indentafter]{titlesec}
+%\titleformat{\chapter}[hang]{\huge\filcenter}{\thechapter}{1em}{}[\thispagestyle{empty}]
+%\titlespacing{\chapter}{0pt}{-21pt}{18pt}
 %\renewcommand{\chaptermark}[1]{\markboth{#1}{}}
-\renewcommand\contentsname{目录}
+%\renewcommand\contentsname{目录}
 
 %verbatim设置, 解决注释中中文不可见情况
 %\usepackage{xeCJK} % way one
@@ -36,8 +36,8 @@
 \title{PyMOTW 文档}
 \date{January 03, 2009}
 \release{1.0}
-\author{作者: Doug Hellmann \\译者:  蔡俊杰, 盛艳}
-%\footnotetext{翻译: 蔡俊杰, 盛艳}
+\author{作者: Doug Hellmann\footnote{Doug Hellmann<doug.hellmann@gmail.com>} \\译者:  蔡俊杰\footnote{蔡俊杰<yzcaijunjie@gmail.com>}, 盛艳\footnote{盛艳<shengyan1985@gmail.com>}}
+%\footnotetext{Doug Hellmann<doug.hellmann@gmail.com>}
 \newcommand{\sphinxlogo}{}
 %\renewcommand{\releasename}{Release}
 \renewcommand{\releasename}{版本}
@@ -224,11 +224,11 @@ Queue提供了FIFO功能，一般常用于多线程编程，它可以在生产�
 首先，需要创建一些运行参数，通常这些来自用户输入(可以任何东西，比如参数，数据库)，在我们的例子中，我们硬编码几个值。
 
 \begin{Verbatim}[commandchars=@\[\]]
-@PYGaD[@# 设置两个全局变量]
+@PYGaD[@# Set up some global variables]
 num@_fetch@_threads @PYGbe[=] @PYGaw[2]
 enclosure@_queue @PYGbe[=] Queue()
 
-@PYGaD[@# 实际情况中，一般不使用硬编码数据]
+@PYGaD[@# A real app wouldn't use hard-coded data...]
 feed@_urls @PYGbe[=] @lb[] @PYGad[']@PYGad[http://www.castsampler.com/cast/feed/rss/guest]@PYGad['],@rb[]
 \end{Verbatim}
 
@@ -236,13 +236,16 @@ feed@_urls @PYGbe[=] @lb[] @PYGad[']@PYGad[http://www.castsampler.com/cast/feed/
 
 \begin{Verbatim}[commandchars=@\[\]]
 @PYGay[def] @PYGaK[downloadEnclosures](i, q):
-  @PYGas["""这是一个工作线程函数.它按队列中的先后次序来处理各个项. 这个守护进程将进入一个无限循环, 当主线程退出时它才退出]
+  @PYGas["""This is the worker thread function.]
+@PYGas[  It processes items in the queue one after another.]
+@PYGas[  These daemon threads go into an infinite loop,]
+@PYGas[  and only exit when the main thread ends.]
 @PYGas[  """]
   @PYGay[while] @PYGaA[True]:
     @PYGay[print] @PYGad[']@PYGbf[@%s]@PYGad[: Looking for the next enclosure]@PYGad['] @PYGbe[@%] i
     url @PYGbe[=] q@PYGbe[.]get()
     @PYGay[print] @PYGad[']@PYGbf[@%s]@PYGad[: Downloading:]@PYGad['] @PYGbe[@%] i, url
-    time@PYGbe[.]sleep(i @PYGbe[+] @PYGaw[2]) @PYGaD[@# 这里只是模拟，不是实际下载]
+    time@PYGbe[.]sleep(i @PYGbe[+] @PYGaw[2]) @PYGaD[@# instead of really downloading the URL, we just pretend]
 
     q@PYGbe[.]task@_done()
 \end{Verbatim}
@@ -250,7 +253,7 @@ feed@_urls @PYGbe[=] @lb[] @PYGad[']@PYGad[http://www.castsampler.com/cast/feed/
 一旦定义好目标函数，我们就可以启动工作线程。注意，函数downloadEnclosures()在“url = q.get()”会阻塞，直到队列有东西返回，因此，当队列中有东西时，启动线程总是安全的。
 
 \begin{Verbatim}[commandchars=@\[\]]
-@PYGaD[@# 建立多个线程去抓取内容]
+@PYGaD[@# Set up some threads to fetch the enclosures]
 @PYGay[for] i @PYGan[in] @PYGaX[range](num@_fetch@_threads):
   worker @PYGbe[=] Thread(target@PYGbe[=]downloadEnclosures, args@PYGbe[=](i, enclosure@_queue,))
   worker@PYGbe[.]setDaemon(@PYGaA[True])
@@ -260,7 +263,7 @@ feed@_urls @PYGbe[=] @lb[] @PYGad[']@PYGad[http://www.castsampler.com/cast/feed/
 现在，我们开始检索feed的内容（使用Mark Pilgrim的 \href{http://www.feedparser.org/}{feedparser} 模块）和一个url集合。当第一个url添加到队列后，一个工作线程即可选择它并启动下载。循环将继续运行并添加相应的feed，直到全部加完，工作线程将轮流取出url去下载它们。
 
 \begin{Verbatim}[commandchars=@\[\]]
-@PYGaD[@# 下载feed，并且把url添加到队列中]
+@PYGaD[@# Download the feed(s) and put the enclosure URLs into the queue.]
 @PYGay[for] url @PYGan[in] feed@_urls:
   response @PYGbe[=] feedparser@PYGbe[.]parse(url, agent@PYGbe[=]@PYGad[']@PYGad[fetch@_podcasts.py]@PYGad['])
   @PYGay[for] entry @PYGan[in] response@lb[]@PYGad[']@PYGad[entries]@PYGad[']@rb[]:
@@ -272,7 +275,8 @@ feed@_urls @PYGbe[=] @lb[] @PYGad[']@PYGad[http://www.castsampler.com/cast/feed/
 剩下就可以等待队列为空。
 
 \begin{Verbatim}[commandchars=@\[\]]
-@PYGaD[@# 等待队列为空, 表明我们已经处理完所有下载。]
+@PYGaD[@# Now wait for the queue to be empty, indicating that we have]
+@PYGaD[@# processed all of the downloads.]
 @PYGay[print] @PYGad[']@PYGad[*** Main thread waiting]@PYGad[']
 enclosure@_queue@PYGbe[.]join()
 @PYGay[print] @PYGad[']@PYGad[*** Done]@PYGad[']
@@ -336,30 +340,30 @@ python版本：StringIO: 1.4+, cStringIO: 1.5+
 @PYGaD[@#!/usr/bin/env python]
 
 @PYGas["""]
-@PYGas[使用StringIO模块简单的例子]
+@PYGas[Simple examples with StringIO module]
 @PYGas["""]
 
-@PYGaD[@# 找到此平台上最好的StringIO实现模块]
+@PYGaD[@# Find the best implementation available on this platform]
 
 @PYGay[try]:
     @PYGay[from] @PYGaV[cStringIO] @PYGay[import] StringIO
 @PYGay[except]:
     @PYGay[from] @PYGaV[StringIO] @PYGay[import] StringIO
 
-@PYGaD[@# 写入一个缓冲区]
+@PYGaD[@# Writing to a buffer]
 output @PYGbe[=] StringIO()
-output@PYGbe[.]write(@PYGad[']@PYGad[This goes into the buffer. ]@PYGad[']) @PYGaD[@#@#write方法将字符串写入缓冲区]
+output@PYGbe[.]write(@PYGad[']@PYGad[This goes into the buffer. ]@PYGad['])
 
-@PYGay[print] @PYGbe[@textgreater[]@textgreater[]]output, @PYGad[']@PYGad[And so does this.]@PYGad['] @PYGaD[@#@#print 语句将字符串写入output]
-@PYGaD[@# 查询刚才被写入缓冲区的值]
+@PYGay[print] @PYGbe[@textgreater[]@textgreater[]]output, @PYGad[']@PYGad[And so does this.]@PYGad[']
+@PYGaD[@# Retrieve the value written]
 @PYGay[print] output@PYGbe[.]getvalue()
 
-output@PYGbe[.]close() @PYGaD[@# 关闭(丢弃)缓冲区]
+output@PYGbe[.]close() @PYGaD[@# discard buffer memory]
 
-@PYGaD[@# 初始化一个只读缓冲区]
+@PYGaD[@# Initialize a read buffer]
 @PYGaX[input] @PYGbe[=] StringIO(@PYGad[']@PYGad[Inital value for read buffer]@PYGad['])
 
-@PYGaD[@# 从缓冲区中读取数据]
+@PYGaD[@# Read from the buffer]
 @PYGay[print] @PYGaX[input]@PYGbe[.]read()
 \end{Verbatim}
 
@@ -409,7 +413,7 @@ textwrap模块可以用来格式化文本，使其在某些场合输出更美观
 \begin{Verbatim}[commandchars=@\[\]]
 @PYGay[import] @PYGaV[textwrap]
 
-@PYGaD[@# Provide some sample text 提供样本文本]
+@PYGaD[@# Provide some sample text]
 sample@_text @PYGbe[=] @PYGad[''']
 
 @PYGad[ The textwrap module can be used to format text for output in situations]
@@ -485,6 +489,7 @@ to the paragraph wrapping or filling features found in many text editors.
 使用不同行宽值进行格式化输出:
 
 \begin{Verbatim}[commandchars=@\[\]]
+@PYGaD[@# Format the output with a few different max line width values]
 @PYGay[for] width @PYGan[in] @lb[] @PYGaw[20], @PYGaw[60], @PYGaw[80] @rb[]:
     @PYGay[print]
     @PYGay[print] @PYGad[']@PYGbf[@%d]@PYGad[ Columns:]@PYGao[\n]@PYGad['] @PYGbe[@%] width
@@ -532,7 +537,7 @@ paragraph wrapping or filling features found in many text editors.
 除了制定输出中的宽度，你可以控制首行缩进，他独立于接下来的行。
 
 \begin{Verbatim}[commandchars=@\[\]]
-@PYGaD[@# 演示怎样去产生悬挂缩进]
+@PYGaD[@# Demonstrate how to produce a hanging indent]
 @PYGay[print] @PYGad[']@PYGao[\n]@PYGad[Hanging indent:]@PYGao[\n]@PYGad[']
 @PYGay[print] textwrap@PYGbe[.]fill(dedented@_text, initial@_indent@PYGbe[=]@PYGad[']@PYGad['], subsequent@_indent@PYGbe[=]@PYGad[']@PYGad[    ]@PYGad['])
 \end{Verbatim}
@@ -606,7 +611,7 @@ lorem @PYGbe[=] @PYGad[''']@PYGad[Lorem ipsum dolor sit amet, consectetuer adipi
 
 @PYGad[sagittis porttitor eros.]@PYGad[''']
 
-@PYGaD[@# 创建一个临时文件]
+@PYGaD[@# Create a temporary text file with some text in it]
 fd, temp@_file@_name @PYGbe[=] tempfile@PYGbe[.]mkstemp()
 
 os@PYGbe[.]close(fd)
@@ -621,8 +626,8 @@ f @PYGbe[=] @PYGaX[open](temp@_file@_name, @PYGad[']@PYGad[wt]@PYGad['])
 现在我们有了一个可用的临时文件，让我们更深入一步。从文件中读取的第5行是单一行。注意，在linecache中的行号是从1开始的。但是我们自己对字符串进行分割，那么索引号是从0开始。我们还需要从缓冲中返回的值进行过滤去除换行符。
 
 \begin{Verbatim}[commandchars=@\[\]]
-@PYGaD[@# 原始形式和cache方式提取统一行。]
-@PYGaD[@# 注意linecache计算从1开始。]
+@PYGaD[@# Pick out the same line from source and cache.]
+@PYGaD[@# (Notice that linecache counts from 1)]
 @PYGay[print] @PYGad[']@PYGad[SOURCE: ]@PYGad['], lorem@PYGbe[.]split(@PYGad[']@PYGao[\n]@PYGad['])@lb[]@PYGaw[4]@rb[]
 @PYGay[print] @PYGad[']@PYGad[CACHE : ]@PYGad['], linecache@PYGbe[.]getline(temp@_file@_name, @PYGaw[5])@PYGbe[.]rstrip()
 \end{Verbatim}
@@ -630,14 +635,16 @@ f @PYGbe[=] @PYGaX[open](temp@_file@_name, @PYGad[']@PYGad[wt]@PYGad['])
 下一步看下，如果我们需要的行为空将会发生什么。
 
 \begin{Verbatim}[commandchars=@\[\]]
-@PYGaD[@# 新的一行中为空行。]
+@PYGaD[@# Blank lines include the newline]
 @PYGay[print] @PYGad[']@PYGao[\n]@PYGad[BLANK : ]@PYGad["]@PYGbf[@%s]@PYGad["]@PYGad['] @PYGbe[@%] linecache@PYGbe[.]getline(temp@_file@_name, @PYGaw[6])
 \end{Verbatim}
 
 如果请求的行号超过了文件中有效行号的范围，那么linecache会返回一个空字符串。
 
 \begin{Verbatim}[commandchars=@\[\]]
-@PYGaD[@# cache总会返回一个字符串，如果字符串为空即标明指代的行是不存在的。]
+@PYGaD[@# The cache always returns a string, and uses]
+@PYGaD[@# an empty string to indicate a line which does]
+@PYGaD[@# not exist.]
 not@_there @PYGbe[=] linecache@PYGbe[.]getline(temp@_file@_name, @PYGaw[500])
 @PYGay[print] @PYGad[']@PYGao[\n]@PYGad[NOT THERE: ]@PYGad["]@PYGbf[@%s]@PYGad["]@PYGad[ includes ]@PYGbf[@%d]@PYGad[ characters]@PYGad['] @PYGbe[@%]  (not@_there, @PYGaX[len](not@_there))
 \end{Verbatim}
@@ -645,7 +652,7 @@ not@_there @PYGbe[=] linecache@PYGbe[.]getline(temp@_file@_name, @PYGaw[500])
 即使这个文件不存在，模块也不会抛出任何异常。
 
 \begin{Verbatim}[commandchars=@\[\]]
-@PYGaD[@# 即使linecache不能找到这个文件，Error也会被隐藏掉。]
+@PYGaD[@# Errors are even hidden if linecache cannot find the file]
 no@_such@_file @PYGbe[=] linecache@PYGbe[.]getline(@PYGad[']@PYGad[this@_file@_does@_not@_exist.txt]@PYGad['], @PYGaw[1])
 @PYGay[print] @PYGad[']@PYGao[\n]@PYGad[NO FILE: ]@PYGad['], no@_such@_file
 \end{Verbatim}
@@ -653,7 +660,8 @@ no@_such@_file @PYGbe[=] linecache@PYGbe[.]getline(@PYGad[']@PYGad[this@_file@_d
 虽然linecache模块经常用在输出tracebacks上，另一个重要特性是可以通过指定模块名在sys.path中寻找python模块源码。如果在当前路径中无法找到文件，那么linecache中的缓冲直接搜索sys.path中的模块。
 
 \begin{Verbatim}[commandchars=@\[\]]
-@PYGaD[@# 利用内置子的sys.path，查询linecache中的模块名]
+@PYGaD[@# Look for the linecache module, using]
+@PYGaD[@# the built in sys.path search.]
 module@_line @PYGbe[=] linecache@PYGbe[.]getline(@PYGad[']@PYGad[linecache.py]@PYGad['], @PYGaw[3])
 @PYGay[print] @PYGad[']@PYGao[\n]@PYGad[MODULE : ]@PYGad['], module@_line
 \end{Verbatim}
@@ -713,9 +721,13 @@ bisect模块实现了一个算法，用于向一个有序列表中插入一个�
 @PYGay[import] @PYGaV[bisect]
 @PYGay[import] @PYGaV[random]
 
-@PYGaD[@# 设置一个常数种子, 这在以后的循环中, 产生同样的伪随机数]
+@PYGaD[@# Use a constant seed to ensure that we see]
+@PYGaD[@# the same pseudo-random numbers each time]
+@PYGaD[@# we run the loop.]
 random@PYGbe[.]seed(@PYGaw[1])
-@PYGaD[@# 产生20个随机数, 并依次插入到有序列表中]
+@PYGaD[@# Generate 20 random numbers and]
+@PYGaD[@# insert them into a list in sorted]
+@PYGaD[@# order.]
 l @PYGbe[=] @lb[]@rb[]
 @PYGay[for] i @PYGan[in] @PYGaX[range](@PYGaw[1], @PYGaw[20]):
     r @PYGbe[=] random@PYGbe[.]randint(@PYGaw[1], @PYGaw[100])
@@ -757,10 +769,10 @@ l @PYGbe[=] @lb[]@rb[]
 如果我们使用bisect\_left()和bisect\_right()来处理同样的数据，那么最后获得的list是相同的，只是中间插入的位置会有不同。
 
 \begin{Verbatim}[commandchars=@\[\]]
-@PYGaD[@# 重设种子]
+@PYGaD[@# Reset the seed]
 random@PYGbe[.]seed(@PYGaw[1])
 
-@PYGaD[@# 使用bisect@_left 和 insort@_left]
+@PYGaD[@# Use bisect@_left and insort@_left.]
 l @PYGbe[=] @lb[]@rb[]
 @PYGay[for] i @PYGan[in] @PYGaX[range](@PYGaw[1], @PYGaw[20]):
     r @PYGbe[=] random@PYGbe[.]randint(@PYGaw[1], @PYGaw[100])
@@ -864,18 +876,18 @@ DEBUG:root:This message should go to the log file
 
 LOG@_FILENAME @PYGbe[=] @PYGad[']@PYGad[/tmp/logging@_rotatingfile@_example.out]@PYGad[']
 
-@PYGaD[@# 设置一个我们希望的输出层次的日志记录器.]
+@PYGaD[@# Set up a specific logger with our desired output level]
 my@_logger @PYGbe[=] logging@PYGbe[.]getLogger(@PYGad[']@PYGad[MyLogger]@PYGad['])
 my@_logger@PYGbe[.]setLevel(logging@PYGbe[.]DEBUG)
 
-@PYGaD[@# 增加记录器的日志消息处理]
+@PYGaD[@# Add the log message handler to the logger]
 handler @PYGbe[=] logging@PYGbe[.]handlers@PYGbe[.]RotatingFileHandler(LOG@_FILENAME, maxBytes@PYGbe[=]@PYGaw[20], backupCount@PYGbe[=]@PYGaw[5])
 my@_logger@PYGbe[.]addHandler(handler)
 
 @PYGay[for] i @PYGan[in] @PYGaX[range](@PYGaw[20]):
     my@_logger@PYGbe[.]debug(@PYGad[']@PYGad[i = ]@PYGbf[@%d]@PYGad['] @PYGbe[@%] i)
 
-@PYGaD[@# 查看新创建的文件]
+@PYGaD[@# See what files are created]
 logfiles @PYGbe[=] glob@PYGbe[.]glob(@PYGad[']@PYGbf[@%s]@PYGad[*]@PYGad['] @PYGbe[@%] LOG@_FILENAME)
 
 @PYGay[for] filename @PYGan[in] logfiles:
@@ -1022,14 +1034,14 @@ locale模块是Python国际化和本地化支持库的一部分. 他提供一种
 @PYGay[for] env@_name @PYGan[in] @lb[] @PYGad[']@PYGad[LC@_ALL]@PYGad['], @PYGad[']@PYGad[LC@_CTYPE]@PYGad['], @PYGad[']@PYGad[LANG]@PYGad['], @PYGad[']@PYGad[LANGUAGE]@PYGad['] @rb[]:
     @PYGay[print] @PYGad[']@PYGao[\t]@PYGbf[@%s]@PYGad[ = ]@PYGbf[@%s]@PYGad['] @PYGbe[@%] (env@_name, os@PYGbe[.]environ@PYGbe[.]get(env@_name, @PYGad[']@PYGad[']))
 
-@PYGaD[@# What is the default locale?默认的本地设置是什么?]
+@PYGaD[@# What is the default locale?]
 @PYGay[print]
 @PYGay[print] @PYGad[']@PYGad[Default locale:]@PYGad['], locale@PYGbe[.]getdefaultlocale()
 
-@PYGaD[@# Default settings based on the user's environment.根据用户的环境做些默认设置]
+@PYGaD[@# Default settings based on the user's environment.]
 locale@PYGbe[.]setlocale(locale@PYGbe[.]LC@_ALL, @PYGad[']@PYGad['])
 
-@PYGaD[@# If we do not have a locale, assume US English.如果没有本地设置, 假设为US English]
+@PYGaD[@# If we do not have a locale, assume US English.]
 @PYGay[print] @PYGad[']@PYGad[From environment:]@PYGad['], locale@PYGbe[.]getlocale()
 
 pprint@PYGbe[.]pprint(locale@PYGbe[.]localeconv())
@@ -1763,7 +1775,7 @@ os.stat(os@_stat.py):
 @PYGay[import] @PYGaV[os]
 @PYGay[import] @PYGaV[stat]
 
-@PYGaD[@# 使用stat来获取权限设置的时间]
+@PYGaD[@# Determine what permissions are already set using stat]
 existing@_permissions @PYGbe[=] stat@PYGbe[.]S@_IMODE(os@PYGbe[.]stat(@_@_file@_@_)@PYGbe[.]st@_mode)
 
 @PYGay[if] @PYGan[not] os@PYGbe[.]access(@_@_file@_@_, os@PYGbe[.]X@_OK):
@@ -1771,7 +1783,7 @@ existing@_permissions @PYGbe[=] stat@PYGbe[.]S@_IMODE(os@PYGbe[.]stat(@_@_file@_
   new@_permissions @PYGbe[=] existing@_permissions @PYGbe[|] stat@PYGbe[.]S@_IXUSR
 @PYGay[else]:
   @PYGay[print] @PYGad[']@PYGad[Removing execute permission]@PYGad[']
-  @PYGaD[@# 使用xor来删除用户的可执行权限]
+  @PYGaD[@# use xor to remove the user execute permission]
   new@_permissions @PYGbe[=] existing@_permissions @PYGbe[@textasciicircum[]] stat@PYGbe[.]S@_IXUSR
 
 os@PYGbe[.]chmod(@_@_file@_@_, new@_permissions)
@@ -1865,7 +1877,7 @@ os.walk()可以递归遍历一个目录,对于每一个目录，可以产生一�
 \begin{Verbatim}[commandchars=@\[\]]
 @PYGay[import] @PYGaV[os]@PYGbe[,] @PYGaV[sys]
 
-@PYGaD[@# 如果没有给定目录列表，那么将使用/tmp]
+@PYGaD[@# If we are not given a path to list, use /tmp]
 @PYGay[if] @PYGaX[len](sys@PYGbe[.]argv) @PYGbe[==] @PYGaw[1]:
   root @PYGbe[=] @PYGad[']@PYGad[/tmp]@PYGad[']
 @PYGay[else]:
@@ -1873,12 +1885,12 @@ os.walk()可以递归遍历一个目录,对于每一个目录，可以产生一�
 
 @PYGay[for] dir@_name, sub@_dirs, files @PYGan[in] os@PYGbe[.]walk(root):
   @PYGay[print] @PYGad[']@PYGao[\n]@PYGad['], dir@_name
-  @PYGaD[@# 每个子目录名以“/”结尾]
+  @PYGaD[@# Make the subdirectory names stand out with /]
   sub@_dirs @PYGbe[=] @lb[] @PYGad[']@PYGbf[@%s]@PYGad[/]@PYGad['] @PYGbe[@%] n @PYGay[for] n @PYGan[in] sub@_dirs @rb[]
-  @PYGaD[@# 子目录内容的组合]
+  @PYGaD[@# Mix the directory contents together]
   contents @PYGbe[=] sub@_dirs @PYGbe[+] files
   contents@PYGbe[.]sort()
-  @PYGaD[@# 显示内容]
+  @PYGaD[@# Show the contents]
   @PYGay[for] c @PYGan[in] contents:
     @PYGay[print] @PYGad[']@PYGao[\t]@PYGbf[@%s]@PYGad['] @PYGbe[@%] c
 \end{Verbatim}
@@ -1954,7 +1966,7 @@ os.walk()可以递归遍历一个目录,对于每一个目录，可以产生一�
 \begin{Verbatim}[commandchars=@\[\]]
 @PYGay[import] @PYGaV[os]
 
-@PYGaD[@# 简单的一条命令]
+@PYGaD[@# Simple command]
 os@PYGbe[.]system(@PYGad[']@PYGad[ls -l]@PYGad['])
 \end{Verbatim}
 
@@ -1979,7 +1991,7 @@ total 168
 由于命令是直接被传递到处理shell中,所以它可以包含shell语法,比如通配符或环境变量:
 
 \begin{Verbatim}[commandchars=@\[\]]
-@PYGaD[@# 有shell扩展的命令]
+@PYGaD[@# Command with shell expansion]
 os@PYGbe[.]system(@PYGad[']@PYGad[ls -l @$HOME]@PYGad['])
 \end{Verbatim}
 
@@ -2381,19 +2393,19 @@ data@PYGbe[.]append(SimpleObject(@PYGad[']@PYGad[pickle]@PYGad[']))
 data@PYGbe[.]append(SimpleObject(@PYGad[']@PYGad[cPickle]@PYGad[']))
 data@PYGbe[.]append(SimpleObject(@PYGad[']@PYGad[last]@PYGad[']))
 
-@PYGaD[@# 使用StringIO来模拟一个文件]
+@PYGaD[@# Simulate a file with StringIO]
 out@_s @PYGbe[=] StringIO()
 
-@PYGaD[@# 写入到流中]
+@PYGaD[@# Write to the stream]
 @PYGay[for] o @PYGan[in] data:
    @PYGay[print] @PYGad[']@PYGad[WRITING: ]@PYGbf[@%s]@PYGad[ (]@PYGbf[@%s]@PYGad[)]@PYGad['] @PYGbe[@%] (o@PYGbe[.]name, o@PYGbe[.]name@_backwards)
    pickle@PYGbe[.]dump(o, out@_s)
    out@_s@PYGbe[.]flush()
 
-@PYGaD[@# 设置可读流]
+@PYGaD[@# Set up a read-able stream]
 in@_s @PYGbe[=] StringIO(out@_s@PYGbe[.]getvalue())
 
-@PYGaD[@# 读取数据]
+@PYGaD[@# Read the data]
 @PYGay[while] @PYGaA[True]:
    @PYGay[try]:
       o @PYGbe[=] pickle@PYGbe[.]load(in@_s)
@@ -2446,7 +2458,7 @@ if @_@_name@_@_ == '@_@_main@_@_':
       raise RuntimeError('Please specify a filename as an argument to @%s' @% sys.argv@PYGZlb[]0@PYGZrb[])
    out@_s = open(filename, 'wb')
    try:
-      @# 写入到流中
+      @# Write to the stream
       for o in data:
          print 'WRITING: @%s (@%s)' @% (o.name, o.name@_backwards)
          pickle.dump(o, out@_s)
@@ -2481,7 +2493,7 @@ WRITING: last (tsal)
 
 in@_s @PYGbe[=] @PYGaX[open](filename, @PYGad[']@PYGad[rb]@PYGad['])
 @PYGay[try]:
-   @PYGaD[@# 读取数据]
+   @PYGaD[@# Read the data]
    @PYGay[while] @PYGaA[True]:
       @PYGay[try]:
          o @PYGbe[=] pickle@PYGbe[.]load(in@_s)
@@ -3915,7 +3927,7 @@ Link Exists?: True
             @PYGay[print] @PYGad[']@PYGad[ ]@PYGbf[@%s]@PYGad[/]@PYGad['] @PYGbe[@%] name
         @PYGay[else]:
             @PYGay[print] @PYGad[']@PYGad[ ]@PYGbf[@%s]@PYGad['] @PYGbe[@%] name
-    @PYGaD[@# 不递归遍历.svn目录]
+    @PYGaD[@# Do not recurse into .svn directory]
     @PYGay[if] @PYGad[']@PYGad[.svn]@PYGad['] @PYGan[in] names:
         names@PYGbe[.]remove(@PYGad[']@PYGad[.svn]@PYGad['])
     @PYGay[print]
@@ -4015,7 +4027,7 @@ time()函数返回的是现实世界的时间，而clock()函数返回的是cpu�
 @PYGay[import] @PYGaV[hashlib]
 @PYGay[import] @PYGaV[time]
 
-@PYGaD[@# 用于计算md5校验和的数据]
+@PYGaD[@# Data to use to calculate md5 checksums]
 data @PYGbe[=] @PYGaX[open](@_@_file@_@_, @PYGad[']@PYGad[rt]@PYGad['])@PYGbe[.]read()
 
 @PYGay[for] i @PYGan[in] @PYGaX[range](@PYGaw[5]):
@@ -5137,21 +5149,21 @@ def show@_cookie(c):
 
 c = Cookie.SimpleCookie()
 
-@# 一个cookie, 其值必须经过编码以符合头的标准.
+@# A cookie with a value that has to be encoded to fit into the header
 c@PYGZlb[]'encoded@_value@_cookie'@PYGZrb[] = '"cookie@_value"'
 c@PYGZlb[]'encoded@_value@_cookie'@PYGZrb[]@PYGZlb[]'comment'@PYGZrb[] = 'Notice that this cookie value has escaped quotes'
 
-@# 一个cookie, 仅适用于部分网站
+@# A cookie that only applies to part of a site
 c@PYGZlb[]'restricted@_cookie'@PYGZrb[] = 'cookie@_value'
 c@PYGZlb[]'restricted@_cookie'@PYGZrb[]@PYGZlb[]'path'@PYGZrb[] = '/sub/path'
 c@PYGZlb[]'restricted@_cookie'@PYGZrb[]@PYGZlb[]'domain'@PYGZrb[] = 'PyMOTW'
 c@PYGZlb[]'restricted@_cookie'@PYGZrb[]@PYGZlb[]'secure'@PYGZrb[] = True
 
-@# 一个cookie, 期限为5分钟
+@# A cookie that expires in 5 minutes
 c@PYGZlb[]'with@_max@_age'@PYGZrb[] = 'expires in 5 minutes'
-c@PYGZlb[]'with@_max@_age'@PYGZrb[]@PYGZlb[]'max-age'@PYGZrb[] = 300 @# seconds 以秒为单位
+c@PYGZlb[]'with@_max@_age'@PYGZrb[]@PYGZlb[]'max-age'@PYGZrb[] = 300 @# seconds
 
-@# 一个cookie, 期限为某个指定的时间
+@# A cookie that expires at a specific time
 c@PYGZlb[]'expires@_at@_time'@PYGZrb[] = 'cookie@_value'
 expires = datetime.datetime.now() + datetime.timedelta(hours=1)
 c@PYGZlb[]'expires@_at@_time'@PYGZrb[]@PYGZlb[]'expires'@PYGZrb[] = expires.strftime('@%a, @%d @%b @%Y @%H:@%M:@%S')
@@ -5805,7 +5817,7 @@ SMTP最常用的方法是连接服务器并发送一封邮件，在构造器中�
 @PYGay[import] @PYGaV[email.utils]
 @PYGay[from] @PYGaV[email.mime.text] @PYGay[import] MIMEText
 
-@PYGaD[@# Create the message创建消息]
+@PYGaD[@# Create the message]
 msg @PYGbe[=] MIMEText(@PYGad[']@PYGad[This is the body of the message.]@PYGad['])
 msg@lb[]@PYGad[']@PYGad[To]@PYGad[']@rb[] @PYGbe[=] email@PYGbe[.]utils@PYGbe[.]formataddr((@PYGad[']@PYGad[Recipient]@PYGad['], @PYGad[']@PYGad[recipient@at[]example.com]@PYGad[']))
 msg@lb[]@PYGad[']@PYGad[From]@PYGad[']@rb[] @PYGbe[=] email@PYGbe[.]utils@PYGbe[.]formataddr((@PYGad[']@PYGad[Author]@PYGad['], @PYGad[']@PYGad[author@at[]example.com]@PYGad[']))
@@ -5876,13 +5888,13 @@ SMTP同样可以处理认证和TLS(一种底层通讯的安全协议)加密。�
 @PYGay[from] @PYGaV[email.mime.text] @PYGay[import] MIMEText
 @PYGay[import] @PYGaV[getpass]
 
-@PYGaD[@# Prompt the user for connection info提示用户输入连接信息]
+@PYGaD[@# Prompt the user for connection info]
 to@_email @PYGbe[=] @PYGaX[raw@_input](@PYGad[']@PYGad[Recipient: ]@PYGad['])
 servername @PYGbe[=] @PYGaX[raw@_input](@PYGad[']@PYGad[Mail server name: ]@PYGad['])
 username @PYGbe[=] @PYGaX[raw@_input](@PYGad[']@PYGad[Mail user name: ]@PYGad['])
 password @PYGbe[=] getpass@PYGbe[.]getpass(@PYGad["]@PYGbf[@%s]@PYGad[']@PYGad[s password: ]@PYGad["] @PYGbe[@%] username)
 
-@PYGaD[@# Create the message创建信息]
+@PYGaD[@# Create the message]
 msg @PYGbe[=] MIMEText(@PYGad[']@PYGad[Test message from PyMOTW.]@PYGad['])
 msg@PYGbe[.]set@_unixfrom(@PYGad[']@PYGad[author]@PYGad['])
 msg@lb[]@PYGad[']@PYGad[To]@PYGad[']@rb[] @PYGbe[=] email@PYGbe[.]utils@PYGbe[.]formataddr((@PYGad[']@PYGad[Recipient]@PYGad['], to@_email))
@@ -5893,13 +5905,13 @@ server @PYGbe[=] smtplib@PYGbe[.]SMTP(servername)
 @PYGay[try]:
     server@PYGbe[.]set@_debuglevel(@PYGaA[True])
 
-    @PYGaD[@# identify ourselves, prompting server for supported features标识自己身份,确定服务器支持的特征]
+    @PYGaD[@# identify ourselves, prompting server for supported features]
     server@PYGbe[.]ehlo()
 
-    @PYGaD[@# If we can encrypt this session, do it如果我们可以加密这个会话,就进行]
+    @PYGaD[@# If we can encrypt this session, do it]
     @PYGay[if] server@PYGbe[.]has@_extn(@PYGad[']@PYGad[STARTTLS]@PYGad[']):
          server@PYGbe[.]starttls()
-         server@PYGbe[.]ehlo() @PYGaD[@# re-identify ourselves over TLS connection再次标识身份通过TLS连接]
+         server@PYGbe[.]ehlo() @PYGaD[@# re-identify ourselves over TLS connection]
 
     server@PYGbe[.]login(username, password)
     server@PYGbe[.]sendmail(@PYGad[']@PYGad[author@at[]example.com]@PYGad['], @lb[]to@_email@rb[], msg@PYGbe[.]as@_string())
@@ -5976,7 +5988,7 @@ SMTP协议包含一个命令可以询问服务器一个邮件地址是否合法�
 @PYGay[import] @PYGaV[smtplib]
 
 server @PYGbe[=] smtplib@PYGbe[.]SMTP(@PYGad[']@PYGad[mail]@PYGad['])
-server@PYGbe[.]set@_debuglevel(@PYGaA[True]) @PYGaD[@# show communication with the server显示与服务器的通信情况]
+server@PYGbe[.]set@_debuglevel(@PYGaA[True]) @PYGaD[@# show communication with the server]
 @PYGay[try]:
     dhellmann@_result @PYGbe[=] server@PYGbe[.]verify(@PYGad[']@PYGad[dhellmann]@PYGad['])
     notthere@_result @PYGbe[=] server@PYGbe[.]verify(@PYGad[']@PYGad[notthere]@PYGad['])
@@ -6738,17 +6750,17 @@ Iterator: @PYGZlb[](0, 0), (1, 1), (2, 2), (3, 3), (4, 4),
 a @PYGbe[=] array@PYGbe[.]array(@PYGad[']@PYGad[i]@PYGad['], @PYGaX[xrange](@PYGaw[5]))
 @PYGay[print] @PYGad[']@PYGad[A1:]@PYGad['], a
 
-@PYGaD[@# 将一个数字数组写入到文件中]
+@PYGaD[@# Write the array of numbers to the file]
 output @PYGbe[=] tempfile@PYGbe[.]NamedTemporaryFile()
-a@PYGbe[.]tofile(output@PYGbe[.]file) @PYGaD[@# 应该传递一个真实的文件]
+a@PYGbe[.]tofile(output@PYGbe[.]file) @PYGaD[@# must pass an *actual* file]
 output@PYGbe[.]flush()
 
-@PYGaD[@# 读取原数据]
+@PYGaD[@# Read the raw data]
 @PYGaX[input] @PYGbe[=] @PYGaX[open](output@PYGbe[.]name, @PYGad[']@PYGad[rb]@PYGad['])
 raw@_data @PYGbe[=] @PYGaX[input]@PYGbe[.]read()
 @PYGay[print] @PYGad[']@PYGad[Raw Contents:]@PYGad['], binascii@PYGbe[.]hexlify(raw@_data)
 
-@PYGaD[@# 将数据读取并存入数组中]
+@PYGaD[@# Read the data into an array]
 @PYGaX[input]@PYGbe[.]seek(@PYGaw[0])
 a2 @PYGbe[=] array@PYGbe[.]array(@PYGad[']@PYGad[i]@PYGad['])
 a2@PYGbe[.]fromfile(@PYGaX[input], @PYGaX[len](a))
@@ -6775,7 +6787,7 @@ A2: array('i', @PYGZlb[]0, 1, 2, 3, 4@PYGZrb[])
 @PYGay[import] @PYGaV[binascii]
 
 @PYGay[def] @PYGaK[to@_hex](a):
-    chars@_per@_item @PYGbe[=] a@PYGbe[.]itemsize @PYGbe[*] @PYGaw[2] @PYGaD[@# 2 hex digits 2位十六进制数字]
+    chars@_per@_item @PYGbe[=] a@PYGbe[.]itemsize @PYGbe[*] @PYGaw[2] @PYGaD[@# 2 hex digits]
     hex@_version @PYGbe[=] binascii@PYGbe[.]hexlify(a)
     num@_chunks @PYGbe[=] @PYGaX[len](hex@_version) @PYGbe[/] chars@_per@_item
     @PYGay[for] i @PYGan[in] @PYGaX[xrange](num@_chunks):
@@ -6813,247 +6825,6 @@ fmt @PYGbe[=] @PYGad[']@PYGbf[@%10s]@PYGad[ ]@PYGbf[@%10s]@PYGad[ ]@PYGbf[@%10s]
 
 \item {} 
 \href{http://www.scipy.org/}{Numerical Python} NumPy是Python针对大数据集的有效处理模块。
-
-\end{itemize}
-
-time模块是利用了c函数来处理日期和时间 ，也就是说它绑定了c的实现，一些特定的细节（比如纪元的开始时间、日期的最大值）是和平台相关的，具体可以参考 \href{http://docs.python.org/lib/module-time.html}{这里} 。
-
-
-\section{Wall Clock Time}
-
-time模块的核心函数之一就是time.time()函数，它返回一个自公元开始的总秒数（浮点型）。
-
-本工具包含三个文件：
-
-\begin{Verbatim}[commandchars=@\[\]]
-@PYGay[import] @PYGaV[time]
-@PYGay[print] @PYGad[']@PYGad[The time is:]@PYGad['], time@PYGbe[.]time()
-\end{Verbatim}
-
-虽然返回的值是浮点型，但精度是依赖于不同的系统平台的。
-
-\begin{Verbatim}[commandchars=@\[\]]
-@$ python time@_time.py
-The time is: 1205079300.54
-\end{Verbatim}
-
-当存储和比较日期时，浮点型一般是很有用的，但这种方式不易阅读，为了更有用的记录和输出时间可以使用time.ctime()。
-
-\begin{Verbatim}[commandchars=@\[\]]
-@PYGay[import] @PYGaV[time]
-@PYGay[print] @PYGad[']@PYGad[The time is      :]@PYGad['], time@PYGbe[.]ctime()
-later @PYGbe[=] time@PYGbe[.]time() @PYGbe[+] @PYGaw[15]
-@PYGay[print] @PYGad[']@PYGad[15 secs from now :]@PYGad['], time@PYGbe[.]ctime(later)
-\end{Verbatim}
-
-上面第二行示范了如何来利用ctime()函数对当前时间进行格式化。
-
-\begin{Verbatim}[commandchars=@\[\]]
-@$ python time@_ctime.py
-The time is      : Sun Mar  9 12:18:02 2008
-15 secs from now : Sun Mar  9 12:18:17 2008
-\end{Verbatim}
-
-
-\section{处理器时钟}
-
-time()函数返回的是现实世界的时间，而clock()函数返回的是cpu时钟。clock()函数返回值常用作性能测试，benchmarking等。它们常常反映了程序运行的真实时间，比time()函数返回的值要精确。
-
-\begin{Verbatim}[commandchars=@\[\]]
-@PYGay[import] @PYGaV[hashlib]
-@PYGay[import] @PYGaV[time]
-
-@PYGaD[@# 用于计算md5校验和的数据]
-data @PYGbe[=] @PYGaX[open](@_@_file@_@_, @PYGad[']@PYGad[rt]@PYGad['])@PYGbe[.]read()
-
-@PYGay[for] i @PYGan[in] @PYGaX[range](@PYGaw[5]):
-    h @PYGbe[=] hashlib@PYGbe[.]sha1()
-    @PYGay[print] time@PYGbe[.]ctime(), @PYGad[']@PYGad[: ]@PYGbf[@%0.3f]@PYGad[ ]@PYGbf[@%0.3f]@PYGad['] @PYGbe[@%] (time@PYGbe[.]time(), time@PYGbe[.]clock())
-    @PYGay[for] i @PYGan[in] @PYGaX[range](@PYGaw[100000]):
-        h@PYGbe[.]update(data)
-    cksum @PYGbe[=] h@PYGbe[.]digest()
-\end{Verbatim}
-
-在这个例子中，ctime()把time()函数返回的浮点型表示转化为标准时间，每个迭代循环使用了clock()。如果想在机器上测试这个例子，那么可以增加循环次数，或者处理大一点的数据，这样才能看到不同点。
-
-\begin{Verbatim}[commandchars=@\[\]]
-@$ python time@_clock.py
-Sun Mar  9 12:41:53 2008 : 1205080913.260 0.030
-Sun Mar  9 12:41:53 2008 : 1205080913.682 0.440
-Sun Mar  9 12:41:54 2008 : 1205080914.103 0.860
-Sun Mar  9 12:41:54 2008 : 1205080914.518 1.270
-Sun Mar  9 12:41:54 2008 : 1205080914.932 1.680
-\end{Verbatim}
-
-一般，如果程序没有做任何事情，处理器时钟是不会计时。
-
-\begin{Verbatim}[commandchars=@\[\]]
-@PYGay[import] @PYGaV[time]
-
-@PYGay[for] i @PYGan[in] @PYGaX[range](@PYGaw[6], @PYGaw[1], @PYGbe[-]@PYGaw[1]):
-    @PYGay[print] @PYGad[']@PYGbf[@%s]@PYGad[ ]@PYGbf[@%0.2f]@PYGad[ ]@PYGbf[@%0.2f]@PYGad['] @PYGbe[@%] (time@PYGbe[.]ctime(), time@PYGbe[.]time(), time@PYGbe[.]clock())
-    @PYGay[print] @PYGad[']@PYGad[Sleeping]@PYGad['], i
-    time@PYGbe[.]sleep(i)
-\end{Verbatim}
-
-在这个例子中，每次迭代，循环中处理了很少的任务就进入了sleep，当进程在睡眠中时，time.time()函数的返回值依然会增加。但是time.clock()是不会增加的。
-
-\begin{Verbatim}[commandchars=@\[\]]
-@$ python time@_clock@_sleep.py
-Sun Mar  9 12:46:36 2008 1205081196.20 0.02
-Sleeping 6
-Sun Mar  9 12:46:42 2008 1205081202.20 0.02
-Sleeping 5
-Sun Mar  9 12:46:47 2008 1205081207.20 0.02
-Sleeping 4
-Sun Mar  9 12:46:51 2008 1205081211.20 0.02
-Sleeping 3
-Sun Mar  9 12:46:54 2008 1205081214.21 0.02
-Sleeping 2
-\end{Verbatim}
-
-time.sleep函数控制当前的线程，让它等待直到系统重新唤醒它，如果应用中只有一个线程，那么它会阻塞当前进程，使其不做任何事情。
-
-
-\section{struct\_time}
-
-某些时候，使用逝去的秒数来表示时间是很有用的。有时候你需要获取日期的单独部分（如年、月等等），time模块定义了struct\_time来存储日期和时间值并作为其部分以便获取。提供了多种函数将struct\_time转化为float。
-
-\begin{Verbatim}[commandchars=@\[\]]
-@PYGay[import] @PYGaV[time]
-
-@PYGay[print] @PYGad[']@PYGad[gmtime   :]@PYGad['], time@PYGbe[.]gmtime()
-@PYGay[print] @PYGad[']@PYGad[localtime:]@PYGad['], time@PYGbe[.]localtime()
-@PYGay[print] @PYGad[']@PYGad[mktime   :]@PYGad['], time@PYGbe[.]mktime(time@PYGbe[.]localtime())
-
-@PYGay[print]
-t @PYGbe[=] time@PYGbe[.]localtime()
-@PYGay[print] @PYGad[']@PYGad[Day of month:]@PYGad['], t@PYGbe[.]tm@_mday
-@PYGay[print] @PYGad[']@PYGad[ Day of week:]@PYGad['], t@PYGbe[.]tm@_wday
-@PYGay[print] @PYGad[']@PYGad[ Day of year:]@PYGad['], t@PYGbe[.]tm@_yday
-\end{Verbatim}
-
-gmtime()返回当前的UTC时间，localtime()返回当前时间域的当前时间，mktime()接收struct\_time参数并将其转化为浮点型来表示。
-
-\begin{Verbatim}[commandchars=@\[\]]
-@$ python time@_struct.py
-gmtime   : (2008, 3, 9, 16, 58, 19, 6, 69, 0)
-localtime: (2008, 3, 9, 12, 58, 19, 6, 69, 1)
-mktime   : 1205081899.0
-
-Day of month: 9
-Day of week: 6
-Day of year: 69
-\end{Verbatim}
-
-
-\section{解析和格式化时间}
-
-函数strptime()和strftime()可以使struct\_time和时间值字符串相互转化。有一个很长的格式化说明列表可以用来支持输入和输出不同的风格。完整的列表在time模块的的库文档中有介绍。
-
-下面示例把当前时间（字符串)转化为struct\_time实例，然后再转化为字符串。
-
-\begin{Verbatim}[commandchars=@\[\]]
-@PYGay[import] @PYGaV[time]
-
-now @PYGbe[=] time@PYGbe[.]ctime()
-@PYGay[print] now
-parsed @PYGbe[=] time@PYGbe[.]strptime(now)
-@PYGay[print] parsed
-@PYGay[print] time@PYGbe[.]strftime(@PYGad["]@PYGad[@%]@PYGad[a ]@PYGad[@%]@PYGad[b ]@PYGbf[@%d]@PYGad[ ]@PYGad[@%]@PYGad[H:]@PYGad[@%]@PYGad[M:]@PYGad[@%]@PYGad[S ]@PYGad[@%]@PYGad[Y]@PYGad["], parsed)
-\end{Verbatim}
-
-输出和输入字符串不是完全的一致，主要表现在月份前加了一个0前缀。
-
-\begin{Verbatim}[commandchars=@\[\]]
-@$ python time@_strptime.py
-Sun Mar  9 13:01:19 2008
-(2008, 3, 9, 13, 1, 19, 6, 69, -1)
-Sun Mar 09 13:01:19 2008
-\end{Verbatim}
-
-
-\section{使用Time Zone(时区)}
-
-无论是你的程序，还是为系统使用一个默认的时区，检测当前时间的函数依赖于当前Time Zone（时间域)的设置。改变时区设置是不会改变实际时间，只会改变表示时间的方法。
-
-通过设置环境变量TZ可以改变时区，然后调用tzset()。环境变量TZ可以对时区来详细的设置，比如白天保存时间的起始点。通常使用时区名称是比较简单的，如果需要了解更多信息可以参考库。
-
-下面这个示例改变了time zone中的一些值，展示了这种改变如何来影响time模块中的其它设置。
-
-\begin{Verbatim}[commandchars=@\[\]]
-@PYGay[import] @PYGaV[time]
-@PYGay[import] @PYGaV[os]
-
-@PYGay[def] @PYGaK[show@_zone@_info]():
-    @PYGay[print] @PYGad[']@PYGao[\t]@PYGad[TZ    :]@PYGad['], os@PYGbe[.]environ@PYGbe[.]get(@PYGad[']@PYGad[TZ]@PYGad['], @PYGad[']@PYGad[(not set)]@PYGad['])
-    @PYGay[print] @PYGad[']@PYGao[\t]@PYGad[tzname:]@PYGad['], time@PYGbe[.]tzname
-    @PYGay[print] @PYGad[']@PYGao[\t]@PYGad[Zone  : ]@PYGbf[@%d]@PYGad[ (]@PYGbf[@%d]@PYGad[)]@PYGad['] @PYGbe[@%] (time@PYGbe[.]timezone, (time@PYGbe[.]timezone @PYGbe[/] @PYGaw[3600]))
-    @PYGay[print] @PYGad[']@PYGao[\t]@PYGad[DST   :]@PYGad['], time@PYGbe[.]daylight
-    @PYGay[print] @PYGad[']@PYGao[\t]@PYGad[Time  :]@PYGad['], time@PYGbe[.]ctime()
-    @PYGay[print]
-
-@PYGay[print] @PYGad[']@PYGad[Default :]@PYGad[']
-show@_zone@_info()
-
-@PYGay[for] zone @PYGan[in] @lb[] @PYGad[']@PYGad[US/Eastern]@PYGad['], @PYGad[']@PYGad[US/Pacific]@PYGad['], @PYGad[']@PYGad[GMT]@PYGad['], @PYGad[']@PYGad[Europe/Amsterdam]@PYGad['] @rb[]:
-    os@PYGbe[.]environ@lb[]@PYGad[']@PYGad[TZ]@PYGad[']@rb[] @PYGbe[=] zone
-    time@PYGbe[.]tzset()
-    @PYGay[print] zone, @PYGad[']@PYGad[:]@PYGad[']
-    show@_zone@_info()
-\end{Verbatim}
-
-我的时区是US/Eastern，所以设置TZ不会起作用。如果是其它时区，则会改变tzname、daylight flag以及 timezone偏移值。
-
-\begin{Verbatim}[commandchars=@\[\]]
-@$ python time@_timezone.py
-Default :
-  TZ    : (not set)
-  tzname: ('EST', 'EDT')
-  Zone  : 18000 (5)
-  DST   : 1
-  Time  : Sun Mar  9 13:06:53 2008
-
-US/Eastern :
-  TZ    : US/Eastern
-  tzname: ('EST', 'EDT')
-  Zone  : 18000 (5)
-  DST   : 1
-  Time  : Sun Mar  9 13:06:53 2008
-
-US/Pacific :
-  TZ    : US/Pacific
-  tzname: ('PST', 'PDT')
-  Zone  : 28800 (8)
-  DST   : 1
-  Time  : Sun Mar  9 10:06:53 2008
-
-GMT :
-  TZ    : GMT
-  tzname: ('GMT', 'GMT')
-  Zone  : 0 (0)
-  DST   : 0
-  Time  : Sun Mar  9 17:06:53 2008
-
-Europe/Amsterdam :
-  TZ    : Europe/Amsterdam
-  tzname: ('CET', 'CEST')
-  Zone  : -3600 (-1)
-  DST   : 1
-  Time  : Sun Mar  9 18:06:53 2008
-\end{Verbatim}
-
-
-\section{参考}
-\begin{itemize}
-\item {} 
-\href{http://docs.python.org/lib/module-datetime.html}{datetime module}
-
-\item {} 
-\href{http://docs.python.org/lib/module-locale.html}{locale module}
-
-\item {} 
-\href{http://docs.python.org/lib/module-calendar.html}{calendar module}
 
 \end{itemize}
 
