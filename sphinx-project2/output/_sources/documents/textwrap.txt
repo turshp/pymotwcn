@@ -20,7 +20,7 @@ textwrap模块可以用来格式化文本，使其在某些场合输出更美观
 
     import textwrap
 
-    # Provide some sample text 提供样本文本
+    # Provide some sample text
     sample_text = '''
 
      The textwrap module can be used to format text for output in situations
@@ -96,6 +96,7 @@ fill()将文本作为输入，格式化文本作为输出。让我们看下面�
 
 .. code-block:: python
 
+    # Format the output with a few different max line width values
     for width in [ 20, 60, 80 ]:
         print
         print '%d Columns:\n' % width
@@ -143,7 +144,7 @@ fill()将文本作为输入，格式化文本作为输出。让我们看下面�
 
 .. code-block:: python
 
-    # 演示怎样去产生悬挂缩进
+    # Demonstrate how to produce a hanging indent
     print '\nHanging indent:\n'
     print textwrap.fill(dedented_text, initial_indent='', subsequent_indent='    ')
 

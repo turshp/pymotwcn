@@ -63,7 +63,7 @@ time()函数返回的是现实世界的时间，而clock()函数返回的是cpu�
     import hashlib
     import time
 
-    # 用于计算md5校验和的数据
+    # Data to use to calculate md5 checksums
     data = open(__file__, 'rt').read()
 
     for i in range(5):

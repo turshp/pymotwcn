@@ -22,7 +22,6 @@
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="copyright" title="Copyright" href="../copyright.html" />
     <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
-    <link rel="up" title="所有文档" href="index.html" />
     <link rel="next" title="PyMOTW: os" href="os.html" />
     <link rel="prev" title="PyMOTW: logging" href="logging.html" /> 
   </head>
@@ -39,8 +38,7 @@
         <li class="right" >
           <a href="logging.html" title="PyMOTW: logging"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
       </ul>
     </div>  
     <div class="document">
@@ -72,14 +70,14 @@
 <span class="k">for</span> <span class="n">env_name</span> <span class="ow">in</span> <span class="p">[</span> <span class="s">&#39;LC_ALL&#39;</span><span class="p">,</span> <span class="s">&#39;LC_CTYPE&#39;</span><span class="p">,</span> <span class="s">&#39;LANG&#39;</span><span class="p">,</span> <span class="s">&#39;LANGUAGE&#39;</span> <span class="p">]:</span>
     <span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="si">%s</span><span class="s"> = </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">env_name</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">env_name</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">))</span>
 
-<span class="c"># What is the default locale?默认的本地设置是什么?</span>
+<span class="c"># What is the default locale?</span>
 <span class="k">print</span>
 <span class="k">print</span> <span class="s">&#39;Default locale:&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">.</span><span class="n">getdefaultlocale</span><span class="p">()</span>
 
-<span class="c"># Default settings based on the user&#39;s environment.根据用户的环境做些默认设置</span>
+<span class="c"># Default settings based on the user&#39;s environment.</span>
 <span class="n">locale</span><span class="o">.</span><span class="n">setlocale</span><span class="p">(</span><span class="n">locale</span><span class="o">.</span><span class="n">LC_ALL</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
 
-<span class="c"># If we do not have a locale, assume US English.如果没有本地设置, 假设为US English</span>
+<span class="c"># If we do not have a locale, assume US English.</span>
 <span class="k">print</span> <span class="s">&#39;From environment:&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">.</span><span class="n">getlocale</span><span class="p">()</span>
 
 <span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">locale</span><span class="o">.</span><span class="n">localeconv</span><span class="p">())</span>
@@ -358,8 +356,7 @@ Poland: ndz 20 maj 10:19:54 2007</pre>
         <li class="right" >
           <a href="logging.html" title="PyMOTW: logging"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

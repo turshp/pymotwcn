@@ -22,7 +22,6 @@
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="copyright" title="Copyright" href="../copyright.html" />
     <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
-    <link rel="up" title="所有文档" href="index.html" />
     <link rel="next" title="PyMOTW: bisect" href="bisect.html" />
     <link rel="prev" title="PyMOTW: textwrap" href="textwrap.html" /> 
   </head>
@@ -39,8 +38,7 @@
         <li class="right" >
           <a href="textwrap.html" title="PyMOTW: textwrap"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
       </ul>
     </div>  
     <div class="document">
@@ -83,7 +81,7 @@
 
 <span class="s">sagittis porttitor eros.&#39;&#39;&#39;</span>
 
-<span class="c"># 创建一个临时文件</span>
+<span class="c"># Create a temporary text file with some text in it</span>
 <span class="n">fd</span><span class="p">,</span> <span class="n">temp_file_name</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkstemp</span><span class="p">()</span>
 
 <span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span>
@@ -96,31 +94,34 @@
 </pre></div>
 </div>
 <p>现在我们有了一个可用的临时文件，让我们更深入一步。从文件中读取的第5行是单一行。注意，在linecache中的行号是从1开始的。但是我们自己对字符串进行分割，那么索引号是从0开始。我们还需要从缓冲中返回的值进行过滤去除换行符。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># 原始形式和cache方式提取统一行。</span>
-<span class="c"># 注意linecache计算从1开始。</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Pick out the same line from source and cache.</span>
+<span class="c"># (Notice that linecache counts from 1)</span>
 <span class="k">print</span> <span class="s">&#39;SOURCE: &#39;</span><span class="p">,</span> <span class="n">lorem</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)[</span><span class="mf">4</span><span class="p">]</span>
 <span class="k">print</span> <span class="s">&#39;CACHE : &#39;</span><span class="p">,</span> <span class="n">linecache</span><span class="o">.</span><span class="n">getline</span><span class="p">(</span><span class="n">temp_file_name</span><span class="p">,</span> <span class="mf">5</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
 </pre></div>
 </div>
 <p>下一步看下，如果我们需要的行为空将会发生什么。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># 新的一行中为空行。</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Blank lines include the newline</span>
 <span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">BLANK : &quot;</span><span class="si">%s</span><span class="s">&quot;&#39;</span> <span class="o">%</span> <span class="n">linecache</span><span class="o">.</span><span class="n">getline</span><span class="p">(</span><span class="n">temp_file_name</span><span class="p">,</span> <span class="mf">6</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>如果请求的行号超过了文件中有效行号的范围，那么linecache会返回一个空字符串。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># cache总会返回一个字符串，如果字符串为空即标明指代的行是不存在的。</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># The cache always returns a string, and uses</span>
+<span class="c"># an empty string to indicate a line which does</span>
+<span class="c"># not exist.</span>
 <span class="n">not_there</span> <span class="o">=</span> <span class="n">linecache</span><span class="o">.</span><span class="n">getline</span><span class="p">(</span><span class="n">temp_file_name</span><span class="p">,</span> <span class="mf">500</span><span class="p">)</span>
 <span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">NOT THERE: &quot;</span><span class="si">%s</span><span class="s">&quot; includes </span><span class="si">%d</span><span class="s"> characters&#39;</span> <span class="o">%</span>  <span class="p">(</span><span class="n">not_there</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">not_there</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>即使这个文件不存在，模块也不会抛出任何异常。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># 即使linecache不能找到这个文件，Error也会被隐藏掉。</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Errors are even hidden if linecache cannot find the file</span>
 <span class="n">no_such_file</span> <span class="o">=</span> <span class="n">linecache</span><span class="o">.</span><span class="n">getline</span><span class="p">(</span><span class="s">&#39;this_file_does_not_exist.txt&#39;</span><span class="p">,</span> <span class="mf">1</span><span class="p">)</span>
 <span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">NO FILE: &#39;</span><span class="p">,</span> <span class="n">no_such_file</span>
 </pre></div>
 </div>
 <p>虽然linecache模块经常用在输出tracebacks上，另一个重要特性是可以通过指定模块名在sys.path中寻找python模块源码。如果在当前路径中无法找到文件，那么linecache中的缓冲直接搜索sys.path中的模块。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># 利用内置子的sys.path，查询linecache中的模块名</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Look for the linecache module, using</span>
+<span class="c"># the built in sys.path search.</span>
 <span class="n">module_line</span> <span class="o">=</span> <span class="n">linecache</span><span class="o">.</span><span class="n">getline</span><span class="p">(</span><span class="s">&#39;linecache.py&#39;</span><span class="p">,</span> <span class="mf">3</span><span class="p">)</span>
 <span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">MODULE : &#39;</span><span class="p">,</span> <span class="n">module_line</span>
 </pre></div>
@@ -196,8 +197,7 @@ MODULE :  This is intended to read lines from modules imported -- hence if a fil
         <li class="right" >
           <a href="textwrap.html" title="PyMOTW: textwrap"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

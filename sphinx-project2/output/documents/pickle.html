@@ -22,7 +22,6 @@
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="copyright" title="Copyright" href="../copyright.html" />
     <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
-    <link rel="up" title="所有文档" href="index.html" />
     <link rel="next" title="PyMOTW: glob" href="glob.html" />
     <link rel="prev" title="PyMOTW: os(4)" href="os4.html" /> 
   </head>
@@ -39,8 +38,7 @@
         <li class="right" >
           <a href="os4.html" title="PyMOTW: os(4)"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
       </ul>
     </div>  
     <div class="document">
@@ -145,19 +143,19 @@ EQUAL?: True</pre>
 <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SimpleObject</span><span class="p">(</span><span class="s">&#39;cPickle&#39;</span><span class="p">))</span>
 <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SimpleObject</span><span class="p">(</span><span class="s">&#39;last&#39;</span><span class="p">))</span>
 
-<span class="c"># 使用StringIO来模拟一个文件</span>
+<span class="c"># Simulate a file with StringIO</span>
 <span class="n">out_s</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
 
-<span class="c"># 写入到流中</span>
+<span class="c"># Write to the stream</span>
 <span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
    <span class="k">print</span> <span class="s">&#39;WRITING: </span><span class="si">%s</span><span class="s"> (</span><span class="si">%s</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">name_backwards</span><span class="p">)</span>
    <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">out_s</span><span class="p">)</span>
    <span class="n">out_s</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
 
-<span class="c"># 设置可读流</span>
+<span class="c"># Set up a read-able stream</span>
 <span class="n">in_s</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="n">out_s</span><span class="o">.</span><span class="n">getvalue</span><span class="p">())</span>
 
-<span class="c"># 读取数据</span>
+<span class="c"># Read the data</span>
 <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
    <span class="k">try</span><span class="p">:</span>
       <span class="n">o</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">in_s</span><span class="p">)</span>
@@ -204,7 +202,7 @@ if __name__ == '__main__':
       raise RuntimeError('Please specify a filename as an argument to %s' % sys.argv[0])
    out_s = open(filename, 'wb')
    try:
-      # 写入到流中
+      # Write to the stream
       for o in data:
          print 'WRITING: %s (%s)' % (o.name, o.name_backwards)
          pickle.dump(o, out_s)
@@ -233,7 +231,7 @@ WRITING: last (tsal)</pre>
 
 <span class="n">in_s</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span>
 <span class="k">try</span><span class="p">:</span>
-   <span class="c"># 读取数据</span>
+   <span class="c"># Read the data</span>
    <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
       <span class="k">try</span><span class="p">:</span>
          <span class="n">o</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">in_s</span><span class="p">)</span>
@@ -319,8 +317,7 @@ READ: last (tsal)</pre>
         <li class="right" >
           <a href="os4.html" title="PyMOTW: os(4)"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

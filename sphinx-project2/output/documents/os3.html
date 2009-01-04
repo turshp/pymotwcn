@@ -22,7 +22,6 @@
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="copyright" title="Copyright" href="../copyright.html" />
     <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
-    <link rel="up" title="所有文档" href="index.html" />
     <link rel="next" title="PyMOTW: os(4)" href="os4.html" />
     <link rel="prev" title="PyMOTW: os(2)" href="os2.html" /> 
   </head>
@@ -39,8 +38,7 @@
         <li class="right" >
           <a href="os2.html" title="PyMOTW: os(2)"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
       </ul>
     </div>  
     <div class="document">
@@ -112,7 +110,7 @@ os.stat(os_stat.py):
 <div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">os</span>
 <span class="k">import</span> <span class="nn">stat</span>
 
-<span class="c"># 使用stat来获取权限设置的时间</span>
+<span class="c"># Determine what permissions are already set using stat</span>
 <span class="n">existing_permissions</span> <span class="o">=</span> <span class="n">stat</span><span class="o">.</span><span class="n">S_IMODE</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">__file__</span><span class="p">)</span><span class="o">.</span><span class="n">st_mode</span><span class="p">)</span>
 
 <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">access</span><span class="p">(</span><span class="n">__file__</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">X_OK</span><span class="p">):</span>
@@ -120,7 +118,7 @@ os.stat(os_stat.py):
   <span class="n">new_permissions</span> <span class="o">=</span> <span class="n">existing_permissions</span> <span class="o">|</span> <span class="n">stat</span><span class="o">.</span><span class="n">S_IXUSR</span>
 <span class="k">else</span><span class="p">:</span>
   <span class="k">print</span> <span class="s">&#39;Removing execute permission&#39;</span>
-  <span class="c"># 使用xor来删除用户的可执行权限</span>
+  <span class="c"># use xor to remove the user execute permission</span>
   <span class="n">new_permissions</span> <span class="o">=</span> <span class="n">existing_permissions</span> <span class="o">^</span> <span class="n">stat</span><span class="o">.</span><span class="n">S_IXUSR</span>
 
 <span class="n">os</span><span class="o">.</span><span class="n">chmod</span><span class="p">(</span><span class="n">__file__</span><span class="p">,</span> <span class="n">new_permissions</span><span class="p">)</span>
@@ -199,7 +197,7 @@ Points to: os_symlinks.py</pre>
 <p>os.walk()可以递归遍历一个目录,对于每一个目录，可以产生一个包含目录路径、当前路径的子目录列表，以及在子目录中的文件，以下示例展示了一个遍历目录的简单方法：</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">sys</span>
 
-<span class="c"># 如果没有给定目录列表，那么将使用/tmp</span>
+<span class="c"># If we are not given a path to list, use /tmp</span>
 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mf">1</span><span class="p">:</span>
   <span class="n">root</span> <span class="o">=</span> <span class="s">&#39;/tmp&#39;</span>
 <span class="k">else</span><span class="p">:</span>
@@ -207,12 +205,12 @@ Points to: os_symlinks.py</pre>
 
 <span class="k">for</span> <span class="n">dir_name</span><span class="p">,</span> <span class="n">sub_dirs</span><span class="p">,</span> <span class="n">files</span> <span class="ow">in</span> <span class="n">os</span><span class="o">.</span><span class="n">walk</span><span class="p">(</span><span class="n">root</span><span class="p">):</span>
   <span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">dir_name</span>
-  <span class="c"># 每个子目录名以“/”结尾</span>
+  <span class="c"># Make the subdirectory names stand out with /</span>
   <span class="n">sub_dirs</span> <span class="o">=</span> <span class="p">[</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">/&#39;</span> <span class="o">%</span> <span class="n">n</span> <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">sub_dirs</span> <span class="p">]</span>
-  <span class="c"># 子目录内容的组合</span>
+  <span class="c"># Mix the directory contents together</span>
   <span class="n">contents</span> <span class="o">=</span> <span class="n">sub_dirs</span> <span class="o">+</span> <span class="n">files</span>
   <span class="n">contents</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
-  <span class="c"># 显示内容</span>
+  <span class="c"># Show the contents</span>
   <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">contents</span><span class="p">:</span>
     <span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">c</span>
 </pre></div>
@@ -312,8 +310,7 @@ Points to: os_symlinks.py</pre>
         <li class="right" >
           <a href="os2.html" title="PyMOTW: os(2)"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

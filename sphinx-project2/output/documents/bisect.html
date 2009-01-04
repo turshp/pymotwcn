@@ -22,7 +22,6 @@
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="copyright" title="Copyright" href="../copyright.html" />
     <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
-    <link rel="up" title="所有文档" href="index.html" />
     <link rel="next" title="PyMOTW: logging" href="logging.html" />
     <link rel="prev" title="PyMOTW: linecache" href="linecache.html" /> 
   </head>
@@ -39,8 +38,7 @@
         <li class="right" >
           <a href="linecache.html" title="PyMOTW: linecache"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
       </ul>
     </div>  
     <div class="document">
@@ -66,9 +64,13 @@
 <div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">bisect</span>
 <span class="k">import</span> <span class="nn">random</span>
 
-<span class="c"># 设置一个常数种子, 这在以后的循环中, 产生同样的伪随机数</span>
+<span class="c"># Use a constant seed to ensure that we see</span>
+<span class="c"># the same pseudo-random numbers each time</span>
+<span class="c"># we run the loop.</span>
 <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span>
-<span class="c"># 产生20个随机数, 并依次插入到有序列表中</span>
+<span class="c"># Generate 20 random numbers and</span>
+<span class="c"># insert them into a list in sorted</span>
+<span class="c"># order.</span>
 <span class="n">l</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span> <span class="mf">20</span><span class="p">):</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span> <span class="mf">100</span><span class="p">)</span>
@@ -102,10 +104,10 @@
 <p>这是一个很简单的示例，我们处理的速度由于列表规模小以及每次只需排序一次, 变的非常快速。但对于一个很长的list，利用这种方法能得到时间和内存上的节省。</p>
 <p>你可能会注意到上述结果中存在一些重复值（45和77）.bisect模块提供了2种方法来处理重复，新值可以插入到已经存在值的左边或者右边。对应的是 insort_right()函数，可以将值插入已有值的后面（右边），insort_left()函数可以插入到之前（左边）。</p>
 <p>如果我们使用bisect_left()和bisect_right()来处理同样的数据，那么最后获得的list是相同的，只是中间插入的位置会有不同。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># 重设种子</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Reset the seed</span>
 <span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mf">1</span><span class="p">)</span>
 
-<span class="c"># 使用bisect_left 和 insort_left</span>
+<span class="c"># Use bisect_left and insort_left.</span>
 <span class="n">l</span> <span class="o">=</span> <span class="p">[]</span>
 <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span> <span class="mf">20</span><span class="p">):</span>
     <span class="n">r</span> <span class="o">=</span> <span class="n">random</span><span class="o">.</span><span class="n">randint</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span> <span class="mf">100</span><span class="p">)</span>
@@ -190,8 +192,7 @@
         <li class="right" >
           <a href="linecache.html" title="PyMOTW: linecache"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

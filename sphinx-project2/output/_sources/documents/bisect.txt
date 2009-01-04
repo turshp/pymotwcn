@@ -24,9 +24,13 @@ bisect模块实现了一个算法，用于向一个有序列表中插入一个�
     import bisect
     import random
 
-    # 设置一个常数种子, 这在以后的循环中, 产生同样的伪随机数
+    # Use a constant seed to ensure that we see
+    # the same pseudo-random numbers each time
+    # we run the loop.
     random.seed(1)
-    # 产生20个随机数, 并依次插入到有序列表中
+    # Generate 20 random numbers and
+    # insert them into a list in sorted
+    # order.
     l = []
     for i in range(1, 20):
         r = random.randint(1, 100)
@@ -68,10 +72,10 @@ bisect模块实现了一个算法，用于向一个有序列表中插入一个�
 
 .. code-block:: python
 
-    # 重设种子
+    # Reset the seed
     random.seed(1)
 
-    # 使用bisect_left 和 insort_left
+    # Use bisect_left and insort_left.
     l = []
     for i in range(1, 20):
         r = random.randint(1, 100)

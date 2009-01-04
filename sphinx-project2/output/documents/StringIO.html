@@ -22,7 +22,6 @@
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="copyright" title="Copyright" href="../copyright.html" />
     <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
-    <link rel="up" title="所有文档" href="index.html" />
     <link rel="next" title="PyMOTW: textwrap" href="textwrap.html" />
     <link rel="prev" title="PyMOTW: Queue" href="queue.html" /> 
   </head>
@@ -39,8 +38,7 @@
         <li class="right" >
           <a href="queue.html" title="PyMOTW: Queue"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
       </ul>
     </div>  
     <div class="document">
@@ -66,30 +64,30 @@
 <div class="highlight-python"><div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
-<span class="sd">使用StringIO模块简单的例子</span>
+<span class="sd">Simple examples with StringIO module</span>
 <span class="sd">&quot;&quot;&quot;</span>
 
-<span class="c"># 找到此平台上最好的StringIO实现模块</span>
+<span class="c"># Find the best implementation available on this platform</span>
 
 <span class="k">try</span><span class="p">:</span>
     <span class="k">from</span> <span class="nn">cStringIO</span> <span class="k">import</span> <span class="n">StringIO</span>
 <span class="k">except</span><span class="p">:</span>
     <span class="k">from</span> <span class="nn">StringIO</span> <span class="k">import</span> <span class="n">StringIO</span>
 
-<span class="c"># 写入一个缓冲区</span>
+<span class="c"># Writing to a buffer</span>
 <span class="n">output</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
-<span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;This goes into the buffer. &#39;</span><span class="p">)</span> <span class="c">##write方法将字符串写入缓冲区</span>
+<span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;This goes into the buffer. &#39;</span><span class="p">)</span>
 
-<span class="k">print</span> <span class="o">&gt;&gt;</span><span class="n">output</span><span class="p">,</span> <span class="s">&#39;And so does this.&#39;</span> <span class="c">##print 语句将字符串写入output</span>
-<span class="c"># 查询刚才被写入缓冲区的值</span>
+<span class="k">print</span> <span class="o">&gt;&gt;</span><span class="n">output</span><span class="p">,</span> <span class="s">&#39;And so does this.&#39;</span>
+<span class="c"># Retrieve the value written</span>
 <span class="k">print</span> <span class="n">output</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
 
-<span class="n">output</span><span class="o">.</span><span class="n">close</span><span class="p">()</span> <span class="c"># 关闭(丢弃)缓冲区</span>
+<span class="n">output</span><span class="o">.</span><span class="n">close</span><span class="p">()</span> <span class="c"># discard buffer memory</span>
 
-<span class="c"># 初始化一个只读缓冲区</span>
+<span class="c"># Initialize a read buffer</span>
 <span class="nb">input</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="s">&#39;Inital value for read buffer&#39;</span><span class="p">)</span>
 
-<span class="c"># 从缓冲区中读取数据</span>
+<span class="c"># Read from the buffer</span>
 <span class="k">print</span> <span class="nb">input</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 </pre></div>
 </div>
@@ -153,8 +151,7 @@
         <li class="right" >
           <a href="queue.html" title="PyMOTW: Queue"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

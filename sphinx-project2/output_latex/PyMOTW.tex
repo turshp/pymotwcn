@@ -7,21 +7,11 @@
 \usepackage[Bjarne]{fncychap}
 \usepackage{sphinx}
 
-\usepackage{hyperref}
-\usepackage{fontspec}
-\usepackage{xunicode}
-\usepackage{xltxtra}
-%\setromanfont{WenQuanYi Zen Hei}
-\setromanfont{Vera Sans YuanTi Mono}
-\XeTeXlinebreaklocale "zh"
-\XeTeXlinebreakskip = 0pt plus 1pt
-%\usepackage{CJKutf8}
 
 \title{PyMOTW Document}
-\date{January 03, 2009}
+\date{January 04, 2009}
 \release{1.0}
-\author{Doug Hellmann}
-\footnotetext{Translator: vbarter and liz}
+\author{vbarter & liz}
 \newcommand{\sphinxlogo}{}
 \renewcommand{\releasename}{Release}
 \makeindex
@@ -93,14 +83,10 @@
 \newcommand\PYGZrb{]}
 
 \begin{document}
-%\begin{CJK}{UTF8}{kai}
-%\title{PyMOTW Document}
-%\date{January 03, 2009}
-%\release{1.0}
-%\author{Doug Hellmann}
-\maketitle
 
+\maketitle
 \tableofcontents
+
 
 
 \resetcurrentobjects
@@ -111,12 +97,7 @@
 \resetcurrentobjects
 
 
-\chapter{所有文档}
-
-\resetcurrentobjects
-
-
-\section{PyMOTW: ConfigParser}
+\chapter{PyMOTW: ConfigParser}
 \begin{itemize}
 \item {} 
 模块： ConfigParser
@@ -130,7 +111,7 @@ python版本： 1.5+
 \end{itemize}
 
 
-\subsection{描述}
+\section{描述}
 
 ConfigParser模块可以为你的应用程序创建用户可编辑的配置文件. 这个配置文件由一个个节组成,每个节可以包含配置数据的名字-值对.支持通过使用Python的格式化字符串进行值的插入, 以此来构建那些依赖于其他值的数据值(这对路径或URL来说是尤其方便的).
 
@@ -174,7 +155,7 @@ ConfigParser类也支持增加和删除小节到指定文件并保存结果.这�
 \resetcurrentobjects
 
 
-\section{PyMOTW: Queue}
+\chapter{PyMOTW: Queue}
 \begin{itemize}
 \item {} 
 模块：Queue
@@ -188,7 +169,7 @@ python版本：1.4+
 \end{itemize}
 
 
-\subsection{描述}
+\section{描述}
 
 Queue提供了FIFO功能，一般常用于多线程编程，它可以在生产者和消费者线程中安全的传递消息或者其他数据。调用者会自动创建锁，当使用Queue对象，你可以根据需求创建多个线程。一个Queue的大小(元素的个数)受可用内存的限制。
 
@@ -203,7 +184,7 @@ Queue提供了FIFO功能，一般常用于多线程编程，它可以在生产�
 \end{itemize}
 
 
-\subsection{示例}
+\section{示例}
 
 举例说明如何在多线程中使用Queue对象，我们创建一个简单的 \href{http://en.wikipedia.org/wiki/Podcasting}{podcasting} 客户端，这个客户端读取一个或者多个RSS feeds，依次将需下载的内容置于队列中，然后采用多线程模式同时处理多个下载。这比较简单，也许没有多大实用价值，但这个框架代码很好的说明了如何来利用Queue模块。
 
@@ -221,11 +202,11 @@ Queue提供了FIFO功能，一般常用于多线程编程，它可以在生产�
 首先，需要创建一些运行参数，通常这些来自用户输入(可以任何东西，比如参数，数据库)，在我们的例子中，我们硬编码几个值。
 
 \begin{Verbatim}[commandchars=@\[\]]
-@PYGaD[@# 设置两个全局变量]
+@PYGaD[@# Set up some global variables]
 num@_fetch@_threads @PYGbe[=] @PYGaw[2]
 enclosure@_queue @PYGbe[=] Queue()
 
-@PYGaD[@# 实际情况中，一般不使用硬编码数据]
+@PYGaD[@# A real app wouldn't use hard-coded data...]
 feed@_urls @PYGbe[=] @lb[] @PYGad[']@PYGad[http://www.castsampler.com/cast/feed/rss/guest]@PYGad['],@rb[]
 \end{Verbatim}
 
@@ -233,13 +214,16 @@ feed@_urls @PYGbe[=] @lb[] @PYGad[']@PYGad[http://www.castsampler.com/cast/feed/
 
 \begin{Verbatim}[commandchars=@\[\]]
 @PYGay[def] @PYGaK[downloadEnclosures](i, q):
-  @PYGas["""这是一个工作线程函数.它按队列中的先后次序来处理各个项. 这个守护进程将进入一个无限循环, 当主线程退出时它才退出]
+  @PYGas["""This is the worker thread function.]
+@PYGas[  It processes items in the queue one after another.]
+@PYGas[  These daemon threads go into an infinite loop,]
+@PYGas[  and only exit when the main thread ends.]
 @PYGas[  """]
   @PYGay[while] @PYGaA[True]:
     @PYGay[print] @PYGad[']@PYGbf[@%s]@PYGad[: Looking for the next enclosure]@PYGad['] @PYGbe[@%] i
     url @PYGbe[=] q@PYGbe[.]get()
     @PYGay[print] @PYGad[']@PYGbf[@%s]@PYGad[: Downloading:]@PYGad['] @PYGbe[@%] i, url
-    time@PYGbe[.]sleep(i @PYGbe[+] @PYGaw[2]) @PYGaD[@# 这里只是模拟，不是实际下载]
+    time@PYGbe[.]sleep(i @PYGbe[+] @PYGaw[2]) @PYGaD[@# instead of really downloading the URL, we just pretend]
 
     q@PYGbe[.]task@_done()
 \end{Verbatim}
@@ -247,7 +231,7 @@ feed@_urls @PYGbe[=] @lb[] @PYGad[']@PYGad[http://www.castsampler.com/cast/feed/
 一旦定义好目标函数，我们就可以启动工作线程。注意，函数downloadEnclosures()在“url = q.get()”会阻塞，直到队列有东西返回，因此，当队列中有东西时，启动线程总是安全的。
 
 \begin{Verbatim}[commandchars=@\[\]]
-@PYGaD[@# 建立多个线程去抓取内容]
+@PYGaD[@# Set up some threads to fetch the enclosures]
 @PYGay[for] i @PYGan[in] @PYGaX[range](num@_fetch@_threads):
   worker @PYGbe[=] Thread(target@PYGbe[=]downloadEnclosures, args@PYGbe[=](i, enclosure@_queue,))
   worker@PYGbe[.]setDaemon(@PYGaA[True])
@@ -257,7 +241,7 @@ feed@_urls @PYGbe[=] @lb[] @PYGad[']@PYGad[http://www.castsampler.com/cast/feed/
 现在，我们开始检索feed的内容（使用Mark Pilgrim的 \href{http://www.feedparser.org/}{feedparser} 模块）和一个url集合。当第一个url添加到队列后，一个工作线程即可选择它并启动下载。循环将继续运行并添加相应的feed，直到全部加完，工作线程将轮流取出url去下载它们。
 
 \begin{Verbatim}[commandchars=@\[\]]
-@PYGaD[@# 下载feed，并且把url添加到队列中]
+@PYGaD[@# Download the feed(s) and put the enclosure URLs into the queue.]
 @PYGay[for] url @PYGan[in] feed@_urls:
   response @PYGbe[=] feedparser@PYGbe[.]parse(url, agent@PYGbe[=]@PYGad[']@PYGad[fetch@_podcasts.py]@PYGad['])
   @PYGay[for] entry @PYGan[in] response@lb[]@PYGad[']@PYGad[entries]@PYGad[']@rb[]:
@@ -269,7 +253,8 @@ feed@_urls @PYGbe[=] @lb[] @PYGad[']@PYGad[http://www.castsampler.com/cast/feed/
 剩下就可以等待队列为空。
 
 \begin{Verbatim}[commandchars=@\[\]]
-@PYGaD[@# 等待队列为空, 表明我们已经处理完所有下载。]
+@PYGaD[@# Now wait for the queue to be empty, indicating that we have]
+@PYGaD[@# processed all of the downloads.]
 @PYGay[print] @PYGad[']@PYGad[*** Main thread waiting]@PYGad[']
 enclosure@_queue@PYGbe[.]join()
 @PYGay[print] @PYGad[']@PYGad[*** Done]@PYGad[']
@@ -306,7 +291,7 @@ Queuing: http://feeds.feedburner.com/@textasciitilde[]r/drmoldawer/@textasciitil
 \resetcurrentobjects
 
 
-\section{PyMOTW: StringIO and cStringIO}
+\chapter{PyMOTW: StringIO and cStringIO}
 \begin{itemize}
 \item {} 
 模块：StringIO 和 cStringIO
@@ -320,12 +305,12 @@ python版本：StringIO: 1.4+, cStringIO: 1.5+
 \end{itemize}
 
 
-\subsection{描述}
+\section{描述}
 
 类StringIO提供了一个在内存中方便处理文本的类文件(读, 写等操作)API. 他有两个独立的实现, 一个是用c实现的cStringIP模块,速度较快, 另一个是StringIO模块,他用python实现的以增强其可移植性. 使用cStringIO来处理大字符串可以提高运行性能,优于其他字符串串联技术.
 
 
-\subsection{例子}
+\section{例子}
 
 这里是一个好的,标准的,简单的.使用StringIO缓冲的例子:
 
@@ -333,30 +318,30 @@ python版本：StringIO: 1.4+, cStringIO: 1.5+
 @PYGaD[@#!/usr/bin/env python]
 
 @PYGas["""]
-@PYGas[使用StringIO模块简单的例子]
+@PYGas[Simple examples with StringIO module]
 @PYGas["""]
 
-@PYGaD[@# 找到此平台上最好的StringIO实现模块]
+@PYGaD[@# Find the best implementation available on this platform]
 
 @PYGay[try]:
     @PYGay[from] @PYGaV[cStringIO] @PYGay[import] StringIO
 @PYGay[except]:
     @PYGay[from] @PYGaV[StringIO] @PYGay[import] StringIO
 
-@PYGaD[@# 写入一个缓冲区]
+@PYGaD[@# Writing to a buffer]
 output @PYGbe[=] StringIO()
-output@PYGbe[.]write(@PYGad[']@PYGad[This goes into the buffer. ]@PYGad[']) @PYGaD[@#@#write方法将字符串写入缓冲区]
+output@PYGbe[.]write(@PYGad[']@PYGad[This goes into the buffer. ]@PYGad['])
 
-@PYGay[print] @PYGbe[@textgreater[]@textgreater[]]output, @PYGad[']@PYGad[And so does this.]@PYGad['] @PYGaD[@#@#print 语句将字符串写入output]
-@PYGaD[@# 查询刚才被写入缓冲区的值]
+@PYGay[print] @PYGbe[@textgreater[]@textgreater[]]output, @PYGad[']@PYGad[And so does this.]@PYGad[']
+@PYGaD[@# Retrieve the value written]
 @PYGay[print] output@PYGbe[.]getvalue()
 
-output@PYGbe[.]close() @PYGaD[@# 关闭(丢弃)缓冲区]
+output@PYGbe[.]close() @PYGaD[@# discard buffer memory]
 
-@PYGaD[@# 初始化一个只读缓冲区]
+@PYGaD[@# Initialize a read buffer]
 @PYGaX[input] @PYGbe[=] StringIO(@PYGad[']@PYGad[Inital value for read buffer]@PYGad['])
 
-@PYGaD[@# 从缓冲区中读取数据]
+@PYGaD[@# Read from the buffer]
 @PYGay[print] @PYGaX[input]@PYGbe[.]read()
 \end{Verbatim}
 
@@ -369,7 +354,7 @@ output@PYGbe[.]close() @PYGaD[@# 关闭(丢弃)缓冲区]
 因为格式化可以将输出数据标准化后写到标准输出,如果没有StringIO模块,所得的测试结果可能会有些奇怪. 而使用了StringIO来拦截格式化的输出,这样以便我们用一个简单的方式来收集内存中的输出数据,来对预期的结果做比较.
 
 
-\subsection{参考}
+\section{参考}
 \begin{itemize}
 \item {} 
 \href{http://effbot.org/librarybook/stringio.htm}{The StringIO module ::: www.effbot.org}
@@ -382,7 +367,7 @@ output@PYGbe[.]close() @PYGaD[@# 关闭(丢弃)缓冲区]
 \resetcurrentobjects
 
 
-\section{PyMOTW: textwrap}
+\chapter{PyMOTW: textwrap}
 \begin{itemize}
 \item {} 
 模块：textwrap
@@ -396,17 +381,17 @@ python版本：2.5
 \end{itemize}
 
 
-\subsection{描述}
+\section{描述}
 
 textwrap模块可以用来格式化文本，使其在某些场合输出更美观。他提供了一些类似于在很多文本编辑器中都有的段落包装或填充特性的程序功能.
 
 
-\subsection{例子}
+\section{例子}
 
 \begin{Verbatim}[commandchars=@\[\]]
 @PYGay[import] @PYGaV[textwrap]
 
-@PYGaD[@# Provide some sample text 提供样本文本]
+@PYGaD[@# Provide some sample text]
 sample@_text @PYGbe[=] @PYGad[''']
 
 @PYGad[ The textwrap module can be used to format text for output in situations]
@@ -482,6 +467,7 @@ to the paragraph wrapping or filling features found in many text editors.
 使用不同行宽值进行格式化输出:
 
 \begin{Verbatim}[commandchars=@\[\]]
+@PYGaD[@# Format the output with a few different max line width values]
 @PYGay[for] width @PYGan[in] @lb[] @PYGaw[20], @PYGaw[60], @PYGaw[80] @rb[]:
     @PYGay[print]
     @PYGay[print] @PYGad[']@PYGbf[@%d]@PYGad[ Columns:]@PYGao[\n]@PYGad['] @PYGbe[@%] width
@@ -529,7 +515,7 @@ paragraph wrapping or filling features found in many text editors.
 除了制定输出中的宽度，你可以控制首行缩进，他独立于接下来的行。
 
 \begin{Verbatim}[commandchars=@\[\]]
-@PYGaD[@# 演示怎样去产生悬挂缩进]
+@PYGaD[@# Demonstrate how to produce a hanging indent]
 @PYGay[print] @PYGad[']@PYGao[\n]@PYGad[Hanging indent:]@PYGao[\n]@PYGad[']
 @PYGay[print] textwrap@PYGbe[.]fill(dedented@_text, initial@_indent@PYGbe[=]@PYGad[']@PYGad['], subsequent@_indent@PYGbe[=]@PYGad[']@PYGad[    ]@PYGad['])
 \end{Verbatim}
@@ -548,7 +534,7 @@ The textwrap module can be used to format text for output in
 缩进值也可以是非空格字符，因此，可以用*作为前缀产生bullet点，等等。在我转换老的zwiki内容以便将其导入到trac中是很灵活的。我使用Zope中的StructuredText包来解析zwiki数据，然后创建一个格式化器产生一个trac的wiki标记作为输出。使用textwrap就可以格式化输出页，因此转换后就几乎不需要再进行手工操作整个转换过程几乎没有手工进行。
 
 
-\subsection{参考}
+\section{参考}
 \begin{itemize}
 \item {} 
 \href{http://www.doughellmann.com/PyMOTW/textwrap\_example.py}{textwrap\_example.py}
@@ -558,7 +544,7 @@ The textwrap module can be used to format text for output in
 \resetcurrentobjects
 
 
-\section{PyMOTW: linecache}
+\chapter{PyMOTW: linecache}
 \begin{itemize}
 \item {} 
 模块： linecache
@@ -572,12 +558,12 @@ python版本： 1.4+
 \end{itemize}
 
 
-\subsection{描述}
+\section{描述}
 
 python标准库处理python源文件中linecache模块被广泛的使用。缓冲的实现是读取文件的内容，并解析成行，保存在内存的字典中。API 根据索引返回列表中的请求行。在读取文件和寻找需要的行信息上可以节省一定时间。这对于从同一个文件中查询多行内容是非常有用的，比如为一个error report产生trackback。
 
 
-\subsection{示例}
+\section{示例}
 
 \begin{Verbatim}[commandchars=@\[\]]
 @PYGay[import] @PYGaV[linecache]
@@ -603,7 +589,7 @@ lorem @PYGbe[=] @PYGad[''']@PYGad[Lorem ipsum dolor sit amet, consectetuer adipi
 
 @PYGad[sagittis porttitor eros.]@PYGad[''']
 
-@PYGaD[@# 创建一个临时文件]
+@PYGaD[@# Create a temporary text file with some text in it]
 fd, temp@_file@_name @PYGbe[=] tempfile@PYGbe[.]mkstemp()
 
 os@PYGbe[.]close(fd)
@@ -618,8 +604,8 @@ f @PYGbe[=] @PYGaX[open](temp@_file@_name, @PYGad[']@PYGad[wt]@PYGad['])
 现在我们有了一个可用的临时文件，让我们更深入一步。从文件中读取的第5行是单一行。注意，在linecache中的行号是从1开始的。但是我们自己对字符串进行分割，那么索引号是从0开始。我们还需要从缓冲中返回的值进行过滤去除换行符。
 
 \begin{Verbatim}[commandchars=@\[\]]
-@PYGaD[@# 原始形式和cache方式提取统一行。]
-@PYGaD[@# 注意linecache计算从1开始。]
+@PYGaD[@# Pick out the same line from source and cache.]
+@PYGaD[@# (Notice that linecache counts from 1)]
 @PYGay[print] @PYGad[']@PYGad[SOURCE: ]@PYGad['], lorem@PYGbe[.]split(@PYGad[']@PYGao[\n]@PYGad['])@lb[]@PYGaw[4]@rb[]
 @PYGay[print] @PYGad[']@PYGad[CACHE : ]@PYGad['], linecache@PYGbe[.]getline(temp@_file@_name, @PYGaw[5])@PYGbe[.]rstrip()
 \end{Verbatim}
@@ -627,14 +613,16 @@ f @PYGbe[=] @PYGaX[open](temp@_file@_name, @PYGad[']@PYGad[wt]@PYGad['])
 下一步看下，如果我们需要的行为空将会发生什么。
 
 \begin{Verbatim}[commandchars=@\[\]]
-@PYGaD[@# 新的一行中为空行。]
+@PYGaD[@# Blank lines include the newline]
 @PYGay[print] @PYGad[']@PYGao[\n]@PYGad[BLANK : ]@PYGad["]@PYGbf[@%s]@PYGad["]@PYGad['] @PYGbe[@%] linecache@PYGbe[.]getline(temp@_file@_name, @PYGaw[6])
 \end{Verbatim}
 
 如果请求的行号超过了文件中有效行号的范围，那么linecache会返回一个空字符串。
 
 \begin{Verbatim}[commandchars=@\[\]]
-@PYGaD[@# cache总会返回一个字符串，如果字符串为空即标明指代的行是不存在的。]
+@PYGaD[@# The cache always returns a string, and uses]
+@PYGaD[@# an empty string to indicate a line which does]
+@PYGaD[@# not exist.]
 not@_there @PYGbe[=] linecache@PYGbe[.]getline(temp@_file@_name, @PYGaw[500])
 @PYGay[print] @PYGad[']@PYGao[\n]@PYGad[NOT THERE: ]@PYGad["]@PYGbf[@%s]@PYGad["]@PYGad[ includes ]@PYGbf[@%d]@PYGad[ characters]@PYGad['] @PYGbe[@%]  (not@_there, @PYGaX[len](not@_there))
 \end{Verbatim}
@@ -642,7 +630,7 @@ not@_there @PYGbe[=] linecache@PYGbe[.]getline(temp@_file@_name, @PYGaw[500])
 即使这个文件不存在，模块也不会抛出任何异常。
 
 \begin{Verbatim}[commandchars=@\[\]]
-@PYGaD[@# 即使linecache不能找到这个文件，Error也会被隐藏掉。]
+@PYGaD[@# Errors are even hidden if linecache cannot find the file]
 no@_such@_file @PYGbe[=] linecache@PYGbe[.]getline(@PYGad[']@PYGad[this@_file@_does@_not@_exist.txt]@PYGad['], @PYGaw[1])
 @PYGay[print] @PYGad[']@PYGao[\n]@PYGad[NO FILE: ]@PYGad['], no@_such@_file
 \end{Verbatim}
@@ -650,13 +638,14 @@ no@_such@_file @PYGbe[=] linecache@PYGbe[.]getline(@PYGad[']@PYGad[this@_file@_d
 虽然linecache模块经常用在输出tracebacks上，另一个重要特性是可以通过指定模块名在sys.path中寻找python模块源码。如果在当前路径中无法找到文件，那么linecache中的缓冲直接搜索sys.path中的模块。
 
 \begin{Verbatim}[commandchars=@\[\]]
-@PYGaD[@# 利用内置子的sys.path，查询linecache中的模块名]
+@PYGaD[@# Look for the linecache module, using]
+@PYGaD[@# the built in sys.path search.]
 module@_line @PYGbe[=] linecache@PYGbe[.]getline(@PYGad[']@PYGad[linecache.py]@PYGad['], @PYGaw[3])
 @PYGay[print] @PYGad[']@PYGao[\n]@PYGad[MODULE : ]@PYGad['], module@_line
 \end{Verbatim}
 
 
-\subsection{示例输出}
+\section{示例输出}
 
 \begin{Verbatim}[commandchars=@\[\]]
 SOURCE:  eros pede, egestas at, ultricies ac, pellentesque eu, tellus.
@@ -673,7 +662,7 @@ MODULE :  This is intended to read lines from modules imported -- hence if a fil
 \end{Verbatim}
 
 
-\subsection{参考}
+\section{参考}
 \begin{itemize}
 \item {} 
 \href{http://http://tc-nsop-test2.tc.baidu.com:3129/documents}{PyMOTW}
@@ -683,7 +672,7 @@ MODULE :  This is intended to read lines from modules imported -- hence if a fil
 \resetcurrentobjects
 
 
-\section{PyMOTW: bisect}
+\chapter{PyMOTW: bisect}
 \begin{itemize}
 \item {} 
 模块： bisect
@@ -697,12 +686,12 @@ python版本： 1.4+
 \end{itemize}
 
 
-\subsection{描述}
+\section{描述}
 
 bisect模块实现了一个算法，用于向一个有序列表中插入一个元素。这比重复排序一个列表, 或重构一个很大的有序列表要高效的多.
 
 
-\subsection{示例}
+\section{示例}
 
 使用 \code{bisect.insort()} 的简单示例，插入元素到一个有序列表中。
 
@@ -710,9 +699,13 @@ bisect模块实现了一个算法，用于向一个有序列表中插入一个�
 @PYGay[import] @PYGaV[bisect]
 @PYGay[import] @PYGaV[random]
 
-@PYGaD[@# 设置一个常数种子, 这在以后的循环中, 产生同样的伪随机数]
+@PYGaD[@# Use a constant seed to ensure that we see]
+@PYGaD[@# the same pseudo-random numbers each time]
+@PYGaD[@# we run the loop.]
 random@PYGbe[.]seed(@PYGaw[1])
-@PYGaD[@# 产生20个随机数, 并依次插入到有序列表中]
+@PYGaD[@# Generate 20 random numbers and]
+@PYGaD[@# insert them into a list in sorted]
+@PYGaD[@# order.]
 l @PYGbe[=] @lb[]@rb[]
 @PYGay[for] i @PYGan[in] @PYGaX[range](@PYGaw[1], @PYGaw[20]):
     r @PYGbe[=] random@PYGbe[.]randint(@PYGaw[1], @PYGaw[100])
@@ -754,10 +747,10 @@ l @PYGbe[=] @lb[]@rb[]
 如果我们使用bisect\_left()和bisect\_right()来处理同样的数据，那么最后获得的list是相同的，只是中间插入的位置会有不同。
 
 \begin{Verbatim}[commandchars=@\[\]]
-@PYGaD[@# 重设种子]
+@PYGaD[@# Reset the seed]
 random@PYGbe[.]seed(@PYGaw[1])
 
-@PYGaD[@# 使用bisect@_left 和 insort@_left]
+@PYGaD[@# Use bisect@_left and insort@_left.]
 l @PYGbe[=] @lb[]@rb[]
 @PYGay[for] i @PYGan[in] @PYGaX[range](@PYGaw[1], @PYGaw[20]):
     r @PYGbe[=] random@PYGbe[.]randint(@PYGaw[1], @PYGaw[100])
@@ -791,7 +784,7 @@ l @PYGbe[=] @lb[]@rb[]
 除了python实现外，还有一个更快的c实现，如果c版本存在，那么 \code{import bisect} 模块时会自动调用c版本而不是调用python版本。
 
 
-\subsection{参考}
+\section{参考}
 \begin{itemize}
 \item {} 
 \href{http://en.wikipedia.org/wiki/Insertion\_sort}{Insertion Sort}
@@ -801,7 +794,7 @@ l @PYGbe[=] @lb[]@rb[]
 \resetcurrentobjects
 
 
-\section{PyMOTW: logging}
+\chapter{PyMOTW: logging}
 \begin{itemize}
 \item {} 
 模块：logging
@@ -815,14 +808,14 @@ python版本：2.3
 \end{itemize}
 
 
-\subsection{描述}
+\section{描述}
 
 logging模块定义了一个标准API, 用于报告所有你使用的模块的错误和状态信息.标准库模块中提供logging API的最重要意义是所有python模块可以参与到日志记录中, 因此你的应用程序日志可以包含来自第三方模块的信息.
 
 当然, 在不同层次上或因不同目的来记录日志信息是有必要的. 将日志信息写入到文件, 如，HTTP GET/POST的地理信息, 通过SMTP发送的邮件, 一般的sockets, 或者特定OS的日志机制都是被标准模块支持的. 如果你有特殊需求, 任何内置模块都不能满足的话, 你也可以创建你自己的日志目标类.
 
 
-\subsection{例子}
+\section{例子}
 
 大多数应用程序可能会将日志写入到文件中, 所以让我从这个例子开始讲述. 我们使用basicConfig()函数来设置默认的处理用于将调试信息写入到文件.
 
@@ -861,18 +854,18 @@ DEBUG:root:This message should go to the log file
 
 LOG@_FILENAME @PYGbe[=] @PYGad[']@PYGad[/tmp/logging@_rotatingfile@_example.out]@PYGad[']
 
-@PYGaD[@# 设置一个我们希望的输出层次的日志记录器.]
+@PYGaD[@# Set up a specific logger with our desired output level]
 my@_logger @PYGbe[=] logging@PYGbe[.]getLogger(@PYGad[']@PYGad[MyLogger]@PYGad['])
 my@_logger@PYGbe[.]setLevel(logging@PYGbe[.]DEBUG)
 
-@PYGaD[@# 增加记录器的日志消息处理]
+@PYGaD[@# Add the log message handler to the logger]
 handler @PYGbe[=] logging@PYGbe[.]handlers@PYGbe[.]RotatingFileHandler(LOG@_FILENAME, maxBytes@PYGbe[=]@PYGaw[20], backupCount@PYGbe[=]@PYGaw[5])
 my@_logger@PYGbe[.]addHandler(handler)
 
 @PYGay[for] i @PYGan[in] @PYGaX[range](@PYGaw[20]):
     my@_logger@PYGbe[.]debug(@PYGad[']@PYGad[i = ]@PYGbf[@%d]@PYGad['] @PYGbe[@%] i)
 
-@PYGaD[@# 查看新创建的文件]
+@PYGaD[@# See what files are created]
 logfiles @PYGbe[=] glob@PYGbe[.]glob(@PYGad[']@PYGbf[@%s]@PYGad[*]@PYGad['] @PYGbe[@%] LOG@_FILENAME)
 
 @PYGay[for] filename @PYGan[in] logfiles:
@@ -972,7 +965,7 @@ WARNING:package2.module2:And this message comes from another module
 还有许多许多许多配置日志记录的选项, 包括不同日志信息格式化选项, 将信息发送到多个记录器, 使用socket接口改变一个正在运行的长时间程序的配置. 所有这些选项进一步在 \href{http://docs.python.org/lib/module-logging.html}{库模块文档} 中深入.
 
 
-\subsection{参考}
+\section{参考}
 \begin{itemize}
 \item {} 
 \href{http://www.python.org/dev/peps/pep-0282/}{PEP 282}
@@ -985,7 +978,7 @@ WARNING:package2.module2:And this message comes from another module
 \resetcurrentobjects
 
 
-\section{PyMOTW: locale}
+\chapter{PyMOTW: locale}
 \begin{itemize}
 \item {} 
 模块： locale
@@ -999,14 +992,14 @@ python版本： 1.5,在2.5版本中有所扩展
 \end{itemize}
 
 
-\subsection{描述}
+\section{描述}
 
 locale模块是Python国际化和本地化支持库的一部分. 他提供一种用于处理那些可能依赖于你用户语言或位置的操作的标准方式. 例如, 货币格式化, 比较字符串以便排序, 处理时间日期. 他没有包含翻译(可参见gettext模块)或Unicode编码.
 
 由于可以在应用程序范围内改变本地化设置, 所以推荐用户避免在库中改变值而是让应用程序一次性设置. 在下面的例子中, 我会改变本地的一些时间以便说明目的.这更像是一旦你的应用程序启动就去设置本地化参数.
 
 
-\subsection{例子}
+\section{例子}
 
 让用户改变一个应用程序的本地设置的最一般的方式是通过一个环境变量（LC\_\_ALL, LC\_\_CTYPE, LANG, 或LANGUAGE, 这依赖于你的平台). 然后程序会调用locale.setlocale(), 没有使用硬编码值, 而是使用环境变量.
 
@@ -1019,14 +1012,14 @@ locale模块是Python国际化和本地化支持库的一部分. 他提供一种
 @PYGay[for] env@_name @PYGan[in] @lb[] @PYGad[']@PYGad[LC@_ALL]@PYGad['], @PYGad[']@PYGad[LC@_CTYPE]@PYGad['], @PYGad[']@PYGad[LANG]@PYGad['], @PYGad[']@PYGad[LANGUAGE]@PYGad['] @rb[]:
     @PYGay[print] @PYGad[']@PYGao[\t]@PYGbf[@%s]@PYGad[ = ]@PYGbf[@%s]@PYGad['] @PYGbe[@%] (env@_name, os@PYGbe[.]environ@PYGbe[.]get(env@_name, @PYGad[']@PYGad[']))
 
-@PYGaD[@# What is the default locale?默认的本地设置是什么?]
+@PYGaD[@# What is the default locale?]
 @PYGay[print]
 @PYGay[print] @PYGad[']@PYGad[Default locale:]@PYGad['], locale@PYGbe[.]getdefaultlocale()
 
-@PYGaD[@# Default settings based on the user's environment.根据用户的环境做些默认设置]
+@PYGaD[@# Default settings based on the user's environment.]
 locale@PYGbe[.]setlocale(locale@PYGbe[.]LC@_ALL, @PYGad[']@PYGad['])
 
-@PYGaD[@# If we do not have a locale, assume US English.如果没有本地设置, 假设为US English]
+@PYGaD[@# If we do not have a locale, assume US English.]
 @PYGay[print] @PYGad[']@PYGad[From environment:]@PYGad['], locale@PYGbe[.]getlocale()
 
 pprint@PYGbe[.]pprint(locale@PYGbe[.]localeconv())
@@ -1277,7 +1270,7 @@ Poland: ndz 20 maj 10:19:54 2007
 这个星期我只阐述了本地化模块中的一些高层函数. 还有其他低层(格式化字符串)或那些管理你应用程序本地化的函数(resetlocale). 和往常一样, 你可以参考Python库文档来查看些细节.
 
 
-\subsection{参考}
+\section{参考}
 \begin{itemize}
 \item {} 
 \href{http://en.wikipedia.org/wiki/Locale}{Locale - Wikipedia}
@@ -1299,7 +1292,7 @@ Poland: ndz 20 maj 10:19:54 2007
 \resetcurrentobjects
 
 
-\section{PyMOTW: os}
+\chapter{PyMOTW: os}
 \begin{itemize}
 \item {} 
 模块：os
@@ -1313,7 +1306,7 @@ python版本：1.4+
 \end{itemize}
 
 
-\subsection{描述}
+\section{描述}
 
 os模块提供了对特定平台模块(如posix，nt，mac)的封装，函数提供的api在很多平台上都可以相同使用，所以使用os模块会变得很方便。但不是所有函数在所有平台上都可用，比如在本文中到的一些管理函数在windows上无法使用。
 
@@ -1324,7 +1317,7 @@ os模块提供了对特定平台模块(如posix，nt，mac)的封装，函数提
 \end{notice}
 
 
-\subsection{属主处理}
+\section{属主处理}
 
 首先讨论用来检查和改变进程属主id的函数。在守护进程和特殊的系统程序需要改变执行权限而不使用root情况下这往往是非常有用的。这里我不会太过详细的解释linux的安全，进程属主等具体含义，这些可以见参考中的文章来获得更详细的介绍。
 
@@ -1415,7 +1408,7 @@ Actual Groups   : @PYGZlb[]0@PYGZrb[]
 除了查找和改变进程属主，还有其他函数可以获取当前进程和父进程的id，查找和改变其进程用户组和会话id，与控制终端id是一样的。在你编写复杂程序（如自己的终端命令行程序）中使用这些函数可以帮助你在进程之间传递信号。
 
 
-\subsection{环境处理}
+\section{环境处理}
 
 通过os模块，你的程序可以访问的另一个操作系统特性是系统环境。通过os.environ和os.getenv()可以访问在环境中设置的变量字符串。环境变量常用来作为配置像搜索路径，文件路径、调试标志的值。下面的示例检索了一个环境变量，并且通过子进程改变了这个值。
 
@@ -1456,7 +1449,7 @@ Child process:
 \end{Verbatim}
 
 
-\subsection{工作目录处理}
+\section{工作目录处理}
 
 在操作系统的文件系统结构中有一个概念是“当前工作目录”。在文件系统中，当前进程在访问用相对路径表示的文件时，就把这个目录当作默认目录位置。
 
@@ -1484,12 +1477,12 @@ After move: /Users/dhellmann/Documents/PyMOTW/PyMOTW
 \end{Verbatim}
 
 
-\subsection{后续...}
+\section{后续...}
 
 这里我们仅介绍了os模块中查找和设置进程参数的一些函数。下一次，我们将介绍os模块来管理文件系统对象。
 
 
-\subsection{参考}
+\section{参考}
 \begin{itemize}
 \item {} 
 \href{http://docs.python.org/lib/os-procinfo.html}{Python Reference Manual, Process Parameters}
@@ -1511,15 +1504,15 @@ After move: /Users/dhellmann/Documents/PyMOTW/PyMOTW
 \resetcurrentobjects
 
 
-\section{PyMOTW: os(2)}
+\chapter{PyMOTW: os(2)}
 
 
-\subsection{描述}
+\section{描述}
 
 上一部分，我们讨论了进程参数，现在我们讨论一下os模块提供的输入/输出特性。
 
 
-\subsection{管道}
+\section{管道}
 
 os模块提供了一些函数，这些函数利用管道来管理子进程的IO操作。这些函数的工作方式基本相同，但根据输入/输出的需求类型返回不同的文件句柄。相对于2.4版本中的 \href{http://docs.python.org/lib/module-subprocess.html}{subprocess} 模块这些函数是过时了，但这是一个很好的机会，你可以在已有的代码中看到它们。
 
@@ -1656,12 +1649,12 @@ popen2, cmd as sequence:
 \end{Verbatim}
 
 
-\subsection{后续}
+\section{后续}
 
 下次，我们将讨论如何来控制文件描述符。
 
 
-\subsection{参考}
+\section{参考}
 \begin{itemize}
 \item {} 
 \href{http://www.linuxhq.com/guides/LUG/node67.html}{Unix Concepts} for more discussion of stdin, stdout, and stderr
@@ -1680,20 +1673,20 @@ popen2, cmd as sequence:
 \resetcurrentobjects
 
 
-\section{PyMOTW: os(3)}
+\chapter{PyMOTW: os(3)}
 
 
-\subsection{描述}
+\section{描述}
 
 前面讲述了如何来处理进程参数和输入/输出，本周我将探讨一些操作文件和目录的函数。
 
 
-\subsection{文件描述符}
+\section{文件描述符}
 
 os模块中包含了一些函数集用于处理底层的文件描述符（当前进程打开属主文件所使用的整型），相比file()对象来说这些是更底层的API，在本文中将不会解释什么是文件描述符，它通常可以很好的和file()对象协同工作，更多细节可以参考 \href{http://docs.python.org/lib/os-fd-ops.html}{这里} 来了解如何使用文件描述符。
 
 
-\subsection{文件系统权限}
+\section{文件系统权限}
 
 os.access()可以测试一个进程对一个文件是否有可访问权限。
 
@@ -1760,7 +1753,7 @@ os.stat(os@_stat.py):
 @PYGay[import] @PYGaV[os]
 @PYGay[import] @PYGaV[stat]
 
-@PYGaD[@# 使用stat来获取权限设置的时间]
+@PYGaD[@# Determine what permissions are already set using stat]
 existing@_permissions @PYGbe[=] stat@PYGbe[.]S@_IMODE(os@PYGbe[.]stat(@_@_file@_@_)@PYGbe[.]st@_mode)
 
 @PYGay[if] @PYGan[not] os@PYGbe[.]access(@_@_file@_@_, os@PYGbe[.]X@_OK):
@@ -1768,7 +1761,7 @@ existing@_permissions @PYGbe[=] stat@PYGbe[.]S@_IMODE(os@PYGbe[.]stat(@_@_file@_
   new@_permissions @PYGbe[=] existing@_permissions @PYGbe[|] stat@PYGbe[.]S@_IXUSR
 @PYGay[else]:
   @PYGay[print] @PYGad[']@PYGad[Removing execute permission]@PYGad[']
-  @PYGaD[@# 使用xor来删除用户的可执行权限]
+  @PYGaD[@# use xor to remove the user execute permission]
   new@_permissions @PYGbe[=] existing@_permissions @PYGbe[@textasciicircum[]] stat@PYGbe[.]S@_IXUSR
 
 os@PYGbe[.]chmod(@_@_file@_@_, new@_permissions)
@@ -1784,7 +1777,7 @@ Removing execute permission
 \end{Verbatim}
 
 
-\subsection{目录}
+\section{目录}
 
 同样提供了一些处理文件系统中目录的函数，包括创建内容列表和删除它们。
 
@@ -1824,7 +1817,7 @@ Cleaning up
 有2个函数集用来创建和删除目录，当使用os.mkdir()创建一个新的目录时，其父目录必须存在。当使用os.rmdir()来删除一个目录时候，那么只有目录树的叶子节点（目录的最后一级）可以被删除。相比下，os.makedirs()和os.removedirs()可以操作当前路径下的所有目录，os.makedirs()可以创建路径不存在的目录，os.removedirs()可以删除包含父目录的子目录（当然前提有这个权限）。
 
 
-\subsection{符号链接}
+\section{符号链接}
 
 很多文件系统和平台都支持它，同样有一些函数可以用来处理它们。
 
@@ -1855,14 +1848,14 @@ Points to: os@_symlinks.py
 \end{Verbatim}
 
 
-\subsection{访问目录树}
+\section{访问目录树}
 
 os.walk()可以递归遍历一个目录,对于每一个目录，可以产生一个包含目录路径、当前路径的子目录列表，以及在子目录中的文件，以下示例展示了一个遍历目录的简单方法：
 
 \begin{Verbatim}[commandchars=@\[\]]
 @PYGay[import] @PYGaV[os]@PYGbe[,] @PYGaV[sys]
 
-@PYGaD[@# 如果没有给定目录列表，那么将使用/tmp]
+@PYGaD[@# If we are not given a path to list, use /tmp]
 @PYGay[if] @PYGaX[len](sys@PYGbe[.]argv) @PYGbe[==] @PYGaw[1]:
   root @PYGbe[=] @PYGad[']@PYGad[/tmp]@PYGad[']
 @PYGay[else]:
@@ -1870,12 +1863,12 @@ os.walk()可以递归遍历一个目录,对于每一个目录，可以产生一�
 
 @PYGay[for] dir@_name, sub@_dirs, files @PYGan[in] os@PYGbe[.]walk(root):
   @PYGay[print] @PYGad[']@PYGao[\n]@PYGad['], dir@_name
-  @PYGaD[@# 每个子目录名以“/”结尾]
+  @PYGaD[@# Make the subdirectory names stand out with /]
   sub@_dirs @PYGbe[=] @lb[] @PYGad[']@PYGbf[@%s]@PYGad[/]@PYGad['] @PYGbe[@%] n @PYGay[for] n @PYGan[in] sub@_dirs @rb[]
-  @PYGaD[@# 子目录内容的组合]
+  @PYGaD[@# Mix the directory contents together]
   contents @PYGbe[=] sub@_dirs @PYGbe[+] files
   contents@PYGbe[.]sort()
-  @PYGaD[@# 显示内容]
+  @PYGaD[@# Show the contents]
   @PYGay[for] c @PYGan[in] contents:
     @PYGay[print] @PYGad[']@PYGao[\t]@PYGbf[@%s]@PYGad['] @PYGbe[@%] c
 \end{Verbatim}
@@ -1913,12 +1906,12 @@ os.walk()可以递归遍历一个目录,对于每一个目录，可以产生一�
 \end{Verbatim}
 
 
-\subsection{后续}
+\section{后续}
 
 下次，我们讨论os模块中创建和管理进程的函数。
 
 
-\subsection{参考}
+\section{参考}
 \begin{itemize}
 \item {} 
 \href{http://docs.python.org/lib/os-file-dir.html}{Working with Files and Directories}
@@ -1931,27 +1924,27 @@ os.walk()可以递归遍历一个目录,对于每一个目录，可以产生一�
 \resetcurrentobjects
 
 
-\section{PyMOTW: os(4)}
+\chapter{PyMOTW: os(4)}
 
 
-\subsection{描述}
+\section{描述}
 
 这周,我总结整个os模块(但保留os.path的内容作为将来独立的一篇)并讨论一些有利于处理多进程的函数.我在part2中已经介绍了管道的使用, 这周我们来看下system(),fork(),exec()这3个函数和他们之间的关系.
 
 
-\subsection{申明}
+\section{申明}
 
 这里的许多函数都有可移植性限制.可以查看subprocess模块以获得一种更一致的平台独立的处理进程方式.
 
 
-\subsection{运行外部命令}
+\section{运行外部命令}
 
 最简单的运行一条单独命令,没有一点交互的方式是使用os.system(). 他获取一个字符串,这个字符串就是一将被命令行执行的命令,通过一个shell中的子进程来执行.
 
 \begin{Verbatim}[commandchars=@\[\]]
 @PYGay[import] @PYGaV[os]
 
-@PYGaD[@# 简单的一条命令]
+@PYGaD[@# Simple command]
 os@PYGbe[.]system(@PYGad[']@PYGad[ls -l]@PYGad['])
 \end{Verbatim}
 
@@ -1976,7 +1969,7 @@ total 168
 由于命令是直接被传递到处理shell中,所以它可以包含shell语法,比如通配符或环境变量:
 
 \begin{Verbatim}[commandchars=@\[\]]
-@PYGaD[@# 有shell扩展的命令]
+@PYGaD[@# Command with shell expansion]
 os@PYGbe[.]system(@PYGad[']@PYGad[ls -l @$HOME]@PYGad['])
 \end{Verbatim}
 
@@ -2022,7 +2015,7 @@ Sun Jun 17 12:27:23 EDT 2007
 \end{Verbatim}
 
 
-\subsection{使用os.fork()创建进程}
+\section{使用os.fork()创建进程}
 
 符合POSIX标准的函数 \code{fork()} 和 \code{exec*()} (在Mac OS X, Linux和其他类UNIX系统上可用)通过os模块都是可用的. 很多书已经很全面可靠的描述了这些函数的使用,所以检查你的库手册,或者去书店寻找进一步细节.
 
@@ -2122,7 +2115,7 @@ drwxr-xr-x 4 dhellman dhellman 136 Jun 8 03:16 var@_backups
 对于所有变种, 它们的第一个参数是一个路径或者文件名, 剩下的参数控制如何运行相应程序. 它们要么作为命令行参数被传递, 要么覆盖进程''环境''(可查看 \code{os.environ} 和 \code{os.getenv} ).
 
 
-\subsection{等待一个子进程}
+\section{等待一个子进程}
 
 假设说你使用了多个进程来突破Python的线程限制和 \code{GIL}.如果你开始了多个进程来运行各自的任务, 你希望在开始新的进程之前等待其中一个或多个的结束, 以此来避免服务器的超载. 这里有一些使用 \code{wait()} 和相关函数来实现它的不同方法.
 
@@ -2218,7 +2211,7 @@ PARENT: (6549, 512)
 \code{wait3()} 和 \code{wait4()} 函数也是类似的方式, 但它们返回更多关于子进程的细节信息,如进程号, 退出状态, 资源使用情况等.
 
 
-\subsection{Spawn（孵化）}
+\section{Spawn（孵化）}
 
 方便起见, \code{os.spawn*()} 系列函数将 \code{fork()} 和 \code{exec*()} 调用写在一条语句中:
 
@@ -2240,12 +2233,12 @@ drwxr-xr-x 4 dhellman dhellman 136 Jun 8 03:16 var@_backups
 \end{Verbatim}
 
 
-\subsection{结论}
+\section{结论}
 
 还有其他很多在处理多进程时需要考虑的东西,比如,信号处理, 多进程文件读写等.所有这些话题都在参考书目(如 \href{http://www.amazon.com/Programming-Environment-Addison-Wesley-Professional-Computing/dp/0201433079/ref=pd\_bbs\_3/002-2842372-4768037?ie=UTF8\&s=books\&amp;qid=1182098757\&sr=8-3}{Advanced Programming in the UNIX(R) Environment} )中有讲述.
 
 
-\subsection{参考}
+\section{参考}
 \begin{itemize}
 \item {} 
 \href{http://www.ibm.com/developerworks/aix/library/au-unixprocess.html}{Delve into UNIX process creation}
@@ -2255,7 +2248,7 @@ drwxr-xr-x 4 dhellman dhellman 136 Jun 8 03:16 var@_backups
 \resetcurrentobjects
 
 
-\section{PyMOTW: pickle \& cPickle}
+\chapter{PyMOTW: pickle \& cPickle}
 
 Python对象序列化
 \begin{itemize}
@@ -2271,7 +2264,7 @@ python版本：pickle至少1.4, cPickle 至少1.5
 \end{itemize}
 
 
-\subsection{描述}
+\section{描述}
 
 pickle模块可以实现任意的Python对象转换为一系列字节(即序列化对象)的算法。这些字节流可以被传输或存储，接着也可以重构为一个和原先对象具有相同特征的新对象。
 
@@ -2282,7 +2275,7 @@ pickle的文档清晰的表明它不提供安全保证。所以慎用pickle来�
 \end{notice}
 
 
-\subsection{例子}
+\section{例子}
 
 第一个pickle示例是将一个数据结构编码为一个字符串，然后将其输出到控制台。
 
@@ -2378,19 +2371,19 @@ data@PYGbe[.]append(SimpleObject(@PYGad[']@PYGad[pickle]@PYGad[']))
 data@PYGbe[.]append(SimpleObject(@PYGad[']@PYGad[cPickle]@PYGad[']))
 data@PYGbe[.]append(SimpleObject(@PYGad[']@PYGad[last]@PYGad[']))
 
-@PYGaD[@# 使用StringIO来模拟一个文件]
+@PYGaD[@# Simulate a file with StringIO]
 out@_s @PYGbe[=] StringIO()
 
-@PYGaD[@# 写入到流中]
+@PYGaD[@# Write to the stream]
 @PYGay[for] o @PYGan[in] data:
    @PYGay[print] @PYGad[']@PYGad[WRITING: ]@PYGbf[@%s]@PYGad[ (]@PYGbf[@%s]@PYGad[)]@PYGad['] @PYGbe[@%] (o@PYGbe[.]name, o@PYGbe[.]name@_backwards)
    pickle@PYGbe[.]dump(o, out@_s)
    out@_s@PYGbe[.]flush()
 
-@PYGaD[@# 设置可读流]
+@PYGaD[@# Set up a read-able stream]
 in@_s @PYGbe[=] StringIO(out@_s@PYGbe[.]getvalue())
 
-@PYGaD[@# 读取数据]
+@PYGaD[@# Read the data]
 @PYGay[while] @PYGaA[True]:
    @PYGay[try]:
       o @PYGbe[=] pickle@PYGbe[.]load(in@_s)
@@ -2443,7 +2436,7 @@ if @_@_name@_@_ == '@_@_main@_@_':
       raise RuntimeError('Please specify a filename as an argument to @%s' @% sys.argv@PYGZlb[]0@PYGZrb[])
    out@_s = open(filename, 'wb')
    try:
-      @# 写入到流中
+      @# Write to the stream
       for o in data:
          print 'WRITING: @%s (@%s)' @% (o.name, o.name@_backwards)
          pickle.dump(o, out@_s)
@@ -2478,7 +2471,7 @@ WRITING: last (tsal)
 
 in@_s @PYGbe[=] @PYGaX[open](filename, @PYGad[']@PYGad[rb]@PYGad['])
 @PYGay[try]:
-   @PYGaD[@# 读取数据]
+   @PYGaD[@# Read the data]
    @PYGay[while] @PYGaA[True]:
       @PYGay[try]:
          o @PYGbe[=] pickle@PYGbe[.]load(in@_s)
@@ -2519,7 +2512,7 @@ READ: last (tsal)
 在pickle那些不能被pickle的数据(如sockets、文件句柄、数据库连接等等)时，需要考虑一些特殊之处。那些不能被pickle的类可以定义 \_\_getstate\_\_() 和 \_\_setstate\_\_() 来返回实例在被pickle时的状态。新风格的类也可以定义\_\_getnewargs\_\_()，它返回传递给类内存分配者 (C.\_\_new\_\_())的参数。关于这些特征的更详细的使用描述可以在标准库文档中找到。
 
 
-\subsection{参考}
+\section{参考}
 \begin{itemize}
 \item {} 
 \href{http://peadrop.com/blog/2007/06/18/pickle-an-interesting-stack-language/}{Pickle: An interesting stack language by Alexandre Vassalotti}
@@ -2529,7 +2522,7 @@ READ: last (tsal)
 \resetcurrentobjects
 
 
-\section{PyMOTW: glob}
+\chapter{PyMOTW: glob}
 \begin{itemize}
 \item {} 
 模块： glob
@@ -2543,14 +2536,14 @@ python版本： 1.4+
 \end{itemize}
 
 
-\subsection{描述}
+\section{描述}
 
 即使glob API非常简单，但这个模块具有强大的力量。在很多情况下，尤其是你的程序需要寻找出文件系统中，文件名匹配特定模式的文件时，是非常有用的。如果你需要包含一个特定扩展名，或前缀，或含有任何普通字符串的文件列表，可以直接使用glob代替手工编程扫描目录内容。
 
 glob中模式规则不是正则表达式，而是，符合标准Uinx路径扩展规则。但是Shell变量名和符号(\textasciitilde{})是不被扩充的，只有一些特殊的字符：两个不同的通配符和字母范围被支持。模块规则适合于文件名的片段(以/为分隔)，但模式中的路径可以是相对或者绝对路径。
 
 
-\subsection{示例数据}
+\section{示例数据}
 
 假设当前工作目录下包含有以下一些文件。
 
@@ -2568,7 +2561,7 @@ dir/subdir/subfile.txt
 使用glob\_maketestdata.py脚本可以创建这些文件。
 
 
-\subsection{通配符}
+\section{通配符}
 
 \code{*} 匹配名字片段中的0个或多个字符，例如，dir/\code{*} 。
 
@@ -2608,7 +2601,7 @@ Named with wildcard:
 在这个例子中，结果是一样的。如果还有其他的子目录，那么，通配符匹配所有子目录及其他们中包含的文件。
 
 
-\subsection{单一字符通配符}
+\section{单一字符通配符}
 
 其他的被支持的通配符是问号(?)。它匹配在对应位置的任一单个字符。例如：
 
@@ -2625,7 +2618,7 @@ Named with wildcard:
 \end{Verbatim}
 
 
-\subsection{字符范围}
+\section{字符范围}
 
 当你需要匹配一个特定字符时，可以使用一个字符范围来替代问号。例如，为了找到所有文件名中在扩展名之前包含数字的文件时：
 
@@ -2641,7 +2634,7 @@ Named with wildcard:
 \end{Verbatim}
 
 
-\subsection{参考}
+\section{参考}
 \begin{itemize}
 \item {} 
 \href{http://www.opengroup.org/onlinepubs/000095399/utilities/xcu\_chap02.html\#tag\_02\_13}{Pattern Matching Notation}
@@ -2651,7 +2644,7 @@ Named with wildcard:
 \resetcurrentobjects
 
 
-\section{PyMOTW: shelve}
+\chapter{PyMOTW: shelve}
 \begin{itemize}
 \item {} 
 模块：shelve
@@ -2665,12 +2658,12 @@ python版本：1.4+
 \end{itemize}
 
 
-\subsection{描述}
+\section{描述}
 
 当使用关系数据库是一种浪费的时候，shelve模块可以为Python对象提供一个简单的持久性存储选择。就像使用字典一样，通过关键字访问shelf对象。其值经过pickle，写入到由anydbm创建和管理的数据库。
 
 
-\subsection{创建一Shelf对象}
+\section{创建一Shelf对象}
 
 最简单的使用shelve模块的方式是通过DbfilenameShelf类。 使用函数 \code{shelve.open()} （使用的是 \href{http://docs.python.org/lib/module-anydbm.html}{anydbm} ）来存储数据。你可以直接使用类，或者简单的调用：
 
@@ -2719,7 +2712,7 @@ s @PYGbe[=] shelve@PYGbe[.]open(@PYGad[']@PYGad[test@_shelf.db]@PYGad['], flag@P
 当数据库以只读方式打开时，你又尝试着更改数据库，这将引起一个访问出错异常。这一异常类型依赖于在创建数据库时被anydbm选择的数据库模块。
 
 
-\subsection{写回}
+\section{写回}
 
 默认情况下，Shelves不去追踪可变对象的修改。意思就是，如果你改变了已存储在shelf中的一个项目的内容，就必须重新存储该项目来更新shelf。
 
@@ -2776,12 +2769,12 @@ s @PYGbe[=] shelve@PYGbe[.]open(@PYGad[']@PYGad[test@_shelf.db]@PYGad['], writeb
 \end{Verbatim}
 
 
-\subsection{指定Shelf类型}
+\section{指定Shelf类型}
 
 上面的例子全都使用了默认的shelf实现。使用 \code{shelve.open()} 直接代替一种shelf实现，是常见用法，尤其是在不关心用哪种数据库存储数据的时候。然而，有时常会关心它。如果是在这种情况下，通常就会直接使用DbfilenameShelf或者BsdDbShelf ，更或者是通过Shelf的子类来解决问题。
 
 
-\subsection{参考}
+\section{参考}
 \begin{itemize}
 \item {} 
 \href{http://www.doughellmann.com/projects/feedcache/}{feedcache uses shelve as a default storage option}
@@ -2791,7 +2784,7 @@ s @PYGbe[=] shelve@PYGbe[.]open(@PYGad[']@PYGad[test@_shelf.db]@PYGad['], writeb
 \resetcurrentobjects
 
 
-\section{PyMOTW: optparse}
+\chapter{PyMOTW: optparse}
 \begin{itemize}
 \item {} 
 模块：optparse
@@ -2805,12 +2798,12 @@ python版本：2.3
 \end{itemize}
 
 
-\subsection{描述}
+\section{描述}
 
 optparse是一个当前可选的命令行解析模块，它提供了一些在getopt中不含有的特性，如type conversion(类型转换)，option callbacks(参数回调)以及automatice help generation(自动化帮助生成)。本文没有详细介绍optparse的很多特性，但它可以帮助你在写命令行程序时能够快速入门。
 
 
-\subsection{创建一个OptionParser}
+\section{创建一个OptionParser}
 
 optparser解析参数需要经过2个阶段。首先，构建OptionParser实例并配置相关的选项，然后填入一个参数序列并处理。
 
@@ -2822,7 +2815,7 @@ parser @PYGbe[=] optparse@PYGbe[.]OptionParser()
 通常，一旦分析器被建立，每一个选项需要明确的添加到parser中，并说明当命令行遇到相关的选项时需要如何处理。在构建OptionParser时也可以传入一个选项列表，但这种形式不经常使用。
 
 
-\subsection{定义选项}
+\section{定义选项}
 
 利用add\_option()方法可以每次增加一个选项。在参数列表的开始，任何未命名的字符串参数都将被视为选项名。如果要为一个选项创建别名，比如为同一个选项增加一个短的或长的命名，那么简单传递同名字符串即可。
 
@@ -2831,14 +2824,14 @@ parser @PYGbe[=] optparse@PYGbe[.]OptionParser()
 默认的行为是存储这个选项的参数。如果给定了type(类型)，那么在存储前，这个参数值将被转化成这个类型。如果给定了dest(目标参数)，那么当命令行参数被解析时，选项值被存储在该选项对象的dest中。
 
 
-\subsection{分析一个命令行}
+\section{分析一个命令行}
 
 一旦所有的选项被定义好，命令行被作为一个参数字符串传递给parse\_args()方法。一般，参数可以从sys.argv{[}1:{]}中得到，当然你可以传递自己的列表。选项处理时使用GNU/POSIX语法，因此，选项和参数值可以在参数序列中混合使用。
 
 从parse\_args()方法返回的是一个二维元组，包含一个optparse Values实例和在命令行中未被解析的参数列表。Values实例将选项值作为属性，如果你定义了一个选项的dest为“myoption”，可以通过 option.myoption访问该选项的值。
 
 
-\subsection{简单示例}
+\section{简单示例}
 
 如下一个简单例子有三个不同的选项，一个布尔选项(-a)，一个字符串选项(-b)和一个整型选项(-c)。
 
@@ -2876,7 +2869,7 @@ parser@PYGbe[.]add@_option(@PYGad[']@PYGad[--witharg2]@PYGad['], action@PYGbe[=]
 \end{Verbatim}
 
 
-\subsection{与getopt的比较}
+\section{与getopt的比较}
 
 如下实现一个与getopt之前示例相同功能的optparse例子
 
@@ -2935,7 +2928,7 @@ REMAINING : @PYGZlb[]@PYGZrb[]
 \end{Verbatim}
 
 
-\subsection{Option Callbacks(选项回调)}
+\section{Option Callbacks(选项回调)}
 
 除了直接为选项存储参数，另一种选择是定义callback function，当命令行中出现该选项时调用 ，选项的callbacks有4个参数，分别是引起callback的optparse.Option实例，命令行中的选项字符串，选项关联的参数值以及处理解析工作的optparse.OptionParser实例。
 
@@ -2985,7 +2978,7 @@ flag@_callback:
 \end{Verbatim}
 
 
-\subsection{帮助信息}
+\section{帮助信息}
 
 OptionParser自动为每个选项集合包含一个help选项，因此，用户在运行程序时在命令行输入--help来看介绍，帮助信息为所有选项指示它们是否需要传入一个参数，也可以通过在add\_option()中定义帮助文本来为一个选项定义更多的描述。
 
@@ -3047,7 +3040,7 @@ with@_callback:
 \resetcurrentobjects
 
 
-\section{PyMOTW: shutil}
+\chapter{PyMOTW: shutil}
 \begin{itemize}
 \item {} 
 模块：shutil
@@ -3063,12 +3056,12 @@ python版本：1.4+
 shutil模块提供了一些高层次的文件操作,比如复制,设置权限等等.
 
 
-\subsection{描述:}
+\section{描述:}
 
 shutil模块提供了一些用于复制和删除整个文件的函数.
 
 
-\subsection{复制文件:}
+\section{复制文件:}
 
 copyfile() 将源文件内容完全复制给目标文件.如果没有写入目标文件的权限,会引起IOError.由于该函数是为了读取文件内容而打开此输入文件,而不管它的类型是什么,特殊类型的文件使用copyfile()是不能拷贝的，比如管道文件。
 
@@ -3219,7 +3212,7 @@ SOURCE:
 \end{Verbatim}
 
 
-\subsection{复制文件元信息:}
+\section{复制文件元信息:}
 
 默认情况下,在Unix下,一个新创建的文件的权限会根据当前用户的umask值来设置.把一个文件的权限复制给另一个文件，可以使用copymode()函数.
 
@@ -3283,7 +3276,7 @@ BEFORE:
 \end{Verbatim}
 
 
-\subsection{目录树:}
+\section{目录树:}
 
 shutil模块包含3个操作目录树的函数.使用copytree()来复制目录,它会递归复制整个目录结构.目标目录必须不存在.其中, symlinks参数控制符号链接是否作为链接或文件被复制,默认是将其内容复制成一个新文件.如果此选项为true,新的链接会在目标目录树中创建.
 
@@ -3356,7 +3349,7 @@ AFTER : example2:  @PYGZlb[]'shutil@_copy.py'@PYGZrb[]
 \end{Verbatim}
 
 
-\subsection{参考}
+\section{参考}
 \begin{itemize}
 \item {} 
 \href{http://tc-nsop-test2.tc.baidu.com:3129/documents}{PyMOTW}
@@ -3366,7 +3359,7 @@ AFTER : example2:  @PYGZlb[]'shutil@_copy.py'@PYGZrb[]
 \resetcurrentobjects
 
 
-\section{PyMOTW: urlparse}
+\chapter{PyMOTW: urlparse}
 
 urlparse模块提供了切分统一资源定位符(URL)的接口。
 \begin{itemize}
@@ -3382,12 +3375,12 @@ python版本： 1.4+
 \end{itemize}
 
 
-\subsection{描述}
+\section{描述}
 
 urlparse模块提供了一些将URL切分成对应与RFC中定义的组成部分的函数。
 
 
-\subsection{Parsing:分解}
+\section{Parsing:分解}
 
 urlparse函数返回的值是一个包含6个元素的类似于元组的对象。
 
@@ -3491,7 +3484,7 @@ fragment
 \end{Verbatim}
 
 
-\subsection{组装}
+\section{组装}
 
 有很多方法可以将URL的各个部分组合回原来的单个字符串。被解析后的URL对象有一个叫做 \code{geturl()} 的方法。
 
@@ -3558,7 +3551,7 @@ NEW : http://netloc/path
 \end{Verbatim}
 
 
-\subsection{连接}
+\section{连接}
 
 除了解析URL之外，urlparse模块包含 \code{urljoin()} 函数。用来从关联片段中构造绝对URL。
 
@@ -3579,7 +3572,7 @@ http://www.example.com/anotherfile.html
 \end{Verbatim}
 
 
-\subsection{参考}
+\section{参考}
 \begin{itemize}
 \item {} 
 \href{http://www.faqs.org/rfcs/rfc1738.html}{RFC 1378}
@@ -3592,7 +3585,7 @@ http://www.example.com/anotherfile.html
 \resetcurrentobjects
 
 
-\section{PyMOTW: os.path}
+\chapter{PyMOTW: os.path}
 \begin{itemize}
 \item {} 
 模块：os.path
@@ -3606,12 +3599,12 @@ python版本：1.4+
 \end{itemize}
 
 
-\subsection{描述}
+\section{描述}
 
 我们可以利用os.path模块提供的函数更容易地在跨平台上处理文件。即使我们的程序不是用于夸平台，也应该使用os.path来让路径名字更加可靠。
 
 
-\subsection{解析路径}
+\section{解析路径}
 
 os.path中的第一个函数集可以用于解析文件名字符串为不同部分。要注意到这些函数的解析不依赖于被解析的路径是否真正存在，他们只处理字符串。
 
@@ -3721,7 +3714,7 @@ paths @PYGbe[=] @lb[]@PYGad[']@PYGad[/one/two/three/four]@PYGad['],@PYGad[']@PYG
 \end{Verbatim}
 
 
-\subsection{创建路径}
+\section{创建路径}
 
 除了将现有的路径分隔外，你可能经常会将多个字符串组合成一个路径。
 
@@ -3775,7 +3768,7 @@ os@PYGbe[.]environ@lb[]@PYGad[']@PYGad[MYVAR]@PYGad[']@rb[] @PYGbe[=] @PYGad[']@
 \end{Verbatim}
 
 
-\subsection{标准化路径}
+\section{标准化路径}
 
 使用 \code{join()} 组装成的，或嵌入了变量的Paths路径可能会以多余的分隔符结束或含有相对路径部份。使用 \code{normpath()} 将这些清除：
 
@@ -3811,7 +3804,7 @@ one/../one/two/three : one/two/three
 \end{Verbatim}
 
 
-\subsection{文件时间}
+\section{文件时间}
 
 除了处理路径外， \code{os.path} 还可以包含一些用于检索文件属性的函数，他们比 \code{os.stat()} 更方便：
 
@@ -3836,7 +3829,7 @@ Size : 478
 \end{Verbatim}
 
 
-\subsection{测试文件}
+\section{测试文件}
 
 当你的程序含一个路径名时，他通常需要知道这个路径是否是文件还是目录。如果你的平台支持它，你需要知道这个路径是指向一个符号链接还是是一个挂载点。你也可能想测试路径是否存在。 \code{os.path} 提供测试这些条件的函数。
 
@@ -3896,7 +3889,7 @@ Link Exists?: True
 \end{Verbatim}
 
 
-\subsection{遍历目录树}
+\section{遍历目录树}
 
 \code{os.path.walk()} 遍历树中的所有目录，并调用一个你提供的函数，同时将目录名和目录中包含内容的名字传递给这个函数。下面的例子将递归的列出目录，但忽略.svn目录。
 
@@ -3912,7 +3905,7 @@ Link Exists?: True
             @PYGay[print] @PYGad[']@PYGad[ ]@PYGbf[@%s]@PYGad[/]@PYGad['] @PYGbe[@%] name
         @PYGay[else]:
             @PYGay[print] @PYGad[']@PYGad[ ]@PYGbf[@%s]@PYGad['] @PYGbe[@%] name
-    @PYGaD[@# 不递归遍历.svn目录]
+    @PYGaD[@# Do not recurse into .svn directory]
     @PYGay[if] @PYGad[']@PYGad[.svn]@PYGad['] @PYGan[in] names:
         names@PYGbe[.]remove(@PYGad[']@PYGad[.svn]@PYGad['])
     @PYGay[print]
@@ -3947,7 +3940,7 @@ os@PYGbe[.]path@PYGbe[.]walk(@PYGad[']@PYGad[..]@PYGad['], visit, @PYGad[']@PYGa
 \resetcurrentobjects
 
 
-\section{PyMOTW: time}
+\chapter{PyMOTW: time}
 
 time模块提供了操作日期和时间的函数
 \begin{itemize}
@@ -3963,12 +3956,12 @@ python版本：1.4+
 \end{itemize}
 
 
-\subsection{描述}
+\section{描述}
 
 time模块是利用了c函数来处理日期和时间 ，也就是说它绑定了c的实现，一些特定的细节（比如纪元的开始时间、日期的最大值）是和平台相关的，具体可以参考 \href{http://docs.python.org/lib/module-time.html}{这里} 。
 
 
-\subsection{Wall Clock Time}
+\section{Wall Clock Time}
 
 time模块的核心函数之一就是time.time()函数，它返回一个自公元开始的总秒数（浮点型）。
 
@@ -4004,7 +3997,7 @@ The time is      : Sun Mar  9 12:18:02 2008
 \end{Verbatim}
 
 
-\subsection{处理器时钟}
+\section{处理器时钟}
 
 time()函数返回的是现实世界的时间，而clock()函数返回的是cpu时钟。clock()函数返回值常用作性能测试，benchmarking等。它们常常反映了程序运行的真实时间，比time()函数返回的值要精确。
 
@@ -4012,7 +4005,7 @@ time()函数返回的是现实世界的时间，而clock()函数返回的是cpu�
 @PYGay[import] @PYGaV[hashlib]
 @PYGay[import] @PYGaV[time]
 
-@PYGaD[@# 用于计算md5校验和的数据]
+@PYGaD[@# Data to use to calculate md5 checksums]
 data @PYGbe[=] @PYGaX[open](@_@_file@_@_, @PYGad[']@PYGad[rt]@PYGad['])@PYGbe[.]read()
 
 @PYGay[for] i @PYGan[in] @PYGaX[range](@PYGaw[5]):
@@ -4064,7 +4057,7 @@ Sleeping 2
 time.sleep函数控制当前的线程，让它等待直到系统重新唤醒它，如果应用中只有一个线程，那么它会阻塞当前进程，使其不做任何事情。
 
 
-\subsection{struct\_time}
+\section{struct\_time}
 
 某些时候，使用逝去的秒数来表示时间是很有用的。有时候你需要获取日期的单独部分（如年、月等等），time模块定义了struct\_time来存储日期和时间值并作为其部分以便获取。提供了多种函数将struct\_time转化为float。
 
@@ -4096,7 +4089,7 @@ Day of year: 69
 \end{Verbatim}
 
 
-\subsection{解析和格式化时间}
+\section{解析和格式化时间}
 
 函数strptime()和strftime()可以使struct\_time和时间值字符串相互转化。有一个很长的格式化说明列表可以用来支持输入和输出不同的风格。完整的列表在time模块的的库文档中有介绍。
 
@@ -4122,7 +4115,7 @@ Sun Mar 09 13:01:19 2008
 \end{Verbatim}
 
 
-\subsection{使用Time Zone(时区)}
+\section{使用Time Zone(时区)}
 
 无论是你的程序，还是为系统使用一个默认的时区，检测当前时间的函数依赖于当前Time Zone（时间域)的设置。改变时区设置是不会改变实际时间，只会改变表示时间的方法。
 
@@ -4193,7 +4186,7 @@ Europe/Amsterdam :
 \end{Verbatim}
 
 
-\subsection{参考}
+\section{参考}
 \begin{itemize}
 \item {} 
 \href{http://docs.python.org/lib/module-datetime.html}{datetime module}
@@ -4209,7 +4202,7 @@ Europe/Amsterdam :
 \resetcurrentobjects
 
 
-\section{PyMOTW: datetime}
+\chapter{PyMOTW: datetime}
 
 datetime 模块包含了一些用于时间解析、格式化、计算的函数。
 \begin{itemize}
@@ -4225,7 +4218,7 @@ python版本： 2.3+
 \end{itemize}
 
 
-\subsection{时间}
+\section{时间}
 
 时间值由time类来表示，Times有小时，分，秒和微秒属性，以及包含时区信息。初始化time实例的参数是可选的，但这样的话，你将获得初始值0（也许不是你所想要的）。
 
@@ -4298,7 +4291,7 @@ Resolution: 0:00:00.000001
 \end{Verbatim}
 
 
-\subsection{日期}
+\section{日期}
 
 日期值可以由date类来表示，实例有年、月、日属性，使用data类的 \code{today()} 方法可以方便的表示出今天的日期。
 
@@ -4390,7 +4383,7 @@ d2: 2009-03-12
 \end{Verbatim}
 
 
-\subsection{timedelta}
+\section{timedelta}
 
 除了 \code{replace()} 函数可以计算过去或者未来的时间，还可以使用timedelta类对日期值进行基本运算。通过timedelta可以加减一个日期来产生另外一个日期。timedelta中的内部值可以用天、秒和微秒来表示。
 
@@ -4421,7 +4414,7 @@ weeks : 7 days, 0:00:00
 \end{Verbatim}
 
 
-\subsection{比较}
+\section{比较}
 
 时间和日期值都可以通过标准的操作符来进行比较。
 
@@ -4458,7 +4451,7 @@ Dates:
 \end{Verbatim}
 
 
-\subsection{日期和时间组合}
+\section{日期和时间组合}
 
 使用datetime类可以存储日期和时间的组合部分，类似于使用date。有多种方法可以创建datetime。
 
@@ -4511,7 +4504,7 @@ dt: 2008-03-16 01:02:03
 \end{Verbatim}
 
 
-\subsection{格式化和解析}
+\section{格式化和解析}
 
 datetime对象的字符串表示方法默认使用的是ISO 8601格式（YYYY-MM-DDTHH:MM:SS.mmmmmm），使用 \code{strftime()} 可以产生其他格式，同样，如果你的输入值是用 \code{time.strptime()} 解析的时间戳，那么 \code{strptime()} 是一个合适的方法来把它转换为datetime实例。
 
@@ -4538,12 +4531,12 @@ strptime: Sun Mar 16 08:08:16 2008
 \end{Verbatim}
 
 
-\subsection{时区}
+\section{时区}
 
 时区是由子类datetime.tzinfo来表示的，tzinfo是一个抽象的基类，你需要定义子类，并提供相应的方法去实现一些方法。很可惜，dateime不包含任何实际可用的实现，可以参考 \href{http://docs.python.org/lib/datetime-tzinfo.html}{文档} 来获取一些示例。
 
 
-\subsection{参考}
+\section{参考}
 \begin{itemize}
 \item {} 
 \href{http://pleac.sourceforge.net/pleac\_python/datesandtimes.html}{PLEAC - Dates and Times}
@@ -4556,7 +4549,7 @@ strptime: Sun Mar 16 08:08:16 2008
 \resetcurrentobjects
 
 
-\section{PyMOTW: urllib}
+\chapter{PyMOTW: urllib}
 
 urllib模块提供了一个访问网络资源的简单接口。
 \begin{itemize}
@@ -4574,7 +4567,7 @@ python版本：1.4+
 虽然urllib可以与gopher和ftp协议一起使用, 但下面的例子都是用了http协议。
 
 
-\subsection{HTTP GET:}
+\section{HTTP GET:}
 
 这些例子的测试服务器是在BaseHTTPServer\_GET.py中, 这个脚本在PyMOTW例子的BaseHTTPServer模块中.在一个终端窗口中启动服务器, 然后在另一个窗口中运行以下这些例子.
 
@@ -4658,7 +4651,7 @@ protocol@_version=HTTP/1.0
 \end{Verbatim}
 
 
-\subsection{编码参数：}
+\section{编码参数：}
 
 将参数编码并且追加在URL之后，传给服务器。
 
@@ -4746,7 +4739,7 @@ http://localhost:8080/@textasciitilde[]dhellmann/
 \end{Verbatim}
 
 
-\subsection{HTTP POST:}
+\section{HTTP POST:}
 
 这些例子的测试服务器是在BaseHTTPServer\_POST.py中, 这个脚本在PyMOTW例子的BaseHTTPServer模块中.在一个终端窗口中启动服务器, 然后在另一个窗口中运行以下这些例子.
 
@@ -4772,7 +4765,7 @@ Form data:
 如果服务器需要的不是已编码url形式的参数，你可以传递任一字节字符串作为发送的数据。
 
 
-\subsection{Paths vs. URLs:}
+\section{Paths vs. URLs:}
 
 一些操作系统使用不同的方法分离本地文件路径和URL。为了使代码简捷，你应该反复地使用函数pathname2url() 和 url2pathname()。因为我在Mac上工作，我必须明确引入Windows上的函数版本。使用由urllib导出的函数版本可以让你默认在正确平台下，因此就不用自己做了。
 
@@ -4825,7 +4818,7 @@ Path : \d\e\f
 \end{Verbatim}
 
 
-\subsection{带Cache简单检索：}
+\section{带Cache简单检索：}
 
 检索数据是常见的操作，urllib包括urlretrieve()函数，因此你不用自己写它。urlretrieve()带有URL中的参数, 一个用于存储数据的临时文件, 一个用于报告下载进度的函数, 和URL中要POST数据。如果没有给定文件名，urlretrieve()就建立一个临时文件。你自己能删除它，或者把它看作一个cache，可以用urlcleanup()移除它。
 
@@ -4900,12 +4893,12 @@ File still exists: False
 \end{Verbatim}
 
 
-\subsection{URLopener:}
+\section{URLopener:}
 
 urllib提供了一个URLopener基类，并且默认使用FancyURLopener处理支持的协议。如果你想要改变其行为，你可能需要查看Python2.1中新加的urllib2模块（PyMOTW将会阐述）。
 
 
-\subsection{参考}
+\section{参考}
 \begin{itemize}
 \item {} 
 \href{http://www.faqs.org/rfcs/rfc2616.html}{RFC 2616 - HTTP Specification}
@@ -4927,7 +4920,7 @@ urllib提供了一个URLopener基类，并且默认使用FancyURLopener处理支
 \resetcurrentobjects
 
 
-\section{PyMOTW: fnmatch}
+\chapter{PyMOTW: fnmatch}
 
 使用fnmatch模块处理Unix风格的文件名的比较。
 \begin{itemize}
@@ -4943,12 +4936,12 @@ python版本：1.4+
 \end{itemize}
 
 
-\subsection{描述}
+\section{描述}
 
 fnmatch模块用来全局模式上比较文件名(比如在Unix Shell中的模式)。
 
 
-\subsection{简单匹配}
+\section{简单匹配}
 
 \code{fnmatch()} 比较一个简单的文件名和一个模式并且返回一个布尔类型，即匹配返回True，不匹配返回Fasle。如果操作系统使用了一个大小写不敏感的文件系统，那么这种比较也是大小写不敏感的，否则是大小写敏感的。
 
@@ -5011,7 +5004,7 @@ Filename: fnmatch@_translate.py False
 \end{Verbatim}
 
 
-\subsection{过滤}
+\section{过滤}
 
 你可以使用 \code{filter()} 来测试一系列的文件名。它返回匹配模式参数的名字列表。
 
@@ -5039,7 +5032,7 @@ Matches : @PYGZlb[]'fnmatch@_filter.py', 'fnmatch@_fnmatch.py', 'fnmatch@_fnmatc
 \end{Verbatim}
 
 
-\subsection{翻译模式}
+\section{翻译模式}
 
 在内部，fnmatch将这种全局模式转换成一个正则式，然后使用re模块来比较名字和模式。 \code{translate()} 函数是一个公共API用于将全局模式转换成正则式。
 
@@ -5062,7 +5055,7 @@ Regex : fnmatch\@_.*\.py@$
 \end{Verbatim}
 
 
-\subsection{参考}
+\section{参考}
 \begin{itemize}
 \item {} 
 \href{http://docs.python.org/lib/module-glob.html}{glob module documentation}
@@ -5072,7 +5065,7 @@ Regex : fnmatch\@_.*\.py@$
 \resetcurrentobjects
 
 
-\section{PyMOTW: Cookie}
+\chapter{PyMOTW: Cookie}
 \begin{itemize}
 \item {} 
 模块： Cookie
@@ -5086,14 +5079,14 @@ python版本： 2.1+
 \end{itemize}
 
 
-\subsection{描述}
+\section{描述}
 
 很久以前，Cookies就已成为HTTP协议的一部分。现有的web开发框架提供了简单的访问cookies的接口。因此，程序员几乎不用担心怎样去格式化cookies数据或者确保头的正确发送。明白cookies是怎样工作以及有哪些工作模式是很让人受启发的事情。
 
 Cookie模块实现了对cookies的解析，其大多是兼容RFC 2109的。它没有严重按照标准是因为MSIE 3.0x不支持整个标准。
 
 
-\subsection{创建和设置Cookie}
+\section{创建和设置Cookie}
 
 Cookies可以用作状态管理, 通常被服务器存储并由客户端返回。最普通的创建cookies的用法可以如下的样子：
 
@@ -5113,7 +5106,7 @@ Set-Cookie: mycookie=cookie@_value
 \end{Verbatim}
 
 
-\subsection{Morsels}
+\section{Morsels}
 
 控制cookie的其他方面也是有必要的，比如说期限、路径、域。事实上，RFC对应的所有的cookies属性可以通过代表cookie值的Morsel对象来操作。
 
@@ -5134,21 +5127,21 @@ def show@_cookie(c):
 
 c = Cookie.SimpleCookie()
 
-@# 一个cookie, 其值必须经过编码以符合头的标准.
+@# A cookie with a value that has to be encoded to fit into the header
 c@PYGZlb[]'encoded@_value@_cookie'@PYGZrb[] = '"cookie@_value"'
 c@PYGZlb[]'encoded@_value@_cookie'@PYGZrb[]@PYGZlb[]'comment'@PYGZrb[] = 'Notice that this cookie value has escaped quotes'
 
-@# 一个cookie, 仅适用于部分网站
+@# A cookie that only applies to part of a site
 c@PYGZlb[]'restricted@_cookie'@PYGZrb[] = 'cookie@_value'
 c@PYGZlb[]'restricted@_cookie'@PYGZrb[]@PYGZlb[]'path'@PYGZrb[] = '/sub/path'
 c@PYGZlb[]'restricted@_cookie'@PYGZrb[]@PYGZlb[]'domain'@PYGZrb[] = 'PyMOTW'
 c@PYGZlb[]'restricted@_cookie'@PYGZrb[]@PYGZlb[]'secure'@PYGZrb[] = True
 
-@# 一个cookie, 期限为5分钟
+@# A cookie that expires in 5 minutes
 c@PYGZlb[]'with@_max@_age'@PYGZrb[] = 'expires in 5 minutes'
-c@PYGZlb[]'with@_max@_age'@PYGZrb[]@PYGZlb[]'max-age'@PYGZrb[] = 300 @# seconds 以秒为单位
+c@PYGZlb[]'with@_max@_age'@PYGZrb[]@PYGZlb[]'max-age'@PYGZrb[] = 300 @# seconds
 
-@# 一个cookie, 期限为某个指定的时间
+@# A cookie that expires at a specific time
 c@PYGZlb[]'expires@_at@_time'@PYGZrb[] = 'cookie@_value'
 expires = datetime.datetime.now() + datetime.timedelta(hours=1)
 c@PYGZlb[]'expires@_at@_time'@PYGZrb[]@PYGZlb[]'expires'@PYGZrb[] = expires.strftime('@%a, @%d @%b @%Y @%H:@%M:@%S')
@@ -5216,7 +5209,7 @@ version 版本
 一个Cookie对象的键是一些独立的会被cookie存储的名字。来自于Morsel的键属性的信息也是可用的。
 
 
-\subsection{编码后的值}
+\section{编码后的值}
 
 cookie头可能会需要编码后的值以便它们被正确的解析。
 
@@ -5251,7 +5244,7 @@ string@_with@_quotes
 \end{Verbatim}
 
 
-\subsection{接收和解析Cookie头}
+\section{接收和解析Cookie头}
 
 一旦客户端收到Set-Cookie头，它会将这些cookies在接下来的请求中作为新的Cookie头返回给服务器。那么传入的头看起来是：
 
@@ -5289,7 +5282,7 @@ Set-Cookie: string@_with@_quotes="He said, \"Hello, World!\""
 \end{Verbatim}
 
 
-\subsection{选择输出格式}
+\section{选择输出格式}
 
 除了使用Set-Cookie头外，使用JavaScript给客户端增加cookies也是可以的。SimpleCookie和Morsel提供一种JavaScript输出格式，通过使用 \code{js\_output()} 方法：
 
@@ -5319,12 +5312,12 @@ c@lb[]@PYGad[']@PYGad[another@_cookie]@PYGad[']@rb[] @PYGbe[=] @PYGad[']@PYGad[s
 \end{Verbatim}
 
 
-\subsection{不推荐使用的类}
+\section{不推荐使用的类}
 
 上面所有的例子中都是使用的SimpleCookie类。Cookie模块也提供2个其他的类，SerialCookie和SmartCookie。SerialCookie可以处理任何可以被pickle的值。SmartCookie指明了一个值是否需要被unpickle或者是否是一个简单的值。由于他们两者都使用了pickle，他们是你应用中的潜在安全漏洞，所以你最好不要使用他们。在服务器上存贮cookie状态。然后传递给客户端一个会话key，这是更安全的。
 
 
-\subsection{参考}
+\section{参考}
 \begin{itemize}
 \item {} 
 \href{http://docs.python.org/lib/module-cookielib.html}{cookielib}
@@ -5337,7 +5330,7 @@ c@lb[]@PYGad[']@PYGad[another@_cookie]@PYGad[']@rb[] @PYGbe[=] @PYGad[']@PYGad[s
 \resetcurrentobjects
 
 
-\section{PyMOTW: base64}
+\chapter{PyMOTW: base64}
 
 base64模块提供一些函数l来把二进制数据转换为ASCII集，通常在明文协议的传输中使用。
 \begin{itemize}
@@ -5353,12 +5346,12 @@ python版本： 1.4+
 \end{itemize}
 
 
-\subsection{描述}
+\section{描述}
 
 base64、base32、base16可以分别编码转化8位字节为6位、5位、4位，允许非ASCII字节以编码为ASCII码的协议中传输，例如SMTP，“base”值对应是在每一个编码中字母表的长度。有一些原始编码的url类型会使用略有不同的结果。
 
 
-\subsection{Base64 编码}
+\section{Base64 编码}
 
 简单的文本编码示例如下：
 
@@ -5409,7 +5402,7 @@ ZW5jb2RlZF9kYXRhCg==
 \end{Verbatim}
 
 
-\subsection{Base64 解码}
+\section{Base64 解码}
 
 编码的字符串可以转换为原来的格式，利用反向查询，把4个字节转换为3个字节。b64decode()函数可以帮助你。
 
@@ -5434,7 +5427,7 @@ Decoded : This is the data, in the clear.
 \end{Verbatim}
 
 
-\subsection{URL-Safe变化}
+\section{URL-Safe变化}
 
 默认的base64字母表可能会使用+和/，而这些字符可能出现在url中，因此必须为这些字符指定可选择的编码情况，+由a-来代替，(\_)来代替/，其他字母表还是相同。
 
@@ -5460,7 +5453,7 @@ URL-safe encoding: @_@_8=
 \end{Verbatim}
 
 
-\subsection{其他编码}
+\section{其他编码}
 
 除了base 64以外，还有base 32和base 16（16进制）提供函数用于编码数据。
 
@@ -5507,7 +5500,7 @@ Decoded : This is the data, in the clear.
 \end{Verbatim}
 
 
-\subsection{参考}
+\section{参考}
 \begin{itemize}
 \item {} 
 \href{http://www.faqs.org/rfcs/rfc3548.html}{RFC 3548 - The Base16, Base32, and Base64 Data Encodings}
@@ -5517,7 +5510,7 @@ Decoded : This is the data, in the clear.
 \resetcurrentobjects
 
 
-\section{PyMOTW: webbrowser}
+\chapter{PyMOTW: webbrowser}
 
 利用webbrowser模块可以向用户显示web页面。
 \begin{itemize}
@@ -5533,12 +5526,12 @@ python版本：python2.1.3+
 \end{itemize}
 
 
-\subsection{描述}
+\section{描述}
 
 在一个交互式的浏览程序中，webbrowser模块提供了一些用于打开URL链接的函数。在系统中安装的浏览器，通过模块的许多选项可以来获取利用他们。也可通过环境变量BROWSER来控制。
 
 
-\subsection{简单示例}
+\section{简单示例}
 
 在浏览器中打开一个页面，可以使用open()函数。
 
@@ -5551,7 +5544,7 @@ webbrowser@PYGbe[.]open(@PYGad[']@PYGad[http://docs.python.org/lib/module-webbro
 这个url会在一个新窗口中打开，当然如果当前已经有一个浏览器窗口，那么会做为一个新标签打开。
 
 
-\subsection{窗口 Vs 标签}
+\section{窗口 Vs 标签}
 
 如果你只想在新窗口中打开页面，那么可以使用 \code{open\_new()} 。
 
@@ -5564,7 +5557,7 @@ webbrowser@PYGbe[.]open@_new(@PYGad[']@PYGad[http://docs.python.org/lib/module-w
 如果你想在新的标签中打开，那么可以使用 \code{open\_new\_tab()} 。
 
 
-\subsection{使用特定的浏览器}
+\section{使用特定的浏览器}
 
 因为某些原因，你的应用程序可能需要使用特定的浏览器，可以利用get()函数来取得浏览器访问对象，该对象提供了open()、open\_new()和open\_new\_tab()函数，下面示例演示了如何利用lynx浏览器。
 
@@ -5578,7 +5571,7 @@ b@PYGbe[.]open(@PYGad[']@PYGad[http://docs.python.org/lib/module-webbrowser.html
 可以参考模块文档来了解浏览器类型列表。
 
 
-\subsection{BROWSER 变量}
+\section{BROWSER 变量}
 
 用户可以在你的应用程序之外为BROWSER变量设置浏览器名字或者命令来控制webbrowser模块，值可以由一系列的浏览器名字组成，中间由系统分割符os.pathsep来分割。如果名字中包含\%s，那么将被解释成命令，并且在URL中\%s将被直接替换执行。否则，值将被传递给get()来获取控制对象。
 
@@ -5591,7 +5584,7 @@ BROWSER=lynx python webbrowser@_open.py
 如果BROWSER中的名字中没有一个可以正确工作，那么webbrowse会返回执行它的默认行为。
 
 
-\subsection{命令行接口}
+\section{命令行接口}
 
 webbrowser模块的所有特性可以通过命令行获取，类似运行一个python程序。
 
@@ -5605,7 +5598,7 @@ Usage: /Library/Frameworks/Python.framework/Versions/2.5/lib/python2.5/webbrowse
 \resetcurrentobjects
 
 
-\section{PyMOTW: anydbm}
+\chapter{PyMOTW: anydbm}
 \begin{itemize}
 \item {} 
 模块： anydbm
@@ -5619,12 +5612,12 @@ python版本： 1.4+
 \end{itemize}
 
 
-\subsection{描述}
+\section{描述}
 
 anydbm面向DBM数据库 ，利用简单的字符串值作为key来访问包含字符串的记录。它利用whichdb模块来识别dbhash、gdbm和dbm数据库，并使用appropriate模块来打开它们，常常在shelve 中作为后端使用，比如我们知道如何利用pickle来存储对象。她常被用作为shelve的后端，就像我们知道如何利用pickle来存储对象。
 
 
-\subsection{创建一个新的数据库}
+\section{创建一个新的数据库}
 
 新数据库的存储格式是可以通过查询如下模块来选择：
 \begin{itemize}
@@ -5675,7 +5668,7 @@ dbhash
 \end{Verbatim}
 
 
-\subsection{打开一个存在的数据库}
+\section{打开一个存在的数据库}
 
 要打开一个存在的数据库，使用标记''r''（只读）或者''w''（读写）。你不需要担心格式问题，因为数据库格式会自动由whichdb来识别，如果一个文件可以被识别，那么对应的模块会打开它。
 
@@ -5704,7 +5697,7 @@ db@PYGZlb[]"author"@PYGZrb[] = Doug
 \end{Verbatim}
 
 
-\subsection{错误案例}
+\section{错误案例}
 
 数据库关键词必须是字符串。
 
@@ -5763,7 +5756,7 @@ TypeError: Data values must be of type string or None.
 \end{Verbatim}
 
 
-\subsection{参考}
+\section{参考}
 \begin{itemize}
 \item {} 
 \href{http://docs.python.org/lib/module-anydbm.html}{标准库文件：anydbm}
@@ -5773,7 +5766,7 @@ TypeError: Data values must be of type string or None.
 \resetcurrentobjects
 
 
-\section{PyMOTW: smtplib}
+\chapter{PyMOTW: smtplib}
 \begin{itemize}
 \item {} 
 模块：smtplib
@@ -5793,7 +5786,7 @@ smtplib包含了SMTP类，用于与邮件服务器进行邮件通信。
 \end{notice}
 
 
-\subsection{发送一封邮件}
+\section{发送一封邮件}
 
 SMTP最常用的方法是连接服务器并发送一封邮件，在构造器中指定邮件服务器名和端口名，或者你可以使用connect()方法来指定。一旦建立连接，就可以调用sendmail()函数，并附带信封体参数和消息内容，消息文本应该与RFC2822兼容。smtplib不会自动修改消息内容和头信息，这就意味着你需要自己添加From和To等头信息。
 
@@ -5802,7 +5795,7 @@ SMTP最常用的方法是连接服务器并发送一封邮件，在构造器中�
 @PYGay[import] @PYGaV[email.utils]
 @PYGay[from] @PYGaV[email.mime.text] @PYGay[import] MIMEText
 
-@PYGaD[@# Create the message创建消息]
+@PYGaD[@# Create the message]
 msg @PYGbe[=] MIMEText(@PYGad[']@PYGad[This is the body of the message.]@PYGad['])
 msg@lb[]@PYGad[']@PYGad[To]@PYGad[']@rb[] @PYGbe[=] email@PYGbe[.]utils@PYGbe[.]formataddr((@PYGad[']@PYGad[Recipient]@PYGad['], @PYGad[']@PYGad[recipient@at[]example.com]@PYGad[']))
 msg@lb[]@PYGad[']@PYGad[From]@PYGad[']@rb[] @PYGbe[=] email@PYGbe[.]utils@PYGbe[.]formataddr((@PYGad[']@PYGad[Author]@PYGad['], @PYGad[']@PYGad[author@at[]example.com]@PYGad[']))
@@ -5863,7 +5856,7 @@ reply: retcode (221); Msg: 2.0.0 mail.example.com closing connection
 注意sendmail的第二个参数，收件人信息需要是一个list结构，你可以在list写上很多的邮件地址，message会依次把消息发送给他们. 由于信封信息和和邮件头是分开的，所以你可以通过一些方法参数来指定密送一些人，但不可以在邮件头中设置。
 
 
-\subsection{认证和加密}
+\section{认证和加密}
 
 SMTP同样可以处理认证和TLS(一种底层通讯的安全协议)加密。如果服务器支持它们，你可以自己来检测服务器是否支持TLS，可以直接调用ehlo()来鉴定并询问服务器支持何种类型扩展 。然后通过调用has\_extn()来检查结果。一旦启动TLS，你可以在认证之前再次调用ehlo()。
 
@@ -5873,13 +5866,13 @@ SMTP同样可以处理认证和TLS(一种底层通讯的安全协议)加密。�
 @PYGay[from] @PYGaV[email.mime.text] @PYGay[import] MIMEText
 @PYGay[import] @PYGaV[getpass]
 
-@PYGaD[@# Prompt the user for connection info提示用户输入连接信息]
+@PYGaD[@# Prompt the user for connection info]
 to@_email @PYGbe[=] @PYGaX[raw@_input](@PYGad[']@PYGad[Recipient: ]@PYGad['])
 servername @PYGbe[=] @PYGaX[raw@_input](@PYGad[']@PYGad[Mail server name: ]@PYGad['])
 username @PYGbe[=] @PYGaX[raw@_input](@PYGad[']@PYGad[Mail user name: ]@PYGad['])
 password @PYGbe[=] getpass@PYGbe[.]getpass(@PYGad["]@PYGbf[@%s]@PYGad[']@PYGad[s password: ]@PYGad["] @PYGbe[@%] username)
 
-@PYGaD[@# Create the message创建信息]
+@PYGaD[@# Create the message]
 msg @PYGbe[=] MIMEText(@PYGad[']@PYGad[Test message from PyMOTW.]@PYGad['])
 msg@PYGbe[.]set@_unixfrom(@PYGad[']@PYGad[author]@PYGad['])
 msg@lb[]@PYGad[']@PYGad[To]@PYGad[']@rb[] @PYGbe[=] email@PYGbe[.]utils@PYGbe[.]formataddr((@PYGad[']@PYGad[Recipient]@PYGad['], to@_email))
@@ -5890,13 +5883,13 @@ server @PYGbe[=] smtplib@PYGbe[.]SMTP(servername)
 @PYGay[try]:
     server@PYGbe[.]set@_debuglevel(@PYGaA[True])
 
-    @PYGaD[@# identify ourselves, prompting server for supported features标识自己身份,确定服务器支持的特征]
+    @PYGaD[@# identify ourselves, prompting server for supported features]
     server@PYGbe[.]ehlo()
 
-    @PYGaD[@# If we can encrypt this session, do it如果我们可以加密这个会话,就进行]
+    @PYGaD[@# If we can encrypt this session, do it]
     @PYGay[if] server@PYGbe[.]has@_extn(@PYGad[']@PYGad[STARTTLS]@PYGad[']):
          server@PYGbe[.]starttls()
-         server@PYGbe[.]ehlo() @PYGaD[@# re-identify ourselves over TLS connection再次标识身份通过TLS连接]
+         server@PYGbe[.]ehlo() @PYGaD[@# re-identify ourselves over TLS connection]
 
     server@PYGbe[.]login(username, password)
     server@PYGbe[.]sendmail(@PYGad[']@PYGad[author@at[]example.com]@PYGad['], @lb[]to@_email@rb[], msg@PYGbe[.]as@_string())
@@ -5965,7 +5958,7 @@ reply: retcode (221); Msg: elasmtp-isp.net closing connection
 \end{Verbatim}
 
 
-\subsection{验证一个邮件地址}
+\section{验证一个邮件地址}
 
 SMTP协议包含一个命令可以询问服务器一个邮件地址是否合法，通常VRFY是关闭的，以防止垃圾邮件发送者找到合法的邮件地址，但是，如果它打开，你可以向服务器询问这个邮件地址并接受一个状态码，如果是可用的，那么会返回一个可用的完整用户名。
 
@@ -5973,7 +5966,7 @@ SMTP协议包含一个命令可以询问服务器一个邮件地址是否合法�
 @PYGay[import] @PYGaV[smtplib]
 
 server @PYGbe[=] smtplib@PYGbe[.]SMTP(@PYGad[']@PYGad[mail]@PYGad['])
-server@PYGbe[.]set@_debuglevel(@PYGaA[True]) @PYGaD[@# show communication with the server显示与服务器的通信情况]
+server@PYGbe[.]set@_debuglevel(@PYGaA[True]) @PYGaD[@# show communication with the server]
 @PYGay[try]:
     dhellmann@_result @PYGbe[=] server@PYGbe[.]verify(@PYGad[']@PYGad[dhellmann]@PYGad['])
     notthere@_result @PYGbe[=] server@PYGbe[.]verify(@PYGad[']@PYGad[notthere]@PYGad['])
@@ -6002,7 +5995,7 @@ notthere : (550, '5.1.1 @textless[]notthere@textgreater[]... User unknown')
 \end{Verbatim}
 
 
-\subsection{参考}
+\section{参考}
 \begin{itemize}
 \item {} 
 \href{http://www.faqs.org/rfcs/rfc821.html}{RFC 821: Simple Mail Transfer Protocol}
@@ -6024,7 +6017,7 @@ notthere : (550, '5.1.1 @textless[]notthere@textgreater[]... User unknown')
 \resetcurrentobjects
 
 
-\section{PyMOTW: Trace}
+\chapter{PyMOTW: Trace}
 \begin{itemize}
 \item {} 
 模块：Trace
@@ -6042,7 +6035,7 @@ trace - 跟踪正在执行的Python语句
 trace模块帮助你明白程序的运行过程.你可以跟踪执行的语句,产生报表,也能获取函数间的调用关系.
 
 
-\subsection{命令行接口}
+\section{命令行接口}
 
 可以很简单的直接从命令行使用trace.给定以下的Python脚本:
 
@@ -6068,7 +6061,7 @@ trace模块帮助你明白程序的运行过程.你可以跟踪执行的语句,�
 \end{Verbatim}
 
 
-\subsection{跟踪时的异常}
+\section{跟踪时的异常}
 
 我们可以使用--trace选项来查看程序运行时哪条语句正在被执行.
 
@@ -6113,7 +6106,7 @@ main.py(17): return
 输出结构的第一部分表明了trace的一个安装操作.剩下来的输出显示了每个函数的入口信息,包括函数位于哪个模块,然后是原脚本文件中的语句行.你可以看到函数recurse()被进入了3次,正如你在main()中调用的那样.
 
 
-\subsection{代码报告}
+\section{代码报告}
 
 从命令行中运行trace并使用--count选项可以产生代码信息报告,因此可以看到哪些行是被执行的,哪些被跳过了.因为你的程序通常是多个文件组成,那就会为每个文件产生独立的报表.默认下,报表文件在和模块的同一目录下被创建,并以模块名命名,而且使用.cover后缀名替换.py.
 
@@ -6215,7 +6208,7 @@ coverdir1/trace@_example.recurse.cover
 \end{Verbatim}
 
 
-\subsection{调用关系}
+\section{调用关系}
 
 除了以上覆盖信息,trace还可以收集函数间调用关系.使用--listfuncs可以在结果中输出简单的函数调用关系:
 
@@ -6267,7 +6260,7 @@ recurse.recurse -@textgreater[] recurse.recurse
 \end{Verbatim}
 
 
-\subsection{编程接口}
+\section{编程接口}
 
 通过trace接口增加更多的控制,你可以在你的程序中使用Trace对象.Trace可以让你设置fixtures和其他依赖关系在运行单个函数前或执行一个用于跟踪的Python命令.
 
@@ -6337,7 +6330,7 @@ recurse.py(16): return
 \end{Verbatim}
 
 
-\subsection{保存结果数据}
+\section{保存结果数据}
 
 就像在命令行中使用一样, 计算和报告信息也可以被记录下来.使用Trace对象的CoverageResults可以将这些数据明确的保存下来.
 
@@ -6410,7 +6403,7 @@ lines cov@% module (path)
 \end{Verbatim}
 
 
-\subsection{Trace选项}
+\section{Trace选项}
 
 Trace构造器可以带多个可选参数以便更好的控制运行行为.
 \begin{itemize}
@@ -6438,7 +6431,7 @@ outfile:      用于存储缓存信息的文件名,作为输入.默认是None,�
 \end{itemize}
 
 
-\subsection{参考}
+\section{参考}
 \begin{itemize}
 \item {} 
 \href{http://docs.python.org/library/trace.html}{标准库文档: trace}
@@ -6448,7 +6441,7 @@ outfile:      用于存储缓存信息的文件名,作为输入.默认是None,�
 \resetcurrentobjects
 
 
-\section{PyMOTW: Struct}
+\chapter{PyMOTW: Struct}
 \begin{itemize}
 \item {} 
 模块：Struct
@@ -6464,12 +6457,12 @@ python版本：1.4 +
 struct模块包含了实现字符串字节和Python本地数据类型(如数字和字符串)间的相互转换的函数.
 
 
-\subsection{函数 vs Struct类}
+\section{函数 vs Struct类}
 
 这里有一系列用来处理结构化数值的模块级函数, 同样存在Struct类(Python 2.5中新加入的). 格式化描述即将字符串格式转化为可编译形式,类似于正则式的方式. 这种转换需要消耗一些资源,所以一旦创建Struct实例后并调用Struct实例的方法而不使用模块级的方法,这样是更有效的.下面举些使用Struct类的例子.
 
 
-\subsection{封装和解封}
+\section{封装和解封}
 
 Structs支持将数据封装成字符串,也能够通过格式化描述(它是由一些代表特定数据类型的字符,可选的个数和字节序指示符组成的)从字符串中解封数据. 进一步的细节,可以参考 \href{http://docs.python.org/library/struct.html}{标准库文档}
 
@@ -6518,7 +6511,7 @@ Unpacked Values: (1, 'ab', 2.7000000476837158)
 \end{Verbatim}
 
 
-\subsection{字节序}
+\section{字节序}
 
 默认情况下,使用标准C库中''字节序''的概念将数值编码.通过在字符串格式中直接指定一个明确的字节序可以简单的覆盖这个选项.
 
@@ -6579,7 +6572,7 @@ Unpacked Value : (1, 'ab', 2.7000000476837158)
 \end{Verbatim}
 
 
-\subsection{缓冲}
+\section{缓冲}
 
 在高性能的敏感情况或者通过通过第三方模块来传递数据经常会要求对二进制数据进行封装.一种优化的方式是避免为每一个封装结构分配新的缓冲区.函数pack\_into()和unpack\_from()支持直接写入到预分配的缓冲区中.
 
@@ -6629,7 +6622,7 @@ Unpacked: (1, 'ab', 2.7000000476837158)
 \end{Verbatim}
 
 
-\subsection{参考}
+\section{参考}
 \begin{itemize}
 \item {} 
 \href{http://docs.python.org/library/struct.html}{struct}
@@ -6650,7 +6643,7 @@ binascii：用于产生二进制数据的ASCII表示.
 \resetcurrentobjects
 
 
-\section{PyMOTW: array}
+\chapter{PyMOTW: array}
 
 time模块提供了操作日期和时间的函数
 \begin{itemize}
@@ -6668,7 +6661,7 @@ python版本：1.4+
 数组模块定义了一个序列型的数据结构，非常像一个列表，只是其中元素的类型是相同的。支持的数据类型在 \href{http://docs.python.org/library/array.html}{标准库文档} 中列出了。他们是所有数值型或其他固定大小的基本数据类型，如bytes。
 
 
-\subsection{数组的初始化}
+\section{数组的初始化}
 
 一个数组实例化时需要一个描述数据类型的参数，还可能需要一个初始化序列。
 
@@ -6695,7 +6688,7 @@ As hex : 54686973206973207468652061727261792e
 \end{Verbatim}
 
 
-\subsection{处理数组}
+\section{处理数组}
 
 一个数组可以被扩展，否则也可以与其他Python序列的相同的方式处理。
 
@@ -6723,7 +6716,7 @@ Iterator: @PYGZlb[](0, 0), (1, 1), (2, 2), (3, 3), (4, 4),
 \end{Verbatim}
 
 
-\subsection{数组和文件}
+\section{数组和文件}
 
 使用一些编码高效的内置方法可以从文件中读入一个数组的内容，或者将数组内容写入文件中。
 
@@ -6735,17 +6728,17 @@ Iterator: @PYGZlb[](0, 0), (1, 1), (2, 2), (3, 3), (4, 4),
 a @PYGbe[=] array@PYGbe[.]array(@PYGad[']@PYGad[i]@PYGad['], @PYGaX[xrange](@PYGaw[5]))
 @PYGay[print] @PYGad[']@PYGad[A1:]@PYGad['], a
 
-@PYGaD[@# 将一个数字数组写入到文件中]
+@PYGaD[@# Write the array of numbers to the file]
 output @PYGbe[=] tempfile@PYGbe[.]NamedTemporaryFile()
-a@PYGbe[.]tofile(output@PYGbe[.]file) @PYGaD[@# 应该传递一个真实的文件]
+a@PYGbe[.]tofile(output@PYGbe[.]file) @PYGaD[@# must pass an *actual* file]
 output@PYGbe[.]flush()
 
-@PYGaD[@# 读取原数据]
+@PYGaD[@# Read the raw data]
 @PYGaX[input] @PYGbe[=] @PYGaX[open](output@PYGbe[.]name, @PYGad[']@PYGad[rb]@PYGad['])
 raw@_data @PYGbe[=] @PYGaX[input]@PYGbe[.]read()
 @PYGay[print] @PYGad[']@PYGad[Raw Contents:]@PYGad['], binascii@PYGbe[.]hexlify(raw@_data)
 
-@PYGaD[@# 将数据读取并存入数组中]
+@PYGaD[@# Read the data into an array]
 @PYGaX[input]@PYGbe[.]seek(@PYGaw[0])
 a2 @PYGbe[=] array@PYGbe[.]array(@PYGad[']@PYGad[i]@PYGad['])
 a2@PYGbe[.]fromfile(@PYGaX[input], @PYGaX[len](a))
@@ -6762,7 +6755,7 @@ A2: array('i', @PYGZlb[]0, 1, 2, 3, 4@PYGZrb[])
 \end{Verbatim}
 
 
-\subsection{交替字节排序}
+\section{交替字节排序}
 
 如果数组中的数据不是按照本地字节序排列，或者在写入到文件之前需要进行交换来适合不同系统的不同字节序，很容易对整个数组进行这种转换。
 
@@ -6772,7 +6765,7 @@ A2: array('i', @PYGZlb[]0, 1, 2, 3, 4@PYGZrb[])
 @PYGay[import] @PYGaV[binascii]
 
 @PYGay[def] @PYGaK[to@_hex](a):
-    chars@_per@_item @PYGbe[=] a@PYGbe[.]itemsize @PYGbe[*] @PYGaw[2] @PYGaD[@# 2 hex digits 2位十六进制数字]
+    chars@_per@_item @PYGbe[=] a@PYGbe[.]itemsize @PYGbe[*] @PYGaw[2] @PYGaD[@# 2 hex digits]
     hex@_version @PYGbe[=] binascii@PYGbe[.]hexlify(a)
     num@_chunks @PYGbe[=] @PYGaX[len](hex@_version) @PYGbe[/] chars@_per@_item
     @PYGay[for] i @PYGan[in] @PYGaX[xrange](num@_chunks):
@@ -6803,254 +6796,13 @@ fmt @PYGbe[=] @PYGad[']@PYGbf[@%10s]@PYGad[ ]@PYGbf[@%10s]@PYGad[ ]@PYGbf[@%10s]
 \end{Verbatim}
 
 
-\subsection{参考}
+\section{参考}
 \begin{itemize}
 \item {} 
 \href{http://docs.python.org/library/array.html}{array}
 
 \item {} 
 \href{http://www.scipy.org/}{Numerical Python} NumPy是Python针对大数据集的有效处理模块。
-
-\end{itemize}
-
-time模块是利用了c函数来处理日期和时间 ，也就是说它绑定了c的实现，一些特定的细节（比如纪元的开始时间、日期的最大值）是和平台相关的，具体可以参考 \href{http://docs.python.org/lib/module-time.html}{这里} 。
-
-
-\subsection{Wall Clock Time}
-
-time模块的核心函数之一就是time.time()函数，它返回一个自公元开始的总秒数（浮点型）。
-
-本工具包含三个文件：
-
-\begin{Verbatim}[commandchars=@\[\]]
-@PYGay[import] @PYGaV[time]
-@PYGay[print] @PYGad[']@PYGad[The time is:]@PYGad['], time@PYGbe[.]time()
-\end{Verbatim}
-
-虽然返回的值是浮点型，但精度是依赖于不同的系统平台的。
-
-\begin{Verbatim}[commandchars=@\[\]]
-@$ python time@_time.py
-The time is: 1205079300.54
-\end{Verbatim}
-
-当存储和比较日期时，浮点型一般是很有用的，但这种方式不易阅读，为了更有用的记录和输出时间可以使用time.ctime()。
-
-\begin{Verbatim}[commandchars=@\[\]]
-@PYGay[import] @PYGaV[time]
-@PYGay[print] @PYGad[']@PYGad[The time is      :]@PYGad['], time@PYGbe[.]ctime()
-later @PYGbe[=] time@PYGbe[.]time() @PYGbe[+] @PYGaw[15]
-@PYGay[print] @PYGad[']@PYGad[15 secs from now :]@PYGad['], time@PYGbe[.]ctime(later)
-\end{Verbatim}
-
-上面第二行示范了如何来利用ctime()函数对当前时间进行格式化。
-
-\begin{Verbatim}[commandchars=@\[\]]
-@$ python time@_ctime.py
-The time is      : Sun Mar  9 12:18:02 2008
-15 secs from now : Sun Mar  9 12:18:17 2008
-\end{Verbatim}
-
-
-\subsection{处理器时钟}
-
-time()函数返回的是现实世界的时间，而clock()函数返回的是cpu时钟。clock()函数返回值常用作性能测试，benchmarking等。它们常常反映了程序运行的真实时间，比time()函数返回的值要精确。
-
-\begin{Verbatim}[commandchars=@\[\]]
-@PYGay[import] @PYGaV[hashlib]
-@PYGay[import] @PYGaV[time]
-
-@PYGaD[@# 用于计算md5校验和的数据]
-data @PYGbe[=] @PYGaX[open](@_@_file@_@_, @PYGad[']@PYGad[rt]@PYGad['])@PYGbe[.]read()
-
-@PYGay[for] i @PYGan[in] @PYGaX[range](@PYGaw[5]):
-    h @PYGbe[=] hashlib@PYGbe[.]sha1()
-    @PYGay[print] time@PYGbe[.]ctime(), @PYGad[']@PYGad[: ]@PYGbf[@%0.3f]@PYGad[ ]@PYGbf[@%0.3f]@PYGad['] @PYGbe[@%] (time@PYGbe[.]time(), time@PYGbe[.]clock())
-    @PYGay[for] i @PYGan[in] @PYGaX[range](@PYGaw[100000]):
-        h@PYGbe[.]update(data)
-    cksum @PYGbe[=] h@PYGbe[.]digest()
-\end{Verbatim}
-
-在这个例子中，ctime()把time()函数返回的浮点型表示转化为标准时间，每个迭代循环使用了clock()。如果想在机器上测试这个例子，那么可以增加循环次数，或者处理大一点的数据，这样才能看到不同点。
-
-\begin{Verbatim}[commandchars=@\[\]]
-@$ python time@_clock.py
-Sun Mar  9 12:41:53 2008 : 1205080913.260 0.030
-Sun Mar  9 12:41:53 2008 : 1205080913.682 0.440
-Sun Mar  9 12:41:54 2008 : 1205080914.103 0.860
-Sun Mar  9 12:41:54 2008 : 1205080914.518 1.270
-Sun Mar  9 12:41:54 2008 : 1205080914.932 1.680
-\end{Verbatim}
-
-一般，如果程序没有做任何事情，处理器时钟是不会计时。
-
-\begin{Verbatim}[commandchars=@\[\]]
-@PYGay[import] @PYGaV[time]
-
-@PYGay[for] i @PYGan[in] @PYGaX[range](@PYGaw[6], @PYGaw[1], @PYGbe[-]@PYGaw[1]):
-    @PYGay[print] @PYGad[']@PYGbf[@%s]@PYGad[ ]@PYGbf[@%0.2f]@PYGad[ ]@PYGbf[@%0.2f]@PYGad['] @PYGbe[@%] (time@PYGbe[.]ctime(), time@PYGbe[.]time(), time@PYGbe[.]clock())
-    @PYGay[print] @PYGad[']@PYGad[Sleeping]@PYGad['], i
-    time@PYGbe[.]sleep(i)
-\end{Verbatim}
-
-在这个例子中，每次迭代，循环中处理了很少的任务就进入了sleep，当进程在睡眠中时，time.time()函数的返回值依然会增加。但是time.clock()是不会增加的。
-
-\begin{Verbatim}[commandchars=@\[\]]
-@$ python time@_clock@_sleep.py
-Sun Mar  9 12:46:36 2008 1205081196.20 0.02
-Sleeping 6
-Sun Mar  9 12:46:42 2008 1205081202.20 0.02
-Sleeping 5
-Sun Mar  9 12:46:47 2008 1205081207.20 0.02
-Sleeping 4
-Sun Mar  9 12:46:51 2008 1205081211.20 0.02
-Sleeping 3
-Sun Mar  9 12:46:54 2008 1205081214.21 0.02
-Sleeping 2
-\end{Verbatim}
-
-time.sleep函数控制当前的线程，让它等待直到系统重新唤醒它，如果应用中只有一个线程，那么它会阻塞当前进程，使其不做任何事情。
-
-
-\subsection{struct\_time}
-
-某些时候，使用逝去的秒数来表示时间是很有用的。有时候你需要获取日期的单独部分（如年、月等等），time模块定义了struct\_time来存储日期和时间值并作为其部分以便获取。提供了多种函数将struct\_time转化为float。
-
-\begin{Verbatim}[commandchars=@\[\]]
-@PYGay[import] @PYGaV[time]
-
-@PYGay[print] @PYGad[']@PYGad[gmtime   :]@PYGad['], time@PYGbe[.]gmtime()
-@PYGay[print] @PYGad[']@PYGad[localtime:]@PYGad['], time@PYGbe[.]localtime()
-@PYGay[print] @PYGad[']@PYGad[mktime   :]@PYGad['], time@PYGbe[.]mktime(time@PYGbe[.]localtime())
-
-@PYGay[print]
-t @PYGbe[=] time@PYGbe[.]localtime()
-@PYGay[print] @PYGad[']@PYGad[Day of month:]@PYGad['], t@PYGbe[.]tm@_mday
-@PYGay[print] @PYGad[']@PYGad[ Day of week:]@PYGad['], t@PYGbe[.]tm@_wday
-@PYGay[print] @PYGad[']@PYGad[ Day of year:]@PYGad['], t@PYGbe[.]tm@_yday
-\end{Verbatim}
-
-gmtime()返回当前的UTC时间，localtime()返回当前时间域的当前时间，mktime()接收struct\_time参数并将其转化为浮点型来表示。
-
-\begin{Verbatim}[commandchars=@\[\]]
-@$ python time@_struct.py
-gmtime   : (2008, 3, 9, 16, 58, 19, 6, 69, 0)
-localtime: (2008, 3, 9, 12, 58, 19, 6, 69, 1)
-mktime   : 1205081899.0
-
-Day of month: 9
-Day of week: 6
-Day of year: 69
-\end{Verbatim}
-
-
-\subsection{解析和格式化时间}
-
-函数strptime()和strftime()可以使struct\_time和时间值字符串相互转化。有一个很长的格式化说明列表可以用来支持输入和输出不同的风格。完整的列表在time模块的的库文档中有介绍。
-
-下面示例把当前时间（字符串)转化为struct\_time实例，然后再转化为字符串。
-
-\begin{Verbatim}[commandchars=@\[\]]
-@PYGay[import] @PYGaV[time]
-
-now @PYGbe[=] time@PYGbe[.]ctime()
-@PYGay[print] now
-parsed @PYGbe[=] time@PYGbe[.]strptime(now)
-@PYGay[print] parsed
-@PYGay[print] time@PYGbe[.]strftime(@PYGad["]@PYGad[@%]@PYGad[a ]@PYGad[@%]@PYGad[b ]@PYGbf[@%d]@PYGad[ ]@PYGad[@%]@PYGad[H:]@PYGad[@%]@PYGad[M:]@PYGad[@%]@PYGad[S ]@PYGad[@%]@PYGad[Y]@PYGad["], parsed)
-\end{Verbatim}
-
-输出和输入字符串不是完全的一致，主要表现在月份前加了一个0前缀。
-
-\begin{Verbatim}[commandchars=@\[\]]
-@$ python time@_strptime.py
-Sun Mar  9 13:01:19 2008
-(2008, 3, 9, 13, 1, 19, 6, 69, -1)
-Sun Mar 09 13:01:19 2008
-\end{Verbatim}
-
-
-\subsection{使用Time Zone(时区)}
-
-无论是你的程序，还是为系统使用一个默认的时区，检测当前时间的函数依赖于当前Time Zone（时间域)的设置。改变时区设置是不会改变实际时间，只会改变表示时间的方法。
-
-通过设置环境变量TZ可以改变时区，然后调用tzset()。环境变量TZ可以对时区来详细的设置，比如白天保存时间的起始点。通常使用时区名称是比较简单的，如果需要了解更多信息可以参考库。
-
-下面这个示例改变了time zone中的一些值，展示了这种改变如何来影响time模块中的其它设置。
-
-\begin{Verbatim}[commandchars=@\[\]]
-@PYGay[import] @PYGaV[time]
-@PYGay[import] @PYGaV[os]
-
-@PYGay[def] @PYGaK[show@_zone@_info]():
-    @PYGay[print] @PYGad[']@PYGao[\t]@PYGad[TZ    :]@PYGad['], os@PYGbe[.]environ@PYGbe[.]get(@PYGad[']@PYGad[TZ]@PYGad['], @PYGad[']@PYGad[(not set)]@PYGad['])
-    @PYGay[print] @PYGad[']@PYGao[\t]@PYGad[tzname:]@PYGad['], time@PYGbe[.]tzname
-    @PYGay[print] @PYGad[']@PYGao[\t]@PYGad[Zone  : ]@PYGbf[@%d]@PYGad[ (]@PYGbf[@%d]@PYGad[)]@PYGad['] @PYGbe[@%] (time@PYGbe[.]timezone, (time@PYGbe[.]timezone @PYGbe[/] @PYGaw[3600]))
-    @PYGay[print] @PYGad[']@PYGao[\t]@PYGad[DST   :]@PYGad['], time@PYGbe[.]daylight
-    @PYGay[print] @PYGad[']@PYGao[\t]@PYGad[Time  :]@PYGad['], time@PYGbe[.]ctime()
-    @PYGay[print]
-
-@PYGay[print] @PYGad[']@PYGad[Default :]@PYGad[']
-show@_zone@_info()
-
-@PYGay[for] zone @PYGan[in] @lb[] @PYGad[']@PYGad[US/Eastern]@PYGad['], @PYGad[']@PYGad[US/Pacific]@PYGad['], @PYGad[']@PYGad[GMT]@PYGad['], @PYGad[']@PYGad[Europe/Amsterdam]@PYGad['] @rb[]:
-    os@PYGbe[.]environ@lb[]@PYGad[']@PYGad[TZ]@PYGad[']@rb[] @PYGbe[=] zone
-    time@PYGbe[.]tzset()
-    @PYGay[print] zone, @PYGad[']@PYGad[:]@PYGad[']
-    show@_zone@_info()
-\end{Verbatim}
-
-我的时区是US/Eastern，所以设置TZ不会起作用。如果是其它时区，则会改变tzname、daylight flag以及 timezone偏移值。
-
-\begin{Verbatim}[commandchars=@\[\]]
-@$ python time@_timezone.py
-Default :
-  TZ    : (not set)
-  tzname: ('EST', 'EDT')
-  Zone  : 18000 (5)
-  DST   : 1
-  Time  : Sun Mar  9 13:06:53 2008
-
-US/Eastern :
-  TZ    : US/Eastern
-  tzname: ('EST', 'EDT')
-  Zone  : 18000 (5)
-  DST   : 1
-  Time  : Sun Mar  9 13:06:53 2008
-
-US/Pacific :
-  TZ    : US/Pacific
-  tzname: ('PST', 'PDT')
-  Zone  : 28800 (8)
-  DST   : 1
-  Time  : Sun Mar  9 10:06:53 2008
-
-GMT :
-  TZ    : GMT
-  tzname: ('GMT', 'GMT')
-  Zone  : 0 (0)
-  DST   : 0
-  Time  : Sun Mar  9 17:06:53 2008
-
-Europe/Amsterdam :
-  TZ    : Europe/Amsterdam
-  tzname: ('CET', 'CEST')
-  Zone  : -3600 (-1)
-  DST   : 1
-  Time  : Sun Mar  9 18:06:53 2008
-\end{Verbatim}
-
-
-\subsection{参考}
-\begin{itemize}
-\item {} 
-\href{http://docs.python.org/lib/module-datetime.html}{datetime module}
-
-\item {} 
-\href{http://docs.python.org/lib/module-locale.html}{locale module}
-
-\item {} 
-\href{http://docs.python.org/lib/module-calendar.html}{calendar module}
 
 \end{itemize}
 
@@ -7073,5 +6825,4 @@ Europe/Amsterdam :
 \printmodindex
 \renewcommand{\indexname}{Index}
 \printindex
-%\end{CJK}
 \end{document}

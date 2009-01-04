@@ -22,7 +22,6 @@
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="copyright" title="Copyright" href="../copyright.html" />
     <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
-    <link rel="up" title="所有文档" href="index.html" />
     <link rel="next" title="PyMOTW: pickle &amp; cPickle" href="pickle.html" />
     <link rel="prev" title="PyMOTW: os(3)" href="os3.html" /> 
   </head>
@@ -39,8 +38,7 @@
         <li class="right" >
           <a href="os3.html" title="PyMOTW: os(3)"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
       </ul>
     </div>  
     <div class="document">
@@ -64,7 +62,7 @@
 <p>最简单的运行一条单独命令,没有一点交互的方式是使用os.system(). 他获取一个字符串,这个字符串就是一将被命令行执行的命令,通过一个shell中的子进程来执行.</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">os</span>
 
-<span class="c"># 简单的一条命令</span>
+<span class="c"># Simple command</span>
 <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">&#39;ls -l&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -85,7 +83,7 @@ total 168
 -rw-r--r-- 1 dhellman dhellman 1672 Jun 10 09:36 os_walk.py</pre>
 </div>
 <p>由于命令是直接被传递到处理shell中,所以它可以包含shell语法,比如通配符或环境变量:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="c"># 有shell扩展的命令</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># Command with shell expansion</span>
 <span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">&#39;ls -l $HOME&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -367,8 +365,7 @@ drwxr-xr-x 4 dhellman dhellman 136 Jun 8 03:16 var_backups</pre>
         <li class="right" >
           <a href="os3.html" title="PyMOTW: os(3)"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

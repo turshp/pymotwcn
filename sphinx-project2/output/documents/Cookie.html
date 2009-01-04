@@ -22,7 +22,6 @@
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="copyright" title="Copyright" href="../copyright.html" />
     <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
-    <link rel="up" title="所有文档" href="index.html" />
     <link rel="next" title="PyMOTW: base64" href="base64.html" />
     <link rel="prev" title="PyMOTW: fnmatch" href="fnmatch.html" /> 
   </head>
@@ -39,8 +38,7 @@
         <li class="right" >
           <a href="fnmatch.html" title="PyMOTW: fnmatch"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
       </ul>
     </div>  
     <div class="document">
@@ -95,21 +93,21 @@ def show_cookie(c):
 
 c = Cookie.SimpleCookie()
 
-# 一个cookie, 其值必须经过编码以符合头的标准.
+# A cookie with a value that has to be encoded to fit into the header
 c['encoded_value_cookie'] = '"cookie_value"'
 c['encoded_value_cookie']['comment'] = 'Notice that this cookie value has escaped quotes'
 
-# 一个cookie, 仅适用于部分网站
+# A cookie that only applies to part of a site
 c['restricted_cookie'] = 'cookie_value'
 c['restricted_cookie']['path'] = '/sub/path'
 c['restricted_cookie']['domain'] = 'PyMOTW'
 c['restricted_cookie']['secure'] = True
 
-# 一个cookie, 期限为5分钟
+# A cookie that expires in 5 minutes
 c['with_max_age'] = 'expires in 5 minutes'
-c['with_max_age']['max-age'] = 300 # seconds 以秒为单位
+c['with_max_age']['max-age'] = 300 # seconds
 
-# 一个cookie, 期限为某个指定的时间
+# A cookie that expires at a specific time
 c['expires_at_time'] = 'cookie_value'
 expires = datetime.datetime.now() + datetime.timedelta(hours=1)
 c['expires_at_time']['expires'] = expires.strftime('%a, %d %b %Y %H:%M:%S')
@@ -308,8 +306,7 @@ Set-Cookie: string_with_quotes="He said, \"Hello, World!\""</pre>
         <li class="right" >
           <a href="fnmatch.html" title="PyMOTW: fnmatch"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

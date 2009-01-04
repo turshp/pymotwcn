@@ -22,7 +22,6 @@
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="copyright" title="Copyright" href="../copyright.html" />
     <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
-    <link rel="up" title="所有文档" href="index.html" />
     <link rel="next" title="PyMOTW: Trace" href="trace.html" />
     <link rel="prev" title="PyMOTW: anydbm" href="anydbm.html" /> 
   </head>
@@ -39,8 +38,7 @@
         <li class="right" >
           <a href="anydbm.html" title="PyMOTW: anydbm"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
       </ul>
     </div>  
     <div class="document">
@@ -68,7 +66,7 @@
 <span class="k">import</span> <span class="nn">email.utils</span>
 <span class="k">from</span> <span class="nn">email.mime.text</span> <span class="k">import</span> <span class="n">MIMEText</span>
 
-<span class="c"># Create the message创建消息</span>
+<span class="c"># Create the message</span>
 <span class="n">msg</span> <span class="o">=</span> <span class="n">MIMEText</span><span class="p">(</span><span class="s">&#39;This is the body of the message.&#39;</span><span class="p">)</span>
 <span class="n">msg</span><span class="p">[</span><span class="s">&#39;To&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">email</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">formataddr</span><span class="p">((</span><span class="s">&#39;Recipient&#39;</span><span class="p">,</span> <span class="s">&#39;recipient@example.com&#39;</span><span class="p">))</span>
 <span class="n">msg</span><span class="p">[</span><span class="s">&#39;From&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">email</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">formataddr</span><span class="p">((</span><span class="s">&#39;Author&#39;</span><span class="p">,</span> <span class="s">&#39;author@example.com&#39;</span><span class="p">))</span>
@@ -133,13 +131,13 @@ reply: retcode (221); Msg: 2.0.0 mail.example.com closing connection</pre>
 <span class="k">from</span> <span class="nn">email.mime.text</span> <span class="k">import</span> <span class="n">MIMEText</span>
 <span class="k">import</span> <span class="nn">getpass</span>
 
-<span class="c"># Prompt the user for connection info提示用户输入连接信息</span>
+<span class="c"># Prompt the user for connection info</span>
 <span class="n">to_email</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">&#39;Recipient: &#39;</span><span class="p">)</span>
 <span class="n">servername</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">&#39;Mail server name: &#39;</span><span class="p">)</span>
 <span class="n">username</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">&#39;Mail user name: &#39;</span><span class="p">)</span>
 <span class="n">password</span> <span class="o">=</span> <span class="n">getpass</span><span class="o">.</span><span class="n">getpass</span><span class="p">(</span><span class="s">&quot;</span><span class="si">%s</span><span class="s">&#39;s password: &quot;</span> <span class="o">%</span> <span class="n">username</span><span class="p">)</span>
 
-<span class="c"># Create the message创建信息</span>
+<span class="c"># Create the message</span>
 <span class="n">msg</span> <span class="o">=</span> <span class="n">MIMEText</span><span class="p">(</span><span class="s">&#39;Test message from PyMOTW.&#39;</span><span class="p">)</span>
 <span class="n">msg</span><span class="o">.</span><span class="n">set_unixfrom</span><span class="p">(</span><span class="s">&#39;author&#39;</span><span class="p">)</span>
 <span class="n">msg</span><span class="p">[</span><span class="s">&#39;To&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">email</span><span class="o">.</span><span class="n">utils</span><span class="o">.</span><span class="n">formataddr</span><span class="p">((</span><span class="s">&#39;Recipient&#39;</span><span class="p">,</span> <span class="n">to_email</span><span class="p">))</span>
@@ -150,13 +148,13 @@ reply: retcode (221); Msg: 2.0.0 mail.example.com closing connection</pre>
 <span class="k">try</span><span class="p">:</span>
     <span class="n">server</span><span class="o">.</span><span class="n">set_debuglevel</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
 
-    <span class="c"># identify ourselves, prompting server for supported features标识自己身份,确定服务器支持的特征</span>
+    <span class="c"># identify ourselves, prompting server for supported features</span>
     <span class="n">server</span><span class="o">.</span><span class="n">ehlo</span><span class="p">()</span>
 
-    <span class="c"># If we can encrypt this session, do it如果我们可以加密这个会话,就进行</span>
+    <span class="c"># If we can encrypt this session, do it</span>
     <span class="k">if</span> <span class="n">server</span><span class="o">.</span><span class="n">has_extn</span><span class="p">(</span><span class="s">&#39;STARTTLS&#39;</span><span class="p">):</span>
          <span class="n">server</span><span class="o">.</span><span class="n">starttls</span><span class="p">()</span>
-         <span class="n">server</span><span class="o">.</span><span class="n">ehlo</span><span class="p">()</span> <span class="c"># re-identify ourselves over TLS connection再次标识身份通过TLS连接</span>
+         <span class="n">server</span><span class="o">.</span><span class="n">ehlo</span><span class="p">()</span> <span class="c"># re-identify ourselves over TLS connection</span>
 
     <span class="n">server</span><span class="o">.</span><span class="n">login</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
     <span class="n">server</span><span class="o">.</span><span class="n">sendmail</span><span class="p">(</span><span class="s">&#39;author@example.com&#39;</span><span class="p">,</span> <span class="p">[</span><span class="n">to_email</span><span class="p">],</span> <span class="n">msg</span><span class="o">.</span><span class="n">as_string</span><span class="p">())</span>
@@ -228,7 +226,7 @@ reply: retcode (221); Msg: elasmtp-isp.net closing connection</pre>
 <div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">smtplib</span>
 
 <span class="n">server</span> <span class="o">=</span> <span class="n">smtplib</span><span class="o">.</span><span class="n">SMTP</span><span class="p">(</span><span class="s">&#39;mail&#39;</span><span class="p">)</span>
-<span class="n">server</span><span class="o">.</span><span class="n">set_debuglevel</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span> <span class="c"># show communication with the server显示与服务器的通信情况</span>
+<span class="n">server</span><span class="o">.</span><span class="n">set_debuglevel</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span> <span class="c"># show communication with the server</span>
 <span class="k">try</span><span class="p">:</span>
     <span class="n">dhellmann_result</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="s">&#39;dhellmann&#39;</span><span class="p">)</span>
     <span class="n">notthere_result</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">verify</span><span class="p">(</span><span class="s">&#39;notthere&#39;</span><span class="p">)</span>
@@ -313,8 +311,7 @@ notthere : (550, '5.1.1 &lt;notthere&gt;... User unknown')</pre>
         <li class="right" >
           <a href="anydbm.html" title="PyMOTW: anydbm"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
-          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
