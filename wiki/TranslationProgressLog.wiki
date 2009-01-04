@@ -1,4 +1,89 @@
 #labels Phase-Support,Featured
+|| 文章  ||   翻译者   ||   校验者   ||   
+|| ~~[http://www.vbarter.cn/pymotw/documents/configparser.html configparser]~~ ||  ||  || 
+|| queue || || ||
+|| StringIO || || ||
+|| textwrap  ||  || ||
+|| linecache || || ||
+|| bisect || || ||
+|| logging || || ||
+|| locale || || ||
+|| os || || ||
+|| os2 || || ||
+|| os3 || || ||
+|| os4 || || ||
+|| pickle || || ||
+|| subprocess || || ||
+|| atexit || || ||
+|| getpass || || ||
+|| calendar || || ||
+|| glob || || ||
+|| shelve || || ||
+|| getopt || || ||
+|| csv || || ||
+|| optparse || || ||
+|| unittest || || ||
+|| hmac || || ||
+|| timeit || || ||
+|| sched || || ||
+|| shlex || || ||
+|| itertools || || ||
+|| commands || || ||
+|| shutil || || ||
+|| pprint || || ||
+|| urlparse || || ||
+|| inspect || || ||
+|| socketserver || || ||
+|| BaseHttpServer || || ||
+|| zipfile || || ||
+|| zipimport || || ||
+|| mmap || || ||
+|| weakref || || ||
+|| threading || || ||
+|| hashlib || || ||
+|| os.path || || ||
+|| string || || ||
+|| tempfile || || ||
+|| pkgutil || || ||
+|| imp || || ||
+|| EasyDialogs || || ||
+|| time || || ||
+|| datetime || || ||
+|| collections || || ||
+|| urllib || || ||
+|| operator || || ||
+|| fnmatch || || ||
+|| filecmp || || ||
+|| functools || || ||
+|| cmd || || ||
+|| heapq || || ||
+|| traceback || || ||
+|| contextlib || || ||
+|| Cookie || || ||
+|| dircache || || ||
+|| platform || || ||
+|| warning || || ||
+|| SimpleXMLRPCServer || || ||
+|| xmlrpclib || || ||
+|| base64 || || ||
+|| uuid || || ||
+|| webbrowser || || ||
+|| signal || || ||
+|| profile || || ||
+|| anydbm || || ||
+|| imaplib || || ||
+|| mailbox || || ||
+|| smtplib || || ||
+|| trace || || ||
+|| smtpd || || ||
+|| struct || || ||
+|| array || || ||
+|| readline || || ||
+|| gzip || || ||
+|| zlib || || ||
+
+
+
 == 工程日志记录 ==
  * 2008/11/09: 创建该工程, 由vbarter和liz组织该工程.
 
