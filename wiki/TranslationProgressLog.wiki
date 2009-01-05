@@ -1,96 +1,7 @@
 #labels Phase-Support,Featured
-|| 文章  ||   翻译者   ||   校验者   ||   
-|| ~~[http://www.vbarter.cn/pymotw/documents/configparser.html configparser]~~ ||  ||  || 
-|| ~~[http://www.vbarter.cn/pymotw/documents/queue.html queue]~~ || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/StringIO.html StringIO]~~ || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/textwrap.html textwrap]~~  ||  || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/linecache.html linecache]~~ || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/bisect.html bisect]~~ || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/logging.html logging]~~ || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/locale.html locale]~~ || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/os.html os]~~ || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/os2.html os2]~~ || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/os3.html os3]] || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/os4.html os4]~~ || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/pickle.html pickle]~~ || || ||
-|| subprocess || || ||
-|| atexit || || ||
-|| getpass || || ||
-|| calendar || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/glob.html glob]~~ || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/shelve.html shelve]~~ || || ||
-|| getopt || || ||
-|| csv || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/optparse.html optparse]~~ || || ||
-|| unittest || || ||
-|| hmac || || ||
-|| timeit || || ||
-|| sched || || ||
-|| shlex || || ||
-|| itertools || || ||
-|| commands || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/shutil.html shutil]~~ || || ||
-|| pprint || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/urlparse.html urlparse]~~ || || ||
-|| inspect || || ||
-|| socketserver || || ||
-|| BaseHttpServer || || ||
-|| zipfile || || ||
-|| zipimport || || ||
-|| mmap || || ||
-|| weakref || || ||
-|| threading || || ||
-|| hashlib || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/os.path.html os.path]~~ || || ||
-|| string || || ||
-|| tempfile || || ||
-|| pkgutil || || ||
-|| imp || || ||
-|| EasyDialogs || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/time.html time]~~ || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/datetime.html datetime]~~ || || ||
-|| collections || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/urllib.html urllib]~~ || || ||
-|| operator || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/fnmatch.html fnmatch]~~ || || ||
-|| filecmp || || ||
-|| functools || || ||
-|| cmd || || ||
-|| heapq || || ||
-|| traceback || || ||
-|| contextlib || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/Cookie.html Cookie]~~ || || ||
-|| dircache || || ||
-|| platform || || ||
-|| warning || || ||
-|| SimpleXMLRPCServer || || ||
-|| xmlrpclib || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/base64.html base64]~~ || || ||
-|| uuid || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/webbrowser.html webbrowser]~~ || || ||
-|| signal || || ||
-|| profile || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/anydbm.html anydbm]~~ || || ||
-|| imaplib || || ||
-|| mailbox || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/smtplib.html smtplib]~~ || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/trace.html trace]~~ || || ||
-|| smtpd || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/struct.html struct]~~ || || ||
-|| ~~[http://www.vbarter.cn/pymotw/documents/array.html array]~~ || || ||
-|| readline || || ||
-|| gzip || || ||
-|| zlib || || ||
-
-
-
 == 工程日志记录 ==
  * 2008/11/09: 创建该工程, 由vbarter和liz组织该工程.
  * 2009/01/04: 发布PyMOTW第一个中文版本
-
-== 翻译进度记录 ==
- * 2008/11/09之前: 翻译完成系列文章20篇,分别是...
- * 2008/11/15之前: ...
 
 == 资源 ==
  * PyMOTW主页: [http://www.doughellmann.com/PyMOTW/]
@@ -99,11 +10,19 @@
  * 工程环境: http://code.google.com/p/pymotwcn/
  * 工程版本仓库: http://code.google.com/p/pymotwcn/source/browse/
 
+== 翻译进度概况 ==
+ * 2008/11/09之前: 翻译完成系列文章20篇
+ * 2009/01/01之前: 翻译完成系列文章31篇
+ * 2009/02/01之前: ...
+更详细的章节翻译情况见ContentDetail
+
 == 待作事项 ==
 === 总述 ===
- * 联系作者,原作者版权声明
- * 创建code上project并不断增补相关描述,,,
- * 中文pdf制作, 参考啄木鸟上 [http://wiki.woodpecker.org.cn/moin/UsageRstReportlabExPdf 资料一]和[http://wiki.woodpecker.org.cn/moin/MiscItems/2008-08-08 资料二]
+ * ~~联系作者,原作者版权声明~~
+ * ~~创建code上project并不断增补相关描述~~
+ * 中文pdf制作
+  * 参考啄木鸟上 [http://wiki.woodpecker.org.cn/moin/UsageRstReportlabExPdf 资料一]和[http://wiki.woodpecker.org.cn/moin/MiscItems/2008-08-08 资料二]
+  * 使用sphnix自动生成
  * 继续翻译未完成
 
 === vbarter ===
@@ -117,9 +36,10 @@
 || 日期 || 任务 || 掺合 || 备注 ||
 || ~~081110至081111~~ || 完成os(part 4)和configparser的初译 || Liz || ... ||
 || ~~081112至081114~~ || 完成locale的初译 || Liz || 如果还有时间再继续完成logging.惭愧, 还没完成~赶紧:P ||
-|| ~~081117~~ || reportlab出探 || Liz || 并记录rst生成PDF过程 ||
-|| ~~081118至081121~~ || 完成logging, locale初译, 校对bisect, linecache  || Liz || 还有些以前的... ||
-|| 081122至... ||   || Liz || ... ||
+|| ~~081117~~ || reportlab初探 || Liz || 并记录rst生成PDF过程 ||
+|| ~~081118至081121~~ || 完成logging, locale初译, 校对bisect, linecache  || Liz ||  ||
+|| ~~081122至090103~~ ||  熟悉sphnix生成html和pdf文档 || Liz ||  ||
+|| 090103至 || 整理, 记录 || Liz ||  ||
 || 日期 || 任务 || 掺合 || 备注 ||
 
 == 其他 ==
