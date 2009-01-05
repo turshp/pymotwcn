@@ -1,7 +1,7 @@
-#labels Phase-Implementation,Featured
+#labels Phase-Implementation
 #使用reportlab生成PDF过程记录 liz的过程
 
-= 使用ReportLab生成PDF文件 =
+= 使用Reportlab生成PDF文件 =
 
 == 下载 ==
 可以从[http://www.reportlab.org/ftp/ReportLab_2_2.tgz 这里]下载, 或者直接新立得安装python-reportlab
