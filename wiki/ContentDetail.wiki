@@ -1,5 +1,5 @@
 #labels Phase-Support
-# z 详细的翻译进度情况
+## z 详细的翻译进度情况
 
 = About =
 记录翻译PyMOTW的各个章节的详细情况
@@ -7,145 +7,145 @@ PS: 以下章节组织结构和[http://www.doughellmann.com/PyMOTW/contents.html
 
 = Python Module of the Week =
   * About Python Module of the Week
-    1. Tools
-    1. Subscribe
-    1. Translations and Other Versions
-    1. Other Contributors
-    1. Copyright and Licensing
+    * Tools
+    * Subscribe
+    * Translations and Other Versions
+    * Other Contributors
+    * Copyright and Licensing
 
   * Builtin Objects
-    1. exceptions – Builtin error classes
+    * exceptions – Builtin error classes
 
   * String Services
-    1. difflib 
-    1. string 
-    1. [http://www.vbarter.cn/pymotw/documents/StringIO.html StringIO and cStringIO] 100% by vbarter & liz
-    1. [http://www.vbarter.cn/pymotw/documents/struct.html struct] 100% by vbarter & liz
-    1. [http://www.vbarter.cn/pymotw/documents/textwrap.html textwrap] 100% by vbarter & liz
+    * difflib 
+    * string 
+    * [http://www.vbarter.cn/pymotw/documents/StringIO.html StringIO and cStringIO] ~ 100% by vbarter/liz
+    * [http://www.vbarter.cn/pymotw/documents/struct.html struct] ~ 100% by vbarter/liz
+    * [http://www.vbarter.cn/pymotw/documents/textwrap.html textwrap] ~ 100% by vbarter/liz
 
   * Data Types
-    1. [http://www.vbarter.cn/pymotw/documents/array.html array] 100% by vbarter & liz
-    1. [http://www.vbarter.cn/pymotw/documents/datetime.html datetime] 100% by vbarter & liz
-    1. calendar 
-    1. collections 
-    1. heapq 
-    1. [http://www.vbarter.cn/pymotw/documents/bisect.html bisect] 100% by vbarter & liz
-    1. sched 
-    1. [http://www.vbarter.cn/pymotw/documents/queue.html Queue] 100% by vbarter & liz
-    1. weakref
-    1. copy 
-    1. pprint 
+    * [http://www.vbarter.cn/pymotw/documents/array.html array] ~ 100% by vbarter/liz
+    * [http://www.vbarter.cn/pymotw/documents/datetime.html datetime] ~ 100% by vbarter/liz
+    * calendar 
+    * collections 
+    * heapq 
+    * [http://www.vbarter.cn/pymotw/documents/bisect.html bisect] ~ 100% by vbarter/liz
+    * sched 
+    * [http://www.vbarter.cn/pymotw/documents/queue.html Queue] ~ 100% by vbarter/liz
+    * weakref
+    * copy 
+    * pprint 
 
   * Numeric and Mathematical Modules
-    1. itertools 
-    1. functools 
-    1. operator 
+    * itertools 
+    * functools 
+    * operator 
 
   * Internet Data Handling
-    1. [http://www.vbarter.cn/pymotw/documents/base64.html base64] 100% by vbarter & liz
-    1. mailbox 
-    1. mhlib 
+    * [http://www.vbarter.cn/pymotw/documents/base64.html base64] ~ 100% by vbarter/liz
+    * mailbox 
+    * mhlib 
 
   * File Formats
-    1. csv 
-    1. [http://www.vbarter.cn/pymotw/documents/configparser.html ConfigParser] 100% by vbarter & liz
+    * csv 
+    * [http://www.vbarter.cn/pymotw/documents/configparser.html ConfigParser] ~ 100% by vbarter/liz
 
   * Cryptographic Services
-    1. hashlib 
-    1. hmac 
+    * hashlib 
+    * hmac 
 
   * File and Directory Access
-    1. [http://www.vbarter.cn/pymotw/documents/os.path.html os.path] 100% by vbarter & liz
-    1. fileinput
-    1. filecmp 
-    1. tempfile 
-    1. [http://www.vbarter.cn/pymotw/documents/glob.html glob] 100% by vbarter & liz
-    1. [http://www.vbarter.cn/pymotw/documents/fnmatch.html fnmatch] 100% by vbarter & liz
-    1. [http://www.vbarter.cn/pymotw/documents/linecache.html linecache] 100% by vbarter & liz 
-    1. [http://www.vbarter.cn/pymotw/documents/shutil.html shutil] 100% by vbarter & liz
-    1. dircache 
+    * [http://www.vbarter.cn/pymotw/documents/os.path.html os.path] ~ 100% by vbarter/liz
+    * fileinput
+    * filecmp 
+    * tempfile 
+    * [http://www.vbarter.cn/pymotw/documents/glob.html glob] ~ 100% by vbarter/liz
+    * [http://www.vbarter.cn/pymotw/documents/fnmatch.html fnmatch] ~ 100% by vbarter/liz
+    * [http://www.vbarter.cn/pymotw/documents/linecache.html linecache] ~ 100% by vbarter/liz 
+    * [http://www.vbarter.cn/pymotw/documents/shutil.html shutil] ~ 100% by vbarter/liz
+    * dircache 
 
   * Data Compression and Archiving
-    1. bz2 
-    1. gzip 
-    1. zipfile
-    1. zlib 
+    * bz2 
+    * gzip 
+    * zipfile
+    * zlib 
 
   * Data Persistence
-    1. [http://www.vbarter.cn/pymotw/documents/anydbm.html anydbm] 100% by vbarter & liz
-    1. dbhash 
-    1. dbm 
-    1. dumbdbm 
-    1. gdbm 
-    1. [http://www.vbarter.cn/pymotw/documents/pickle.html pickle and cPickle] 100% by vbarter & liz
-    1. [http://www.vbarter.cn/pymotw/documents/shelve.html shelve] 100% by vbarter & liz
-    1. whichdb 
+    * [http://www.vbarter.cn/pymotw/documents/anydbm.html anydbm] ~ 100% by vbarter/liz
+    * dbhash 
+    * dbm 
+    * dumbdbm 
+    * gdbm 
+    * [http://www.vbarter.cn/pymotw/documents/pickle.html pickle and cPickle] ~ 100% by vbarter/liz
+    * [http://www.vbarter.cn/pymotw/documents/shelve.html shelve] ~ 100% by vbarter/liz
+    * whichdb 
 
   * Generic Operating System Services
-    1. [http://www.vbarter.cn/pymotw/documents/os.html os] 100% by vbarter & liz
-    1. [http://www.vbarter.cn/pymotw/documents/os2.html os2] 100% by vbarter & liz
-    1. [http://www.vbarter.cn/pymotw/documents/os3.html os3] 100% by vbarter & liz
-    1. [http://www.vbarter.cn/pymotw/documents/os4.html os4] 100% by vbarter & liz
-    1. [http://www.vbarter.cn/pymotw/documents/time.html time] 100% by vbarter & liz
-    1. [http://www.vbarter.cn/pymotw/documents/optparse.html optparse] 100% by vbarter & liz
-    1. getopt 
-    1. [http://www.vbarter.cn/pymotw/documents/logging.html logging] 100% by vbarter & liz
-    1. getpass 
-    1. platform 
+    * [http://www.vbarter.cn/pymotw/documents/os.html os] ~ 100% by vbarter/liz
+    * [http://www.vbarter.cn/pymotw/documents/os2.html os2] ~ 100% by vbarter/liz
+    * [http://www.vbarter.cn/pymotw/documents/os3.html os3] ~ 100% by vbarter/liz
+    * [http://www.vbarter.cn/pymotw/documents/os4.html os4] ~ 100% by vbarter/liz
+    * [http://www.vbarter.cn/pymotw/documents/time.html time] ~ 100% by vbarter/liz
+    * [http://www.vbarter.cn/pymotw/documents/optparse.html optparse] ~ 100% by vbarter/liz
+    * getopt 
+    * [http://www.vbarter.cn/pymotw/documents/logging.html logging] ~ 100% by vbarter/liz
+    * getpass 
+    * platform 
 
   * Optional Operating System Services
-    1. threading
-    1. mmap 
-    1. readline 
-    1. rlcompleter 
+    * threading
+    * mmap 
+    * readline 
+    * rlcompleter 
 
   * Unix-specific Services
-    1. commands 
+    * commands 
 
   * Interprocess Communication and Networking
-    1. signal 
-    1. subprocess 
+    * signal 
+    * subprocess 
 
   * Internet Protocols and Support
-    1. BaseHTTPServer 
-    1. [http://www.vbarter.cn/pymotw/documents/Cookie.html Cookie] 100% by vbarter & liz
-    1. imaplib 
-    1. SimpleXMLRPCServer 
-    1. smtpd 
-    1. [http://www.vbarter.cn/pymotw/documents/smtplib.html smtplib] 100% by vbarter & liz
-    1. SocketServer 
-    1. [http://www.vbarter.cn/pymotw/documents/urllib.html urllib] 100% by vbarter & liz
-    1. [http://www.vbarter.cn/pymotw/documents/urlparse.html urlparse] 100% by vbarter & liz
-    1. uuid 
-    1. [http://www.vbarter.cn/pymotw/documents/webbrowser.html webbrowser] 100% by vbarter & liz
-    1. xmlrpclib
+    * BaseHTTPServer 
+    * [http://www.vbarter.cn/pymotw/documents/Cookie.html Cookie] ~ 100% by vbarter/liz
+    * imaplib 
+    * SimpleXMLRPCServer 
+    * smtpd 
+    * [http://www.vbarter.cn/pymotw/documents/smtplib.html smtplib] ~ 100% by vbarter/liz
+    * SocketServer 
+    * [http://www.vbarter.cn/pymotw/documents/urllib.html urllib] ~ 100% by vbarter/liz
+    * [http://www.vbarter.cn/pymotw/documents/urlparse.html urlparse] ~ 100% by vbarter/liz
+    * uuid 
+    * [http://www.vbarter.cn/pymotw/documents/webbrowser.html webbrowser] ~ 100% by vbarter/liz
+    * xmlrpclib
 
   * Internationalization
-    1. [http://www.vbarter.cn/pymotw/documents/locale.html locale] 100% by vbarter & liz
+    * [http://www.vbarter.cn/pymotw/documents/locale.html locale] ~ 100% by vbarter/liz
 
   * Program Frameworks
-    1. cmd  
-    1. shlex  
+    * cmd  
+    * shlex  
 
   * Development Tools
-    1. unittest
+    * unittest
 
   * Debugging and Profiling
-    1. profile, cProfile, and pstats 
-    1. timeit  
-    1. [http://www.vbarter.cn/pymotw/documents/trace.html trace] 100% by vbarter & liz
+    * profile, cProfile, and pstats 
+    * timeit  
+    * [http://www.vbarter.cn/pymotw/documents/trace.html trace] ~ 100% by vbarter/liz
 
   * Python Runtime Services
-    1. atexit  
-    1. contextlib  
-    1. inspect  
-    1. traceback
-    1. warnings
+    * atexit  
+    * contextlib  
+    * inspect  
+    * traceback
+    * warnings
 
   * Importing Modules
-    1. imp 
-    1. pkgutil 
-    1. zipimport
+    * imp 
+    * pkgutil 
+    * zipimport
 
   * Miscelaneous
-    1. EasyDialogs 
+    * EasyDialogs 
