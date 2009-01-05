@@ -1,6 +1,4 @@
 #labels Phase-Support,Featured
-# z 详细的翻译进度情况
-
 = About =
 记录翻译PyMOTW的各个章节的详细情况
 PS: 以下章节组织结构和[http://www.doughellmann.com/PyMOTW/contents.html Doug Hellmann章节]一致
