@@ -1,5 +1,5 @@
-#labels Phase-Support
-## z 详细的翻译进度情况
+#labels Phase-Support,Featured
+# z 详细的翻译进度情况
 
 = About =
 记录翻译PyMOTW的各个章节的详细情况
