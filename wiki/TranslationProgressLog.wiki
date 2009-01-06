@@ -29,14 +29,14 @@
  * 继续翻译未完成
 
 === 所有成员 ===
- * vbarter<yzcaijunjie...>
- * limodou<limodou>
- * Zoom.Quiet<Zoom.Quiet>
- * khsing<khsing.cn>
- * wwwjfy<wwwjfy>
- * ubunoon<zjlgjx>
- * fly<sunlianglei>
- * liz<shengyan1985>
+ * vbarter <yzcaijunjie>
+ * limodou <limodou>
+ * Zoom.Quiet <Zoom.Quiet>
+ * khsing <khsing.cn>
+ * wwwjfy <wwwjfy>
+ * ubunoon <zjlgjx>
+ * fly <sunlianglei>
+ * liz <shengyan1985>
 
 === vbarter ===
 || 日期 || 任务 || 掺合 || 备注 ||
@@ -46,32 +46,32 @@
 
 === limodou ===
 || 日期 || 任务 || 掺合 || 备注 ||
-||  ||  ||  ||  ||
+|| ... ||  ||  ||  ||
 || 日期 || 任务 || 掺合 || 备注 ||
 
 === Zoom.Quiet ===
 || 日期 || 任务 || 掺合 || 备注 ||
-||  ||  ||  ||  ||
+|| ... ||  ||  ||  ||
 || 日期 || 任务 || 掺合 || 备注 ||
 
 === khsing ===
 || 日期 || 任务 || 掺合 || 备注 ||
-||  ||  ||  ||  ||
+|| ... ||  ||  ||  ||
 || 日期 || 任务 || 掺合 || 备注 ||
 
 === wwwjfy ===
 || 日期 || 任务 || 掺合 || 备注 ||
-||  ||  ||  ||  ||
+|| ... ||  ||  ||  ||
 || 日期 || 任务 || 掺合 || 备注 ||
 
 === ubunoon ===
 || 日期 || 任务 || 掺合 || 备注 ||
-||  ||  ||  ||  ||
+|| ... ||  ||  ||  ||
 || 日期 || 任务 || 掺合 || 备注 ||
 
 === sunlianglei ===
 || 日期 || 任务 || 掺合 || 备注 ||
-||  ||  ||  ||  ||
+|| ... ||  ||  ||  ||
 || 日期 || 任务 || 掺合 || 备注 ||
 
 === Liz ===
