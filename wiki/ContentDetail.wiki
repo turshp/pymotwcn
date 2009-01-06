@@ -1,9 +1,10 @@
 #labels Phase-Support,Featured
-= About =
-记录翻译PyMOTW的各个章节的详细情况
-PS: 以下章节组织结构和[http://www.doughellmann.com/PyMOTW/contents.html Doug Hellmann章节]一致
+# 这里记录翻译PyMOTW各个章节的详细情况
 
-= Python Module of the Week =
+= 所有章节 =
+组织结构和[http://www.doughellmann.com/PyMOTW/contents.html Doug Hellmann章节]一致.
+*粗体*表示未处理的章节; _斜体_表示正在处理中, 即下表中包含的章节; 有链接的表示已经完成并发布出来
+
   * About Python Module of the Week
     * Tools
     * Subscribe
@@ -12,11 +13,11 @@ PS: 以下章节组织结构和[http://www.doughellmann.com/PyMOTW/contents.html
     * Copyright and Licensing
 
   * Builtin Objects
-    * exceptions – Builtin error classes
+    * *exceptions*
 
   * String Services
-    * difflib 
-    * string 
+    * *difflib* 
+    * _string_ 
     * [http://www.vbarter.cn/pymotw/documents/StringIO.html StringIO and cStringIO] ~ 100% by vbarter/liz
     * [http://www.vbarter.cn/pymotw/documents/struct.html struct] ~ 100% by vbarter/liz
     * [http://www.vbarter.cn/pymotw/documents/textwrap.html textwrap] ~ 100% by vbarter/liz
@@ -24,60 +25,60 @@ PS: 以下章节组织结构和[http://www.doughellmann.com/PyMOTW/contents.html
   * Data Types
     * [http://www.vbarter.cn/pymotw/documents/array.html array] ~ 100% by vbarter/liz
     * [http://www.vbarter.cn/pymotw/documents/datetime.html datetime] ~ 100% by vbarter/liz
-    * calendar 
-    * collections 
-    * heapq 
+    * *calendar* 
+    * *collections*
+    * *heapq* 
     * [http://www.vbarter.cn/pymotw/documents/bisect.html bisect] ~ 100% by vbarter/liz
-    * sched 
+    * *sched* 
     * [http://www.vbarter.cn/pymotw/documents/queue.html Queue] ~ 100% by vbarter/liz
-    * weakref
-    * copy 
-    * pprint 
+    * *weakref*
+    * *copy* 
+    * _pprint_
 
   * Numeric and Mathematical Modules
-    * itertools 
-    * functools 
-    * operator 
+    * _itertools_ 
+    * *functools* 
+    * *operator*
 
   * Internet Data Handling
     * [http://www.vbarter.cn/pymotw/documents/base64.html base64] ~ 100% by vbarter/liz
-    * mailbox 
-    * mhlib 
+    * *mailbox*
+    * *mhlib* 
 
   * File Formats
-    * csv 
+    * *csv*
     * [http://www.vbarter.cn/pymotw/documents/configparser.html ConfigParser] ~ 100% by vbarter/liz
 
   * Cryptographic Services
-    * hashlib 
-    * hmac 
+    * *hashlib* 
+    * *hmac*
 
   * File and Directory Access
     * [http://www.vbarter.cn/pymotw/documents/os.path.html os.path] ~ 100% by vbarter/liz
-    * fileinput
-    * filecmp 
-    * tempfile 
+    * *fileinput*
+    * *filecmp* 
+    * _tempfile_ 
     * [http://www.vbarter.cn/pymotw/documents/glob.html glob] ~ 100% by vbarter/liz
     * [http://www.vbarter.cn/pymotw/documents/fnmatch.html fnmatch] ~ 100% by vbarter/liz
     * [http://www.vbarter.cn/pymotw/documents/linecache.html linecache] ~ 100% by vbarter/liz 
     * [http://www.vbarter.cn/pymotw/documents/shutil.html shutil] ~ 100% by vbarter/liz
-    * dircache 
+    * *dircache* 
 
   * Data Compression and Archiving
-    * bz2 
-    * gzip 
-    * zipfile
-    * zlib 
+    * *bz2* 
+    * *gzip* 
+    * _zipfile_
+    * *zlib* 
 
   * Data Persistence
     * [http://www.vbarter.cn/pymotw/documents/anydbm.html anydbm] ~ 100% by vbarter/liz
-    * dbhash 
-    * dbm 
-    * dumbdbm 
-    * gdbm 
+    * *dbhash* 
+    * *dbm* 
+    * *dumbdbm* 
+    * *gdbm*
     * [http://www.vbarter.cn/pymotw/documents/pickle.html pickle and cPickle] ~ 100% by vbarter/liz
     * [http://www.vbarter.cn/pymotw/documents/shelve.html shelve] ~ 100% by vbarter/liz
-    * whichdb 
+    * *whichdb* 
 
   * Generic Operating System Services
     * [http://www.vbarter.cn/pymotw/documents/os.html os] ~ 100% by vbarter/liz
@@ -86,64 +87,106 @@ PS: 以下章节组织结构和[http://www.doughellmann.com/PyMOTW/contents.html
     * [http://www.vbarter.cn/pymotw/documents/os4.html os4] ~ 100% by vbarter/liz
     * [http://www.vbarter.cn/pymotw/documents/time.html time] ~ 100% by vbarter/liz
     * [http://www.vbarter.cn/pymotw/documents/optparse.html optparse] ~ 100% by vbarter/liz
-    * getopt 
+    * *getopt* 
     * [http://www.vbarter.cn/pymotw/documents/logging.html logging] ~ 100% by vbarter/liz
-    * getpass 
-    * platform 
+    * _getpass_ 
+    * *platform* 
 
   * Optional Operating System Services
-    * threading
-    * mmap 
-    * readline 
-    * rlcompleter 
+    * *threading*
+    * *mmap* 
+    * *readline* 
+    * *rlcompleter* 
 
   * Unix-specific Services
-    * commands 
+    * *commands* 
 
   * Interprocess Communication and Networking
-    * signal 
-    * subprocess 
+    * *signal* 
+    * *subprocess* 
 
   * Internet Protocols and Support
-    * BaseHTTPServer 
+    * _BaseHTTPServer_ 
     * [http://www.vbarter.cn/pymotw/documents/Cookie.html Cookie] ~ 100% by vbarter/liz
-    * imaplib 
-    * SimpleXMLRPCServer 
-    * smtpd 
+    * *imaplib*
+    * *SimpleXMLRPCServer* 
+    * *smtpd*
     * [http://www.vbarter.cn/pymotw/documents/smtplib.html smtplib] ~ 100% by vbarter/liz
-    * SocketServer 
+    * *SocketServer* 
     * [http://www.vbarter.cn/pymotw/documents/urllib.html urllib] ~ 100% by vbarter/liz
     * [http://www.vbarter.cn/pymotw/documents/urlparse.html urlparse] ~ 100% by vbarter/liz
-    * uuid 
+    * *uuid* 
     * [http://www.vbarter.cn/pymotw/documents/webbrowser.html webbrowser] ~ 100% by vbarter/liz
-    * xmlrpclib
+    * *xmlrpclib*
 
   * Internationalization
     * [http://www.vbarter.cn/pymotw/documents/locale.html locale] ~ 100% by vbarter/liz
 
   * Program Frameworks
-    * cmd  
-    * shlex  
+    * *cmd*  
+    * *shlex*  
 
   * Development Tools
-    * unittest
+    * _unittest_
 
   * Debugging and Profiling
-    * profile, cProfile, and pstats 
-    * timeit  
+    * *profile, cProfile, and pstats* 
+    * _timeit_  
     * [http://www.vbarter.cn/pymotw/documents/trace.html trace] ~ 100% by vbarter/liz
 
   * Python Runtime Services
-    * atexit  
-    * contextlib  
-    * inspect  
-    * traceback
-    * warnings
+    * *atexit*  
+    * *contextlib*  
+    * *inspect*  
+    * *traceback*
+    * *warnings*
 
   * Importing Modules
-    * imp 
-    * pkgutil 
-    * zipimport
+    * *imp* 
+    * *pkgutil*
+    * *zipimport*
 
   * Miscelaneous
-    * EasyDialogs 
+    * *EasyDialogs* 
+
+= 处理中的章节 =
+|| 标题  ||  状态s ||  翻译者s   ||   校验者s   ||
+|| PyMOTW: getpass || 初译done(待校验) || wwwjfy || - ||
+|| PyMOTW: string || 初译ing || wwwjfy || - ||
+|| PyMOTW: BaseHTTPServer || 初译中 || liz || - ||
+|| PyMOTW: unittest || 初译ing || liz || - ||
+|| PyMOTW: zipfile || 初译ing || liz || - ||
+|| PyMOTW: timeit || 初译ing || vbarter || - ||
+|| PyMOTW: tempfile || 初译ing || vbarter || - ||
+|| PyMOTW: pprint || 初译ing || vbarter || - ||
+|| PyMOTW: itertools || 初译ing || sunlianglei || - ||
+|| ... || ... || ... || ... ||
+|| 标题  ||  状态 ||  翻译者   ||   校验者   ||
+
+附上状态说明
+  * 初译ing: 表示有人正在翻译中
+  * 初译done: 表示翻译完成, 等待校验
+  * 初校ing: 表示有人正在校验
+  * 初校done: 表示已经校验完成
+  * 复校/提交: 表示正在复审, 并可能提交完成
+
+= 详细流程 =
+
+对于翻译者:
+  # 从所有章节中*粗体*显示的章节中挑选出感兴趣的章节A, 并修改此页面中的所有章节列表中将A改为_A_(斜体显示), 同时在处理中的章节表格中加入一行A, 标记状态为"初译ing", 在翻译者栏内写入自己的名字.
+  # 从[http://www.doughellmann.com/PyMOTW/contents.html Doug Hellmann网站]上或直接rss中拷贝对应章节的英文内容到自己的doc上, 其命名如PyMOTW: A, 然后就可以翻译啦~~~
+  # 其中, 如果对哪些地方有不确定, 则直接在doc上以插入注释的形式标明出来.
+  # 在翻译完成后, 在此页面的处理章节表格中更新状态, 为初译done, 也就是等待校验, 并在doc上将这篇文档A共享给其他成员(...).
+  # 完成
+
+对于校验者:
+  # 如果想校验章节B的内容, 首先在此页面的处理章节表格中将B的状态设置为"校验ing", 并在校验栏内写入自己的名字.
+  # 开始在doc上对B校验. 其中, 如果对哪些地方有不确定, 则直接在doc上以插入注释的形式标明出来.
+  # 完毕后, 在此页面的处理章节表格中将B的状态设置为"校验done", 并列表通知.
+
+最后:
+  # vbarter或liz对列表通知的章节进行复查和整理
+  # 如果还是存在某些问题, 则把问题发送到列表中, 大家一起讨论解决; 如果没有任何问题, 我们会把他转换成rst格式并发布.
+  # 最最后, 在此页面中的所有章节的对应章节标题上更改状态, 添加链接, 同时在此页面中的处理章节表格中去掉这一行.
+  # 完毕!
+  
