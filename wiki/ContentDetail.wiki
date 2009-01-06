@@ -153,7 +153,7 @@
 
 对于翻译者:
   # 从所有章节中*粗体*显示的章节中挑选出自己感兴趣的章节A, 并修改ContentDetail页面中所有章节列表中将A改为 _A_ (斜体显示), 同时在处理中的章节表格中加入一行A, 标记状态为"初译ing", 在翻译者栏内写入自己的名字.
-  # 从[http://www.doughellmann.com/PyMOTW/contents.html Doug Hellmann网站]上或直接rss中拷贝章节A的英文内容到自己的doc上, 文档命名为PyMOTW: A, 然后就可以开始翻译啦~~~
+  # 从[http://www.doughellmann.com/PyMOTW/contents.html Doug Hellmann网站]上或直接从[http://www.doughellmann.com/downloads/PyMOTW-1.80.tar.gz 文档包]中拷贝章节A的英文内容到自己的doc上, 文档命名为PyMOTW: A, 然后就可以开始翻译啦~~~ 注意: 中英文并存.
   # 其中, 如果对哪些地方, 如术语, 意思, 代码等有不确定, 可以直接在doc上以插入注释(保留时间日期和人名)的形式标明出来.
   # 在翻译完成后, 在ContentDetail页面的处理章节表格中更新状态, 为初译done, 也就是等待校验, 并在doc上将这篇文档A共享给其他成员.
   # 完成.
