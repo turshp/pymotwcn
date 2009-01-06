@@ -29,14 +29,14 @@
  * 继续翻译未完成
 
 === 所有成员 ===
- * vbarter <yzcaijunjie>
- * limodou <limodou>
- * Zoom.Quiet <Zoom.Quiet>
- * khsing <khsing.cn>
- * wwwjfy <wwwjfy>
- * ubunoon <zjlgjx>
- * fly <sunlianglei>
- * liz <shengyan1985>
+ * vbarter//yzcaijunjie at gmail dot com
+ * limodou//limodou
+ * Zoom.Quiet//Zoom.Quiet
+ * khsing//khsing.cn
+ * wwwjfy//wwwjfy
+ * ubunoon//zjlgjx
+ * fly//sunlianglei
+ * liz//shengyan1985
 
 === vbarter ===
 || 日期 || 任务 || 掺合 || 备注 ||
