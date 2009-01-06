@@ -169,4 +169,8 @@
   # 如果还是存在某些问题, 则把问题发送到列表中, 大家一起讨论解决; 如果没有任何问题, 我们会把他转换成rst格式并发布.
   # 最最后, 在ContentDetail页面中的所有章节的对应章节标题上更改状态, 添加链接和翻译者/校验者, 同时在ContentDetail页面中的处理章节表格中去掉这一行.
   # 完毕!
-  
+
+= 实例文档 =
+这里列出在doc上的些示例文档, 以供参考
+  * [http://docs.google.com/Doc?id=df7gztdm_679gws4fsgr PyMOTW: urlparse]
+  * [http://docs.google.com/Doc?id=d2fcp9p_71dwj9xshg PyMOTW：base64]
