@@ -118,7 +118,7 @@ sphinx/environment.py中line291~293修改为
         self.labels['genindex'] = ('genindex', '', _(u'索引'))# Index
         self.labels['modindex'] = ('modindex', '', _(u'模块索引'))# Module Index
         self.labels['search']   = ('search', '', _(u'搜索页面'))# Search Page
-5, conf.py中修改项目名称为中文, 其中想自定义html_title为<project> v<release> 文档, 直接将html_title = u"<project> v<release> documentation"修改中文无法在页面上正确显示, 所以修改sphinx/config.py中line54为
+5) conf.py中修改项目名称为中文, 其中想自定义html_title为<project> v<release> 文档, 直接将html_title = u"<project> v<release> documentation"修改中文无法在页面上正确显示, 所以修改sphinx/config.py中line54为
         html_title = (lambda self: u'%s v%s 文档' %  (self.project, self.release), False),
 }}}
 ok, 到这, 生成的html文档已经很漂亮了~~
