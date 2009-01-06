@@ -173,4 +173,4 @@
 = 实例文档 =
 这里列出在doc上的些示例文档, 以供参考
   * [http://docs.google.com/Doc?id=df7gztdm_679gws4fsgr PyMOTW: urlparse]
-  * [http://docs.google.com/Doc?id=d2fcp9p_71dwj9xshg PyMOTW：base64]
+  * [http://docs.google.com/Doc?id=d2fcp9p_71dwj9xshg PyMOTW: base64]
