@@ -129,9 +129,9 @@
 
 = 处理中的章节 =
 || 标题  ||  状态s ||  翻译者s   ||   校验者s   ||
-|| PyMOTW: getpass || 初译done(待校验) || wwwjfy || - ||
-|| PyMOTW: string || 初译ing || wwwjfy || - ||
-|| PyMOTW: BaseHTTPServer || 初译中 || liz || - ||
+|| PyMOTW: getpass || 初译done/初校done || wwwjfy || liz ||
+|| PyMOTW: string || 初译done/初校done || wwwjfy || liz ||
+|| PyMOTW: BaseHTTPServer || 初译ing || liz || - ||
 || PyMOTW: unittest || 初译ing || liz || - ||
 || PyMOTW: zipfile || 初译ing || liz || - ||
 || PyMOTW: timeit || 初译ing || vbarter || - ||
