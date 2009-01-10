@@ -1,0 +1,239 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: os(2) &mdash; PyMOTW v1.0 文档</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="关于这些文档" href="../about.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="up" title="所有文档" href="index.html" />
+    <link rel="next" title="PyMOTW: os(3)" href="os3.html" />
+    <link rel="prev" title="PyMOTW: os" href="os.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="os3.html" title="PyMOTW: os(3)"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="os.html" title="PyMOTW: os"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="pymotw-os-2">
+<h1>PyMOTW: os(2)<a class="headerlink" href="#pymotw-os-2" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>上一部分，我们讨论了进程参数，现在我们讨论一下os模块提供的输入/输出特性。</p>
+</div>
+<div class="section" id="id2">
+<h2>管道<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>os模块提供了一些函数，这些函数利用管道来管理子进程的IO操作。这些函数的工作方式基本相同，但根据输入/输出的需求类型返回不同的文件句柄。相对于2.4版本中的 <a class="reference" href="http://docs.python.org/lib/module-subprocess.html">subprocess</a> 模块这些函数是过时了，但这是一个很好的机会，你可以在已有的代码中看到它们。</p>
+<p>管道中经常使用的是popen()函数，它创建一个新的进程用于运行给定的命令并且根据模式选项附加给这个进程一个单一的输入输出数据流 。虽然在Windows中可以使用popen()，但以下例子假设以Unix shell方式运行，其中流的概念也是unix技术。</p>
+<p>stdin：进程（文件描述符0）的标准输入流，对于这个进程来说是可读的，通常指终端输入。</p>
+<p>stdout：进程（文件描述符1）的标准输出流，对于这个进程来说是可写的，通常用于给用户显示非错误信息。</p>
+<p>stderr：进程（文件描述符2）的标准错误流，对于这个进程来说是可写的，通常用于传递错误信息。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">os</span>
+
+<span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">popen, read:&#39;</span>
+<span class="n">pipe_stdout</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s">&#39;echo &quot;to stdout&quot;&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">stdout_value</span> <span class="o">=</span> <span class="n">pipe_stdout</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">pipe_stdout</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">stdout:&#39;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">stdout_value</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">popen, write:&#39;</span>
+<span class="n">pipe_stdin</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">popen</span><span class="p">(</span><span class="s">&#39;cat -&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">pipe_stdin</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\t</span><span class="s">stdin: to stdin</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">pipe_stdin</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>popen, read:
+     stdout: 'to stdout\n'
+
+popen, write:
+     stdin: to stdin</pre>
+</div>
+<p>从子进程的流中读取或者写入的方法是比较受限的，popen提供了额外的流，如stdin、stdout、stderr来以便使用。</p>
+<p>比如，popen2()函数返回一个与子进程标准输入绑定的只写流和一个与子进程标准输出绑定的只读流。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">popen2:&#39;</span>
+<span class="n">pipe_stdin</span><span class="p">,</span> <span class="n">pipe_stdout</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">popen2</span><span class="p">(</span><span class="s">&#39;cat -&#39;</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">pipe_stdin</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;through stdin to stdout&#39;</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">pipe_stdin</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">stdout_value</span> <span class="o">=</span> <span class="n">pipe_stdout</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">pipe_stdout</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">pass through:&#39;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">stdout_value</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>这个简单例子解释了双向通信方式，从stdin写入的值被cat命令读取（&#8217;-&#8216;参数的作用），然后由stdout输出。显然，一个复杂的进程通过管道可以来回传递其它类型的信息，甚至是序列化对象。</p>
+<div class="highlight-python"><pre>popen2:
+     pass through: 'through stdin to stdout'</pre>
+</div>
+<p>有些情况下，希望同时访问stdout和stderr，stdout常用于输出信息，stderr常用于抛出错误。因此分别读取他们可以减少解析错误消息的复杂度，而popen3函数返回一个新进程的3个流stdin、stdout、stderr。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">popen3:&#39;</span>
+<span class="n">pipe_stdin</span><span class="p">,</span> <span class="n">pipe_stdout</span><span class="p">,</span> <span class="n">pipe_stderr</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">popen3</span><span class="p">(</span><span class="s">&#39;cat -; echo &quot;;to stderr&quot; 1&gt;&amp;2&#39;</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">pipe_stdin</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;through stdin to stdout&#39;</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">pipe_stdin</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">stdout_value</span> <span class="o">=</span> <span class="n">pipe_stdout</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">pipe_stdout</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">pass through:&#39;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">stdout_value</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">stderr_value</span> <span class="o">=</span> <span class="n">pipe_stderr</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">pipe_stderr</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">stderr:&#39;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">stderr_value</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>注意，我们需要分别读取和关闭这些流，在处理多进程的IO中，还涉及到流程控制和排序，I/O即为缓冲器，如果想读取流中的所有数据，那么子进程必须关闭这个流来表示文件的结束 ，更多信息可以参考Python库文档 <a class="reference" href="http://docs.python.org/lib/popen2-flow-control.html">Flow Control Issues</a></p>
+<div class="highlight-python"><pre>popen3:
+     pass through: 'through stdin to stdout'
+     stderr: ';to stderr\n'</pre>
+</div>
+<p>最后，popen4()返回两个流，stdin和stdout/stderr的组合，这对于命令的结果需要被记录，但不需要解析是很有用的。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">popen4:&#39;</span>
+<span class="n">pipe_stdin</span><span class="p">,</span> <span class="n">pipe_stdout_and_stderr</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">popen4</span><span class="p">(</span><span class="s">&#39;cat -; echo &quot;;to stderr&quot; 1&gt;&amp;2&#39;</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">pipe_stdin</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;through stdin to stdout&#39;</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">pipe_stdin</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">stdout_value</span> <span class="o">=</span> <span class="n">pipe_stdout_and_stderr</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">pipe_stdout</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">combined output:&#39;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">stdout_value</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>popen4:
+     combined output: 'through stdin to stdout;to stderr\n'</pre>
+</div>
+<p>另外，除了接收简单的字符串命令来传递给shell解析，popen2()、popen3()、popen4()函数同样接收字符串序列（命令，加参数），这种情况中，参数不是传递给shell的。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">popen2, cmd as sequence:&#39;</span>
+<span class="n">pipe_stdin</span><span class="p">,</span> <span class="n">pipe_stdout</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">popen2</span><span class="p">([</span><span class="s">&#39;cat&#39;</span><span class="p">,</span> <span class="s">&#39;-&#39;</span><span class="p">])</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">pipe_stdin</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;through stdin to stdout&#39;</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">pipe_stdin</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">stdout_value</span> <span class="o">=</span> <span class="n">pipe_stdout</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">pipe_stdout</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">pass through:&#39;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">stdout_value</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>popen2, cmd as sequence:
+     pass through: 'through stdin to stdout'</pre>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>后续<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>下次，我们将讨论如何来控制文件描述符。</p>
+</div>
+<div class="section" id="id4">
+<h2>参考<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference" href="http://www.linuxhq.com/guides/LUG/node67.html">Unix Concepts</a> for more discussion of stdin, stdout, and stderr</li>
+<li><a class="reference" href="http://docs.python.org/lib/os-newstreams.html">File Object Creation</a> with the os module</li>
+<li><a class="reference" href="http://docs.python.org/lib/module-subprocess.html">subprocess</a></li>
+<li><a class="reference" href="http://docs.python.org/lib/popen2-flow-control.html">Flow Control Issues</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">目录</a></h3>
+            <ul>
+<li><a class="reference" href="">PyMOTW: os(2)</a><ul>
+<li><a class="reference" href="#id1">描述</a></li>
+<li><a class="reference" href="#id2">管道</a></li>
+<li><a class="reference" href="#id3">后续</a></li>
+<li><a class="reference" href="#id4">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>前一个主题</h4>
+            <p class="topless"><a href="os.html" title="前一章节">PyMOTW: os</a></p>
+            <h4>后一个主题</h4>
+            <p class="topless"><a href="os3.html" title="后一章节">PyMOTW: os(3)</a></p>
+            <h3>当前主题</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/os2.txt">显示页面源码</a></li>
+            </ul>
+          <h3>快速搜索</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="提交" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="os3.html" title="PyMOTW: os(3)"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="os.html" title="PyMOTW: os"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2008, vbarter &amp; liz.
+      使用 <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1创建.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: webbrowser &mdash; PyMOTW v1.0 文档</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="关于这些文档" href="../about.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="up" title="所有文档" href="index.html" />
+    <link rel="next" title="PyMOTW: anydbm" href="anydbm.html" />
+    <link rel="prev" title="PyMOTW: base64" href="base64.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="anydbm.html" title="PyMOTW: anydbm"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="base64.html" title="PyMOTW: base64"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="pymotw-webbrowser">
+<h1>PyMOTW: webbrowser<a class="headerlink" href="#pymotw-webbrowser" title="Permalink to this headline">¶</a></h1>
+<p>利用webbrowser模块可以向用户显示web页面。</p>
+<ul class="simple">
+<li>模块：webbrowser</li>
+<li>目的：在浏览器中打开web页面</li>
+<li>python版本：python2.1.3+</li>
+</ul>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>在一个交互式的浏览程序中，webbrowser模块提供了一些用于打开URL链接的函数。在系统中安装的浏览器，通过模块的许多选项可以来获取利用他们。也可通过环境变量BROWSER来控制。</p>
+</div>
+<div class="section" id="id2">
+<h2>简单示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>在浏览器中打开一个页面，可以使用open()函数。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">webbrowser</span>
+
+<span class="n">webbrowser</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;http://docs.python.org/lib/module-webbrowser.html&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>这个url会在一个新窗口中打开，当然如果当前已经有一个浏览器窗口，那么会做为一个新标签打开。</p>
+</div>
+<div class="section" id="vs">
+<h2>窗口 Vs 标签<a class="headerlink" href="#vs" title="Permalink to this headline">¶</a></h2>
+<p>如果你只想在新窗口中打开页面，那么可以使用 <tt class="docutils literal"><span class="pre">open_new()</span></tt> 。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">webbrowser</span>
+
+<span class="n">webbrowser</span><span class="o">.</span><span class="n">open_new</span><span class="p">(</span><span class="s">&#39;http://docs.python.org/lib/module-webbrowser.html&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>如果你想在新的标签中打开，那么可以使用 <tt class="docutils literal"><span class="pre">open_new_tab()</span></tt> 。</p>
+</div>
+<div class="section" id="id3">
+<h2>使用特定的浏览器<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>因为某些原因，你的应用程序可能需要使用特定的浏览器，可以利用get()函数来取得浏览器访问对象，该对象提供了open()、open_new()和open_new_tab()函数，下面示例演示了如何利用lynx浏览器。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">webbrowser</span>
+
+<span class="n">b</span> <span class="o">=</span> <span class="n">webbrowser</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;lynx&#39;</span><span class="p">)</span>
+<span class="n">b</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;http://docs.python.org/lib/module-webbrowser.html&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>可以参考模块文档来了解浏览器类型列表。</p>
+</div>
+<div class="section" id="browser">
+<h2>BROWSER 变量<a class="headerlink" href="#browser" title="Permalink to this headline">¶</a></h2>
+<p>用户可以在你的应用程序之外为BROWSER变量设置浏览器名字或者命令来控制webbrowser模块，值可以由一系列的浏览器名字组成，中间由系统分割符os.pathsep来分割。如果名字中包含%s，那么将被解释成命令，并且在URL中%s将被直接替换执行。否则，值将被传递给get()来获取控制对象。</p>
+<p>举个例子，如下示例是打开一个lynx浏览器，假设它是可以获取的，不管是否还存在其它的浏览器。</p>
+<div class="highlight-python"><pre>BROWSER=lynx python webbrowser_open.py</pre>
+</div>
+<p>如果BROWSER中的名字中没有一个可以正确工作，那么webbrowse会返回执行它的默认行为。</p>
+</div>
+<div class="section" id="id4">
+<h2>命令行接口<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>webbrowser模块的所有特性可以通过命令行获取，类似运行一个python程序。</p>
+<div class="highlight-python"><pre>$ python -m webbrowser
+Usage: /Library/Frameworks/Python.framework/Versions/2.5/lib/python2.5/webbrowser.py [-n | -t] url
+   -n: open new window
+   -t: open new tab</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">目录</a></h3>
+            <ul>
+<li><a class="reference" href="">PyMOTW: webbrowser</a><ul>
+<li><a class="reference" href="#id1">描述</a></li>
+<li><a class="reference" href="#id2">简单示例</a></li>
+<li><a class="reference" href="#vs">窗口 Vs 标签</a></li>
+<li><a class="reference" href="#id3">使用特定的浏览器</a></li>
+<li><a class="reference" href="#browser">BROWSER 变量</a></li>
+<li><a class="reference" href="#id4">命令行接口</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>前一个主题</h4>
+            <p class="topless"><a href="base64.html" title="前一章节">PyMOTW: base64</a></p>
+            <h4>后一个主题</h4>
+            <p class="topless"><a href="anydbm.html" title="后一章节">PyMOTW: anydbm</a></p>
+            <h3>当前主题</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/webbrowser.txt">显示页面源码</a></li>
+            </ul>
+          <h3>快速搜索</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="提交" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="anydbm.html" title="PyMOTW: anydbm"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="base64.html" title="PyMOTW: base64"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2008, vbarter &amp; liz.
+      使用 <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1创建.
+    </div>
+  </body>
+</html>

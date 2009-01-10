@@ -1,0 +1,196 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: glob &mdash; PyMOTW v1.0 文档</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="关于这些文档" href="../about.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="up" title="所有文档" href="index.html" />
+    <link rel="next" title="PyMOTW: shelve" href="shelve.html" />
+    <link rel="prev" title="PyMOTW: pickle &amp; cPickle" href="pickle.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="shelve.html" title="PyMOTW: shelve"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="pickle.html" title="PyMOTW: pickle &amp; cPickle"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="pymotw-glob">
+<h1>PyMOTW: glob<a class="headerlink" href="#pymotw-glob" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>模块： glob</li>
+<li>目的： 使用Unix Shell规则来寻找文件名匹配某一模式的文件。</li>
+<li>python版本： 1.4+</li>
+</ul>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>即使glob API非常简单，但这个模块具有强大的力量。在很多情况下，尤其是你的程序需要寻找出文件系统中，文件名匹配特定模式的文件时，是非常有用的。如果你需要包含一个特定扩展名，或前缀，或含有任何普通字符串的文件列表，可以直接使用glob代替手工编程扫描目录内容。</p>
+<p>glob中模式规则不是正则表达式，而是，符合标准Uinx路径扩展规则。但是Shell变量名和符号(~)是不被扩充的，只有一些特殊的字符：两个不同的通配符和字母范围被支持。模块规则适合于文件名的片段(以/为分隔)，但模式中的路径可以是相对或者绝对路径。</p>
+</div>
+<div class="section" id="id2">
+<h2>示例数据<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>假设当前工作目录下包含有以下一些文件。</p>
+<div class="highlight-python"><pre>dir/
+dir/file.txt
+dir/file1.txt
+dir/file2.txt
+dir/filea.txt
+dir/fileb.txt
+dir/subdir/
+dir/subdir/subfile.txt</pre>
+</div>
+<p>使用glob_maketestdata.py脚本可以创建这些文件。</p>
+</div>
+<div class="section" id="id3">
+<h2>通配符<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">*</span></tt> 匹配名字片段中的0个或多个字符，例如，dir/<tt class="docutils literal"><span class="pre">*</span></tt> 。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">glob</span>
+<span class="k">print</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s">&#39;dir/*&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>这个模式匹配在目录dir中的任何文件或子目录，但没有进一步递归匹配子目录。</p>
+<div class="highlight-python"><pre>$ python glob_asterisk.py
+['dir/file.txt', 'dir/file1.txt', 'dir/file2.txt',
+'dir/filea.txt', 'dir/fileb.txt', 'dir/subdir']</pre>
+</div>
+<p>如果要列出子目录中的文件，你应该在模式中包含相应子目录：</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="s">&#39;Named explicitly:&#39;</span>
+<span class="k">print</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s">&#39;dir/subdir/*&#39;</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">&#39;Named with wildcard:&#39;</span>
+<span class="k">print</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s">&#39;dir/*/*&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>上面的第一个例子直接列出了指定子目录名的文件，而第二个例子则依赖于通配符来寻找子目录。</p>
+<div class="highlight-python"><pre>$ python glob_subdir.py
+Named explicitly:
+['dir/subdir/subfile.txt']
+Named with wildcard:
+['dir/subdir/subfile.txt']</pre>
+</div>
+<p>在这个例子中，结果是一样的。如果还有其他的子目录，那么，通配符匹配所有子目录及其他们中包含的文件。</p>
+</div>
+<div class="section" id="id4">
+<h2>单一字符通配符<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>其他的被支持的通配符是问号(?)。它匹配在对应位置的任一单个字符。例如：</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s">&#39;dir/file?.txt&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>匹配所有以&#8221;file&#8221;开头，之后包含一个任何字符并以&#8221;.txt&#8221;结尾的文件。</p>
+<div class="highlight-python"><pre>$ python glob_question.py
+['dir/file1.txt', 'dir/file2.txt',
+'dir/filea.txt', 'dir/fileb.txt']</pre>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>字符范围<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>当你需要匹配一个特定字符时，可以使用一个字符范围来替代问号。例如，为了找到所有文件名中在扩展名之前包含数字的文件时：</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s">&#39;dir/*[0-9].*&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>字符范围[0-9]匹配任何单一数字。这个范围是基于每个字符/数字的字符编码顺序，破折号(-)表示一个范围。上面的范围也可直接用[0123456789]来表示。</p>
+<div class="highlight-python"><pre>$ python glob_charrange.py
+['dir/file1.txt', 'dir/file2.txt']</pre>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>参考<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference" href="http://www.opengroup.org/onlinepubs/000095399/utilities/xcu_chap02.html#tag_02_13">Pattern Matching Notation</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">目录</a></h3>
+            <ul>
+<li><a class="reference" href="">PyMOTW: glob</a><ul>
+<li><a class="reference" href="#id1">描述</a></li>
+<li><a class="reference" href="#id2">示例数据</a></li>
+<li><a class="reference" href="#id3">通配符</a></li>
+<li><a class="reference" href="#id4">单一字符通配符</a></li>
+<li><a class="reference" href="#id5">字符范围</a></li>
+<li><a class="reference" href="#id6">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>前一个主题</h4>
+            <p class="topless"><a href="pickle.html" title="前一章节">PyMOTW: pickle &amp; cPickle</a></p>
+            <h4>后一个主题</h4>
+            <p class="topless"><a href="shelve.html" title="后一章节">PyMOTW: shelve</a></p>
+            <h3>当前主题</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/glob.txt">显示页面源码</a></li>
+            </ul>
+          <h3>快速搜索</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="提交" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="shelve.html" title="PyMOTW: shelve"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="pickle.html" title="PyMOTW: pickle &amp; cPickle"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2008, vbarter &amp; liz.
+      使用 <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1创建.
+    </div>
+  </body>
+</html>

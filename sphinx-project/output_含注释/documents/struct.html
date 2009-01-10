@@ -1,0 +1,275 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: Struct &mdash; PyMOTW v1.0 文档</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="关于这些文档" href="../about.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="up" title="所有文档" href="index.html" />
+    <link rel="next" title="PyMOTW: array" href="array.html" />
+    <link rel="prev" title="PyMOTW: Trace" href="trace.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="array.html" title="PyMOTW: array"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="trace.html" title="PyMOTW: Trace"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="pymotw-struct">
+<h1>PyMOTW: Struct<a class="headerlink" href="#pymotw-struct" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>模块：Struct</li>
+<li>目的: 实现字符串和二进制数据之间的相互转换</li>
+<li>python版本：1.4 +</li>
+</ul>
+<p>struct模块包含了实现字符串字节和Python本地数据类型(如数字和字符串)间的相互转换的函数.</p>
+<div class="section" id="vs-struct">
+<h2>函数 vs Struct类<a class="headerlink" href="#vs-struct" title="Permalink to this headline">¶</a></h2>
+<p>这里有一系列用来处理结构化数值的模块级函数, 同样存在Struct类(Python 2.5中新加入的). 格式化描述即将字符串格式转化为可编译形式,类似于正则式的方式. 这种转换需要消耗一些资源,所以一旦创建Struct实例后并调用Struct实例的方法而不使用模块级的方法,这样是更有效的.下面举些使用Struct类的例子.</p>
+</div>
+<div class="section" id="id1">
+<h2>封装和解封<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Structs支持将数据封装成字符串,也能够通过格式化描述(它是由一些代表特定数据类型的字符,可选的个数和字节序指示符组成的)从字符串中解封数据. 进一步的细节,可以参考 <a class="reference" href="http://docs.python.org/library/struct.html">标准库文档</a></p>
+<p>在下面的这个例子中, 格式化描述调用了一个整型或者长整型数, 一个2个字符组成的字符串和一个浮点数. 为了清晰描述，在格式化描述中包含了空格，但格式被编译后将忽略这个空格.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">struct</span>
+<span class="k">import</span> <span class="nn">binascii</span>
+
+<span class="n">values</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1</span><span class="p">,</span> <span class="s">&#39;ab&#39;</span><span class="p">,</span> <span class="mf">2.7</span><span class="p">)</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">Struct</span><span class="p">(</span><span class="s">&#39;I 2s f&#39;</span><span class="p">)</span>
+<span class="n">packed_data</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="o">*</span><span class="n">values</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">&#39;Original values:&#39;</span><span class="p">,</span> <span class="n">values</span>
+<span class="k">print</span> <span class="s">&#39;Format string  :&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">format</span>
+<span class="k">print</span> <span class="s">&#39;Uses           :&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="s">&#39;bytes&#39;</span>
+<span class="k">print</span> <span class="s">&#39;Packed Value   :&#39;</span><span class="p">,</span> <span class="n">binascii</span><span class="o">.</span><span class="n">hexlify</span><span class="p">(</span><span class="n">packed_data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>封装后的值被转换成16进制字节流输出,所以有些字符显示为空</p>
+<div class="highlight-python"><pre>$ python struct_pack.py
+Original values: (1, 'ab', 2.7000000000000002)
+Format string  : I 2s f
+Uses           : 12 bytes
+Packed Value   : 0100000061620000cdcc2c40</pre>
+</div>
+<p>如果我们将封装后的值传递给unpack(), 可以基本上得到原来的数值(注意其中浮点数的差异).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">struct</span>
+<span class="k">import</span> <span class="nn">binascii</span>
+
+<span class="n">packed_data</span> <span class="o">=</span> <span class="n">binascii</span><span class="o">.</span><span class="n">unhexlify</span><span class="p">(</span><span class="s">&#39;0100000061620000cdcc2c40&#39;</span><span class="p">)</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">Struct</span><span class="p">(</span><span class="s">&#39;I 2s f&#39;</span><span class="p">)</span>
+<span class="n">unpacked_data</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">packed_data</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;Unpacked Values:&#39;</span><span class="p">,</span> <span class="n">unpacked_data</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python struct_unpack.py
+Unpacked Values: (1, 'ab', 2.7000000476837158)</pre>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>字节序<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>默认情况下,使用标准C库中&#8221;字节序&#8221;的概念将数值编码.通过在字符串格式中直接指定一个明确的字节序可以简单的覆盖这个选项.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">struct</span>
+<span class="k">import</span> <span class="nn">binascii</span>
+
+<span class="n">values</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1</span><span class="p">,</span> <span class="s">&#39;ab&#39;</span><span class="p">,</span> <span class="mf">2.7</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;Original values:&#39;</span><span class="p">,</span> <span class="n">values</span>
+
+<span class="n">endianness</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="p">(</span><span class="s">&#39;@&#39;</span><span class="p">,</span> <span class="s">&#39;native, native&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;=&#39;</span><span class="p">,</span> <span class="s">&#39;native, standard&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;&lt;&#39;</span><span class="p">,</span> <span class="s">&#39;little-endian&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;&gt;&#39;</span><span class="p">,</span> <span class="s">&#39;big-endian&#39;</span><span class="p">),</span>
+    <span class="p">(</span><span class="s">&#39;!&#39;</span><span class="p">,</span> <span class="s">&#39;network&#39;</span><span class="p">),</span>
+<span class="p">]</span>
+
+
+<span class="k">for</span> <span class="n">code</span><span class="p">,</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">endianness</span><span class="p">:</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">Struct</span><span class="p">(</span><span class="n">code</span> <span class="o">+</span> <span class="s">&#39; I 2s f&#39;</span><span class="p">)</span>
+    <span class="n">packed_data</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">pack</span><span class="p">(</span><span class="o">*</span><span class="n">values</span><span class="p">)</span>
+    <span class="k">print</span>
+    <span class="k">print</span> <span class="s">&#39;Format string  :&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">format</span><span class="p">,</span> <span class="s">&#39;for&#39;</span><span class="p">,</span> <span class="n">name</span>
+    <span class="k">print</span> <span class="s">&#39;Uses           :&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">size</span><span class="p">,</span> <span class="s">&#39;bytes&#39;</span>
+    <span class="k">print</span> <span class="s">&#39;Packed Value   :&#39;</span><span class="p">,</span> <span class="n">binascii</span><span class="o">.</span><span class="n">hexlify</span><span class="p">(</span><span class="n">packed_data</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;Unpacked Value :&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">unpack</span><span class="p">(</span><span class="n">packed_data</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python struct_endianness.py
+Original values: (1, 'ab', 2.7000000000000002)
+
+Format string  : @ I 2s f for native, native
+Uses           : 12 bytes
+Packed Value   : 0100000061620000cdcc2c40
+Unpacked Value : (1, 'ab', 2.7000000476837158)
+
+Format string  : = I 2s f for native, standard
+Uses           : 10 bytes
+Packed Value   : 010000006162cdcc2c40
+Unpacked Value : (1, 'ab', 2.7000000476837158)
+
+Format string  : &lt; I 2s f for little-endian
+Uses           : 10 bytes
+Packed Value   : 010000006162cdcc2c40
+Unpacked Value : (1, 'ab', 2.7000000476837158)
+
+Format string  : &gt; I 2s f for big-endian
+Uses           : 10 bytes
+Packed Value   : 000000016162402ccccd
+Unpacked Value : (1, 'ab', 2.7000000476837158)
+
+Format string  : ! I 2s f for network
+Uses           : 10 bytes
+Packed Value   : 000000016162402ccccd
+Unpacked Value : (1, 'ab', 2.7000000476837158)</pre>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>缓冲<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>在高性能的敏感情况或者通过通过第三方模块来传递数据经常会要求对二进制数据进行封装.一种优化的方式是避免为每一个封装结构分配新的缓冲区.函数pack_into()和unpack_from()支持直接写入到预分配的缓冲区中.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">struct</span>
+<span class="k">import</span> <span class="nn">binascii</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">struct</span><span class="o">.</span><span class="n">Struct</span><span class="p">(</span><span class="s">&#39;I 2s f&#39;</span><span class="p">)</span>
+<span class="n">values</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1</span><span class="p">,</span> <span class="s">&#39;ab&#39;</span><span class="p">,</span> <span class="mf">2.7</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;Original:&#39;</span><span class="p">,</span> <span class="n">values</span>
+
+<span class="k">print</span>
+<span class="k">print</span> <span class="s">&#39;ctypes string buffer&#39;</span>
+
+<span class="k">import</span> <span class="nn">ctypes</span>
+<span class="n">b</span> <span class="o">=</span> <span class="n">ctypes</span><span class="o">.</span><span class="n">create_string_buffer</span><span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;Before  :&#39;</span><span class="p">,</span> <span class="n">binascii</span><span class="o">.</span><span class="n">hexlify</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">raw</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">pack_into</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="o">*</span><span class="n">values</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;After   :&#39;</span><span class="p">,</span> <span class="n">binascii</span><span class="o">.</span><span class="n">hexlify</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">raw</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;Unpacked:&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">unpack_from</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="mf">0</span><span class="p">)</span>
+
+<span class="k">print</span>
+<span class="k">print</span> <span class="s">&#39;array&#39;</span>
+
+<span class="k">import</span> <span class="nn">array</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="s">&#39;</span><span class="se">\0</span><span class="s">&#39;</span> <span class="o">*</span><span class="n">s</span><span class="o">.</span><span class="n">size</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;Before  :&#39;</span><span class="p">,</span> <span class="n">binascii</span><span class="o">.</span><span class="n">hexlify</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="n">s</span><span class="o">.</span><span class="n">pack_into</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="o">*</span><span class="n">values</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;After   :&#39;</span><span class="p">,</span> <span class="n">binascii</span><span class="o">.</span><span class="n">hexlify</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;Unpacked:&#39;</span><span class="p">,</span> <span class="n">s</span><span class="o">.</span><span class="n">unpack_from</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="mf">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python struct_buffers.py
+
+Original: (1, 'ab', 2.7000000000000002)
+
+ctypes string buffer
+Before  : 000000000000000000000000
+After   : 0100000061620000cdcc2c40
+Unpacked: (1, 'ab', 2.7000000476837158)
+
+array
+Before  : 000000000000000000000000
+After   : 0100000061620000cdcc2c40
+Unpacked: (1, 'ab', 2.7000000476837158)</pre>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>参考<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference" href="http://docs.python.org/library/struct.html">struct</a></li>
+<li>array：用于处理固定类型的序列.</li>
+<li>binascii：用于产生二进制数据的ASCII表示.</li>
+<li><a class="reference" href="http://en.wikipedia.org/wiki/Endianness">WikiPedia: Endianness</a></li>
+</ul>
+<p>字节序,其实是数据的二进制形式的排列顺序,在内存存贮顺序,或者是传输时的顺序,或者还有其他特殊的规定.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">目录</a></h3>
+            <ul>
+<li><a class="reference" href="">PyMOTW: Struct</a><ul>
+<li><a class="reference" href="#vs-struct">函数 vs Struct类</a></li>
+<li><a class="reference" href="#id1">封装和解封</a></li>
+<li><a class="reference" href="#id3">字节序</a></li>
+<li><a class="reference" href="#id4">缓冲</a></li>
+<li><a class="reference" href="#id5">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>前一个主题</h4>
+            <p class="topless"><a href="trace.html" title="前一章节">PyMOTW: Trace</a></p>
+            <h4>后一个主题</h4>
+            <p class="topless"><a href="array.html" title="后一章节">PyMOTW: array</a></p>
+            <h3>当前主题</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/struct.txt">显示页面源码</a></li>
+            </ul>
+          <h3>快速搜索</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="提交" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="array.html" title="PyMOTW: array"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="trace.html" title="PyMOTW: Trace"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2008, vbarter &amp; liz.
+      使用 <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1创建.
+    </div>
+  </body>
+</html>

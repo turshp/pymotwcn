@@ -1,0 +1,456 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: Trace &mdash; PyMOTW v1.0 文档</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="关于这些文档" href="../about.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="up" title="所有文档" href="index.html" />
+    <link rel="next" title="PyMOTW: Struct" href="struct.html" />
+    <link rel="prev" title="PyMOTW: smtplib" href="smtplib.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="struct.html" title="PyMOTW: Struct"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="smtplib.html" title="PyMOTW: smtplib"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="pymotw-trace">
+<h1>PyMOTW: Trace<a class="headerlink" href="#pymotw-trace" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>模块：Trace</li>
+<li>目的: 监控程序语句和函数运行情况,并且产生报告信息.</li>
+<li>python版本：2.3+</li>
+</ul>
+<p>trace - 跟踪正在执行的Python语句</p>
+<p>trace模块帮助你明白程序的运行过程.你可以跟踪执行的语句,产生报表,也能获取函数间的调用关系.</p>
+<div class="section" id="id1">
+<h2>命令行接口<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>可以很简单的直接从命令行使用trace.给定以下的Python脚本:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">from</span> <span class="nn">recurse</span> <span class="k">import</span> <span class="n">recurse</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
+     <span class="k">print</span> <span class="s">&#39;This is the main program.&#39;</span>
+     <span class="n">recurse</span><span class="p">(</span><span class="mf">2</span><span class="p">)</span>
+     <span class="k">return</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+     <span class="n">main</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">recurse</span><span class="p">(</span><span class="n">level</span><span class="p">):</span>
+     <span class="k">print</span> <span class="s">&#39;recurse(</span><span class="si">%s</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="n">level</span>
+     <span class="k">if</span> <span class="n">level</span><span class="p">:</span>
+         <span class="n">recurse</span><span class="p">(</span><span class="n">level</span><span class="o">-</span><span class="mf">1</span><span class="p">)</span>
+     <span class="k">return</span>
+
+<span class="k">def</span> <span class="nf">not_called</span><span class="p">():</span>
+     <span class="k">print</span> <span class="s">&#39;This function is never called.&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>跟踪时的异常<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>我们可以使用&#8211;trace选项来查看程序运行时哪条语句正在被执行.</p>
+<div class="highlight-python"><pre>$ python -m trace --trace trace_example/main.py
+--- modulename: threading, funcname: settrace
+threading.py(70): _trace_hook = func
+--- modulename: trace, funcname: &lt;module&gt;
+&lt;string&gt;(1): --- modulename: trace, funcname: &lt;module&gt;
+main.py(7): """
+main.py(12): from recurse import recurse
+--- modulename: recurse, funcname: &lt;module&gt;
+recurse.py(7): """
+recurse.py(12): def recurse(level):
+main.py(14): def main():
+main.py(19): if __name__ == '__main__':
+main.py(20): main()
+--- modulename: trace, funcname: main
+main.py(15): print 'This is the main program.'
+This is the main program.
+main.py(16): recurse(2)
+--- modulename: recurse, funcname: recurse
+recurse.py(13): print 'recurse(%s)' % level
+recurse(2)
+recurse.py(14): if level:
+recurse.py(15): recurse(level-1)
+--- modulename: recurse, funcname: recurse
+recurse.py(13): print 'recurse(%s)' % level
+recurse(1)
+recurse.py(14): if level:
+recurse.py(15): recurse(level-1)
+--- modulename: recurse, funcname: recurse
+recurse.py(13): print 'recurse(%s)' % level
+recurse(0)
+recurse.py(14): if level:
+recurse.py(16): return
+recurse.py(16): return
+recurse.py(16): return
+main.py(17): return</pre>
+</div>
+<p>输出结构的第一部分表明了trace的一个安装操作.剩下来的输出显示了每个函数的入口信息,包括函数位于哪个模块,然后是原脚本文件中的语句行.你可以看到函数recurse()被进入了3次,正如你在main()中调用的那样.</p>
+</div>
+<div class="section" id="id3">
+<h2>代码报告<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>从命令行中运行trace并使用&#8211;count选项可以产生代码信息报告,因此可以看到哪些行是被执行的,哪些被跳过了.因为你的程序通常是多个文件组成,那就会为每个文件产生独立的报表.默认下,报表文件在和模块的同一目录下被创建,并以模块名命名,而且使用.cover后缀名替换.py.</p>
+<div class="highlight-python"><pre>$ python -m trace --count trace_example/main.py
+This is the main program.
+recurse(2)
+recurse(1)
+recurse(0)</pre>
+</div>
+<p>两个输出文件, trace_example/main.cover:</p>
+<div class="highlight-python"><pre>1: from recurse import recurse
+
+1: def main():
+1:     print 'This is the main program.'
+1:     recurse(2)
+1:     return
+
+1: if __name__ == '__main__':
+1:     main()</pre>
+</div>
+<p>trace_example/recurse.cover:</p>
+<div class="highlight-python"><pre>1: def recurse(level):
+3:     print 'recurse(%s)' % level
+3:     if level:
+2:         recurse(level-1)
+3:     return</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">虽然代码行def recurse(level):有一个1数值, 这不意味着这个函数仅运行一次,而是意味着这个函数definition仅被执行一次.
+使用不同的选项来多次运行程序是有可能的,并且保存报告数据,产生一个联合报告.</p>
+</div>
+<div class="highlight-python"><pre>$ python -m trace --coverdir coverdir1 --count --file coverdir1/coverage_report.dat trace_example/main.py
+This is the main program.
+recurse(2)
+recurse(1)
+recurse(0)
+Skipping counts file 'coverdir1/coverage_report.dat': [Errno 2] No such file or directory: 'coverdir1/coverage_report.dat'</pre>
+</div>
+<div class="highlight-python"><pre>$ python -m trace --coverdir coverdir1 --count --file coverdir1/coverage_report.dat trace_example/main.py
+This is the main program.
+recurse(2)
+recurse(1)
+recurse(0)</pre>
+</div>
+<div class="highlight-python"><pre>$ python -m trace --coverdir coverdir1 --count --file coverdir1/coverage_report.dat trace_example/main.py
+This is the main program.
+recurse(2)
+recurse(1)
+recurse(0)</pre>
+</div>
+<div class="highlight-python"><pre>$ find coverdir1
+coverdir1
+coverdir1/coverage_report.dat</pre>
+</div>
+<p>一旦报告信息被记录到.cover文件中,你可以使用&#8211;report选项产生报告.</p>
+<div class="highlight-python"><pre>$ python -m trace --coverdir coverdir1 --report --summary --missing --file coverdir1/coverage_report.dat trace_example/main.py
+lines cov% module (path)
+533 0% threading (/Library/Frameworks/Python.framework/Versions/2.5/lib/python2.5/threading.py)
+8 100% trace_example.main (trace_example/main.py)
+8 87% trace_example.recurse (trace_example/recurse.py)
+$ find coverdir1
+coverdir1
+coverdir1/coverage_report.dat
+coverdir1/threading.cover
+coverdir1/trace_example.main.cover
+coverdir1/trace_example.recurse.cover</pre>
+</div>
+<p>程序一共运行了3次,因此在报告中显示的值要比第一份报告中的值高3倍.&#8211;summary选项在输出信息中增加了百分比信息.模块recurse只有 87%被报告.从这个报告中还可看到not_called()这个函数从未被运行,这个是由前缀&gt;&gt;&gt;&gt;&gt;&gt;表示.</p>
+<div class="highlight-python"><pre>3: def recurse(level):
+9:     print 'recurse(%s)' % level
+9:     if level:
+6:         recurse(level-1)
+9:     return
+
+3: def not_called():
+&gt;&gt;&gt;&gt;&gt;&gt; print 'This function is never called.'</pre>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>调用关系<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>除了以上覆盖信息,trace还可以收集函数间调用关系.使用&#8211;listfuncs可以在结果中输出简单的函数调用关系:</p>
+<div class="highlight-python"><pre>$ python -m trace --listfuncs trace_example/main.py
+This is the main program.
+recurse(2)
+recurse(1)
+recurse(0)
+
+functions called:
+filename: /Library/Frameworks/Python.framework/Versions/2.5/lib/python2.5/threading.py, modulename: threading, funcname: settrace
+filename: &lt;string&gt;, modulename: &lt;string&gt;, funcname: &lt;module&gt;
+filename: trace_example/main.py, modulename: main, funcname: &lt;module&gt;
+filename: trace_example/main.py, modulename: main, funcname: main
+filename: trace_example/recurse.py, modulename: recurse, funcname: &lt;module&gt;
+filename: trace_example/recurse.py, modulename: recurse, funcname: recurse</pre>
+</div>
+<p>可以使用&#8211;trackcalls获得更多信息,比如说谁调用了函数.</p>
+<div class="highlight-python"><pre>$ python -m trace --listfuncs --trackcalls trace_example/main.py
+This is the main program.
+recurse(2)
+recurse(1)
+recurse(0)
+
+calling relationships:
+
+*** /Library/Frameworks/Python.framework/Versions/2.5/lib/python2.5/trace.py ***
+--&gt; /Library/Frameworks/Python.framework/Versions/2.5/lib/python2.5/threading.py
+trace.Trace.run -&gt; threading.settrace
+--&gt; &lt;string&gt;
+trace.Trace.run -&gt; &lt;string&gt;.&lt;module&gt;
+
+*** &lt;string&gt; ***
+--&gt; trace_example/main.py
+&lt;string&gt;.&lt;module&gt; -&gt; main.&lt;module&gt;
+
+*** trace_example/main.py ***
+main.&lt;module&gt; -&gt; main.main
+--&gt; trace_example/recurse.py
+main.&lt;module&gt; -&gt; recurse.&lt;module&gt;
+main.main -&gt; recurse.recurse
+
+*** trace_example/recurse.py ***
+recurse.recurse -&gt; recurse.recurse</pre>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>编程接口<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>通过trace接口增加更多的控制,你可以在你的程序中使用Trace对象.Trace可以让你设置fixtures和其他依赖关系在运行单个函数前或执行一个用于跟踪的Python命令.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">trace</span>
+<span class="k">from</span> <span class="nn">trace_example.recurse</span> <span class="k">import</span> <span class="n">recurse</span>
+
+<span class="n">tracer</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">Trace</span><span class="p">(</span><span class="n">count</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">trace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">tracer</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="s">&#39;recurse(2)&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>由于例子只跟踪到recurse()函数, 所以结果中没有把main.py的信息包含进来.</p>
+<div class="highlight-python"><pre>$ python trace_run.py
+--- modulename: threading, funcname: settrace
+threading.py(70): _trace_hook = func
+--- modulename: trace_run, funcname: &lt;module&gt;
+&lt;string&gt;(1): --- modulename: recurse, funcname: recurse
+recurse.py(13): print 'recurse(%s)' % level
+recurse(2)
+recurse.py(14): if level:
+recurse.py(15): recurse(level-1)
+--- modulename: recurse, funcname: recurse
+recurse.py(13): print 'recurse(%s)' % level
+recurse(1)
+recurse.py(14): if level:
+recurse.py(15): recurse(level-1)
+--- modulename: recurse, funcname: recurse
+recurse.py(13): print 'recurse(%s)' % level
+recurse(0)
+recurse.py(14): if level:
+recurse.py(16): return
+recurse.py(16): return
+recurse.py(16): return</pre>
+</div>
+<p>使用runfunc()也可以得到上述同样的输出.runfunc()接收任意位置和关键字参数,他们在函数被tracer调用时都被传递给函数.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">trace</span>
+<span class="k">from</span> <span class="nn">trace_example.recurse</span> <span class="k">import</span> <span class="n">recurse</span>
+
+<span class="n">tracer</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">Trace</span><span class="p">(</span><span class="n">count</span><span class="o">=</span><span class="bp">False</span><span class="p">,</span> <span class="n">trace</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="n">tracer</span><span class="o">.</span><span class="n">runfunc</span><span class="p">(</span><span class="n">recurse</span><span class="p">,</span> <span class="mf">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python trace_runfunc.py
+--- modulename: recurse, funcname: recurse
+recurse.py(13): print 'recurse(%s)' % level
+recurse(2)
+recurse.py(14): if level:
+recurse.py(15): recurse(level-1)
+--- modulename: recurse, funcname: recurse
+recurse.py(13): print 'recurse(%s)' % level
+recurse(1)
+recurse.py(14): if level:
+recurse.py(15): recurse(level-1)
+--- modulename: recurse, funcname: recurse
+recurse.py(13): print 'recurse(%s)' % level
+recurse(0)
+recurse.py(14): if level:
+recurse.py(16): return
+recurse.py(16): return
+recurse.py(16): return</pre>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>保存结果数据<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>就像在命令行中使用一样, 计算和报告信息也可以被记录下来.使用Trace对象的CoverageResults可以将这些数据明确的保存下来.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">trace</span>
+<span class="k">from</span> <span class="nn">trace_example.recurse</span> <span class="k">import</span> <span class="n">recurse</span>
+
+<span class="n">tracer</span> <span class="o">=</span> <span class="n">trace</span><span class="o">.</span><span class="n">Trace</span><span class="p">(</span><span class="n">count</span><span class="o">=</span><span class="bp">True</span><span class="p">,</span> <span class="n">trace</span><span class="o">=</span><span class="bp">False</span><span class="p">)</span>
+<span class="n">tracer</span><span class="o">.</span><span class="n">runfunc</span><span class="p">(</span><span class="n">recurse</span><span class="p">,</span> <span class="mf">2</span><span class="p">)</span>
+
+<span class="n">results</span> <span class="o">=</span> <span class="n">tracer</span><span class="o">.</span><span class="n">results</span><span class="p">()</span>
+<span class="n">results</span><span class="o">.</span><span class="n">write_results</span><span class="p">(</span><span class="n">coverdir</span><span class="o">=</span><span class="s">&#39;coverdir2&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python trace_CoverageResults.py
+recurse(2)
+recurse(1)
+recurse(0)
+
+$ find coverdir2
+coverdir2/
+coverdir2//trace_example.recurse.cover
+
+$ cat coverdir2/trace_example.recurse.cover
+#!/usr/bin/env python
+# encoding: utf-8
+#
+# Copyright (c) 2008 Doug Hellmann All rights reserved.
+#
+"""
+"""
+
+#__version__ = "$Id: recurse.py 1732 2008-10-12 14:50:28Z dhellmann $"
+#end_pymotw_header
+
+&gt;&gt;&gt;&gt;&gt;&gt; def recurse(level):
+3: print 'recurse(%s)' % level
+3: if level:
+2: recurse(level-1)
+3: return
+
+&gt;&gt;&gt;&gt;&gt;&gt; def not_called():
+&gt;&gt;&gt;&gt;&gt;&gt; print 'This function is never called.'</pre>
+</div>
+<p>为了在生成报告时也保存计算数据,可以使用参数infile和outfile.</p>
+<div class="highlight-python"><pre>mport trace
+from trace_example.recurse import recurse
+
+tracer = trace.Trace(count=True, trace=False, outfile='trace_report.dat')
+tracer.runfunc(recurse, 2)
+
+report_tracer = trace.Trace(count=False, trace=False, infile='trace_report.dat')
+results = tracer.results()
+results.write_results(summary=True, coverdir='/tmp')</pre>
+</div>
+<p>传递给参数infile一个文件名来余弦读取存储的数据, 参数outfile指定在跟踪之后需要新建的一个结果文件名.如果infile和outfile是相同的,那么,就相当于在原有文件中增加新的数据.</p>
+<div class="highlight-python"><pre>$ python trace_report.py
+recurse(2)
+recurse(1)
+recurse(0)
+lines cov% module (path)
+7 57% trace_example.recurse (trace_example/recurse.py)</pre>
+</div>
+</div>
+<div class="section" id="trace">
+<h2>Trace选项<a class="headerlink" href="#trace" title="Permalink to this headline">¶</a></h2>
+<p>Trace构造器可以带多个可选参数以便更好的控制运行行为.</p>
+<ul class="simple">
+<li>count:        布尔型.打开行号计数.默认是True.</li>
+<li>countfuncs:   布尔型.打开运行中函数调用列表.默认是False</li>
+<li>countcallers: 布尔型.打开跟踪时的调用者和被调用者信息.默认是False.</li>
+<li>ignoremods:   序列.在跟踪报告中需要忽略的模块或包列表.默认是一个空元祖.</li>
+<li>ignoredirs:   序列.在跟踪报告中需要忽略的目录(其中包含模块或包)列表.默认是一个空元祖.</li>
+<li>infile:       包含缓存信息的文件名,作为输入.默认是None.</li>
+<li>outfile:      用于存储缓存信息的文件名,作为输入.默认是None,也就是数据不被存储.</li>
+</ul>
+</div>
+<div class="section" id="id7">
+<h2>参考<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference" href="http://docs.python.org/library/trace.html">标准库文档: trace</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">目录</a></h3>
+            <ul>
+<li><a class="reference" href="">PyMOTW: Trace</a><ul>
+<li><a class="reference" href="#id1">命令行接口</a></li>
+<li><a class="reference" href="#id2">跟踪时的异常</a></li>
+<li><a class="reference" href="#id3">代码报告</a></li>
+<li><a class="reference" href="#id4">调用关系</a></li>
+<li><a class="reference" href="#id5">编程接口</a></li>
+<li><a class="reference" href="#id6">保存结果数据</a></li>
+<li><a class="reference" href="#trace">Trace选项</a></li>
+<li><a class="reference" href="#id7">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>前一个主题</h4>
+            <p class="topless"><a href="smtplib.html" title="前一章节">PyMOTW: smtplib</a></p>
+            <h4>后一个主题</h4>
+            <p class="topless"><a href="struct.html" title="后一章节">PyMOTW: Struct</a></p>
+            <h3>当前主题</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/trace.txt">显示页面源码</a></li>
+            </ul>
+          <h3>快速搜索</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="提交" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="struct.html" title="PyMOTW: Struct"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="smtplib.html" title="PyMOTW: smtplib"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2008, vbarter &amp; liz.
+      使用 <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1创建.
+    </div>
+  </body>
+</html>

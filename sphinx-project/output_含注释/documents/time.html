@@ -1,0 +1,318 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: time &mdash; PyMOTW v1.0 文档</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="关于这些文档" href="../about.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="up" title="所有文档" href="index.html" />
+    <link rel="next" title="PyMOTW: datetime" href="datetime.html" />
+    <link rel="prev" title="PyMOTW: os.path" href="os.path.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="datetime.html" title="PyMOTW: datetime"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="os.path.html" title="PyMOTW: os.path"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="pymotw-time">
+<h1>PyMOTW: time<a class="headerlink" href="#pymotw-time" title="Permalink to this headline">¶</a></h1>
+<p>time模块提供了操作日期和时间的函数</p>
+<ul class="simple">
+<li>模块：time</li>
+<li>目的：操作times的函数</li>
+<li>python版本：1.4+</li>
+</ul>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>time模块是利用了c函数来处理日期和时间 ，也就是说它绑定了c的实现，一些特定的细节（比如纪元的开始时间、日期的最大值）是和平台相关的，具体可以参考 <a class="reference" href="http://docs.python.org/lib/module-time.html">这里</a> 。</p>
+</div>
+<div class="section" id="wall-clock-time">
+<h2>Wall Clock Time<a class="headerlink" href="#wall-clock-time" title="Permalink to this headline">¶</a></h2>
+<p>time模块的核心函数之一就是time.time()函数，它返回一个自公元开始的总秒数（浮点型）。</p>
+<p>本工具包含三个文件：</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">time</span>
+<span class="k">print</span> <span class="s">&#39;The time is:&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>虽然返回的值是浮点型，但精度是依赖于不同的系统平台的。</p>
+<div class="highlight-python"><pre>$ python time_time.py
+The time is: 1205079300.54</pre>
+</div>
+<p>当存储和比较日期时，浮点型一般是很有用的，但这种方式不易阅读，为了更有用的记录和输出时间可以使用time.ctime()。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">time</span>
+<span class="k">print</span> <span class="s">&#39;The time is      :&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">ctime</span><span class="p">()</span>
+<span class="n">later</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span> <span class="o">+</span> <span class="mf">15</span>
+<span class="k">print</span> <span class="s">&#39;15 secs from now :&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">ctime</span><span class="p">(</span><span class="n">later</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>上面第二行示范了如何来利用ctime()函数对当前时间进行格式化。</p>
+<div class="highlight-python"><pre>$ python time_ctime.py
+The time is      : Sun Mar  9 12:18:02 2008
+15 secs from now : Sun Mar  9 12:18:17 2008</pre>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>处理器时钟<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>time()函数返回的是现实世界的时间，而clock()函数返回的是cpu时钟。clock()函数返回值常用作性能测试，benchmarking等。它们常常反映了程序运行的真实时间，比time()函数返回的值要精确。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">hashlib</span>
+<span class="k">import</span> <span class="nn">time</span>
+
+<span class="c"># 用于计算md5校验和的数据</span>
+<span class="n">data</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">__file__</span><span class="p">,</span> <span class="s">&#39;rt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mf">5</span><span class="p">):</span>
+    <span class="n">h</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">()</span>
+    <span class="k">print</span> <span class="n">time</span><span class="o">.</span><span class="n">ctime</span><span class="p">(),</span> <span class="s">&#39;: </span><span class="si">%0.3f</span><span class="s"> </span><span class="si">%0.3f</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">(),</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">())</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mf">100000</span><span class="p">):</span>
+        <span class="n">h</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="n">cksum</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">digest</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>在这个例子中，ctime()把time()函数返回的浮点型表示转化为标准时间，每个迭代循环使用了clock()。如果想在机器上测试这个例子，那么可以增加循环次数，或者处理大一点的数据，这样才能看到不同点。</p>
+<div class="highlight-python"><pre>$ python time_clock.py
+Sun Mar  9 12:41:53 2008 : 1205080913.260 0.030
+Sun Mar  9 12:41:53 2008 : 1205080913.682 0.440
+Sun Mar  9 12:41:54 2008 : 1205080914.103 0.860
+Sun Mar  9 12:41:54 2008 : 1205080914.518 1.270
+Sun Mar  9 12:41:54 2008 : 1205080914.932 1.680</pre>
+</div>
+<p>一般，如果程序没有做任何事情，处理器时钟是不会计时。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">time</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mf">6</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">1</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s"> </span><span class="si">%0.2f</span><span class="s"> </span><span class="si">%0.2f</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">ctime</span><span class="p">(),</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">(),</span> <span class="n">time</span><span class="o">.</span><span class="n">clock</span><span class="p">())</span>
+    <span class="k">print</span> <span class="s">&#39;Sleeping&#39;</span><span class="p">,</span> <span class="n">i</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>在这个例子中，每次迭代，循环中处理了很少的任务就进入了sleep，当进程在睡眠中时，time.time()函数的返回值依然会增加。但是time.clock()是不会增加的。</p>
+<div class="highlight-python"><pre>$ python time_clock_sleep.py
+Sun Mar  9 12:46:36 2008 1205081196.20 0.02
+Sleeping 6
+Sun Mar  9 12:46:42 2008 1205081202.20 0.02
+Sleeping 5
+Sun Mar  9 12:46:47 2008 1205081207.20 0.02
+Sleeping 4
+Sun Mar  9 12:46:51 2008 1205081211.20 0.02
+Sleeping 3
+Sun Mar  9 12:46:54 2008 1205081214.21 0.02
+Sleeping 2</pre>
+</div>
+<p>time.sleep函数控制当前的线程，让它等待直到系统重新唤醒它，如果应用中只有一个线程，那么它会阻塞当前进程，使其不做任何事情。</p>
+</div>
+<div class="section" id="struct-time">
+<h2>struct_time<a class="headerlink" href="#struct-time" title="Permalink to this headline">¶</a></h2>
+<p>某些时候，使用逝去的秒数来表示时间是很有用的。有时候你需要获取日期的单独部分（如年、月等等），time模块定义了struct_time来存储日期和时间值并作为其部分以便获取。提供了多种函数将struct_time转化为float。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">time</span>
+
+<span class="k">print</span> <span class="s">&#39;gmtime   :&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">gmtime</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&#39;localtime:&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&#39;mktime   :&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">mktime</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">())</span>
+
+<span class="k">print</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&#39;Day of month:&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">tm_mday</span>
+<span class="k">print</span> <span class="s">&#39; Day of week:&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">tm_wday</span>
+<span class="k">print</span> <span class="s">&#39; Day of year:&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">tm_yday</span>
+</pre></div>
+</div>
+<p>gmtime()返回当前的UTC时间，localtime()返回当前时间域的当前时间，mktime()接收struct_time参数并将其转化为浮点型来表示。</p>
+<div class="highlight-python"><pre>$ python time_struct.py
+gmtime   : (2008, 3, 9, 16, 58, 19, 6, 69, 0)
+localtime: (2008, 3, 9, 12, 58, 19, 6, 69, 1)
+mktime   : 1205081899.0
+
+Day of month: 9
+Day of week: 6
+Day of year: 69</pre>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>解析和格式化时间<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>函数strptime()和strftime()可以使struct_time和时间值字符串相互转化。有一个很长的格式化说明列表可以用来支持输入和输出不同的风格。完整的列表在time模块的的库文档中有介绍。</p>
+<p>下面示例把当前时间（字符串)转化为struct_time实例，然后再转化为字符串。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">time</span>
+
+<span class="n">now</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">ctime</span><span class="p">()</span>
+<span class="k">print</span> <span class="n">now</span>
+<span class="n">parsed</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">now</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">parsed</span>
+<span class="k">print</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s">&quot;%a %b </span><span class="si">%d</span><span class="s"> %H:%M:%S %Y&quot;</span><span class="p">,</span> <span class="n">parsed</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>输出和输入字符串不是完全的一致，主要表现在月份前加了一个0前缀。</p>
+<div class="highlight-python"><pre>$ python time_strptime.py
+Sun Mar  9 13:01:19 2008
+(2008, 3, 9, 13, 1, 19, 6, 69, -1)
+Sun Mar 09 13:01:19 2008</pre>
+</div>
+</div>
+<div class="section" id="time-zone">
+<h2>使用Time Zone(时区)<a class="headerlink" href="#time-zone" title="Permalink to this headline">¶</a></h2>
+<p>无论是你的程序，还是为系统使用一个默认的时区，检测当前时间的函数依赖于当前Time Zone（时间域)的设置。改变时区设置是不会改变实际时间，只会改变表示时间的方法。</p>
+<p>通过设置环境变量TZ可以改变时区，然后调用tzset()。环境变量TZ可以对时区来详细的设置，比如白天保存时间的起始点。通常使用时区名称是比较简单的，如果需要了解更多信息可以参考库。</p>
+<p>下面这个示例改变了time zone中的一些值，展示了这种改变如何来影响time模块中的其它设置。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">time</span>
+<span class="k">import</span> <span class="nn">os</span>
+
+<span class="k">def</span> <span class="nf">show_zone_info</span><span class="p">():</span>
+    <span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">TZ    :&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;TZ&#39;</span><span class="p">,</span> <span class="s">&#39;(not set)&#39;</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">tzname:&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">tzname</span>
+    <span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">Zone  : </span><span class="si">%d</span><span class="s"> (</span><span class="si">%d</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">timezone</span><span class="p">,</span> <span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">timezone</span> <span class="o">/</span> <span class="mf">3600</span><span class="p">))</span>
+    <span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">DST   :&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">daylight</span>
+    <span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">Time  :&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">ctime</span><span class="p">()</span>
+    <span class="k">print</span>
+
+<span class="k">print</span> <span class="s">&#39;Default :&#39;</span>
+<span class="n">show_zone_info</span><span class="p">()</span>
+
+<span class="k">for</span> <span class="n">zone</span> <span class="ow">in</span> <span class="p">[</span> <span class="s">&#39;US/Eastern&#39;</span><span class="p">,</span> <span class="s">&#39;US/Pacific&#39;</span><span class="p">,</span> <span class="s">&#39;GMT&#39;</span><span class="p">,</span> <span class="s">&#39;Europe/Amsterdam&#39;</span> <span class="p">]:</span>
+    <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&#39;TZ&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="n">zone</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">tzset</span><span class="p">()</span>
+    <span class="k">print</span> <span class="n">zone</span><span class="p">,</span> <span class="s">&#39;:&#39;</span>
+    <span class="n">show_zone_info</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>我的时区是US/Eastern，所以设置TZ不会起作用。如果是其它时区，则会改变tzname、daylight flag以及 timezone偏移值。</p>
+<div class="highlight-python"><pre>$ python time_timezone.py
+Default :
+  TZ    : (not set)
+  tzname: ('EST', 'EDT')
+  Zone  : 18000 (5)
+  DST   : 1
+  Time  : Sun Mar  9 13:06:53 2008
+
+US/Eastern :
+  TZ    : US/Eastern
+  tzname: ('EST', 'EDT')
+  Zone  : 18000 (5)
+  DST   : 1
+  Time  : Sun Mar  9 13:06:53 2008
+
+US/Pacific :
+  TZ    : US/Pacific
+  tzname: ('PST', 'PDT')
+  Zone  : 28800 (8)
+  DST   : 1
+  Time  : Sun Mar  9 10:06:53 2008
+
+GMT :
+  TZ    : GMT
+  tzname: ('GMT', 'GMT')
+  Zone  : 0 (0)
+  DST   : 0
+  Time  : Sun Mar  9 17:06:53 2008
+
+Europe/Amsterdam :
+  TZ    : Europe/Amsterdam
+  tzname: ('CET', 'CEST')
+  Zone  : -3600 (-1)
+  DST   : 1
+  Time  : Sun Mar  9 18:06:53 2008</pre>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>参考<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference" href="http://docs.python.org/lib/module-datetime.html">datetime module</a></li>
+<li><a class="reference" href="http://docs.python.org/lib/module-locale.html">locale module</a></li>
+<li><a class="reference" href="http://docs.python.org/lib/module-calendar.html">calendar module</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">目录</a></h3>
+            <ul>
+<li><a class="reference" href="">PyMOTW: time</a><ul>
+<li><a class="reference" href="#id1">描述</a></li>
+<li><a class="reference" href="#wall-clock-time">Wall Clock Time</a></li>
+<li><a class="reference" href="#id3">处理器时钟</a></li>
+<li><a class="reference" href="#struct-time">struct_time</a></li>
+<li><a class="reference" href="#id4">解析和格式化时间</a></li>
+<li><a class="reference" href="#time-zone">使用Time Zone(时区)</a></li>
+<li><a class="reference" href="#id5">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>前一个主题</h4>
+            <p class="topless"><a href="os.path.html" title="前一章节">PyMOTW: os.path</a></p>
+            <h4>后一个主题</h4>
+            <p class="topless"><a href="datetime.html" title="后一章节">PyMOTW: datetime</a></p>
+            <h3>当前主题</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/time.txt">显示页面源码</a></li>
+            </ul>
+          <h3>快速搜索</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="提交" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="datetime.html" title="PyMOTW: datetime"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="os.path.html" title="PyMOTW: os.path"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2008, vbarter &amp; liz.
+      使用 <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1创建.
+    </div>
+  </body>
+</html>

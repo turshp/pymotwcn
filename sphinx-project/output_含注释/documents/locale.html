@@ -1,0 +1,370 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: locale &mdash; PyMOTW v1.0 文档</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="关于这些文档" href="../about.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="up" title="所有文档" href="index.html" />
+    <link rel="next" title="PyMOTW: os" href="os.html" />
+    <link rel="prev" title="PyMOTW: logging" href="logging.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="os.html" title="PyMOTW: os"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="logging.html" title="PyMOTW: logging"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="pymotw-locale">
+<h1>PyMOTW: locale<a class="headerlink" href="#pymotw-locale" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>模块： locale</li>
+<li>目的： POSIX标准的本地化API</li>
+<li>python版本： 1.5,在2.5版本中有所扩展</li>
+</ul>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>locale模块是Python国际化和本地化支持库的一部分. 他提供一种用于处理那些可能依赖于你用户语言或位置的操作的标准方式. 例如, 货币格式化, 比较字符串以便排序, 处理时间日期. 他没有包含翻译(可参见gettext模块)或Unicode编码.</p>
+<p>由于可以在应用程序范围内改变本地化设置, 所以推荐用户避免在库中改变值而是让应用程序一次性设置. 在下面的例子中, 我会改变本地的一些时间以便说明目的.这更像是一旦你的应用程序启动就去设置本地化参数.</p>
+</div>
+<div class="section" id="id2">
+<h2>例子<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>让用户改变一个应用程序的本地设置的最一般的方式是通过一个环境变量（LC__ALL, LC__CTYPE, LANG, 或LANGUAGE, 这依赖于你的平台). 然后程序会调用locale.setlocale(), 没有使用硬编码值, 而是使用环境变量.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">locale</span>
+<span class="k">import</span> <span class="nn">os</span>
+<span class="k">import</span> <span class="nn">pprint</span>
+
+<span class="k">print</span> <span class="s">&#39;Environment settings:&#39;</span>
+<span class="k">for</span> <span class="n">env_name</span> <span class="ow">in</span> <span class="p">[</span> <span class="s">&#39;LC_ALL&#39;</span><span class="p">,</span> <span class="s">&#39;LC_CTYPE&#39;</span><span class="p">,</span> <span class="s">&#39;LANG&#39;</span><span class="p">,</span> <span class="s">&#39;LANGUAGE&#39;</span> <span class="p">]:</span>
+    <span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="si">%s</span><span class="s"> = </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">env_name</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">env_name</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">))</span>
+
+<span class="c"># What is the default locale?默认的本地设置是什么?</span>
+<span class="k">print</span>
+<span class="k">print</span> <span class="s">&#39;Default locale:&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">.</span><span class="n">getdefaultlocale</span><span class="p">()</span>
+
+<span class="c"># Default settings based on the user&#39;s environment.根据用户的环境做些默认设置</span>
+<span class="n">locale</span><span class="o">.</span><span class="n">setlocale</span><span class="p">(</span><span class="n">locale</span><span class="o">.</span><span class="n">LC_ALL</span><span class="p">,</span> <span class="s">&#39;&#39;</span><span class="p">)</span>
+
+<span class="c"># If we do not have a locale, assume US English.如果没有本地设置, 假设为US English</span>
+<span class="k">print</span> <span class="s">&#39;From environment:&#39;</span><span class="p">,</span> <span class="n">locale</span><span class="o">.</span><span class="n">getlocale</span><span class="p">()</span>
+
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">locale</span><span class="o">.</span><span class="n">localeconv</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>在我的Mac上, 这个程序输出类似如下:</p>
+<div class="highlight-python"><pre>$ python locale_env_example.py
+Environment settings:
+ LC_ALL =
+ LC_CTYPE =
+ LANG =
+ LANGUAGE =
+
+Default locale: (None, 'mac-roman')
+From environment: (None, None)
+{'currency_symbol': '',
+ 'decimal_point': '.',
+ 'frac_digits': 127,
+ 'grouping': [127],
+ 'int_curr_symbol': '',
+ 'int_frac_digits': 127,
+ 'mon_decimal_point': '',
+ 'mon_grouping': [127],
+ 'mon_thousands_sep': '',
+ 'n_cs_precedes': 127,
+ 'n_sep_by_space': 127,
+ 'n_sign_posn': 127,
+ 'negative_sign': '',
+ 'p_cs_precedes': 127,
+ 'p_sep_by_space': 127,
+ 'p_sign_posn': 127,
+ 'positive_sign': '',
+ 'thousands_sep': ''}</pre>
+</div>
+<p>现在如果我们设置好LANG值后再运行同样的脚本, 可以看到本地设置和默认编码因此改变:</p>
+<p>法国:</p>
+<div class="highlight-python"><pre>$ LANG=fr_FR python locale_env_example.py
+Environment settings:
+ LC_ALL =
+ LC_CTYPE =
+ LANG = fr_FR
+ LANGUAGE =
+
+Default locale: (None, 'mac-roman')
+From environment: ('fr_FR', 'ISO8859-1')
+{'currency_symbol': 'Eu',
+ 'decimal_point': ',',
+ 'frac_digits': 2,
+ 'grouping': [127],
+ 'int_curr_symbol': 'EUR ',
+ 'int_frac_digits': 2,
+ 'mon_decimal_point': ',',
+ 'mon_grouping': [3, 3, 0],
+ 'mon_thousands_sep': ' ',
+ 'n_cs_precedes': 0,
+ 'n_sep_by_space': 1,
+ 'n_sign_posn': 2,
+ 'negative_sign': '-',
+ 'p_cs_precedes': 0,
+ 'p_sep_by_space': 1,
+ 'p_sign_posn': 1,
+ 'positive_sign': '',
+ 'thousands_sep': ''}</pre>
+</div>
+<p>西班牙:</p>
+<div class="highlight-python"><pre>$ LANG=es_ES python locale_env_example.py
+Environment settings:
+ LC_ALL =
+ LC_CTYPE =
+ LANG = es_ES
+ LANGUAGE =
+
+Default locale: (None, 'mac-roman')
+From environment: ('es_ES', 'ISO8859-1')
+{'currency_symbol': 'Eu',
+ 'decimal_point': ',',
+ 'frac_digits': 2,
+ 'grouping': [127],
+ 'int_curr_symbol': 'EUR ',
+ 'int_frac_digits': 2,
+ 'mon_decimal_point': ',',
+ 'mon_grouping': [3, 3, 0],
+ 'mon_thousands_sep': '.',
+ 'n_cs_precedes': 1,
+ 'n_sep_by_space': 1,
+ 'n_sign_posn': 1,
+ 'negative_sign': '-',
+ 'p_cs_precedes': 1,
+ 'p_sep_by_space': 1,
+ 'p_sign_posn': 1,
+ 'positive_sign': '',
+ 'thousands_sep': ''}</pre>
+</div>
+<p>葡萄牙:</p>
+<div class="highlight-python"><pre>$ LANG=pt_PT python locale_env_example.py
+Environment settings:
+ LC_ALL =
+ LC_CTYPE =
+ LANG = pt_PT
+ LANGUAGE =
+
+Default locale: (None, 'mac-roman')
+From environment: ('pt_PT', 'ISO8859-1')
+{'currency_symbol': 'Eu',
+ 'decimal_point': ',',
+ 'frac_digits': 2,
+ 'grouping': [127],
+ 'int_curr_symbol': 'EUR ',
+ 'int_frac_digits': 2,
+ 'mon_decimal_point': '.',
+ 'mon_grouping': [3, 3, 0],
+ 'mon_thousands_sep': '.',
+ 'n_cs_precedes': 0,
+ 'n_sep_by_space': 1,
+ 'n_sign_posn': 1,
+ 'negative_sign': '-',
+ 'p_cs_precedes': 0,
+ 'p_sep_by_space': 1,
+ 'p_sign_posn': 1,
+ 'positive_sign': '',
+ 'thousands_sep': ' '}</pre>
+</div>
+<p>波兰:</p>
+<div class="highlight-python"><pre>$ LANG=pl_PL python locale_env_example.py
+Environment settings:
+ LC_ALL =
+ LC_CTYPE =
+ LANG = pl_PL
+ LANGUAGE =
+
+Default locale: (None, 'mac-roman')
+From environment: ('pl_PL', 'ISO8859-2')
+{'currency_symbol': 'z?\x82',
+ 'decimal_point': ',',
+ 'frac_digits': 2,
+ 'grouping': [3, 3, 0],
+ 'int_curr_symbol': 'PLN ',
+ 'int_frac_digits': 2,
+ 'mon_decimal_point': ',',
+ 'mon_grouping': [3, 3, 0],
+ 'mon_thousands_sep': ' ',
+ 'n_cs_precedes': 1,
+ 'n_sep_by_space': 2,
+ 'n_sign_posn': 4,
+ 'negative_sign': '-',
+ 'p_cs_precedes': 1,
+ 'p_sep_by_space': 2,
+ 'p_sign_posn': 4,
+ 'positive_sign': '',
+ 'thousands_sep': ' '}</pre>
+</div>
+<p>所以你可以看到货币符号(currency_symbol)设置改变了, 从小数中分离出整个数字的分割字符(decimal_point)也改变了, 等等. 现在以不同的地区设置(US 美元, 欧元, 和Polish złoty)格式输出同样的信息:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sample_locales</span> <span class="o">=</span> <span class="p">[</span> <span class="p">(</span><span class="s">&#39;USA&#39;</span><span class="p">,</span> <span class="s">&#39;en_US&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s">&#39;France&#39;</span><span class="p">,</span> <span class="s">&#39;fr_FR&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s">&#39;Spain&#39;</span><span class="p">,</span> <span class="s">&#39;es_ES&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s">&#39;Portugal&#39;</span><span class="p">,</span> <span class="s">&#39;pt_PT&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s">&#39;Poland&#39;</span><span class="p">,</span> <span class="s">&#39;pl_PL&#39;</span><span class="p">),</span>
+                 <span class="p">]</span>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">loc</span> <span class="ow">in</span> <span class="n">sample_locales</span><span class="p">:</span>
+    <span class="n">locale</span><span class="o">.</span><span class="n">setlocale</span><span class="p">(</span><span class="n">locale</span><span class="o">.</span><span class="n">LC_ALL</span><span class="p">,</span> <span class="n">loc</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;</span><span class="si">%20s</span><span class="s">: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">locale</span><span class="o">.</span><span class="n">currency</span><span class="p">(</span><span class="mf">1234.56</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>输出一个小的表格:</p>
+<div class="highlight-python"><pre>$ python locale_currency_example.py
+USA: $1234.56
+France: 1234,56 Eu
+Spain: Eu 1234,56
+Portugal: 1234.56 Eu
+Poland: zł 1234,56</pre>
+</div>
+<p>除了以不同的格式输出外, 本地化模块还可以帮助解析输入. 不同的文化对数字格式化使用不同的转换(上面已列出). 本地化模块提供atoi()和atof()函数分别用来进行字符串与整数和浮点数之间的转换.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">sample_data</span> <span class="o">=</span> <span class="p">[</span> <span class="p">(</span><span class="s">&#39;USA&#39;</span><span class="p">,</span> <span class="s">&#39;en_US&#39;</span><span class="p">,</span> <span class="s">&#39;1234.56&#39;</span><span class="p">),</span>
+                <span class="p">(</span><span class="s">&#39;France&#39;</span><span class="p">,</span> <span class="s">&#39;fr_FR&#39;</span><span class="p">,</span> <span class="s">&#39;1234,56&#39;</span><span class="p">),</span>
+                <span class="p">(</span><span class="s">&#39;Spain&#39;</span><span class="p">,</span> <span class="s">&#39;es_ES&#39;</span><span class="p">,</span> <span class="s">&#39;1234,56&#39;</span><span class="p">),</span>
+                <span class="p">(</span><span class="s">&#39;Portugal&#39;</span><span class="p">,</span> <span class="s">&#39;pt_PT&#39;</span><span class="p">,</span> <span class="s">&#39;1234.56&#39;</span><span class="p">),</span>
+                <span class="p">(</span><span class="s">&#39;Poland&#39;</span><span class="p">,</span> <span class="s">&#39;pl_PL&#39;</span><span class="p">,</span> <span class="s">&#39;1234,56&#39;</span><span class="p">),</span>
+              <span class="p">]</span>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">loc</span><span class="p">,</span> <span class="n">a</span> <span class="ow">in</span> <span class="n">sample_data</span><span class="p">:</span>
+    <span class="n">locale</span><span class="o">.</span><span class="n">setlocale</span><span class="p">(</span><span class="n">locale</span><span class="o">.</span><span class="n">LC_ALL</span><span class="p">,</span> <span class="n">loc</span><span class="p">)</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="n">locale</span><span class="o">.</span><span class="n">atof</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">locale</span><span class="o">.</span><span class="n">setlocale</span><span class="p">(</span><span class="n">locale</span><span class="o">.</span><span class="n">LC_ALL</span><span class="p">,</span> <span class="s">&#39;en_US&#39;</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;</span><span class="si">%20s</span><span class="s">: </span><span class="si">%7s</span><span class="s"> =&gt; </span><span class="si">%f</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">f</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python locale_atof_example.py
+USA: 1234.56 =&gt; 1234.560000
+France: 1234,56 =&gt; 1234.560000
+Spain: 1234,56 =&gt; 1234.560000
+Portugal: 1234.56 =&gt; 1234.560000
+Poland: 1234,56 =&gt; 1234.560000</pre>
+</div>
+<p>另一个本地化的重要方面是时间和日期的格式化:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">locale</span>
+<span class="k">import</span> <span class="nn">time</span>
+
+<span class="n">sample_locales</span> <span class="o">=</span> <span class="p">[</span> <span class="p">(</span><span class="s">&#39;USA&#39;</span><span class="p">,</span> <span class="s">&#39;en_US&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s">&#39;France&#39;</span><span class="p">,</span> <span class="s">&#39;fr_FR&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s">&#39;Spain&#39;</span><span class="p">,</span> <span class="s">&#39;es_ES&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s">&#39;Portugal&#39;</span><span class="p">,</span> <span class="s">&#39;pt_PT&#39;</span><span class="p">),</span>
+                   <span class="p">(</span><span class="s">&#39;Poland&#39;</span><span class="p">,</span> <span class="s">&#39;pl_PL&#39;</span><span class="p">),</span>
+                 <span class="p">]</span>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">loc</span> <span class="ow">in</span> <span class="n">sample_locales</span><span class="p">:</span>
+    <span class="n">locale</span><span class="o">.</span><span class="n">setlocale</span><span class="p">(</span><span class="n">locale</span><span class="o">.</span><span class="n">LC_ALL</span><span class="p">,</span> <span class="n">loc</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;</span><span class="si">%20s</span><span class="s">: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">locale</span><span class="o">.</span><span class="n">nl_langinfo</span><span class="p">(</span><span class="n">locale</span><span class="o">.</span><span class="n">D_T_FMT</span><span class="p">)))</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python locale_date_example.py
+
+USA: Sun May 20 10:19:54 2007
+France: Dim 20 mai 10:19:54 2007
+Spain: dom 20 may 10:19:54 2007
+Portugal: Dom 20 Mai 10:19:54 2007
+Poland: ndz 20 maj 10:19:54 2007</pre>
+</div>
+<p>这个星期我只阐述了本地化模块中的一些高层函数. 还有其他低层(格式化字符串)或那些管理你应用程序本地化的函数(resetlocale). 和往常一样, 你可以参考Python库文档来查看些细节.</p>
+</div>
+<div class="section" id="id3">
+<h2>参考<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference" href="http://en.wikipedia.org/wiki/Locale">Locale - Wikipedia</a></li>
+<li><a class="reference" href="http://en.wikipedia.org/wiki/Internationalization_and_localization">Internationalization and localization - Wikipedia</a></li>
+<li><a class="reference" href="http://www.openi18n.org/">OpenI18N.org - The Free standards Group Open Internationalisation Initiative</a></li>
+<li><a class="reference" href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/intl/nls_238z.asp">MSDN - National Language Support Constants</a></li>
+<li><a class="reference" href="http://www.python.org/workshops/1997-10/proceedings/loewis.html">Internationalizing Python</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">目录</a></h3>
+            <ul>
+<li><a class="reference" href="">PyMOTW: locale</a><ul>
+<li><a class="reference" href="#id1">描述</a></li>
+<li><a class="reference" href="#id2">例子</a></li>
+<li><a class="reference" href="#id3">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>前一个主题</h4>
+            <p class="topless"><a href="logging.html" title="前一章节">PyMOTW: logging</a></p>
+            <h4>后一个主题</h4>
+            <p class="topless"><a href="os.html" title="后一章节">PyMOTW: os</a></p>
+            <h3>当前主题</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/locale.txt">显示页面源码</a></li>
+            </ul>
+          <h3>快速搜索</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="提交" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="os.html" title="PyMOTW: os"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="logging.html" title="PyMOTW: logging"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2008, vbarter &amp; liz.
+      使用 <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1创建.
+    </div>
+  </body>
+</html>

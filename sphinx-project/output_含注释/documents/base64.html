@@ -1,0 +1,257 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: base64 &mdash; PyMOTW v1.0 文档</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="关于这些文档" href="../about.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="up" title="所有文档" href="index.html" />
+    <link rel="next" title="PyMOTW: webbrowser" href="webbrowser.html" />
+    <link rel="prev" title="PyMOTW: Cookie" href="Cookie.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="webbrowser.html" title="PyMOTW: webbrowser"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="Cookie.html" title="PyMOTW: Cookie"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="pymotw-base64">
+<h1>PyMOTW: base64<a class="headerlink" href="#pymotw-base64" title="Permalink to this headline">¶</a></h1>
+<p>base64模块提供一些函数l来把二进制数据转换为ASCII集，通常在明文协议的传输中使用。</p>
+<ul class="simple">
+<li>模块： base64</li>
+<li>目的： 编码二进制数据转化为ASCII码</li>
+<li>python版本： 1.4+</li>
+</ul>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>base64、base32、base16可以分别编码转化8位字节为6位、5位、4位，允许非ASCII字节以编码为ASCII码的协议中传输，例如SMTP，“base”值对应是在每一个编码中字母表的长度。有一些原始编码的url类型会使用略有不同的结果。</p>
+</div>
+<div class="section" id="base64">
+<h2>Base64 编码<a class="headerlink" href="#base64" title="Permalink to this headline">¶</a></h2>
+<p>简单的文本编码示例如下：</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">base64</span>
+
+<span class="n">initial_data</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">__file__</span><span class="p">,</span> <span class="s">&#39;rt&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+
+<span class="n">encoded_data</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">initial_data</span><span class="p">)</span>
+
+<span class="n">num_initial</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">initial_data</span><span class="p">)</span>
+<span class="n">padding</span> <span class="o">=</span> <span class="p">{</span> <span class="mf">0</span><span class="p">:</span><span class="mf">0</span><span class="p">,</span> <span class="mf">1</span><span class="p">:</span><span class="mf">2</span><span class="p">,</span> <span class="mf">2</span><span class="p">:</span><span class="mf">1</span> <span class="p">}[</span><span class="n">num_initial</span> <span class="o">%</span> <span class="mf">3</span><span class="p">]</span>
+
+<span class="k">print</span> <span class="s">&#39;</span><span class="si">%d</span><span class="s"> bytes before encoding&#39;</span> <span class="o">%</span> <span class="n">num_initial</span>
+<span class="k">print</span> <span class="s">&#39;Expect </span><span class="si">%d</span><span class="s"> padding bytes&#39;</span> <span class="o">%</span> <span class="n">padding</span>
+<span class="k">print</span> <span class="s">&#39;</span><span class="si">%d</span><span class="s"> bytes after encoding&#39;</span> <span class="o">%</span> <span class="nb">len</span><span class="p">(</span><span class="n">encoded_data</span><span class="p">)</span>
+<span class="k">print</span>
+<span class="k">print</span> <span class="n">encoded_data</span>
+</pre></div>
+</div>
+<p>输出显示原来529字节的文本在编码之后被扩展到了708个字节，从编码过程来看，每一个24位序列（3个字节）作为输入，输出时候则增加了4个字节，最后2个字符“==”，则是简单的追加，因为原始字符串的位数不能被24整除。</p>
+<p>在标准输出中时没有很多回车府，但是为了在文档中有好的可读性，在如下显示中稍作了变化。</p>
+<div class="highlight-python"><pre>$ python base64_b64encode.py
+529 bytes before encoding
+    Expect 2 padding bytes
+    708 bytes after encoding
+
+IyEvdXNyL2Jpbi9lbnYgcHl0aG9uCiMgZW5jb2Rpbmc
+6IHV0Zi04CiMKIyBDb3B5cmlnaHQgKGMpIDIwMDggRG
+91ZyBIZWxsbWFubiBBbGwgcmlnaHRzIHJlc2VydmVkL
+gojCiIiIgoiIiIKCl9fdmVyc2lvbl9fID0gIiRJZDog
+cHltb3R3LnB5IDEyMzkgMjAwOC0wMS0xNiAxMDo1NTo
+xOVogZGhlbGxtYW5uICQiCgppbXBvcnQgYmFzZTY0Cg
+ppbml0aWFsX2RhdGEgPSBvcGVuKF9fZmlsZV9fLCAnc
+nQnKS5yZWFkKCkKCmVuY29kZWRfZGF0YSA9IGJhc2U2
+NC5iNjRlbmNvZGUoaW5pdGlhbF9kYXRhKQoKbnVtX2l
+uaXRpYWwgPSBsZW4oaW5pdGlhbF9kYXRhKQpwYWRkaW
+5nID0geyAwOjAsIDE6MiwgMjoxIH1bbnVtX2luaXRpY
+WwgJSAzXQoKcHJpbnQgJyVkIGJ5dGVzIGJlZm9yZSBl
+bmNvZGluZycgJSBudW1faW5pdGlhbApwcmludCAnRXh
+wZWN0ICVkIHBhZGRpbmcgYnl0ZXMnICUgcGFkZGluZw
+pwcmludCAnJWQgYnl0ZXMgYWZ0ZXIgZW5jb2RpbmcnI
+CUgbGVuKGVuY29kZWRfZGF0YSkKcHJpbnQKcHJpbnQg
+ZW5jb2RlZF9kYXRhCg==</pre>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>Base64 解码<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>编码的字符串可以转换为原来的格式，利用反向查询，把4个字节转换为3个字节。b64decode()函数可以帮助你。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">base64</span>
+
+<span class="n">original_string</span> <span class="o">=</span> <span class="s">&#39;This is the data, in the clear.&#39;</span>
+<span class="k">print</span> <span class="s">&#39;Original:&#39;</span><span class="p">,</span> <span class="n">original_string</span>
+
+<span class="n">encoded_string</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64encode</span><span class="p">(</span><span class="n">original_string</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;Encoded :&#39;</span><span class="p">,</span> <span class="n">encoded_string</span>
+
+<span class="n">decoded_string</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b64decode</span><span class="p">(</span><span class="n">encoded_string</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;Decoded :&#39;</span><span class="p">,</span> <span class="n">decoded_string</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python base64_b64decode.py
+Original: This is the data, in the clear.
+Encoded : VGhpcyBpcyB0aGUgZGF0YSwgaW4gdGhlIGNsZWFyLg==
+Decoded : This is the data, in the clear.</pre>
+</div>
+</div>
+<div class="section" id="url-safe">
+<h2>URL-Safe变化<a class="headerlink" href="#url-safe" title="Permalink to this headline">¶</a></h2>
+<p>默认的base64字母表可能会使用+和/，而这些字符可能出现在url中，因此必须为这些字符指定可选择的编码情况，+由a-来代替，(_)来代替/，其他字母表还是相同。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">base64</span>
+
+<span class="k">for</span> <span class="n">original</span> <span class="ow">in</span> <span class="p">[</span> <span class="s">&#39;</span><span class="se">\xfb\xef</span><span class="s">&#39;</span><span class="p">,</span> <span class="s">&#39;</span><span class="se">\xff\xff</span><span class="s">&#39;</span> <span class="p">]:</span>
+    <span class="k">print</span> <span class="s">&#39;Original         :&#39;</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">original</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;Standard encoding:&#39;</span><span class="p">,</span> <span class="n">base64</span><span class="o">.</span><span class="n">standard_b64encode</span><span class="p">(</span><span class="n">original</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;URL-safe encoding:&#39;</span><span class="p">,</span> <span class="n">base64</span><span class="o">.</span><span class="n">urlsafe_b64encode</span><span class="p">(</span><span class="n">original</span><span class="p">)</span>
+    <span class="k">print</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python base64_urlsafe.py
+Original         : '\xfb\xef'
+Standard encoding: ++8=
+URL-safe encoding: --8=
+
+Original         : '\xff\xff'
+Standard encoding: //8=
+URL-safe encoding: __8=</pre>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>其他编码<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>除了base 64以外，还有base 32和base 16（16进制）提供函数用于编码数据。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">base64</span>
+
+<span class="n">original_string</span> <span class="o">=</span> <span class="s">&#39;This is the data, in the clear.&#39;</span>
+<span class="k">print</span> <span class="s">&#39;Original:&#39;</span><span class="p">,</span> <span class="n">original_string</span>
+
+<span class="n">encoded_string</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b32encode</span><span class="p">(</span><span class="n">original_string</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;Encoded :&#39;</span><span class="p">,</span> <span class="n">encoded_string</span>
+
+<span class="n">decoded_string</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b32decode</span><span class="p">(</span><span class="n">encoded_string</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;Decoded :&#39;</span><span class="p">,</span> <span class="n">decoded_string</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python base64_base32.py
+Original: This is the data, in the clear.
+Encoded : KRUGS4ZANFZSA5DIMUQGIYLUMEWCA2LOEB2GQZJAMNWGKYLSFY======
+Decoded : This is the data, in the clear.</pre>
+</div>
+<p>base 16中的函数是以16进制方式工作。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">base64</span>
+
+<span class="n">original_string</span> <span class="o">=</span> <span class="s">&#39;This is the data, in the clear.&#39;</span>
+<span class="k">print</span> <span class="s">&#39;Original:&#39;</span><span class="p">,</span> <span class="n">original_string</span>
+
+<span class="n">encoded_string</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b16encode</span><span class="p">(</span><span class="n">original_string</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;Encoded :&#39;</span><span class="p">,</span> <span class="n">encoded_string</span>
+
+<span class="n">decoded_string</span> <span class="o">=</span> <span class="n">base64</span><span class="o">.</span><span class="n">b16decode</span><span class="p">(</span><span class="n">encoded_string</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;Decoded :&#39;</span><span class="p">,</span> <span class="n">decoded_string</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python base64_base16.py
+Original: This is the data, in the clear.
+Encoded : 546869732069732074686520646174612C20696E2074686520636C6561722E
+Decoded : This is the data, in the clear.</pre>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>参考<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference" href="http://www.faqs.org/rfcs/rfc3548.html">RFC 3548 - The Base16, Base32, and Base64 Data Encodings</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">目录</a></h3>
+            <ul>
+<li><a class="reference" href="">PyMOTW: base64</a><ul>
+<li><a class="reference" href="#id1">描述</a></li>
+<li><a class="reference" href="#base64">Base64 编码</a></li>
+<li><a class="reference" href="#id2">Base64 解码</a></li>
+<li><a class="reference" href="#url-safe">URL-Safe变化</a></li>
+<li><a class="reference" href="#id3">其他编码</a></li>
+<li><a class="reference" href="#id4">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>前一个主题</h4>
+            <p class="topless"><a href="Cookie.html" title="前一章节">PyMOTW: Cookie</a></p>
+            <h4>后一个主题</h4>
+            <p class="topless"><a href="webbrowser.html" title="后一章节">PyMOTW: webbrowser</a></p>
+            <h3>当前主题</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/base64.txt">显示页面源码</a></li>
+            </ul>
+          <h3>快速搜索</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="提交" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="webbrowser.html" title="PyMOTW: webbrowser"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="Cookie.html" title="PyMOTW: Cookie"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2008, vbarter &amp; liz.
+      使用 <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1创建.
+    </div>
+  </body>
+</html>

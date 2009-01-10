@@ -1,0 +1,388 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: datetime &mdash; PyMOTW v1.0 文档</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="关于这些文档" href="../about.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="up" title="所有文档" href="index.html" />
+    <link rel="next" title="PyMOTW: urllib" href="urllib.html" />
+    <link rel="prev" title="PyMOTW: time" href="time.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="urllib.html" title="PyMOTW: urllib"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="time.html" title="PyMOTW: time"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="pymotw-datetime">
+<h1>PyMOTW: datetime<a class="headerlink" href="#pymotw-datetime" title="Permalink to this headline">¶</a></h1>
+<p>datetime 模块包含了一些用于时间解析、格式化、计算的函数。</p>
+<ul class="simple">
+<li>模块： datetime</li>
+<li>目的： 日期/时间处理</li>
+<li>python版本： 2.3+</li>
+</ul>
+<div class="section" id="id1">
+<h2>时间<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>时间值由time类来表示，Times有小时，分，秒和微秒属性，以及包含时区信息。初始化time实例的参数是可选的，但这样的话，你将获得初始值0（也许不是你所想要的）。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">datetime</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">t</span>
+<span class="k">print</span> <span class="s">&#39;hour :&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">hour</span>
+<span class="k">print</span> <span class="s">&#39;minute:&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">minute</span>
+<span class="k">print</span> <span class="s">&#39;second:&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">second</span>
+<span class="k">print</span> <span class="s">&#39;microsecond:&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">microsecond</span>
+<span class="k">print</span> <span class="s">&#39;tzinfo:&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">tzinfo</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python datetime_time.py
+01:02:03
+hour  : 1
+minute: 2
+second: 3
+microsecond: 0
+tzinfo: None</pre>
+</div>
+<p>一个time实例只包含时间值，不包含日期值。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">datetime</span>
+
+<span class="k">print</span> <span class="s">&#39;Earliest  :&#39;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">min</span>
+<span class="k">print</span> <span class="s">&#39;Latest    :&#39;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">max</span>
+<span class="k">print</span> <span class="s">&#39;Resolution:&#39;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="o">.</span><span class="n">resolution</span>
+</pre></div>
+</div>
+<p>类属性中的最大最小值反应了一天中的时间范围。</p>
+<div class="highlight-python"><pre>$ python datetime_time_minmax.py
+Earliest  : 00:00:00
+Latest    : 23:59:59.999999
+Resolution: 0:00:00.000001</pre>
+</div>
+<p>时间的最小取值是微秒，更精确的位数就被截断了。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">datetime</span>
+
+<span class="k">for</span> <span class="n">m</span> <span class="ow">in</span> <span class="p">[</span> <span class="mf">1</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.6</span> <span class="p">]:</span>
+    <span class="k">print</span> <span class="s">&#39;</span><span class="si">%02.1f</span><span class="s"> :&#39;</span> <span class="o">%</span> <span class="n">m</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="n">m</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>实际中，如果使用浮点型作为微秒参数，那么将产生一些警告信息。</p>
+<div class="highlight-python"><pre>$ python datetime_time_resolution.py
+/home/cjj/python/pymotw/datetime_time_resolution.py:14: DeprecationWarning: integer argument expected, got float</pre>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="s">&#39;</span><span class="si">%02.1f</span><span class="s"> :&#39;</span> <span class="o">%</span> <span class="n">m</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="n">microsecond</span><span class="o">=</span><span class="n">m</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>1.0 : 00:00:00.000001
+0.0 : 00:00:00
+0.1 : 00:00:00
+0.6 : 00:00:00</pre>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>日期<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>日期值可以由date类来表示，实例有年、月、日属性，使用data类的 <tt class="docutils literal"><span class="pre">today()</span></tt> 方法可以方便的表示出今天的日期。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">datetime</span>
+
+<span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+<span class="k">print</span> <span class="n">today</span>
+<span class="k">print</span> <span class="s">&#39;ctime:&#39;</span><span class="p">,</span> <span class="n">today</span><span class="o">.</span><span class="n">ctime</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&#39;tuple:&#39;</span><span class="p">,</span> <span class="n">today</span><span class="o">.</span><span class="n">timetuple</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&#39;ordinal:&#39;</span><span class="p">,</span> <span class="n">today</span><span class="o">.</span><span class="n">toordinal</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&#39;Year:&#39;</span><span class="p">,</span> <span class="n">today</span><span class="o">.</span><span class="n">year</span>
+<span class="k">print</span> <span class="s">&#39;Mon :&#39;</span><span class="p">,</span> <span class="n">today</span><span class="o">.</span><span class="n">month</span>
+<span class="k">print</span> <span class="s">&#39;Day :&#39;</span><span class="p">,</span> <span class="n">today</span><span class="o">.</span><span class="n">day</span>
+</pre></div>
+</div>
+<p>示例演示了今天日期的多种表示方法：</p>
+<div class="highlight-python"><pre>$ python datetime_date.py
+2008-03-13
+ctime: Thu Mar 13 00:00:00 2008
+tuple: (2008, 3, 13, 0, 0, 0, 3, 73, -1)
+ordinal: 733114
+Year: 2008
+Mon : 3
+Day : 13</pre>
+</div>
+<p>使用整数（从阳历的第1年1月1号开始）或者POSIX标准时间戳可以类实例。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">datetime</span>
+<span class="k">import</span> <span class="nn">time</span>
+
+<span class="n">o</span> <span class="o">=</span> <span class="mf">733114</span>
+<span class="k">print</span> <span class="s">&#39;o:&#39;</span><span class="p">,</span> <span class="n">o</span>
+<span class="k">print</span> <span class="s">&#39;fromordinal(o):&#39;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">fromordinal</span><span class="p">(</span><span class="n">o</span><span class="p">)</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&#39;t:&#39;</span><span class="p">,</span> <span class="n">t</span>
+<span class="k">print</span> <span class="s">&#39;fromtimestamp(t):&#39;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">fromtimestamp</span><span class="p">(</span><span class="n">t</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>示例显示了函数 <tt class="docutils literal"><span class="pre">fromordinal()</span></tt> 和 <tt class="docutils literal"><span class="pre">fromtimestamp()</span></tt> 返回了不同的结果。</p>
+<div class="highlight-python"><pre>$ python datetime_date_fromordinal.py
+o: 733114
+fromordinal(o): 2008-03-13
+t: 1205436039.53
+fromtimestamp(t): 2008-03-13</pre>
+</div>
+<p>日期的最大和最小范围可以使用属性max和min来表示。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">datetime</span>
+
+<span class="k">print</span> <span class="s">&#39;Earliest :&#39;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">min</span>
+<span class="k">print</span> <span class="s">&#39;Latest :&#39;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">max</span>
+<span class="k">print</span> <span class="s">&#39;Resolution:&#39;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">resolution</span>
+</pre></div>
+</div>
+<p>一个日期的单位就是1天。</p>
+<div class="highlight-python"><pre>$ python datetime_date_minmax.py
+Earliest  : 0001-01-01
+Latest    : 9999-12-31
+Resolution: 1 day, 0:00:00</pre>
+</div>
+<p>对于一个存在的日期，可使用replace函数可以创建出一个新的日期实例。比如你可以改变年数，只保留月份和日。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">datetime</span>
+
+<span class="n">d1</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="p">(</span><span class="mf">2008</span><span class="p">,</span> <span class="mf">3</span><span class="p">,</span> <span class="mf">12</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;d1:&#39;</span><span class="p">,</span> <span class="n">d1</span>
+
+<span class="n">d2</span> <span class="o">=</span> <span class="n">d1</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="n">year</span><span class="o">=</span><span class="mf">2009</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;d2:&#39;</span><span class="p">,</span> <span class="n">d2</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python datetime_date_replace.py
+d1: 2008-03-12
+d2: 2009-03-12</pre>
+</div>
+</div>
+<div class="section" id="timedelta">
+<h2>timedelta<a class="headerlink" href="#timedelta" title="Permalink to this headline">¶</a></h2>
+<p>除了 <tt class="docutils literal"><span class="pre">replace()</span></tt> 函数可以计算过去或者未来的时间，还可以使用timedelta类对日期值进行基本运算。通过timedelta可以加减一个日期来产生另外一个日期。timedelta中的内部值可以用天、秒和微秒来表示。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">datetime</span>
+
+<span class="k">print</span> <span class="s">&quot;microseconds:&quot;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">microseconds</span><span class="o">=</span><span class="mf">1</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&quot;milliseconds:&quot;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">milliseconds</span><span class="o">=</span><span class="mf">1</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&quot;seconds :&quot;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mf">1</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&quot;minutes :&quot;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">minutes</span><span class="o">=</span><span class="mf">1</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&quot;hours :&quot;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">hours</span><span class="o">=</span><span class="mf">1</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&quot;days :&quot;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mf">1</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&quot;weeks :&quot;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">weeks</span><span class="o">=</span><span class="mf">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>传递给构造器的中间值被转换为天、秒和微秒。</p>
+<div class="highlight-python"><pre>$ python datetime_timedelta.py
+
+microseconds: 0:00:00.000001
+milliseconds: 0:00:00.001000
+seconds : 0:00:01
+minutes : 0:01:00
+hours : 1:00:00
+days : 1 day, 0:00:00
+weeks : 7 days, 0:00:00</pre>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>比较<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>时间和日期值都可以通过标准的操作符来进行比较。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">datetime</span>
+<span class="k">import</span> <span class="nn">time</span>
+
+<span class="k">print</span> <span class="s">&#39;Times:&#39;</span>
+<span class="n">t1</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="mf">12</span><span class="p">,</span> <span class="mf">55</span><span class="p">,</span> <span class="mf">0</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">t1:&#39;</span><span class="p">,</span> <span class="n">t1</span>
+<span class="n">t2</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="mf">13</span><span class="p">,</span> <span class="mf">5</span><span class="p">,</span> <span class="mf">0</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">t2:&#39;</span><span class="p">,</span> <span class="n">t2</span>
+<span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">t1 &lt; t2:&#39;</span><span class="p">,</span> <span class="n">t1</span> <span class="o">&lt;</span> <span class="n">t2</span>
+
+<span class="k">print</span> <span class="s">&#39;Dates:&#39;</span>
+<span class="n">d1</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">d1:&#39;</span><span class="p">,</span> <span class="n">d1</span>
+<span class="n">d2</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mf">1</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">d2:&#39;</span><span class="p">,</span> <span class="n">d2</span>
+<span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">d1 &gt; d2:&#39;</span><span class="p">,</span> <span class="n">d1</span> <span class="o">&gt;</span> <span class="n">d2</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python datetime_comparing.py
+Times:
+     t1: 12:55:00
+     t2: 13:05:00
+     t1 &lt; t2: True
+
+Dates:
+     d1: 2008-03-13
+     d2: 2008-03-14
+     d1 &gt; d2: False</pre>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>日期和时间组合<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>使用datetime类可以存储日期和时间的组合部分，类似于使用date。有多种方法可以创建datetime。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">datetime</span>
+
+<span class="k">print</span> <span class="s">&#39;Now :&#39;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&#39;Today :&#39;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&#39;UTC Now:&#39;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">utcnow</span><span class="p">()</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">attr</span> <span class="ow">in</span> <span class="p">[</span> <span class="s">&#39;year&#39;</span><span class="p">,</span> <span class="s">&#39;month&#39;</span><span class="p">,</span> <span class="s">&#39;day&#39;</span><span class="p">,</span> <span class="s">&#39;hour&#39;</span><span class="p">,</span> <span class="s">&#39;minute&#39;</span><span class="p">,</span> <span class="s">&#39;second&#39;</span><span class="p">,</span> <span class="s">&#39;microsecond&#39;</span><span class="p">]:</span>
+    <span class="k">print</span> <span class="n">attr</span><span class="p">,</span> <span class="s">&#39;:&#39;</span><span class="p">,</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">attr</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>同时，datetime实例拥有date和time对象的所有属性。</p>
+<div class="highlight-python"><pre>$ python datetime_datetime.py
+Now : 2008-03-15 22:58:14.770074
+Today : 2008-03-15 22:58:14.779804
+UTC Now: 2008-03-16 03:58:14.779858
+year : 2008
+month : 3
+day : 15
+hour : 22
+minute : 58
+second : 14
+microsecond : 780399</pre>
+</div>
+<p>datetime类提供了一些类方法来创建新的实例，当然它也包含 <tt class="docutils literal"><span class="pre">fromordinal()</span></tt> 和 <tt class="docutils literal"><span class="pre">fromtimestamp()</span></tt> ，如果你已经有一个日期实例和时间实例，并需要创建datetime的话，combine()方法比较有用。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">datetime</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">time</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;t :&#39;</span><span class="p">,</span> <span class="n">t</span>
+<span class="n">d</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">date</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&#39;d :&#39;</span><span class="p">,</span> <span class="n">d</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">combine</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">t</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;dt:&#39;</span><span class="p">,</span> <span class="n">dt</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python datetime_datetime_combine.py
+t : 01:02:03
+d : 2008-03-16
+dt: 2008-03-16 01:02:03</pre>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>格式化和解析<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>datetime对象的字符串表示方法默认使用的是ISO 8601格式（YYYY-MM-DDTHH:MM:SS.mmmmmm），使用 <tt class="docutils literal"><span class="pre">strftime()</span></tt> 可以产生其他格式，同样，如果你的输入值是用 <tt class="docutils literal"><span class="pre">time.strptime()</span></tt> 解析的时间戳，那么 <tt class="docutils literal"><span class="pre">strptime()</span></tt> 是一个合适的方法来把它转换为datetime实例。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">datetime</span>
+
+<span class="n">format</span> <span class="o">=</span> <span class="s">&quot;%a %b </span><span class="si">%d</span><span class="s"> %H:%M:%S %Y&quot;</span>
+
+<span class="n">today</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">today</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&#39;ISO :&#39;</span><span class="p">,</span> <span class="n">today</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">today</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">format</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;strftime:&#39;</span><span class="p">,</span> <span class="n">s</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="o">.</span><span class="n">strptime</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">format</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;strptime:&#39;</span><span class="p">,</span> <span class="n">d</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="n">format</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python datetime_datetime_strptime.py
+ISO     : 2008-03-16 08:08:16.275134
+strftime: Sun Mar 16 08:08:16 2008
+strptime: Sun Mar 16 08:08:16 2008</pre>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>时区<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>时区是由子类datetime.tzinfo来表示的，tzinfo是一个抽象的基类，你需要定义子类，并提供相应的方法去实现一些方法。很可惜，dateime不包含任何实际可用的实现，可以参考 <a class="reference" href="http://docs.python.org/lib/datetime-tzinfo.html">文档</a> 来获取一些示例。</p>
+</div>
+<div class="section" id="id8">
+<h2>参考<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference" href="http://pleac.sourceforge.net/pleac_python/datesandtimes.html">PLEAC - Dates and Times</a></li>
+<li><a class="reference" href="http://en.wikipedia.org/wiki/Proleptic_Gregorian_calendar">WikiPedia: Proleptic Gregorian calendar</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">目录</a></h3>
+            <ul>
+<li><a class="reference" href="">PyMOTW: datetime</a><ul>
+<li><a class="reference" href="#id1">时间</a></li>
+<li><a class="reference" href="#id2">日期</a></li>
+<li><a class="reference" href="#timedelta">timedelta</a></li>
+<li><a class="reference" href="#id3">比较</a></li>
+<li><a class="reference" href="#id4">日期和时间组合</a></li>
+<li><a class="reference" href="#id5">格式化和解析</a></li>
+<li><a class="reference" href="#id6">时区</a></li>
+<li><a class="reference" href="#id8">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>前一个主题</h4>
+            <p class="topless"><a href="time.html" title="前一章节">PyMOTW: time</a></p>
+            <h4>后一个主题</h4>
+            <p class="topless"><a href="urllib.html" title="后一章节">PyMOTW: urllib</a></p>
+            <h3>当前主题</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/datetime.txt">显示页面源码</a></li>
+            </ul>
+          <h3>快速搜索</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="提交" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="urllib.html" title="PyMOTW: urllib"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="time.html" title="PyMOTW: time"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2008, vbarter &amp; liz.
+      使用 <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1创建.
+    </div>
+  </body>
+</html>

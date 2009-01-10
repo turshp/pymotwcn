@@ -1,0 +1,251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: logging &mdash; PyMOTW v1.0 文档</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="关于这些文档" href="../about.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="up" title="所有文档" href="index.html" />
+    <link rel="next" title="PyMOTW: locale" href="locale.html" />
+    <link rel="prev" title="PyMOTW: bisect" href="bisect.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="locale.html" title="PyMOTW: locale"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="bisect.html" title="PyMOTW: bisect"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="pymotw-logging">
+<h1>PyMOTW: logging<a class="headerlink" href="#pymotw-logging" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>模块：logging</li>
+<li>目的：为python模块提供状态、错误、信息输出的标准接口</li>
+<li>python版本：2.3</li>
+</ul>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>logging模块定义了一个标准API, 用于报告所有你使用的模块的错误和状态信息.标准库模块中提供logging API的最重要意义是所有python模块可以参与到日志记录中, 因此你的应用程序日志可以包含来自第三方模块的信息.</p>
+<p>当然, 在不同层次上或因不同目的来记录日志信息是有必要的. 将日志信息写入到文件, 如，HTTP GET/POST的地理信息, 通过SMTP发送的邮件, 一般的sockets, 或者特定OS的日志机制都是被标准模块支持的. 如果你有特殊需求, 任何内置模块都不能满足的话, 你也可以创建你自己的日志目标类.</p>
+</div>
+<div class="section" id="id2">
+<h2>例子<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>大多数应用程序可能会将日志写入到文件中, 所以让我从这个例子开始讲述. 我们使用basicConfig()函数来设置默认的处理用于将调试信息写入到文件.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">logging</span>
+<span class="n">LOG_FILENAME</span> <span class="o">=</span> <span class="s">&#39;/tmp/logging_example.out&#39;</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">LOG_FILENAME</span><span class="p">,</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,)</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;This message should go to the log file&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>现在如果我们打开这个文件, 看看里面是什么, 我们应该可以找到以下的日志信息:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">LOG_FILENAME</span><span class="p">,</span> <span class="s">&#39;rt&#39;</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="n">f</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="k">print</span> <span class="s">&#39;FILE:&#39;</span>
+    <span class="k">print</span> <span class="n">body</span>
+    <span class="k">print</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>FILE:
+DEBUG:root:This message should go to the log file</pre>
+</div>
+<p>如果我们重复运行之前的脚本, 那么另外的日志信息会附加到文件末尾. 为了每次能够创建一个新的文件, 你可以传递一个filemode参数值为 <tt class="docutils literal"><span class="pre">'w'</span></tt> 给basicConfig().尽管你自己不能控制这个日志文件大小, 但, 可以使用RotatingFileHandler, 这更方便:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">glob</span>
+<span class="k">import</span> <span class="nn">logging</span>
+<span class="k">import</span> <span class="nn">logging.handlers</span>
+
+<span class="n">LOG_FILENAME</span> <span class="o">=</span> <span class="s">&#39;/tmp/logging_rotatingfile_example.out&#39;</span>
+
+<span class="c"># 设置一个我们希望的输出层次的日志记录器.</span>
+<span class="n">my_logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s">&#39;MyLogger&#39;</span><span class="p">)</span>
+<span class="n">my_logger</span><span class="o">.</span><span class="n">setLevel</span><span class="p">(</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">)</span>
+
+<span class="c"># 增加记录器的日志消息处理</span>
+<span class="n">handler</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">handlers</span><span class="o">.</span><span class="n">RotatingFileHandler</span><span class="p">(</span><span class="n">LOG_FILENAME</span><span class="p">,</span> <span class="n">maxBytes</span><span class="o">=</span><span class="mf">20</span><span class="p">,</span> <span class="n">backupCount</span><span class="o">=</span><span class="mf">5</span><span class="p">)</span>
+<span class="n">my_logger</span><span class="o">.</span><span class="n">addHandler</span><span class="p">(</span><span class="n">handler</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mf">20</span><span class="p">):</span>
+    <span class="n">my_logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;i = </span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">i</span><span class="p">)</span>
+
+<span class="c"># 查看新创建的文件</span>
+<span class="n">logfiles</span> <span class="o">=</span> <span class="n">glob</span><span class="o">.</span><span class="n">glob</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%s</span><span class="s">*&#39;</span> <span class="o">%</span> <span class="n">LOG_FILENAME</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="n">logfiles</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">filename</span>
+</pre></div>
+</div>
+<p>结果应该是6个独立的文件, 每个都含有应用程序的日志历史:</p>
+<div class="highlight-python"><pre>/tmp/logging_rotatingfile_example.out
+/tmp/logging_rotatingfile_example.out.1
+/tmp/logging_rotatingfile_example.out.2
+/tmp/logging_rotatingfile_example.out.3
+/tmp/logging_rotatingfile_example.out.4
+/tmp/logging_rotatingfile_example.out.5 ##生成5个备份是由于之前设置了backupCount=5</pre>
+</div>
+<p>当前日志文件总是为/tmp/logging_rotatingfile_example.out, 每次当文件大小达到限制时, 就以后缀.1来重命名. 每个已存的备份文件也依次重命名为原先后缀增一(如, .1成为.2), .5文件会被擦除.</p>
+<p>显然的, 这个例子中设置了日志的长度太太太小了. 所以在实际程序下, 你可以为maxBytes设置一个合适的值.</p>
+<p>使用日志API的另外一个有用的地方是能够在不同日志层次上产生不同的信息. 这能够让你书写的代码中带有调试信息, 例如, 降低日志层次以便这些调试信息不输出到你的生产系统中.</p>
+<div class="highlight-python"><pre>CRITICAL 50
+ERROR 40
+WARNING 30
+INFO 20
+DEBUG 10
+UNSET 0</pre>
+</div>
+<p>日志记录器, handler, 日志信息可以分别调用不同的层次 . 一条日志信息, 只有当处理和日志记录器被设置为和它一样的层次或比它低层次时, 才被输出. 例如, 如果一个信息是CRITICAL, 记录器被设置为ERROR, 那么这个消息会输出来. 如果一个信息是WARNING, 记录器被设置为ERROR, 那么这个信息不被输出.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">logging</span>
+<span class="k">import</span> <span class="nn">sys</span>
+
+<span class="n">LEVELS</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;debug&#39;</span><span class="p">:</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span>
+           <span class="s">&#39;info&#39;</span><span class="p">:</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span>
+           <span class="s">&#39;warning&#39;</span><span class="p">:</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">,</span>
+           <span class="s">&#39;error&#39;</span><span class="p">:</span><span class="n">logging</span><span class="o">.</span><span class="n">ERROR</span><span class="p">,</span>
+           <span class="s">&#39;critical&#39;</span><span class="p">:</span><span class="n">logging</span><span class="o">.</span><span class="n">CRITICAL</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mf">1</span><span class="p">:</span>
+    <span class="n">level_name</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mf">1</span><span class="p">]</span>
+    <span class="n">level</span> <span class="o">=</span> <span class="n">LEVELS</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">level_name</span><span class="p">,</span> <span class="n">logging</span><span class="o">.</span><span class="n">NOTSET</span><span class="p">)</span>
+    <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">level</span><span class="p">)</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;This is a debug message&#39;</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;This is an info message&#39;</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&#39;This is a warning message&#39;</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">error</span><span class="p">(</span><span class="s">&#39;This is an error message&#39;</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">critical</span><span class="p">(</span><span class="s">&#39;This is a critical error message&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>运行这个脚本时指定参数, 如 <tt class="docutils literal"><span class="pre">'debug'</span></tt> 或 <tt class="docutils literal"><span class="pre">'warning'</span></tt>, 看看在不同层次上, 哪些信息会显示出来:</p>
+<div class="highlight-python"><pre>$ python logging_level_example.py debug
+DEBUG:root:This is a debug message
+INFO:root:This is an info message
+WARNING:root:This is a warning message
+ERROR:root:This is an error message
+CRITICAL:root:This is a critical error message
+
+$ python logging_level_example.py info
+INFO:root:This is an info message
+WARNING:root:This is a warning message
+ERROR:root:This is an error message
+CRITICAL:root:This is a critical error message</pre>
+</div>
+<p>你可能不会注意到这些日志信息中都含有 <tt class="docutils literal"><span class="pre">'root'</span></tt>. 这个日志模块支持一个不同名字日志记录器的层次结构. 一个告知某条日志信息来自于哪个日志器的简单方式是对每个模块使用独立的日志器对象. 每个新的日志器从它的父亲中&#8221;继承&#8221;一些配置, 日志信息发送到一个包含父日志器名字的日志器. 可选的, 每个日志器可以配置不同, 以便让来自不同模块的信息按不同的方式处理. 让我们看个简单的例子看怎样记录来自不同模块的信息, 这也便于追踪信息的对应源代码:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">logging</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
+
+<span class="n">logger1</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s">&#39;package1.module1&#39;</span><span class="p">)</span>
+<span class="n">logger2</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s">&#39;package2.module2&#39;</span><span class="p">)</span>
+
+<span class="n">logger1</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&#39;This message comes from one module&#39;</span><span class="p">)</span>
+<span class="n">logger2</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s">&#39;And this message comes from another module&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>输出为:</p>
+<div class="highlight-python"><pre>$ python logging_modules_example.py
+WARNING:package1.module1:This message comes from one module
+WARNING:package2.module2:And this message comes from another module</pre>
+</div>
+<p>还有许多许多许多配置日志记录的选项, 包括不同日志信息格式化选项, 将信息发送到多个记录器, 使用socket接口改变一个正在运行的长时间程序的配置. 所有这些选项进一步在 <a class="reference" href="http://docs.python.org/lib/module-logging.html">库模块文档</a> 中深入.</p>
+</div>
+<div class="section" id="id4">
+<h2>参考<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference" href="http://www.python.org/dev/peps/pep-0282/">PEP 282</a></li>
+<li><a class="reference" href="http://www.onlamp.com/pub/a/python/2005/06/02/">Python Standard Logging</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">目录</a></h3>
+            <ul>
+<li><a class="reference" href="">PyMOTW: logging</a><ul>
+<li><a class="reference" href="#id1">描述</a></li>
+<li><a class="reference" href="#id2">例子</a></li>
+<li><a class="reference" href="#id4">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>前一个主题</h4>
+            <p class="topless"><a href="bisect.html" title="前一章节">PyMOTW: bisect</a></p>
+            <h4>后一个主题</h4>
+            <p class="topless"><a href="locale.html" title="后一章节">PyMOTW: locale</a></p>
+            <h3>当前主题</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/logging.txt">显示页面源码</a></li>
+            </ul>
+          <h3>快速搜索</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="提交" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="locale.html" title="PyMOTW: locale"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="bisect.html" title="PyMOTW: bisect"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2008, vbarter &amp; liz.
+      使用 <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1创建.
+    </div>
+  </body>
+</html>

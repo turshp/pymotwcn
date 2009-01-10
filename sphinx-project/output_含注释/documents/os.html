@@ -1,0 +1,280 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: os &mdash; PyMOTW v1.0 文档</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="关于这些文档" href="../about.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="up" title="所有文档" href="index.html" />
+    <link rel="next" title="PyMOTW: os(2)" href="os2.html" />
+    <link rel="prev" title="PyMOTW: locale" href="locale.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="os2.html" title="PyMOTW: os(2)"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="locale.html" title="PyMOTW: locale"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="pymotw-os">
+<h1>PyMOTW: os<a class="headerlink" href="#pymotw-os" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>模块：os</li>
+<li>目的：为访问操作系统的特定属性提供方便。</li>
+<li>python版本：1.4+</li>
+</ul>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>os模块提供了对特定平台模块(如posix，nt，mac)的封装，函数提供的api在很多平台上都可以相同使用，所以使用os模块会变得很方便。但不是所有函数在所有平台上都可用，比如在本文中到的一些管理函数在windows上无法使用。</p>
+<p>在Python文档中os模块的副标题是“操作系统混合接口”，模块包含的大部分函数用于创建和管理活动进程和文件系统（文件和目录），当然除此之外还有其它一些函数。本文中，我们对如何获取和设置进程参数来进行讨论。</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">以下示例代码有的只能在linux平台上工作。</p>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>属主处理<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>首先讨论用来检查和改变进程属主id的函数。在守护进程和特殊的系统程序需要改变执行权限而不使用root情况下这往往是非常有用的。这里我不会太过详细的解释linux的安全，进程属主等具体含义，这些可以见参考中的文章来获得更详细的介绍。</p>
+<p>我们给出一段脚本来获取一个进程的有效用户和组信息，然后改变这些有效值。这类似于一个守护进程在系统启动时以root身份启动加载，然后降低权限并作为一个普通用户运行。如果你下载示例并试运行，你可以设置user相应的值为TEST_GID和TEST_UID。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">os</span>
+
+<span class="n">TEST_GID</span><span class="o">=</span><span class="mf">501</span>
+<span class="n">TEST_UID</span><span class="o">=</span><span class="mf">527</span>
+
+<span class="k">def</span> <span class="nf">show_user_info</span><span class="p">():</span>
+     <span class="k">print</span> <span class="s">&#39;Effective User  :&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">geteuid</span><span class="p">()</span>
+     <span class="k">print</span> <span class="s">&#39;Effective Group :&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getegid</span><span class="p">()</span>
+     <span class="k">print</span> <span class="s">&#39;Actual User    :&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getuid</span><span class="p">(),</span> <span class="n">os</span><span class="o">.</span><span class="n">getlogin</span><span class="p">()</span>
+     <span class="k">print</span> <span class="s">&#39;Actual Group  :&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getgid</span><span class="p">()</span>
+     <span class="k">print</span> <span class="s">&#39;Actual Groups   :&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getgroups</span><span class="p">()</span>
+     <span class="k">return</span>
+
+<span class="k">print</span> <span class="s">&#39;BEFORE CHANGE:&#39;</span>
+<span class="n">show_user_info</span><span class="p">()</span>
+<span class="k">print</span>
+<span class="k">try</span><span class="p">:</span>
+     <span class="n">os</span><span class="o">.</span><span class="n">setegid</span><span class="p">(</span><span class="n">TEST_GID</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+     <span class="k">print</span> <span class="s">&#39;ERROR: Could not change effective group.  Re-run as root.&#39;</span>
+<span class="k">else</span><span class="p">:</span>
+     <span class="k">print</span> <span class="s">&#39;CHANGED GROUP:&#39;</span>
+     <span class="n">show_user_info</span><span class="p">()</span>
+     <span class="k">print</span>
+
+<span class="k">try</span><span class="p">:</span>
+     <span class="n">os</span><span class="o">.</span><span class="n">seteuid</span><span class="p">(</span><span class="n">TEST_UID</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">OSError</span><span class="p">:</span>
+     <span class="k">print</span> <span class="s">&#39;ERROR: Could not change effective user.  Re-run as root.&#39;</span>
+<span class="k">else</span><span class="p">:</span>
+     <span class="k">print</span> <span class="s">&#39;CHANGE USER:&#39;</span>
+     <span class="n">show_user_info</span><span class="p">()</span>
+     <span class="k">print</span>
+</pre></div>
+</div>
+<p>当我运行在DELL D630 Ubuntu上时，得到的结果如下：</p>
+<div class="highlight-python"><pre>~ 16:51:33&gt; ./a.py
+BEFORE CHANGE:
+Effective User  : 1000
+Effective Group : 1000
+Actual User    : 1000 cjj
+Actual Group  : 1000
+Actual Groups   : [4, 20, 24, 25, 29, 30, 44, 46, 104, 108, 110, 115, 117, 1000]
+
+ERROR: Could not change effective group.  Re-run as root.
+ERROR: Could not change effective user.  Re-run as root.</pre>
+</div>
+<p>注意，当我使用非root运行时，值未被改变，我所启动的进程不可以改变他们自身有效的属性。如果我试图设置其他的用户名和组id，那么会抛出OSError异常。</p>
+<p>下面，我们以root权限来运行这段脚本:</p>
+<div class="highlight-python"><pre>~ 16:51:10&gt; sudo ./a.py
+[sudo] password for cjj:
+BEFORE CHANGE:
+Effective User  : 0
+Effective Group : 0
+Actual User    : 0 cjj
+Actual Group  : 0
+Actual Groups   : [0]
+
+CHANGED GROUP:
+Effective User  : 0
+Effective Group : 501
+Actual User    : 0 cjj
+Actual Group  : 0
+Actual Groups   : [0]
+
+CHANGE USER:
+Effective User  : 527
+Effective Group : 501
+Actual User    : 0 cjj
+Actual Group  : 0
+Actual Groups   : [0]</pre>
+</div>
+<p>在这个例子中，如果我们以root权限运行，那么我们可以改变这个进程的用户和组属性。一旦我们改变了UID，那么进程将受这个用户的权限限制，非root用户是无法改变有效用户组，所以首先我们需要改变用户组，然后再改变用户名。</p>
+<p>除了查找和改变进程属主，还有其他函数可以获取当前进程和父进程的id，查找和改变其进程用户组和会话id，与控制终端id是一样的。在你编写复杂程序（如自己的终端命令行程序）中使用这些函数可以帮助你在进程之间传递信号。</p>
+</div>
+<div class="section" id="id3">
+<h2>环境处理<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>通过os模块，你的程序可以访问的另一个操作系统特性是系统环境。通过os.environ和os.getenv()可以访问在环境中设置的变量字符串。环境变量常用来作为配置像搜索路径，文件路径、调试标志的值。下面的示例检索了一个环境变量，并且通过子进程改变了这个值。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="s">&#39;Initial value:&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;TESTVAR&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;Child process:&#39;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">&#39;echo $TESTVAR&#39;</span><span class="p">)</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&#39;TESTVAR&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;THIS VALUE WAS CHANGED&#39;</span>
+
+<span class="k">print</span>
+<span class="k">print</span> <span class="s">&#39;Changed value:&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&#39;TESTVAR&#39;</span><span class="p">]</span>
+<span class="k">print</span> <span class="s">&#39;Child process:&#39;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">&#39;echo $TESTVAR&#39;</span><span class="p">)</span>
+
+<span class="k">del</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="p">[</span><span class="s">&#39;TESTVAR&#39;</span><span class="p">]</span>
+
+<span class="k">print</span>
+<span class="k">print</span> <span class="s">&#39;Removed value:&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">environ</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s">&#39;TESTVAR&#39;</span><span class="p">,</span> <span class="bp">None</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;Child process:&#39;</span>
+<span class="n">os</span><span class="o">.</span><span class="n">system</span><span class="p">(</span><span class="s">&#39;echo $TESTVAR&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>os.environ对象遵循标准的Python映射API以便检索和设置值。 os.environ值的改变将被输出到子进程中。</p>
+<div class="highlight-python"><pre>$ python os_environ_example.py
+Initial value: None
+Child process:
+
+
+Changed value: THIS VALUE WAS CHANGED
+Child process:
+THIS VALUE WAS CHANGED
+
+Removed value: None
+Child process:</pre>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>工作目录处理<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>在操作系统的文件系统结构中有一个概念是“当前工作目录”。在文件系统中，当前进程在访问用相对路径表示的文件时，就把这个目录当作默认目录位置。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="s">&#39;Starting:&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+<span class="k">print</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">curdir</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">&#39;Moving up one:&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">pardir</span>
+<span class="n">os</span><span class="o">.</span><span class="n">chdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">pardir</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">&#39;After move:&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">()</span>
+<span class="k">print</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">curdir</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>注意os.curdir()和os.pardir()是指向当前目录和父目录的一种快捷方式。结果很显然：</p>
+<div class="highlight-python"><pre>Starting: /Users/dhellmann/Documents/PyMOTW/PyMOTW/os
+['.svn', '__init__.py', 'os_cwd_example.py', 'os_environ_example.py',
+'os_process_id_example.py', 'os_process_user_example.py']
+Moving up one: ..
+After move: /Users/dhellmann/Documents/PyMOTW/PyMOTW
+['.svn', '__init__.py', 'bisect', 'ConfigParser', 'fileinput', 'linecache',
+'locale', 'logging', 'os', 'Queue', 'StringIO', 'textwrap']</pre>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>后续...<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>这里我们仅介绍了os模块中查找和设置进程参数的一些函数。下一次，我们将介绍os模块来管理文件系统对象。</p>
+</div>
+<div class="section" id="id6">
+<h2>参考<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference" href="http://docs.python.org/lib/os-procinfo.html">Python Reference Manual, Process Parameters</a></li>
+<li><a class="reference" href="http://www.ibm.com/developerworks/aix/library/au-speakingunix8/index.html">Speaking UNIX, Part 8: UNIX processes</a></li>
+<li><a class="reference" href="http://www.opengroup.org/onlinepubs/009695399/functions/geteuid.html">geteuid</a></li>
+<li><a class="reference" href="http://opengroup.org/onlinepubs/007908799/xsh/getsid.html">getsid</a></li>
+<li><a class="reference" href="http://linux.about.com/library/cmd/blcmdl2_setpgrp.htm">setpgrp</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">目录</a></h3>
+            <ul>
+<li><a class="reference" href="">PyMOTW: os</a><ul>
+<li><a class="reference" href="#id1">描述</a></li>
+<li><a class="reference" href="#id2">属主处理</a></li>
+<li><a class="reference" href="#id3">环境处理</a></li>
+<li><a class="reference" href="#id4">工作目录处理</a></li>
+<li><a class="reference" href="#id5">后续...</a></li>
+<li><a class="reference" href="#id6">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>前一个主题</h4>
+            <p class="topless"><a href="locale.html" title="前一章节">PyMOTW: locale</a></p>
+            <h4>后一个主题</h4>
+            <p class="topless"><a href="os2.html" title="后一章节">PyMOTW: os(2)</a></p>
+            <h3>当前主题</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/os.txt">显示页面源码</a></li>
+            </ul>
+          <h3>快速搜索</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="提交" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="os2.html" title="PyMOTW: os(2)"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="locale.html" title="PyMOTW: locale"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2008, vbarter &amp; liz.
+      使用 <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1创建.
+    </div>
+  </body>
+</html>

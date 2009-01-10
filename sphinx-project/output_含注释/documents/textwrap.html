@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: textwrap &mdash; PyMOTW v1.0 文档</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="关于这些文档" href="../about.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="up" title="所有文档" href="index.html" />
+    <link rel="next" title="PyMOTW: linecache" href="linecache.html" />
+    <link rel="prev" title="PyMOTW: StringIO and cStringIO" href="StringIO.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="linecache.html" title="PyMOTW: linecache"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="StringIO.html" title="PyMOTW: StringIO and cStringIO"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="pymotw-textwrap">
+<h1>PyMOTW: textwrap<a class="headerlink" href="#pymotw-textwrap" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>模块：textwrap</li>
+<li>目的: 通过调整段落中的换行符位置来格式化文本</li>
+<li>python版本：2.5</li>
+</ul>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>textwrap模块可以用来格式化文本，使其在某些场合输出更美观。他提供了一些类似于在很多文本编辑器中都有的段落包装或填充特性的程序功能.</p>
+</div>
+<div class="section" id="id2">
+<h2>例子<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">textwrap</span>
+
+<span class="c"># Provide some sample text 提供样本文本</span>
+<span class="n">sample_text</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;</span>
+
+<span class="s"> The textwrap module can be used to format text for output in situations</span>
+<span class="s"> where pretty-printing is desired.  It offers programmatic functionality similar</span>
+<span class="s"> to the paragraph wrapping or filling features found in many text editors.</span>
+
+<span class="s">&#39;&#39;&#39;</span>
+</pre></div>
+</div>
+<p>fill()将文本作为输入，格式化文本作为输出。让我们看下面是如何对样本文本进行格式化的</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="s">&#39;No dedent:</span><span class="se">\n</span><span class="s">&#39;</span>
+<span class="k">print</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">sample_text</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>结果比我们想要的结果要少：</p>
+<div class="highlight-python"><pre>No dedent:
+
+        The textwrap module can be used to format text for output in
+        situations         where pretty-printing is desired.  It offers
+        programmatic functionality similar         to the paragraph wrapping
+        or filling features found in many text editors.</pre>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">注意嵌入的tab符号和多余的空格被混合在输出文本中。这个看起来是很粗糙的。当然，我们可以做的更好。我们想在样本文本中的每一行的开始处删掉所有普通空格前缀。这个允许我们在去除代码本身的格式化时直接从Python代码中使用文档字符串或者嵌入式多行字符串。下面的样本字符串引入了一个人工的缩进层次以便更好的说明这个特征。</p>
+</div>
+<p>删除样本行中的普通空格前缀</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">dedented_text</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="n">sample_text</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&#39;Dedented:</span><span class="se">\n</span><span class="s">&#39;</span>
+<span class="k">print</span> <span class="n">dedented_text</span>
+</pre></div>
+</div>
+<p>结果看上去似乎好点：</p>
+<div class="highlight-python"><pre>Dedented:
+
+The textwrap module can be used to format text for output in situations
+where pretty-printing is desired.  It offers programmatic functionality similar
+to the paragraph wrapping or filling features found in many text editors.</pre>
+</div>
+<p>由于“dedent”是“indent”的相反，结果就是将每行开始的普通空白符删除了。如果某行已经比另一行多了个缩进层次，那么对应的空格不会被去掉。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">=</span><span class="s">&quot;&quot;&quot;</span>
+<span class="gp">... </span><span class="s">    one tab</span>
+<span class="gp">... </span><span class="s">            two tab</span>
+<span class="gp">... </span><span class="s">    one tab</span>
+<span class="gp">... </span><span class="s">&quot;&quot;&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">import</span> <span class="nn">textwrap</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dedented_text</span> <span class="o">=</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">dedent</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">dedented_text</span>
+<span class="go">one tab</span>
+<span class="go">    two tab</span>
+<span class="go">one tab</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">print</span> <span class="n">a</span>
+<span class="go">    one tab</span>
+<span class="go">        two tab</span>
+<span class="go">    one tab</span>
+<span class="go">&gt;&gt;&gt;</span>
+</pre></div>
+</div>
+<p>接下来，让我们看下如果我们传递非缩进格式的文本给fill()，并使用一些不同的宽度值，会发生什么。</p>
+<p>使用不同行宽值进行格式化输出:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">width</span> <span class="ow">in</span> <span class="p">[</span> <span class="mf">20</span><span class="p">,</span> <span class="mf">60</span><span class="p">,</span> <span class="mf">80</span> <span class="p">]:</span>
+    <span class="k">print</span>
+    <span class="k">print</span> <span class="s">&#39;</span><span class="si">%d</span><span class="s"> Columns:</span><span class="se">\n</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">width</span>
+    <span class="k">print</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">dedented_text</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>在指定不同宽度时会有以下不同的输出结果：</p>
+<p>20 Columns:</p>
+<div class="highlight-python"><pre>The textwrap module
+can be used to
+format text for
+output in situations
+where pretty-
+printing is desired.
+It offers
+programmatic
+functionality
+similar to the
+paragraph wrapping
+or filling features
+found in many text
+editors.</pre>
+</div>
+<p>60 Columns:</p>
+<div class="highlight-python"><pre>The textwrap module can be used to format text for output in
+situations where pretty-printing is desired.  It offers
+programmatic functionality similar to the paragraph wrapping
+or filling features found in many text editors.</pre>
+</div>
+<p>80 Columns:</p>
+<div class="highlight-python"><pre>The textwrap module can be used to format text for output in situations where
+pretty-printing is desired.  It offers programmatic functionality similar to the
+paragraph wrapping or filling features found in many text editors.</pre>
+</div>
+<p>除了制定输出中的宽度，你可以控制首行缩进，他独立于接下来的行。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># 演示怎样去产生悬挂缩进</span>
+<span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">Hanging indent:</span><span class="se">\n</span><span class="s">&#39;</span>
+<span class="k">print</span> <span class="n">textwrap</span><span class="o">.</span><span class="n">fill</span><span class="p">(</span><span class="n">dedented_text</span><span class="p">,</span> <span class="n">initial_indent</span><span class="o">=</span><span class="s">&#39;&#39;</span><span class="p">,</span> <span class="n">subsequent_indent</span><span class="o">=</span><span class="s">&#39;    &#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>这个看起来很容易就能实现文本的悬挂缩进，也就是首行要比后继行有少的缩进。</p>
+<div class="highlight-python"><pre>Hanging indent:
+
+The textwrap module can be used to format text for output in
+   situations where pretty-printing is desired.  It offers
+   programmatic functionality similar to the paragraph wrapping or
+   filling features found in many text editors.</pre>
+</div>
+<p>缩进值也可以是非空格字符，因此，可以用*作为前缀产生bullet点，等等。在我转换老的zwiki内容以便将其导入到trac中是很灵活的。我使用Zope中的StructuredText包来解析zwiki数据，然后创建一个格式化器产生一个trac的wiki标记作为输出。使用textwrap就可以格式化输出页，因此转换后就几乎不需要再进行手工操作整个转换过程几乎没有手工进行。</p>
+</div>
+<div class="section" id="id3">
+<h2>参考<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference" href="http://www.doughellmann.com/PyMOTW/textwrap_example.py">textwrap_example.py</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">目录</a></h3>
+            <ul>
+<li><a class="reference" href="">PyMOTW: textwrap</a><ul>
+<li><a class="reference" href="#id1">描述</a></li>
+<li><a class="reference" href="#id2">例子</a></li>
+<li><a class="reference" href="#id3">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>前一个主题</h4>
+            <p class="topless"><a href="StringIO.html" title="前一章节">PyMOTW: StringIO and cStringIO</a></p>
+            <h4>后一个主题</h4>
+            <p class="topless"><a href="linecache.html" title="后一章节">PyMOTW: linecache</a></p>
+            <h3>当前主题</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/textwrap.txt">显示页面源码</a></li>
+            </ul>
+          <h3>快速搜索</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="提交" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="linecache.html" title="PyMOTW: linecache"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="StringIO.html" title="PyMOTW: StringIO and cStringIO"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2008, vbarter &amp; liz.
+      使用 <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1创建.
+    </div>
+  </body>
+</html>
