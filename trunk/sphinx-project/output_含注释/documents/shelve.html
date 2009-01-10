@@ -1,0 +1,218 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: shelve &mdash; PyMOTW v1.0 文档</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="关于这些文档" href="../about.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="up" title="所有文档" href="index.html" />
+    <link rel="next" title="PyMOTW: optparse" href="optparse.html" />
+    <link rel="prev" title="PyMOTW: glob" href="glob.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="optparse.html" title="PyMOTW: optparse"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="glob.html" title="PyMOTW: glob"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="pymotw-shelve">
+<h1>PyMOTW: shelve<a class="headerlink" href="#pymotw-shelve" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>模块：shelve</li>
+<li>目的：shelve模块实现了对任意可被pickle的Python对象进行持久性存储，也提供类字典API给我们使用。</li>
+<li>python版本：1.4+</li>
+</ul>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>当使用关系数据库是一种浪费的时候，shelve模块可以为Python对象提供一个简单的持久性存储选择。就像使用字典一样，通过关键字访问shelf对象。其值经过pickle，写入到由anydbm创建和管理的数据库。</p>
+</div>
+<div class="section" id="shelf">
+<h2>创建一Shelf对象<a class="headerlink" href="#shelf" title="Permalink to this headline">¶</a></h2>
+<p>最简单的使用shelve模块的方式是通过DbfilenameShelf类。 使用函数 <tt class="docutils literal"><span class="pre">shelve.open()</span></tt> （使用的是 <a class="reference" href="http://docs.python.org/lib/module-anydbm.html">anydbm</a> ）来存储数据。你可以直接使用类，或者简单的调用：</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">shelve</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">shelve</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;test_shelf.db&#39;</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">s</span><span class="p">[</span><span class="s">&#39;key1&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;int&#39;</span><span class="p">:</span> <span class="mf">10</span><span class="p">,</span> <span class="s">&#39;float&#39;</span><span class="p">:</span><span class="mf">9.5</span><span class="p">,</span> <span class="s">&#39;string&#39;</span><span class="p">:</span><span class="s">&#39;Sample data&#39;</span> <span class="p">}</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>为了再次访问数据，打开shelf并且像字典一样使用它。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">s</span> <span class="o">=</span> <span class="n">shelve</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;test_shelf.db&#39;</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">existing</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="s">&#39;key1&#39;</span><span class="p">]</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">print</span> <span class="n">existing</span>
+</pre></div>
+</div>
+<p>如果你运行了上面两个脚本，你应该看到：</p>
+<div class="highlight-python"><pre>$ python shelve_create.py
+$ python shelve_existing.py
+{'int': 10, 'float': 9.5, 'string': 'Sample data'}</pre>
+</div>
+<p>dbm模块不支持多个应用同时写入同一数据库。如果你确定客户端不会修改shelf， 请指定shelve以只读方式打开数据库。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">s</span> <span class="o">=</span> <span class="n">shelve</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;test_shelf.db&#39;</span><span class="p">,</span> <span class="n">flag</span><span class="o">=</span><span class="s">&#39;r&#39;</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">existing</span> <span class="o">=</span> <span class="n">s</span><span class="p">[</span><span class="s">&#39;key1&#39;</span><span class="p">]</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">print</span> <span class="n">existing</span>
+</pre></div>
+</div>
+<p>当数据库以只读方式打开时，你又尝试着更改数据库，这将引起一个访问出错异常。这一异常类型依赖于在创建数据库时被anydbm选择的数据库模块。</p>
+</div>
+<div class="section" id="id2">
+<h2>写回<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>默认情况下，Shelves不去追踪可变对象的修改。意思就是，如果你改变了已存储在shelf中的一个项目的内容，就必须重新存储该项目来更新shelf。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">s</span> <span class="o">=</span> <span class="n">shelve</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;test_shelf.db&#39;</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">s</span><span class="p">[</span><span class="s">&#39;key1&#39;</span><span class="p">]</span>
+    <span class="n">s</span><span class="p">[</span><span class="s">&#39;key1&#39;</span><span class="p">][</span><span class="s">&#39;new_value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;this was not here before&#39;</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">shelve</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;test_shelf.db&#39;</span><span class="p">,</span> <span class="n">writeback</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">s</span><span class="p">[</span><span class="s">&#39;key1&#39;</span><span class="p">]</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>在这个例子中，没有对字典里的关键字&#8221;key1&#8221;的内容进行存储，因此，重新打开shelf的时候，还没保存所做的改变。</p>
+<div class="highlight-python"><pre>$ python shelve_create.py
+$ python shelve_withoutwriteback.py
+{'int': 10, 'float': 9.5, 'string': 'Sample data'}
+{'int': 10, 'float': 9.5, 'string': 'Sample data'}</pre>
+</div>
+<p>为了自动捕捉储存在shelf中的可变对象所发生的改变，置writeback功能可用。writeback标志导致shelf使用一缓存来记住从数据库中调出的所有对象 。当shelf关闭的时候，每一个缓存中的对象也重新写入数据库。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">s</span> <span class="o">=</span> <span class="n">shelve</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;test_shelf.db&#39;</span><span class="p">,</span> <span class="n">writeback</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">s</span><span class="p">[</span><span class="s">&#39;key1&#39;</span><span class="p">]</span>
+    <span class="n">s</span><span class="p">[</span><span class="s">&#39;key1&#39;</span><span class="p">][</span><span class="s">&#39;new_value&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;this was not here before&#39;</span>
+    <span class="k">print</span> <span class="n">s</span><span class="p">[</span><span class="s">&#39;key1&#39;</span><span class="p">]</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">shelve</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;test_shelf.db&#39;</span><span class="p">,</span> <span class="n">writeback</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">s</span><span class="p">[</span><span class="s">&#39;key1&#39;</span><span class="p">]</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>虽然使用writeback模式可以减少程序员出错机率，也能更加透明化对象持久性，但是，不是每种情况都要使用writeback 模式的。当shelf打开的时候，缓存就要占据额外的空间，并且，当shelf关闭的时候，也会花费额外的时间去将所有缓存中的对象写入到数据库中。即使不知道缓存中的对象有没有改变，都要写回数据库。如果你的应用程序读取数据多于写入数据，那么writeback模式将增大开销。</p>
+<div class="highlight-python"><pre>$ python shelve_create.py
+$ python shelve_writeback.py
+{'int': 10, 'float': 9.5, 'string': 'Sample data'}
+{'int': 10, 'new_value': 'this was not here before', 'float': 9.5, 'string': 'Sample data'}
+{'int': 10, 'new_value': 'this was not here before', 'float': 9.5, 'string': 'Sample data'}</pre>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>指定Shelf类型<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>上面的例子全都使用了默认的shelf实现。使用 <tt class="docutils literal"><span class="pre">shelve.open()</span></tt> 直接代替一种shelf实现，是常见用法，尤其是在不关心用哪种数据库存储数据的时候。然而，有时常会关心它。如果是在这种情况下，通常就会直接使用DbfilenameShelf或者BsdDbShelf ，更或者是通过Shelf的子类来解决问题。</p>
+</div>
+<div class="section" id="id4">
+<h2>参考<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference" href="http://www.doughellmann.com/projects/feedcache/">feedcache uses shelve as a default storage option</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">目录</a></h3>
+            <ul>
+<li><a class="reference" href="">PyMOTW: shelve</a><ul>
+<li><a class="reference" href="#id1">描述</a></li>
+<li><a class="reference" href="#shelf">创建一Shelf对象</a></li>
+<li><a class="reference" href="#id2">写回</a></li>
+<li><a class="reference" href="#id3">指定Shelf类型</a></li>
+<li><a class="reference" href="#id4">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>前一个主题</h4>
+            <p class="topless"><a href="glob.html" title="前一章节">PyMOTW: glob</a></p>
+            <h4>后一个主题</h4>
+            <p class="topless"><a href="optparse.html" title="后一章节">PyMOTW: optparse</a></p>
+            <h3>当前主题</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/shelve.txt">显示页面源码</a></li>
+            </ul>
+          <h3>快速搜索</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="提交" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="optparse.html" title="PyMOTW: optparse"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="glob.html" title="PyMOTW: glob"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2008, vbarter &amp; liz.
+      使用 <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1创建.
+    </div>
+  </body>
+</html>

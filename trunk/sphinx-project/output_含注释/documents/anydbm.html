@@ -1,0 +1,233 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: anydbm &mdash; PyMOTW v1.0 文档</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="关于这些文档" href="../about.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="up" title="所有文档" href="index.html" />
+    <link rel="next" title="PyMOTW: smtplib" href="smtplib.html" />
+    <link rel="prev" title="PyMOTW: webbrowser" href="webbrowser.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="smtplib.html" title="PyMOTW: smtplib"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="webbrowser.html" title="PyMOTW: webbrowser"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="pymotw-anydbm">
+<h1>PyMOTW: anydbm<a class="headerlink" href="#pymotw-anydbm" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>模块： anydbm</li>
+<li>目的： anydbm提供了针对DBM-style、String-keyed数据库的字典接口。</li>
+<li>python版本： 1.4+</li>
+</ul>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>anydbm面向DBM数据库 ，利用简单的字符串值作为key来访问包含字符串的记录。它利用whichdb模块来识别dbhash、gdbm和dbm数据库，并使用appropriate模块来打开它们，常常在shelve 中作为后端使用，比如我们知道如何利用pickle来存储对象。她常被用作为shelve的后端，就像我们知道如何利用pickle来存储对象。</p>
+</div>
+<div class="section" id="id2">
+<h2>创建一个新的数据库<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>新数据库的存储格式是可以通过查询如下模块来选择：</p>
+<ul class="simple">
+<li>dbhash</li>
+<li>gdbm</li>
+<li>dbm</li>
+<li>dumbdbm</li>
+</ul>
+<p>open函数通过flags标志来控制如何处理数据库文件，当在必要时创建一个新的数据库时候，使用&#8221;c&#8221;,当经常要创建一个新数据库时，使用&#8221;n&#8221;。</p>
+<p>c和n的区别 ：
+也就是说用c，如果不存在则创建，如果存在就不创建新的了，用n的话，不管存不存在都是创建新的空数据库。</p>
+<p>开始，我们加载一些有用的模块：</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">anydbm</span>
+
+<span class="n">db</span> <span class="o">=</span> <span class="n">anydbm</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;/tmp/example.db&#39;</span><span class="p">,</span> <span class="s">&#39;n&#39;</span><span class="p">)</span>
+<span class="n">db</span><span class="p">[</span><span class="s">&#39;key&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;value&#39;</span>
+<span class="n">db</span><span class="p">[</span><span class="s">&#39;today&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;Sunday&#39;</span>
+<span class="n">db</span><span class="p">[</span><span class="s">&#39;author&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;Doug&#39;</span>
+<span class="n">db</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>在这个例子中，这个文件会总是被重新初始化，如果想知道被创建的数据库类型，可以使用whichdb。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">whichdb</span>
+
+<span class="k">print</span> <span class="n">whichdb</span><span class="o">.</span><span class="n">whichdb</span><span class="p">(</span><span class="s">&#39;/tmp/example.db&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>你得到的结果可能会不同，它取决于你安装在系统中的模块。</p>
+<div class="highlight-python"><pre>$ python anydbm_whichdb.py
+dbhash</pre>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>打开一个存在的数据库<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>要打开一个存在的数据库，使用标记&#8221;r&#8221;（只读）或者&#8221;w&#8221;（读写）。你不需要担心格式问题，因为数据库格式会自动由whichdb来识别，如果一个文件可以被识别，那么对应的模块会打开它。</p>
+<div class="highlight-python"><pre>import anydbm
+
+db = anydbm.open('/tmp/example.db', 'r')
+try:
+    print 'keys():', db.keys()
+    for k, v in db.iteritems():
+        print 'iterating:', k, v
+    print 'db["author"] =', db['author']
+ finally:
+    db.close()</pre>
+</div>
+<p>一旦打开，db就是一个字典对象，支持一些常规方法：</p>
+<div class="highlight-python"><pre>$ python anydbm_existing.py
+keys(): ['key', 'today', 'author']
+iterating: key value
+iterating: today Sunday
+iterating: author Doug
+db["author"] = Doug</pre>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>错误案例<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>数据库关键词必须是字符串。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">anydbm</span>
+
+<span class="n">db</span> <span class="o">=</span> <span class="n">anydbm</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;/tmp/example.db&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">db</span><span class="p">[</span><span class="mf">1</span><span class="p">]</span> <span class="o">=</span> <span class="s">&#39;one&#39;</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>传递其它类型结果将导致TypeError异常。</p>
+<div class="highlight-python"><pre>$ python anydbm_intkeys.py
+Traceback (most recent call last):
+File "/Users/dhellmann/Documents/PyMOTW/in_progress/anydbm/PyMOTW/anydbm/anydbm_intkeys.py", line 16, in &lt;module&gt;
+db[1] = 'one'
+File "/Library/Frameworks/Python.framework/Versions/2.5/lib/python2.5/bsddb/__init__.py", line 230, in __setitem__
+_DeadlockWrap(wrapF) # self.db[key] = value
+File "/Library/Frameworks/Python.framework/Versions/2.5/lib/python2.5/bsddb/dbutils.py", line 62, in DeadlockWrap
+return function(*_args, **_kwargs)
+File "/Library/Frameworks/Python.framework/Versions/2.5/lib/python2.5/bsddb/__init__.py", line 229, in wrapF
+self.db[key] = value
+TypeError: Integer keys only allowed for Recno and Queue DB's</pre>
+</div>
+<p>值必须是字符串或者是空。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">anydbm</span>
+
+<span class="n">db</span> <span class="o">=</span> <span class="n">anydbm</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="s">&#39;/tmp/example.db&#39;</span><span class="p">,</span> <span class="s">&#39;w&#39;</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">db</span><span class="p">[</span><span class="s">&#39;one&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">db</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>如果值是非字符串，那么同样会抛出TypeError异常。</p>
+<div class="highlight-python"><pre>$ python anydbm_intvalue.py
+Traceback (most recent call last):
+File "/Users/dhellmann/Documents/PyMOTW/in_progress/anydbm/PyMOTW/anydbm/anydbm_intvalue.py", line 16, in &lt;module&gt;
+db['one'] = 1
+File "/Library/Frameworks/Python.framework/Versions/2.5/lib/python2.5/bsddb/__init__.py", line 230, in __setitem__
+_DeadlockWrap(wrapF) # self.db[key] = value
+File "/Library/Frameworks/Python.framework/Versions/2.5/lib/python2.5/bsddb/dbutils.py", line 62, in DeadlockWrap
+return function(*_args, **_kwargs)
+File "/Library/Frameworks/Python.framework/Versions/2.5/lib/python2.5/bsddb/__init__.py", line 229, in wrapF
+self.db[key] = value
+TypeError: Data values must be of type string or None.</pre>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>参考<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference" href="http://docs.python.org/lib/module-anydbm.html">标准库文件：anydbm</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">目录</a></h3>
+            <ul>
+<li><a class="reference" href="">PyMOTW: anydbm</a><ul>
+<li><a class="reference" href="#id1">描述</a></li>
+<li><a class="reference" href="#id2">创建一个新的数据库</a></li>
+<li><a class="reference" href="#id3">打开一个存在的数据库</a></li>
+<li><a class="reference" href="#id4">错误案例</a></li>
+<li><a class="reference" href="#id5">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>前一个主题</h4>
+            <p class="topless"><a href="webbrowser.html" title="前一章节">PyMOTW: webbrowser</a></p>
+            <h4>后一个主题</h4>
+            <p class="topless"><a href="smtplib.html" title="后一章节">PyMOTW: smtplib</a></p>
+            <h3>当前主题</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/anydbm.txt">显示页面源码</a></li>
+            </ul>
+          <h3>快速搜索</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="提交" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="smtplib.html" title="PyMOTW: smtplib"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="webbrowser.html" title="PyMOTW: webbrowser"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2008, vbarter &amp; liz.
+      使用 <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1创建.
+    </div>
+  </body>
+</html>

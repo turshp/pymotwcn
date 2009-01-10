@@ -1,0 +1,370 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: shutil &mdash; PyMOTW v1.0 文档</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="关于这些文档" href="../about.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="up" title="所有文档" href="index.html" />
+    <link rel="next" title="PyMOTW: urlparse" href="urlparse.html" />
+    <link rel="prev" title="PyMOTW: optparse" href="optparse.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="urlparse.html" title="PyMOTW: urlparse"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="optparse.html" title="PyMOTW: optparse"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="pymotw-shutil">
+<h1>PyMOTW: shutil<a class="headerlink" href="#pymotw-shutil" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>模块：shutil</li>
+<li>目的: 高层次的文件操作.</li>
+<li>python版本：1.4+</li>
+</ul>
+<p>shutil模块提供了一些高层次的文件操作,比如复制,设置权限等等.</p>
+<div class="section" id="id1">
+<h2>描述:<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>shutil模块提供了一些用于复制和删除整个文件的函数.</p>
+</div>
+<div class="section" id="id2">
+<h2>复制文件:<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>copyfile() 将源文件内容完全复制给目标文件.如果没有写入目标文件的权限,会引起IOError.由于该函数是为了读取文件内容而打开此输入文件,而不管它的类型是什么,特殊类型的文件使用copyfile()是不能拷贝的，比如管道文件。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">os</span>
+<span class="k">from</span> <span class="nn">shutil</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="k">print</span> <span class="s">&#39;BEFORE:&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+<span class="n">copyfile</span><span class="p">(</span><span class="s">&#39;shutil_copyfile.py&#39;</span><span class="p">,</span> <span class="s">&#39;shutil_copyfile.py.copy&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;AFTER:&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">getcwd</span><span class="p">())</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python shutil_copyfile.py
+BEFORE: ['__init__.py', 'shutil_copyfile.py']
+AFTER: ['__init__.py', 'shutil_copyfile.py', 'shutil_copyfile.py.copy']</pre>
+</div>
+<p>copyfile()底层调用了copyfileobj()函数.文件名参数传递给copyfile()后,进而将此文件句柄传递给copyfileobj().第三个可选参数是一个缓冲区长度,以块读入(默认情况下,一次性读取整个文件).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">os</span>
+<span class="k">from</span> <span class="nn">StringIO</span> <span class="k">import</span> <span class="n">StringIO</span>
+<span class="k">import</span> <span class="nn">sys</span>
+<span class="k">from</span> <span class="nn">shutil</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="k">class</span> <span class="nc">VerboseStringIO</span><span class="p">(</span><span class="n">StringIO</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="o">=-</span><span class="mf">1</span><span class="p">):</span>
+       <span class="n">next</span> <span class="o">=</span> <span class="n">StringIO</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+       <span class="k">print</span> <span class="s">&#39;read(</span><span class="si">%d</span><span class="s">) =&gt;&#39;</span> <span class="o">%</span> <span class="n">n</span><span class="p">,</span> <span class="n">next</span>
+       <span class="k">return</span> <span class="n">next</span>
+
+<span class="n">lorem_ipsum</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</span>
+<span class="s">              Vestibulum aliquam mollis dolor. Donec vulputate nunc ut diam.</span>
+<span class="s">              Ut rutrum mi vel sem. Vestibulum ante ipsum.&#39;&#39;&#39;</span>
+
+<span class="k">print</span> <span class="s">&#39;Default:&#39;</span>
+<span class="nb">input</span> <span class="o">=</span> <span class="n">VerboseStringIO</span><span class="p">(</span><span class="n">lorem_ipsum</span><span class="p">)</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
+<span class="n">copyfileobj</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">output</span><span class="p">)</span>
+
+<span class="k">print</span>
+
+<span class="k">print</span> <span class="s">&#39;All at once:&#39;</span>
+<span class="nb">input</span> <span class="o">=</span> <span class="n">VerboseStringIO</span><span class="p">(</span><span class="n">lorem_ipsum</span><span class="p">)</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
+<span class="n">copyfileobj</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="o">-</span><span class="mf">1</span><span class="p">)</span>
+
+<span class="k">print</span>
+
+<span class="k">print</span> <span class="s">&#39;Blocks of 20:&#39;</span>
+<span class="nb">input</span> <span class="o">=</span> <span class="n">VerboseStringIO</span><span class="p">(</span><span class="n">lorem_ipsum</span><span class="p">)</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
+<span class="n">copyfileobj</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="n">output</span><span class="p">,</span> <span class="mf">20</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>默认的行为是以大块读取:</p>
+<div class="highlight-python"><pre>$ python shutil_copyfileobj.py
+Default:
+read(16384) =&gt; Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+Vestibulum aliquam mollis dolor. Donec vulputate nunc ut diam.
+Ut rutrum mi vel sem. Vestibulum ante ipsum.
+read(16384) =&gt;</pre>
+</div>
+<p>使用-1表示一次性读取所有输入:</p>
+<div class="highlight-python"><pre>All at once:
+read(-1) =&gt; Lorem ipsum dolor sit amet, consectetuer adipiscing elit.
+Vestibulum aliquam mollis dolor. Donec vulputate nunc ut diam.
+Ut rutrum mi vel sem. Vestibulum ante ipsum.
+read(-1) =&gt;</pre>
+</div>
+<p>使用一个正整数设置块大小:</p>
+<div class="highlight-python"><pre>Blocks of 20:
+read(20) =&gt; Lorem ipsum dolor si
+read(20) =&gt; t amet, consectetuer
+read(20) =&gt;  adipiscing elit.
+V
+read(20) =&gt; estibulum aliquam mo
+read(20) =&gt; llis dolor. Donec vu
+read(20) =&gt; lputate nunc ut diam
+read(20) =&gt; .
+Ut rutrum mi vel
+read(20) =&gt; sem. Vestibulum ante
+read(20) =&gt;  ipsum.
+read(20) =&gt;</pre>
+</div>
+<p>copy()函数类似于Unix命令cp.如果目标参数是一个目录而不是一个文件,那么在这个目录中复制一个源文件副本(它与源文件同名).文件的权限也随之复制.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">os</span>
+<span class="k">from</span> <span class="nn">shutil</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="s">&#39;example&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;BEFORE:&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s">&#39;example&#39;</span><span class="p">)</span>
+<span class="n">copy</span><span class="p">(</span><span class="s">&#39;shutil_copy.py&#39;</span><span class="p">,</span> <span class="s">&#39;example&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;AFTER:&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s">&#39;example&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python shutil_copy.py
+BEFORE: []
+AFTER: ['shutil_copy.py']</pre>
+</div>
+<p>copy2()函数类似于copy(),但是它将一些元信息,如文件最后一次被读取时间和修改时间等,也复制至新文件中.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">os</span>
+<span class="k">from</span> <span class="nn">shutil</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="k">def</span> <span class="nf">show_file_info</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="n">stat_info</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">Mode    :&#39;</span><span class="p">,</span> <span class="n">stat_info</span><span class="o">.</span><span class="n">st_mode</span>
+    <span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">Created :&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">ctime</span><span class="p">(</span><span class="n">stat_info</span><span class="o">.</span><span class="n">st_ctime</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">Accessed:&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">ctime</span><span class="p">(</span><span class="n">stat_info</span><span class="o">.</span><span class="n">st_atime</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">Modified:&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">ctime</span><span class="p">(</span><span class="n">stat_info</span><span class="o">.</span><span class="n">st_mtime</span><span class="p">)</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">mkdir</span><span class="p">(</span><span class="s">&#39;example&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;SOURCE:&#39;</span>
+<span class="n">show_file_info</span><span class="p">(</span><span class="s">&#39;shutil_copy2.py&#39;</span><span class="p">)</span>
+<span class="n">copy2</span><span class="p">(</span><span class="s">&#39;shutil_copy2.py&#39;</span><span class="p">,</span> <span class="s">&#39;example&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;DEST:&#39;</span>
+<span class="n">show_file_info</span><span class="p">(</span><span class="s">&#39;example/shutil_copy2.py&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python shutil_copy2.py
+
+SOURCE:
+        Mode    : 33188
+        Created : Sun Oct 21 15:16:07 2007
+        Accessed: Sun Oct 21 15:16:11 2007
+        Modified: Sun Oct 21 15:16:07 2007
+        DEST:
+        Mode    : 33188
+        Created : Sun Oct 21 15:16:11 2007
+        Accessed: Sun Oct 21 15:16:11 2007
+        Modified: Sun Oct 21 15:16:07 2007</pre>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>复制文件元信息:<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>默认情况下,在Unix下,一个新创建的文件的权限会根据当前用户的umask值来设置.把一个文件的权限复制给另一个文件，可以使用copymode()函数.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">from</span> <span class="nn">commands</span> <span class="k">import</span> <span class="o">*</span>
+<span class="k">from</span> <span class="nn">shutil</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="k">print</span> <span class="s">&#39;BEFORE:&#39;</span><span class="p">,</span> <span class="n">getstatus</span><span class="p">(</span><span class="s">&#39;file_to_change.txt&#39;</span><span class="p">)</span>
+<span class="n">copymode</span><span class="p">(</span><span class="s">&#39;shutil_copymode.py&#39;</span><span class="p">,</span> <span class="s">&#39;file_to_change.txt&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;AFTER :&#39;</span><span class="p">,</span> <span class="n">getstatus</span><span class="p">(</span><span class="s">&#39;file_to_change.txt&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>首先,需要创建一个文件.然后对权限做些修改:</p>
+<div class="highlight-python"><pre>$ touch file_to_change.txt
+$ chmod ugo+w file_to_change.txt</pre>
+</div>
+<p>然后,运行刚才的示例脚本会改变之前的权限:</p>
+<div class="highlight-python"><pre>$ python shutil_copymode.py
+BEFORE: -rw-rw-rw-   1 dhellman  dhellman  0 Oct 21 14:43 file_to_change.txt
+AFTER : -rw-r--r--   1 dhellman  dhellman  0 Oct 21 14:43 file_to_change.txt</pre>
+</div>
+<p>复制文件的其他元信息(权限,最后读取时间,最后修改时间)可以使用copystat().</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">os</span>
+<span class="k">from</span> <span class="nn">shutil</span> <span class="k">import</span> <span class="o">*</span>
+<span class="k">import</span> <span class="nn">time</span>
+
+<span class="k">def</span> <span class="nf">show_file_info</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="n">stat_info</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">stat</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">Mode    :&#39;</span><span class="p">,</span> <span class="n">stat_info</span><span class="o">.</span><span class="n">st_mode</span>
+    <span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">Created :&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">ctime</span><span class="p">(</span><span class="n">stat_info</span><span class="o">.</span><span class="n">st_ctime</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">Accessed:&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">ctime</span><span class="p">(</span><span class="n">stat_info</span><span class="o">.</span><span class="n">st_atime</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">Modified:&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">ctime</span><span class="p">(</span><span class="n">stat_info</span><span class="o">.</span><span class="n">st_mtime</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">&#39;BEFORE:&#39;</span>
+<span class="n">show_file_info</span><span class="p">(</span><span class="s">&#39;file_to_change.txt&#39;</span><span class="p">)</span>
+<span class="n">copystat</span><span class="p">(</span><span class="s">&#39;shutil_copystat.py&#39;</span><span class="p">,</span> <span class="s">&#39;file_to_change.txt&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;AFTER :&#39;</span>
+<span class="n">show_file_info</span><span class="p">(</span><span class="s">&#39;file_to_change.txt&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python shutil_copystat.py
+BEFORE:
+        Mode    : 33206
+        Created : Sun Oct 21 15:01:23 2007
+        Accessed: Sun Oct 21 14:43:26 2007
+        Modified: Sun Oct 21 14:43:26 2007
+        AFTER :
+        Mode    : 33188
+        Created : Sun Oct 21 15:01:44 2007
+        Accessed: Sun Oct 21 15:01:43 2007
+        Modified: Sun Oct 21 15:01:39 2007</pre>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>目录树:<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>shutil模块包含3个操作目录树的函数.使用copytree()来复制目录,它会递归复制整个目录结构.目标目录必须不存在.其中, symlinks参数控制符号链接是否作为链接或文件被复制,默认是将其内容复制成一个新文件.如果此选项为true,新的链接会在目标目录树中创建.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">注意:copytree()文档中说,它一般作为一个样本实现,而不是一个工具.你可以修改其源码,让它变得更稳定,或者增加一些功能,比如说进度条.</p>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">from</span> <span class="nn">commands</span> <span class="k">import</span> <span class="o">*</span>
+<span class="k">from</span> <span class="nn">shutil</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="k">print</span> <span class="s">&#39;BEFORE:&#39;</span>
+<span class="k">print</span> <span class="n">getoutput</span><span class="p">(</span><span class="s">&#39;ls -rlast /tmp/example&#39;</span><span class="p">)</span>
+<span class="n">copytree</span><span class="p">(</span><span class="s">&#39;example&#39;</span><span class="p">,</span> <span class="s">&#39;/tmp/example&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;AFTER:&#39;</span>
+<span class="k">print</span> <span class="n">getoutput</span><span class="p">(</span><span class="s">&#39;ls -rlast /tmp/example&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python shutil_copytree.py
+BEFORE:
+ls: /tmp/example: No such file or directory
+AFTER:
+total 8
+8 -rw-r--r--    1 dhellman  wheel  1627 Oct 21 15:16 shutil_copy2.py
+0 drwxr-xr-x    3 dhellman  wheel   102 Oct 21 15:16 .
+0 drwxrwxrwt   18 root      wheel   612 Oct 21 15:26 ..</pre>
+</div>
+<p>使用rmtree()可以删除整个目录树.里面若产生错误会作为异常抛出.但是如果它的第二个参数是目录树,那么错误会被忽略,第三个参数可以指定为一个特殊出错处理函数句柄.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">from</span> <span class="nn">commands</span> <span class="k">import</span> <span class="o">*</span>
+<span class="k">from</span> <span class="nn">shutil</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="k">print</span> <span class="s">&#39;BEFORE:&#39;</span>
+<span class="k">print</span> <span class="n">getoutput</span><span class="p">(</span><span class="s">&#39;ls -rlast /tmp/example&#39;</span><span class="p">)</span>
+<span class="n">rmtree</span><span class="p">(</span><span class="s">&#39;example&#39;</span><span class="p">,</span> <span class="s">&#39;/tmp/example&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;AFTER:&#39;</span>
+<span class="k">print</span> <span class="n">getoutput</span><span class="p">(</span><span class="s">&#39;ls -rlast /tmp/example&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python shutil_rmtree.py
+
+BEFORE:
+total 8
+8 -rw-r--r--    1 dhellman  wheel  1627 Oct 21 15:16 shutil_copy2.py
+0 drwxr-xr-x    3 dhellman  wheel   102 Oct 21 15:16 .
+0 drwxrwxrwt   18 root      wheel   612 Oct 21 15:26 ..
+AFTER:
+ls: /tmp/example: No such file or directory</pre>
+</div>
+<p>移动文件或目录可以使用move(),这很类似于Unix命令mv.如果源文件或目录和目标文件或目录在同一个文件系统下,那么源文件或目录会直接重命名.否则源文件或目录会复制到目标文件或目录,接着删除源文件或目录.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">os</span>
+<span class="k">from</span> <span class="nn">shutil</span> <span class="k">import</span> <span class="o">*</span>
+
+<span class="k">print</span> <span class="s">&#39;BEFORE: example : &#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s">&#39;example&#39;</span><span class="p">)</span>
+<span class="n">move</span><span class="p">(</span><span class="s">&#39;example&#39;</span><span class="p">,</span> <span class="s">&#39;example2&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;AFTER : example2: &#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">listdir</span><span class="p">(</span><span class="s">&#39;example2&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python shutil_move.py
+BEFORE: example :  ['shutil_copy.py']
+AFTER : example2:  ['shutil_copy.py']</pre>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>参考<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference" href="http://tc-nsop-test2.tc.baidu.com:3129/documents">PyMOTW</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">目录</a></h3>
+            <ul>
+<li><a class="reference" href="">PyMOTW: shutil</a><ul>
+<li><a class="reference" href="#id1">描述:</a></li>
+<li><a class="reference" href="#id2">复制文件:</a></li>
+<li><a class="reference" href="#id3">复制文件元信息:</a></li>
+<li><a class="reference" href="#id4">目录树:</a></li>
+<li><a class="reference" href="#id5">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>前一个主题</h4>
+            <p class="topless"><a href="optparse.html" title="前一章节">PyMOTW: optparse</a></p>
+            <h4>后一个主题</h4>
+            <p class="topless"><a href="urlparse.html" title="后一章节">PyMOTW: urlparse</a></p>
+            <h3>当前主题</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/shutil.txt">显示页面源码</a></li>
+            </ul>
+          <h3>快速搜索</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="提交" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="urlparse.html" title="PyMOTW: urlparse"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="optparse.html" title="PyMOTW: optparse"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2008, vbarter &amp; liz.
+      使用 <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1创建.
+    </div>
+  </body>
+</html>

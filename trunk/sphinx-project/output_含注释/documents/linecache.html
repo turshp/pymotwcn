@@ -1,0 +1,208 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: linecache &mdash; PyMOTW v1.0 文档</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="关于这些文档" href="../about.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="up" title="所有文档" href="index.html" />
+    <link rel="next" title="PyMOTW: bisect" href="bisect.html" />
+    <link rel="prev" title="PyMOTW: textwrap" href="textwrap.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="bisect.html" title="PyMOTW: bisect"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="textwrap.html" title="PyMOTW: textwrap"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="pymotw-linecache">
+<h1>PyMOTW: linecache<a class="headerlink" href="#pymotw-linecache" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>模块： linecache</li>
+<li>目的： 从文件或者导入模块中检索文本行，对结果采用缓冲来提高读文件的效率。</li>
+<li>python版本： 1.4+</li>
+</ul>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>python标准库处理python源文件中linecache模块被广泛的使用。缓冲的实现是读取文件的内容，并解析成行，保存在内存的字典中。API 根据索引返回列表中的请求行。在读取文件和寻找需要的行信息上可以节省一定时间。这对于从同一个文件中查询多行内容是非常有用的，比如为一个error report产生trackback。</p>
+</div>
+<div class="section" id="id2">
+<h2>示例<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">linecache</span>
+<span class="k">import</span> <span class="nn">os</span>
+<span class="k">import</span> <span class="nn">tempfile</span>
+</pre></div>
+</div>
+<p>我们使用Lorem Ipsum generator产生的文本作为输入样例：</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">lorem</span> <span class="o">=</span> <span class="s">&#39;&#39;&#39;Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</span>
+<span class="s">Vivamus eget elit. In posuere mi non risus. Mauris id quam posuere</span>
+
+<span class="s">lectus sollicitudin varius. Praesent at mi. Nunc eu velit. Sed augue</span>
+<span class="s">massa, fermentum id, nonummy a, nonummy sit amet, ligula. Curabitur</span>
+<span class="s">eros pede, egestas at, ultricies ac, pellentesque eu, tellus.</span>
+
+<span class="s">Sed sed odio sed mi luctus mollis. Integer et nulla ac augue convallis</span>
+<span class="s">accumsan. Ut felis. Donec lectus sapien, elementum nec, condimentum ac,</span>
+<span class="s">interdum non, tellus. Aenean viverra, mauris vehicula semper porttitor,</span>
+<span class="s">ipsum odio consectetuer lorem, ac imperdiet eros odio a sapien. Nulla</span>
+<span class="s">mauris tellus, aliquam non, egestas a, nonummy et, erat. Vivamus</span>
+
+<span class="s">sagittis porttitor eros.&#39;&#39;&#39;</span>
+
+<span class="c"># 创建一个临时文件</span>
+<span class="n">fd</span><span class="p">,</span> <span class="n">temp_file_name</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">mkstemp</span><span class="p">()</span>
+
+<span class="n">os</span><span class="o">.</span><span class="n">close</span><span class="p">(</span><span class="n">fd</span><span class="p">)</span>
+<span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">temp_file_name</span><span class="p">,</span> <span class="s">&#39;wt&#39;</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">lorem</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">f</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>现在我们有了一个可用的临时文件，让我们更深入一步。从文件中读取的第5行是单一行。注意，在linecache中的行号是从1开始的。但是我们自己对字符串进行分割，那么索引号是从0开始。我们还需要从缓冲中返回的值进行过滤去除换行符。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># 原始形式和cache方式提取统一行。</span>
+<span class="c"># 注意linecache计算从1开始。</span>
+<span class="k">print</span> <span class="s">&#39;SOURCE: &#39;</span><span class="p">,</span> <span class="n">lorem</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)[</span><span class="mf">4</span><span class="p">]</span>
+<span class="k">print</span> <span class="s">&#39;CACHE : &#39;</span><span class="p">,</span> <span class="n">linecache</span><span class="o">.</span><span class="n">getline</span><span class="p">(</span><span class="n">temp_file_name</span><span class="p">,</span> <span class="mf">5</span><span class="p">)</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>下一步看下，如果我们需要的行为空将会发生什么。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># 新的一行中为空行。</span>
+<span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">BLANK : &quot;</span><span class="si">%s</span><span class="s">&quot;&#39;</span> <span class="o">%</span> <span class="n">linecache</span><span class="o">.</span><span class="n">getline</span><span class="p">(</span><span class="n">temp_file_name</span><span class="p">,</span> <span class="mf">6</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>如果请求的行号超过了文件中有效行号的范围，那么linecache会返回一个空字符串。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># cache总会返回一个字符串，如果字符串为空即标明指代的行是不存在的。</span>
+<span class="n">not_there</span> <span class="o">=</span> <span class="n">linecache</span><span class="o">.</span><span class="n">getline</span><span class="p">(</span><span class="n">temp_file_name</span><span class="p">,</span> <span class="mf">500</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">NOT THERE: &quot;</span><span class="si">%s</span><span class="s">&quot; includes </span><span class="si">%d</span><span class="s"> characters&#39;</span> <span class="o">%</span>  <span class="p">(</span><span class="n">not_there</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">not_there</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>即使这个文件不存在，模块也不会抛出任何异常。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># 即使linecache不能找到这个文件，Error也会被隐藏掉。</span>
+<span class="n">no_such_file</span> <span class="o">=</span> <span class="n">linecache</span><span class="o">.</span><span class="n">getline</span><span class="p">(</span><span class="s">&#39;this_file_does_not_exist.txt&#39;</span><span class="p">,</span> <span class="mf">1</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">NO FILE: &#39;</span><span class="p">,</span> <span class="n">no_such_file</span>
+</pre></div>
+</div>
+<p>虽然linecache模块经常用在输出tracebacks上，另一个重要特性是可以通过指定模块名在sys.path中寻找python模块源码。如果在当前路径中无法找到文件，那么linecache中的缓冲直接搜索sys.path中的模块。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c"># 利用内置子的sys.path，查询linecache中的模块名</span>
+<span class="n">module_line</span> <span class="o">=</span> <span class="n">linecache</span><span class="o">.</span><span class="n">getline</span><span class="p">(</span><span class="s">&#39;linecache.py&#39;</span><span class="p">,</span> <span class="mf">3</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">MODULE : &#39;</span><span class="p">,</span> <span class="n">module_line</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>示例输出<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="highlight-python"><pre>SOURCE:  eros pede, egestas at, ultricies ac, pellentesque eu, tellus.
+CACHE :  eros pede, egestas at, ultricies ac, pellentesque eu, tellus.
+
+BLANK : "
+"
+
+NOT THERE: "" includes 0 characters
+
+NO FILE:
+
+MODULE :  This is intended to read lines from modules imported -- hence if a filename</pre>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>参考<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference" href="http://http://tc-nsop-test2.tc.baidu.com:3129/documents">PyMOTW</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">目录</a></h3>
+            <ul>
+<li><a class="reference" href="">PyMOTW: linecache</a><ul>
+<li><a class="reference" href="#id1">描述</a></li>
+<li><a class="reference" href="#id2">示例</a></li>
+<li><a class="reference" href="#id3">示例输出</a></li>
+<li><a class="reference" href="#id4">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>前一个主题</h4>
+            <p class="topless"><a href="textwrap.html" title="前一章节">PyMOTW: textwrap</a></p>
+            <h4>后一个主题</h4>
+            <p class="topless"><a href="bisect.html" title="后一章节">PyMOTW: bisect</a></p>
+            <h3>当前主题</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/linecache.txt">显示页面源码</a></li>
+            </ul>
+          <h3>快速搜索</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="提交" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="bisect.html" title="PyMOTW: bisect"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="textwrap.html" title="PyMOTW: textwrap"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2008, vbarter &amp; liz.
+      使用 <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1创建.
+    </div>
+  </body>
+</html>

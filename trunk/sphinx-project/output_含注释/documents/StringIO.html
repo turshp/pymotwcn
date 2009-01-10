@@ -1,0 +1,165 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: StringIO and cStringIO &mdash; PyMOTW v1.0 文档</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="关于这些文档" href="../about.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="up" title="所有文档" href="index.html" />
+    <link rel="next" title="PyMOTW: textwrap" href="textwrap.html" />
+    <link rel="prev" title="PyMOTW: Queue" href="queue.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="textwrap.html" title="PyMOTW: textwrap"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="queue.html" title="PyMOTW: Queue"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="pymotw-stringio-and-cstringio">
+<h1>PyMOTW: StringIO and cStringIO<a class="headerlink" href="#pymotw-stringio-and-cstringio" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>模块：StringIO 和 cStringIO</li>
+<li>目的: 类似于file操作的文本缓冲区API</li>
+<li>python版本：StringIO: 1.4+, cStringIO: 1.5+</li>
+</ul>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>类StringIO提供了一个在内存中方便处理文本的类文件(读, 写等操作)API. 他有两个独立的实现, 一个是用c实现的cStringIP模块,速度较快, 另一个是StringIO模块,他用python实现的以增强其可移植性. 使用cStringIO来处理大字符串可以提高运行性能,优于其他字符串串联技术.</p>
+</div>
+<div class="section" id="id2">
+<h2>例子<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>这里是一个好的,标准的,简单的.使用StringIO缓冲的例子:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">使用StringIO模块简单的例子</span>
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="c"># 找到此平台上最好的StringIO实现模块</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="k">from</span> <span class="nn">cStringIO</span> <span class="k">import</span> <span class="n">StringIO</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="k">from</span> <span class="nn">StringIO</span> <span class="k">import</span> <span class="n">StringIO</span>
+
+<span class="c"># 写入一个缓冲区</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
+<span class="n">output</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;This goes into the buffer. &#39;</span><span class="p">)</span> <span class="c">##write方法将字符串写入缓冲区</span>
+
+<span class="k">print</span> <span class="o">&gt;&gt;</span><span class="n">output</span><span class="p">,</span> <span class="s">&#39;And so does this.&#39;</span> <span class="c">##print 语句将字符串写入output</span>
+<span class="c"># 查询刚才被写入缓冲区的值</span>
+<span class="k">print</span> <span class="n">output</span><span class="o">.</span><span class="n">getvalue</span><span class="p">()</span>
+
+<span class="n">output</span><span class="o">.</span><span class="n">close</span><span class="p">()</span> <span class="c"># 关闭(丢弃)缓冲区</span>
+
+<span class="c"># 初始化一个只读缓冲区</span>
+<span class="nb">input</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="s">&#39;Inital value for read buffer&#39;</span><span class="p">)</span>
+
+<span class="c"># 从缓冲区中读取数据</span>
+<span class="k">print</span> <span class="nb">input</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>这个例子中使用了 <tt class="docutils literal"><span class="pre">read()</span></tt> ,但当然,函数 <tt class="docutils literal"><span class="pre">readline()</span></tt> 和 <tt class="docutils literal"><span class="pre">readlines()</span></tt> 也都是可用的.类StringIO提供 <tt class="docutils literal"><span class="pre">seek()</span></tt> 函数,因此在读取数据时可以任意跳到某个点上, 这也当你使用某些前看解析算法可以回头读取.</p>
+<p>现实世界中,StringIO的应用包括一个网络应用程序栈,栈的各个部分都可以增加文本到响应response对象中,或者测试由程序某段输出(典型是写入到文件)的数据.</p>
+<p>我们想在创建的工程应用中包括一个shell脚本接口,他是以多个命令行程序的形式.这些程序中的某些是负责从数据库中取数据,然后将这些数据转储到控制台(可以是现实给用户,也可以是文本中,这样就可以作为另一个命令的输入). 这些命令他们共享了一组格式化插件以便产生一个对象的多种文本表示(XML, bash语法, 人可读的,等等).</p>
+<p>因为格式化可以将输出数据标准化后写到标准输出,如果没有StringIO模块,所得的测试结果可能会有些奇怪. 而使用了StringIO来拦截格式化的输出,这样以便我们用一个简单的方式来收集内存中的输出数据,来对预期的结果做比较.</p>
+</div>
+<div class="section" id="id3">
+<h2>参考<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference" href="http://effbot.org/librarybook/stringio.htm">The StringIO module ::: www.effbot.org</a></li>
+<li><a class="reference" href="http://www.skymind.com/%7Eocrow/python_string/">Efficient String Concatenation in Python</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">目录</a></h3>
+            <ul>
+<li><a class="reference" href="">PyMOTW: StringIO and cStringIO</a><ul>
+<li><a class="reference" href="#id1">描述</a></li>
+<li><a class="reference" href="#id2">例子</a></li>
+<li><a class="reference" href="#id3">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>前一个主题</h4>
+            <p class="topless"><a href="queue.html" title="前一章节">PyMOTW: Queue</a></p>
+            <h4>后一个主题</h4>
+            <p class="topless"><a href="textwrap.html" title="后一章节">PyMOTW: textwrap</a></p>
+            <h3>当前主题</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/StringIO.txt">显示页面源码</a></li>
+            </ul>
+          <h3>快速搜索</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="提交" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="textwrap.html" title="PyMOTW: textwrap"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="queue.html" title="PyMOTW: Queue"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2008, vbarter &amp; liz.
+      使用 <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1创建.
+    </div>
+  </body>
+</html>

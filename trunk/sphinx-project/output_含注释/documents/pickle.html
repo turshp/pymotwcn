@@ -1,0 +1,331 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: pickle &amp; cPickle &mdash; PyMOTW v1.0 文档</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="关于这些文档" href="../about.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="up" title="所有文档" href="index.html" />
+    <link rel="next" title="PyMOTW: glob" href="glob.html" />
+    <link rel="prev" title="PyMOTW: os(4)" href="os4.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="glob.html" title="PyMOTW: glob"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="os4.html" title="PyMOTW: os(4)"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="pymotw-pickle-cpickle">
+<h1>PyMOTW: pickle &amp; cPickle<a class="headerlink" href="#pymotw-pickle-cpickle" title="Permalink to this headline">¶</a></h1>
+<p>Python对象序列化</p>
+<ul class="simple">
+<li>模块：pickle 和 cPickle</li>
+<li>目的: Python对象序列化</li>
+<li>python版本：pickle至少1.4, cPickle 至少1.5</li>
+</ul>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>pickle模块可以实现任意的Python对象转换为一系列字节(即序列化对象)的算法。这些字节流可以被传输或存储，接着也可以重构为一个和原先对象具有相同特征的新对象。</p>
+<p>cPickle模块实现了同样的算法，但它是用c而不是python。因此，它比python实现的快上好几倍，但是不允许使用者去继承Pickle。如果继承对于你的使用不是很重要，那么你大可以使用cPickle。</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">pickle的文档清晰的表明它不提供安全保证。所以慎用pickle来作为内部进程通信或者数据存储，也不要相信那些你不能验证安全性的数据。</p>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>例子<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>第一个pickle示例是将一个数据结构编码为一个字符串，然后将其输出到控制台。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">try</span><span class="p">:</span>
+   <span class="k">import</span> <span class="nn">cPickle</span> <span class="k">as</span> <span class="nn">pickle</span>
+<span class="k">except</span><span class="p">:</span>
+   <span class="k">import</span> <span class="nn">pickle</span>
+   <span class="k">import</span> <span class="nn">pprint</span>
+</pre></div>
+</div>
+<p>我们首先尝试导入cPickle，并指定别名为&#8221;pickle&#8221;。如果因为某种原因导入pickle失败，我们则导入由Python实现的pickle模块。如果cPickle是可用的，会给我们带来更快的实现，但如果不可用，也会有正确的实现。</p>
+<p>接下来，我们定义一个完全由基本类型组成的数据结构。任何类的实例都可被pickle，这会在下一个例子中表述。我选择基本数据类型以便更简单的示范。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">data</span> <span class="o">=</span> <span class="p">[</span> <span class="p">{</span> <span class="s">&#39;a&#39;</span><span class="p">:</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">:</span><span class="mf">2</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">:</span><span class="mf">3.0</span> <span class="p">}</span> <span class="p">]</span>
+<span class="k">print</span> <span class="s">&#39;DATA:&#39;</span><span class="p">,</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>现在我们就可以使用pickle.dumps()来创建数据值的字符串表示。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">data_string</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;PICKLE:&#39;</span><span class="p">,</span> <span class="n">data_string</span>
+</pre></div>
+</div>
+<p>默认情况下，pickle仅使用ASCII字符。也可以使用高效的二进制格式。但这些示例依然使用了ASCII格式 。</p>
+<div class="highlight-python"><pre>$ python pickle_string.py
+DATA:[{'a': 'A', 'b': 2, 'c': 3.0}]
+PICKLE: (lp1
+(dp2
+S'a'
+S'A'
+sS'c'
+F3
+sS'b'
+I2
+sa.</pre>
+</div>
+<p>一旦数据被序列化，你就可以把他写入到文件、socket、管道等等中。之后你可以读取这个文件，unpickle这些数据来构造具有相同值的新对象。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">data1</span> <span class="o">=</span> <span class="p">[</span> <span class="p">{</span> <span class="s">&#39;a&#39;</span><span class="p">:</span><span class="s">&#39;A&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">:</span><span class="mf">2</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">:</span><span class="mf">3.0</span> <span class="p">}</span> <span class="p">]</span>
+<span class="k">print</span> <span class="s">&#39;BEFORE:&#39;</span><span class="p">,</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">data1</span><span class="p">)</span>
+
+<span class="n">data1_string</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">dumps</span><span class="p">(</span><span class="n">data1</span><span class="p">)</span>
+
+<span class="n">data2</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">data1_string</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;AFTER:&#39;</span><span class="p">,</span>
+<span class="n">pprint</span><span class="o">.</span><span class="n">pprint</span><span class="p">(</span><span class="n">data2</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">&#39;SAME?:&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">data1</span> <span class="ow">is</span> <span class="n">data2</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;EQUAL?:&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">data1</span> <span class="o">==</span> <span class="n">data2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>正像你看到的那样，新构造的对象等于原来的对象，但他们又不是相同的对象。这里不足为奇。</p>
+<div class="highlight-python"><pre>$ python pickle_unpickle.py
+BEFORE:[{'a': 'A', 'b': 2, 'c': 3.0}]
+AFTER:[{'a': 'A', 'b': 2, 'c': 3.0}]
+SAME?: False
+EQUAL?: True</pre>
+</div>
+<p>pickle除了提供dumps()和loads()，还提供非常方便的函数用于操作类文件流。支持同时写多个对象到同一个流中，然后在不知道有多少个对象或不知道它们有多大时，能够从这个流中读取多个对象也是可能的，</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">try</span><span class="p">:</span>
+   <span class="k">import</span> <span class="nn">cPickle</span> <span class="k">as</span> <span class="nn">pickle</span>
+<span class="k">except</span><span class="p">:</span>
+   <span class="k">import</span> <span class="nn">pickle</span>
+<span class="k">import</span> <span class="nn">pprint</span>
+<span class="k">from</span> <span class="nn">StringIO</span> <span class="k">import</span> <span class="n">StringIO</span>
+
+<span class="k">class</span> <span class="nc">SimpleObject</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+   <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+      <span class="n">l</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+      <span class="n">l</span><span class="o">.</span><span class="n">reverse</span><span class="p">()</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">name_backwards</span> <span class="o">=</span> <span class="s">&#39;&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+      <span class="k">return</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SimpleObject</span><span class="p">(</span><span class="s">&#39;pickle&#39;</span><span class="p">))</span>
+<span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SimpleObject</span><span class="p">(</span><span class="s">&#39;cPickle&#39;</span><span class="p">))</span>
+<span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">SimpleObject</span><span class="p">(</span><span class="s">&#39;last&#39;</span><span class="p">))</span>
+
+<span class="c"># 使用StringIO来模拟一个文件</span>
+<span class="n">out_s</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
+
+<span class="c"># 写入到流中</span>
+<span class="k">for</span> <span class="n">o</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+   <span class="k">print</span> <span class="s">&#39;WRITING: </span><span class="si">%s</span><span class="s"> (</span><span class="si">%s</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">name_backwards</span><span class="p">)</span>
+   <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">o</span><span class="p">,</span> <span class="n">out_s</span><span class="p">)</span>
+   <span class="n">out_s</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+
+<span class="c"># 设置可读流</span>
+<span class="n">in_s</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">(</span><span class="n">out_s</span><span class="o">.</span><span class="n">getvalue</span><span class="p">())</span>
+
+<span class="c"># 读取数据</span>
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+   <span class="k">try</span><span class="p">:</span>
+      <span class="n">o</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">in_s</span><span class="p">)</span>
+   <span class="k">except</span> <span class="ne">EOFError</span><span class="p">:</span>
+      <span class="k">break</span>
+   <span class="k">else</span><span class="p">:</span>
+      <span class="k">print</span> <span class="s">&#39;READ: </span><span class="si">%s</span><span class="s"> (</span><span class="si">%s</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">name_backwards</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>这个例子使用StringIO缓冲区来模拟流，因此我们在建立可读流时得玩点小花样。一个简单数据库格式也可以使用pickle来存储对象，虽然使用shelve模块可能会更简单。</p>
+<div class="highlight-python"><pre>$ python pickle_stream.py
+WRITING: pickle (elkcip)
+WRITING: cPickle (elkciPc)
+WRITING: last (tsal)
+READ: pickle (elkcip)
+READ: cPickle (elkciPc)
+READ: last (tsal)</pre>
+</div>
+<p>除了用于存储数据，pickle在用于内部进程通信时是非常灵活的。比如，使用os.fork()和os.pipe()，可以建立一些工作进程，它们从一个管道中读取任务说明并把结果输出到另一个管道。操作这些工作池、发送任务和接受反应的核心代码可以重复利用，因为任务和反应对象不是一个特殊的类。如果你使用管道或者sockets，就不要忘记在dump每个对象后刷新它们并通过其间的连接将数据推送到另外一个进程。</p>
+<p>在处理自定义类时，你应该保证这些被pickled的类会在进程名空间出现 。只有数据实例才能被pickle，而不能是定义的类。在unpickle时，类的名字被用于寻找构造器以便创建新对象。接下来这个例子，是将一个类实例写入到文件中：</p>
+<div class="highlight-python"><pre>try:
+   import cPickle as pickle
+except:
+   import pickle
+   import sys
+
+class SimpleObject(object):
+
+   def __init__(self, name):
+      self.name = name
+      l = list(name)
+      l.reverse()
+      self.name_backwards = ''.join(l)
+      return
+
+if __name__ == '__main__':
+   data = []
+   data.append(SimpleObject('pickle'))
+   data.append(SimpleObject('cPickle'))
+   data.append(SimpleObject('last'))
+   try:
+      filename = sys.argv[1]
+      except IndexError:
+      raise RuntimeError('Please specify a filename as an argument to %s' % sys.argv[0])
+   out_s = open(filename, 'wb')
+   try:
+      # 写入到流中
+      for o in data:
+         print 'WRITING: %s (%s)' % (o.name, o.name_backwards)
+         pickle.dump(o, out_s)
+   finally:
+      out_s.close()</pre>
+</div>
+<p>当我运行这个脚本时，它会创建名为我在命令行中输入的参数的文件：</p>
+<div class="highlight-python"><pre>$ python pickle_dump_to_file_1.py test.dat
+WRITING: pickle (elkcip)
+WRITING: cPickle (elkciPc)
+WRITING: last (tsal)</pre>
+</div>
+<p>一个简单的尝试将刚才的pickle结果对象装载进来可以是如下的样子：</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">try</span><span class="p">:</span>
+   <span class="k">import</span> <span class="nn">cPickle</span> <span class="k">as</span> <span class="nn">pickle</span>
+<span class="k">except</span><span class="p">:</span>
+   <span class="k">import</span> <span class="nn">pickle</span>
+<span class="k">import</span> <span class="nn">pprint</span>
+<span class="k">from</span> <span class="nn">StringIO</span> <span class="k">import</span> <span class="n">StringIO</span>
+<span class="k">import</span> <span class="nn">sys</span>
+
+<span class="k">try</span><span class="p">:</span>
+   <span class="n">filename</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mf">1</span><span class="p">]</span>
+<span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+   <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s">&#39;Please specify a filename as an argument to </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mf">0</span><span class="p">])</span>
+
+<span class="n">in_s</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+   <span class="c"># 读取数据</span>
+   <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+      <span class="k">try</span><span class="p">:</span>
+         <span class="n">o</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">in_s</span><span class="p">)</span>
+      <span class="k">except</span> <span class="ne">EOFError</span><span class="p">:</span>
+         <span class="k">break</span>
+      <span class="k">else</span><span class="p">:</span>
+         <span class="k">print</span> <span class="s">&#39;READ: </span><span class="si">%s</span><span class="s"> (</span><span class="si">%s</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">o</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="n">o</span><span class="o">.</span><span class="n">name_backwards</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+   <span class="n">in_s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>这个版本失败了，因为这里没有可用的SimpleObject类</p>
+<div class="highlight-python"><pre>$ python pickle_load_from_file_1.py test.dat
+Traceback (most recent call last):
+File "pickle_load_from_file_1.py", line 52, in
+   o = pickle.load(in_s)
+AttributeError: 'module' object has no attribute 'SimpleObject'</pre>
+</div>
+<p>一个正确版本，它从pickle_dump_to_file_1导入了SimpleObject类，可以成功运行。
+增加：</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">from</span> <span class="nn">pickle_dump_to_file_1</span> <span class="k">import</span> <span class="n">SimpleObject</span>
+</pre></div>
+</div>
+<p>到导入列表的最后，然后运行这个脚本：</p>
+<div class="highlight-python"><pre>$ python pickle_load_from_file_2.py test.dat
+READ: pickle (elkcip)
+READ: cPickle (elkciPc)
+READ: last (tsal)</pre>
+</div>
+<p>在pickle那些不能被pickle的数据(如sockets、文件句柄、数据库连接等等)时，需要考虑一些特殊之处。那些不能被pickle的类可以定义 __getstate__() 和 __setstate__() 来返回实例在被pickle时的状态。新风格的类也可以定义__getnewargs__()，它返回传递给类内存分配者 (C.__new__())的参数。关于这些特征的更详细的使用描述可以在标准库文档中找到。</p>
+</div>
+<div class="section" id="id3">
+<h2>参考<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference" href="http://peadrop.com/blog/2007/06/18/pickle-an-interesting-stack-language/">Pickle: An interesting stack language by Alexandre Vassalotti</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">目录</a></h3>
+            <ul>
+<li><a class="reference" href="">PyMOTW: pickle &amp; cPickle</a><ul>
+<li><a class="reference" href="#id1">描述</a></li>
+<li><a class="reference" href="#id2">例子</a></li>
+<li><a class="reference" href="#id3">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>前一个主题</h4>
+            <p class="topless"><a href="os4.html" title="前一章节">PyMOTW: os(4)</a></p>
+            <h4>后一个主题</h4>
+            <p class="topless"><a href="glob.html" title="后一章节">PyMOTW: glob</a></p>
+            <h3>当前主题</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/pickle.txt">显示页面源码</a></li>
+            </ul>
+          <h3>快速搜索</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="提交" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="glob.html" title="PyMOTW: glob"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="os4.html" title="PyMOTW: os(4)"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2008, vbarter &amp; liz.
+      使用 <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1创建.
+    </div>
+  </body>
+</html>

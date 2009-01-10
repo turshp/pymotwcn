@@ -1,0 +1,415 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: urllib &mdash; PyMOTW v1.0 文档</title>
+    <link rel="stylesheet" href="../_static/default.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.0',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="关于这些文档" href="../about.html" />
+    <link rel="index" title="索引" href="../genindex.html" />
+    <link rel="search" title="搜索" href="../search.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="up" title="所有文档" href="index.html" />
+    <link rel="next" title="PyMOTW: fnmatch" href="fnmatch.html" />
+    <link rel="prev" title="PyMOTW: datetime" href="datetime.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="fnmatch.html" title="PyMOTW: fnmatch"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="datetime.html" title="PyMOTW: datetime"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>  
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  
+  <div class="section" id="pymotw-urllib">
+<h1>PyMOTW: urllib<a class="headerlink" href="#pymotw-urllib" title="Permalink to this headline">¶</a></h1>
+<p>urllib模块提供了一个访问网络资源的简单接口。</p>
+<ul class="simple">
+<li>模块：urllib</li>
+<li>目的：访问不需要认证的远程资源</li>
+<li>python版本：1.4+</li>
+</ul>
+<p>虽然urllib可以与gopher和ftp协议一起使用, 但下面的例子都是用了http协议。</p>
+<div class="section" id="http-get">
+<h2>HTTP GET:<a class="headerlink" href="#http-get" title="Permalink to this headline">¶</a></h2>
+<p>这些例子的测试服务器是在BaseHTTPServer_GET.py中, 这个脚本在PyMOTW例子的BaseHTTPServer模块中.在一个终端窗口中启动服务器, 然后在另一个窗口中运行以下这些例子.</p>
+<p>HTTP GET 是urllib最简单的操作。简单把URL传递给urlopen()来获取一个用于操作远程数据的类文件句柄。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">urllib</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="s">&#39;http://localhost:8080/&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;RESPONSE:&#39;</span><span class="p">,</span> <span class="n">response</span>
+<span class="k">print</span> <span class="s">&#39;URL :&#39;</span><span class="p">,</span> <span class="n">response</span><span class="o">.</span><span class="n">geturl</span><span class="p">()</span>
+
+<span class="n">headers</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&#39;DATE :&#39;</span><span class="p">,</span> <span class="n">headers</span><span class="p">[</span><span class="s">&#39;date&#39;</span><span class="p">]</span>
+<span class="k">print</span> <span class="s">&#39;HEADERS :&#39;</span>
+<span class="k">print</span> <span class="s">&#39;---------&#39;</span>
+<span class="k">print</span> <span class="n">headers</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&#39;LENGTH :&#39;</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;DATA :&#39;</span>
+<span class="k">print</span> <span class="s">&#39;---------&#39;</span>
+<span class="k">print</span> <span class="n">data</span>
+</pre></div>
+</div>
+<p>该示例服务器取得传入的值，并且返回格式化的纯文本response。从urlopen()返回的值通过info()方法给出HTTP服务器的headers的入口，并且通过read()和readlines()等方法获得远程资源的数据。</p>
+<div class="highlight-python"><pre>$ python urllib_urlopen.py
+RESPONSE: &lt;addinfourl at 10180248 whose fp = &lt;socket._fileobject object at 0x935c30&gt;&gt;
+URL : http://localhost:8080/
+DATE : Sun, 30 Mar 2008 16:27:10 GMT
+HEADERS :
+---------
+Server: BaseHTTP/0.3 Python/2.5.1
+Date: Sun, 30 Mar 2008 16:27:10 GMT
+
+LENGTH : 221
+DATA :
+---------
+CLIENT VALUES:
+client_address=('127.0.0.1', 54354) (localhost)
+command=GET
+path=/
+real path=/
+query=
+request_version=HTTP/1.0
+
+SERVER VALUES:
+server_version=BaseHTTP/0.3
+sys_version=Python/2.5.1
+protocol_version=HTTP/1.0</pre>
+</div>
+<p>类文件对象也是可以迭代的:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">urllib</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="s">&#39;http://localhost:8080/&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">response</span><span class="p">:</span>
+    <span class="k">print</span> <span class="n">line</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>因为返回的每一行都有换行符和完整的框架回车符 -艳 盛 11/21/08 1:31 PM ，所以在输出之前先去掉他们。</p>
+<div class="highlight-python"><pre>$ python urllib_urlopen_iterator.py
+CLIENT VALUES:
+client_address=('127.0.0.1', 54380) (localhost)
+command=GET
+path=/
+real path=/
+query=
+request_version=HTTP/1.0
+
+SERVER VALUES:
+server_version=BaseHTTP/0.3
+sys_version=Python/2.5.1
+protocol_version=HTTP/1.0</pre>
+</div>
+</div>
+<div class="section" id="id1">
+<h2>编码参数：<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>将参数编码并且追加在URL之后，传给服务器。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">urllib</span>
+<span class="n">query_args</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;q&#39;</span><span class="p">:</span><span class="s">&#39;query string&#39;</span><span class="p">,</span> <span class="s">&#39;foo&#39;</span><span class="p">:</span><span class="s">&#39;bar&#39;</span> <span class="p">}</span>
+<span class="n">encoded_args</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">query_args</span><span class="p">)</span> <span class="c">##这个编码, 是将其转换为a=aa&amp;b=bb的形式</span>
+<span class="k">print</span> <span class="s">&#39;Encoded:&#39;</span><span class="p">,</span> <span class="n">encoded_args</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s">&#39;http://localhost:8080/?&#39;</span> <span class="o">+</span> <span class="n">encoded_args</span>
+<span class="k">print</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>注意query，在客户端的值的列表中包含了已编码的参数query。</p>
+<div class="highlight-python"><pre>$ python urllib_urlencode.py
+Encoded: q=query+string&amp;foo=bar
+CLIENT VALUES:
+client_address=('127.0.0.1', 54415) (localhost)
+command=GET
+path=/?q=query+string&amp;foo=bar
+real path=/
+query=q=query+string&amp;foo=bar
+request_version=HTTP/1.0
+
+SERVER VALUES:
+server_version=BaseHTTP/0.3
+sys_version=Python/2.5.1
+protocol_version=HTTP/1.0</pre>
+</div>
+<p>在查询字符串中使用单独的变量来传递值序列时, 需传递doseq=True给urlencode()。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">urllib</span>
+<span class="n">query_args</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;foo&#39;</span><span class="p">:[</span><span class="s">&#39;foo1&#39;</span><span class="p">,</span> <span class="s">&#39;foo2&#39;</span><span class="p">]</span> <span class="p">}</span>
+<span class="k">print</span> <span class="s">&#39;Single :&#39;</span><span class="p">,</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">query_args</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;Sequence:&#39;</span><span class="p">,</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">query_args</span><span class="p">,</span> <span class="n">doseq</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python urllib_urlencode_doseq.py
+Single : foo=%5B%27foo1%27%2C+%27foo2%27%5D
+Sequence: foo=foo1&amp;foo=foo2</pre>
+</div>
+<p>为了解码查询字符串，可查看cgi模块中的FieldStorage类。</p>
+<p>在查询参数里的一些特别字符，在传递给urlencode()后，在服务器端可能和URL一起引起解析错误。可以直接使用quote()或者quote_plus()函数在本地引用他们以生成安全的字符串。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">urllib</span>
+
+<span class="n">url</span> <span class="o">=</span> <span class="s">&#39;http://localhost:8080/~dhellmann/&#39;</span>
+<span class="k">print</span> <span class="s">&#39;urlencode() :&#39;</span><span class="p">,</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlencode</span><span class="p">({</span><span class="s">&#39;url&#39;</span><span class="p">:</span><span class="n">url</span><span class="p">})</span>
+<span class="k">print</span> <span class="s">&#39;quote() :&#39;</span><span class="p">,</span> <span class="n">urllib</span><span class="o">.</span><span class="n">quote</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;quote_plus():&#39;</span><span class="p">,</span> <span class="n">urllib</span><span class="o">.</span><span class="n">quote_plus</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">quote_plus()能够替换更多的特殊字符。</p>
+</div>
+<div class="highlight-python"><pre>$ python urllib_quote.py
+urlencode() : url=http%3A%2F%2Flocalhost%3A8080%2F%7Edhellmann%2F
+quote() : http%3A//localhost%3A8080/%7Edhellmann/
+quote_plus(): http%3A%2F%2Flocalhost%3A8080%2F%7Edhellmann%2F</pre>
+</div>
+<p>视情况而定，用unquote()或者unquote_plus()来还原quote操作。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">urllib</span>
+
+<span class="k">print</span> <span class="n">urllib</span><span class="o">.</span><span class="n">unquote</span><span class="p">(</span><span class="s">&#39;http%3A//localhost%3A8080/</span><span class="si">%7E</span><span class="s">dhellmann/&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">urllib</span><span class="o">.</span><span class="n">unquote_plus</span><span class="p">(</span><span class="s">&#39;http%3A</span><span class="si">%2F%2F</span><span class="s">localhost%3A8080</span><span class="si">%2F%7E</span><span class="s">dhellmann</span><span class="si">%2F</span><span class="s">&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python urllib_unquote.py
+http://localhost:8080/~dhellmann/
+http://localhost:8080/~dhellmann/</pre>
+</div>
+</div>
+<div class="section" id="http-post">
+<h2>HTTP POST:<a class="headerlink" href="#http-post" title="Permalink to this headline">¶</a></h2>
+<p>这些例子的测试服务器是在BaseHTTPServer_POST.py中, 这个脚本在PyMOTW例子的BaseHTTPServer模块中.在一个终端窗口中启动服务器, 然后在另一个窗口中运行以下这些例子.</p>
+<p>通过POST代替GET方式传递数据给远程服务器，仅仅是把已编码的查询参数当作数据传递给urlopen().</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">urllib</span>
+<span class="n">query_args</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;q&#39;</span><span class="p">:</span><span class="s">&#39;query string&#39;</span><span class="p">,</span> <span class="s">&#39;foo&#39;</span><span class="p">:</span><span class="s">&#39;bar&#39;</span> <span class="p">}</span>
+<span class="n">encoded_args</span> <span class="o">=</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlencode</span><span class="p">(</span><span class="n">query_args</span><span class="p">)</span>
+<span class="n">url</span> <span class="o">=</span> <span class="s">&#39;http://localhost:8080/&#39;</span>
+<span class="k">print</span> <span class="n">urllib</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">encoded_args</span><span class="p">)</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python urllib_urlopen_post.py
+Client: ('127.0.0.1', 54545)
+Path: /
+Form data:
+     q=query string
+     foo=bar</pre>
+</div>
+<p>如果服务器需要的不是已编码url形式的参数，你可以传递任一字节字符串作为发送的数据。</p>
+</div>
+<div class="section" id="paths-vs-urls">
+<h2>Paths vs. URLs:<a class="headerlink" href="#paths-vs-urls" title="Permalink to this headline">¶</a></h2>
+<p>一些操作系统使用不同的方法分离本地文件路径和URL。为了使代码简捷，你应该反复地使用函数pathname2url() 和 url2pathname()。因为我在Mac上工作，我必须明确引入Windows上的函数版本。使用由urllib导出的函数版本可以让你默认在正确平台下，因此就不用自己做了。</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">os</span>
+
+<span class="k">from</span> <span class="nn">urllib</span> <span class="k">import</span> <span class="n">pathname2url</span><span class="p">,</span> <span class="n">url2pathname</span>
+
+<span class="k">print</span> <span class="s">&#39;== Default ==&#39;</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s">&#39;/a/b/c&#39;</span>
+<span class="k">print</span> <span class="s">&#39;Original:&#39;</span><span class="p">,</span> <span class="n">path</span>
+<span class="k">print</span> <span class="s">&#39;URL :&#39;</span><span class="p">,</span> <span class="n">pathname2url</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;Path :&#39;</span><span class="p">,</span> <span class="n">url2pathname</span><span class="p">(</span><span class="s">&#39;/d/e/f&#39;</span><span class="p">)</span>
+<span class="k">print</span>
+
+<span class="k">from</span> <span class="nn">nturl2path</span> <span class="k">import</span> <span class="n">pathname2url</span><span class="p">,</span> <span class="n">url2pathname</span>
+
+<span class="k">print</span> <span class="s">&#39;== Windows, without drive letter ==&#39;</span>
+<span class="n">path</span> <span class="o">=</span> <span class="n">path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">,</span> <span class="s">&#39;</span><span class="se">\\</span><span class="s">&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;Original:&#39;</span><span class="p">,</span> <span class="n">path</span>
+<span class="k">print</span> <span class="s">&#39;URL :&#39;</span><span class="p">,</span> <span class="n">pathname2url</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;Path :&#39;</span><span class="p">,</span> <span class="n">url2pathname</span><span class="p">(</span><span class="s">&#39;/d/e/f&#39;</span><span class="p">)</span>
+<span class="k">print</span>
+
+<span class="k">print</span> <span class="s">&#39;== Windows, with drive letter ==&#39;</span>
+<span class="n">path</span> <span class="o">=</span> <span class="s">&#39;C:</span><span class="se">\\</span><span class="s">&#39;</span> <span class="o">+</span> <span class="n">path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s">&#39;/&#39;</span><span class="p">,</span> <span class="s">&#39;</span><span class="se">\\</span><span class="s">&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;Original:&#39;</span><span class="p">,</span> <span class="n">path</span>
+<span class="k">print</span> <span class="s">&#39;URL :&#39;</span><span class="p">,</span> <span class="n">pathname2url</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;Path :&#39;</span><span class="p">,</span> <span class="n">url2pathname</span><span class="p">(</span><span class="s">&#39;/d/e/f&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>有两个Windows例子，分别是路径的前缀中有和没有驱动器名。</p>
+<div class="highlight-python"><pre>$ python urllib_pathnames.py
+== Default ==
+Original: /a/b/c
+URL : /a/b/c
+Path : /d/e/f
+
+== Windows, without drive letter ==
+Original: \a\b\c
+URL : /a/b/c
+Path : \d\e\f
+
+== Windows, with drive letter ==
+Original: C:\\a\b\c
+URL : ///C|/a/b/c
+Path : \d\e\f</pre>
+</div>
+</div>
+<div class="section" id="cache">
+<h2>带Cache简单检索：<a class="headerlink" href="#cache" title="Permalink to this headline">¶</a></h2>
+<p>检索数据是常见的操作，urllib包括urlretrieve()函数，因此你不用自己写它。urlretrieve()带有URL中的参数, 一个用于存储数据的临时文件, 一个用于报告下载进度的函数, 和URL中要POST数据。如果没有给定文件名，urlretrieve()就建立一个临时文件。你自己能删除它，或者把它看作一个cache，可以用urlcleanup()移除它。</p>
+<p>这个例子使用GET从web服务器中检索数据。</p>
+<div class="highlight-python"><pre>import urllib
+import os
+
+def reporthook(blocks_read, block_size, total_size):
+    if not blocks_read:
+        print 'Connection opened'
+        return
+    if total_size &lt; 0:
+        # Unknown size 未知大小
+        print 'Read %d blocks' % blocks_read
+    else:
+        amount_read = blocks_read * block_size
+        print 'Read %d blocks, or %d/%d' % (blocks_read, amount_read, total_size)
+        return
+
+
+ try:
+     filename, msg = urllib.urlretrieve('http://blog.doughellmann.com/', reporthook=reporthook)
+     print
+     print 'File:', filename
+     print 'Headers:'
+     print msg
+     print 'File exists before cleanup:', os.path.exists(filename)
+ finally:
+     urllib.urlcleanup()
+     print 'File still exists:', os.path.exists(filename)</pre>
+</div>
+<p>由于服务器没有返回header中的Content-length，urlretrieve()不知道数据应该有多大，所以将-1传给reporthook()中的参数total_size。</p>
+<div class="highlight-python"><pre>$ python urllib_urlretrieve.py
+Connection opened
+Read 1 blocks
+Read 2 blocks
+Read 3 blocks
+Read 4 blocks
+Read 5 blocks
+Read 6 blocks
+Read 7 blocks
+Read 8 blocks
+Read 9 blocks
+Read 10 blocks
+Read 11 blocks
+Read 12 blocks
+Read 13 blocks
+Read 14 blocks
+Read 15 blocks
+Read 16 blocks
+Read 17 blocks
+Read 18 blocks
+Read 19 blocks
+
+File: /var/folders/9R/9R1t+tR02Raxzk+F71Q50U+++Uw/-Tmp-/tmp3HRpZP
+Headers:
+Content-Type: text/html; charset=UTF-8
+Last-Modified: Tue, 25 Mar 2008 23:09:10 GMT
+Cache-Control: max-age=0 private
+ETag: "904b02e0-c7ff-47f6-9f35-cc6de5d2a2e5"
+Server: GFE/1.3
+Date: Sun, 30 Mar 2008 17:36:48 GMT
+Connection: Close
+
+File exists before cleanup: True
+File still exists: False</pre>
+</div>
+</div>
+<div class="section" id="urlopener">
+<h2>URLopener:<a class="headerlink" href="#urlopener" title="Permalink to this headline">¶</a></h2>
+<p>urllib提供了一个URLopener基类，并且默认使用FancyURLopener处理支持的协议。如果你想要改变其行为，你可能需要查看Python2.1中新加的urllib2模块（PyMOTW将会阐述）。</p>
+</div>
+<div class="section" id="id2">
+<h2>参考<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference" href="http://www.faqs.org/rfcs/rfc2616.html">RFC 2616 - HTTP Specification</a></li>
+<li><a class="reference" href="http://docs.python.org/lib/module-cgi.html">cgi - For decoding query arguments</a></li>
+<li><a class="reference" href="http://blog.doughellmann.com/2007/12/pymotw-basehttpserver.html">PyMOTW: BaseHTTPServer</a></li>
+<li><a class="reference" href="http://docs.python.org/lib/module-urllib2.html">urllib2 - For more complex URL access needs</a></li>
+<li><a class="reference" href="http://www.doughellmann.com/projects/PyMOTW/">Python Module of the Week Home</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">目录</a></h3>
+            <ul>
+<li><a class="reference" href="">PyMOTW: urllib</a><ul>
+<li><a class="reference" href="#http-get">HTTP GET:</a></li>
+<li><a class="reference" href="#id1">编码参数：</a></li>
+<li><a class="reference" href="#http-post">HTTP POST:</a></li>
+<li><a class="reference" href="#paths-vs-urls">Paths vs. URLs:</a></li>
+<li><a class="reference" href="#cache">带Cache简单检索：</a></li>
+<li><a class="reference" href="#urlopener">URLopener:</a></li>
+<li><a class="reference" href="#id2">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>前一个主题</h4>
+            <p class="topless"><a href="datetime.html" title="前一章节">PyMOTW: datetime</a></p>
+            <h4>后一个主题</h4>
+            <p class="topless"><a href="fnmatch.html" title="后一章节">PyMOTW: fnmatch</a></p>
+            <h3>当前主题</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/urllib.txt">显示页面源码</a></li>
+            </ul>
+          <h3>快速搜索</h3>
+            <form class="search" action="../search.html" method="get">
+              <input type="text" name="q" size="18" /> <input type="submit" value="提交" />
+              <input type="hidden" name="check_keywords" value="yes" />
+              <input type="hidden" name="area" value="default" />
+            </form>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>导航</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="一般索引"
+             accesskey="I">索引</a></li>
+        <li class="right" >
+          <a href="fnmatch.html" title="PyMOTW: fnmatch"
+             accesskey="N">后一篇</a> |</li>
+        <li class="right" >
+          <a href="datetime.html" title="PyMOTW: datetime"
+             accesskey="P">前一篇</a> |</li>
+        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li>
+          <li><a href="index.html" accesskey="U">所有文档</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2008, vbarter &amp; liz.
+      使用 <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.5.1创建.
+    </div>
+  </body>
+</html>
