@@ -14,7 +14,7 @@
     * Other Contributors
     * Copyright and Licensing
   * Builtin Objects
-    * *exceptions*
+    * _exceptions_ wwwjfy
   * String Services
     * *difflib* 
     * _string_ 
