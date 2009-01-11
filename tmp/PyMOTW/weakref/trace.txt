@@ -1,0 +1,28 @@
+WITH PROXY
+
+Set up graph:
+one.set_next(two (<class '__main__.WeakGraph'>))
+two.set_next(three (<class '__main__.WeakGraph'>))
+three.set_next(one->two->three (<type 'weakproxy'>))
+
+Graphs:
+one->two->three
+two->three->one->two
+three->one->two->three
+Unreachable: 0
+Garbage:[]
+
+After 2 references removed:
+one->two->three
+Unreachable: 0
+Garbage:[]
+
+Removing last reference:
+(Deleting one)
+one.set_next(None (<type 'NoneType'>))
+(Deleting two)
+two.set_next(None (<type 'NoneType'>))
+(Deleting three)
+three.set_next(None (<type 'NoneType'>))
+Unreachable: 0
+Garbage:[]

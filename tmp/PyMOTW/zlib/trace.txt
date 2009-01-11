@@ -1,0 +1,60 @@
+client: Server on 127.0.0.1:65188
+client: creating socket
+client: connecting to server
+client: sending filename: "lorem.txt"
+server: client asked for: "lorem.txt"
+server: compressing: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec
+egestas, enim et consectetuer ullamcorper, lectus ligula rutrum leo, a
+elementum elit tortor eu quam. Duis tincidunt nisi ut ante. Nulla
+facilisi. Sed tristique eros eu libero. Pellentesque vel arcu. Vivamus
+purus orci, iaculis ac, suscipit sit amet, pulvinar eu,
+lacus. Praesent placerat tortor sed nisl. Nunc blandit diam egestas
+dui. Pellentesque habitant morbi tristique senectus et netus et
+malesuada fames ac turpis egestas. Aliquam viverra fringilla
+leo. Nulla feugiat augue eleifend nulla. Vivamus mauris. Vivamus sed
+mauris in nibh placerat egestas. Suspendisse potenti. Mauris massa. Ut
+eget velit auctor tortor blandit sollicitudin. Suspendisse imperdiet
+justo.
+"
+server: sending: "789c"
+server: flushing: "5d92416edc300c45f73ec53f80e13b14e8b22d0a04ed9e2373262c28c911499fbf142699690a782153d2e7ff8ffad60757c86151b177ed03260eaaec2b4a6fc6c5d98307689743ac48bb81557cc3d7deb82c7c6373b215dca482fdf3a550a55afa3878acd02c8741e5164a18e1237b2af715b4b072e5e65998e2f03ef20307de826af60a31b8b4227b3447131344da6cce1b7ecc2ecb958a68d637bcf00e1f622e6fc1e0d16d0aa95c72b9e127ab6627b6b979b28246890dbfe5a41ab61c31d2631f45560895484950596191d98fb4f6c473849ed268da5c17cdb396ea83d8521e471678d0238aa5a9b4add36e2bb828b53d9576a18c7c67b8ec21fff97ba58b78a644ede322ffa4ca1e779a49bcf17db15452b6a09d704d87d3373c464eeda3c3862f2a93284e39798c3c3872a032f9e520de51e2ca7193b44e719b0095e5ca2dedcfcd0729548ab4f3fccf84cbbd066999f5f2fa84f0e8ff1276a49698318eee1934237fbfdfaa6496fabf7c3e2a9fb399a8a34c7cef143fb0595795221ebbb4cfa252f3aded9234fe8479df96bf6f370ea5"
+client: compressed response from server: "789c5d92416edc300c45f73ec53f80e13b14e8b22d0a04ed9e2373262c28c911499fbf142699690a782153d2e7ff8ffad60757c86151b177ed03260eaaec2b4a6fc6c5d98307689743ac48bb81557cc3d7deb82c7c6373b215dca482fdf3a550a55afa38"
+client: decompressed: "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec
+egestas, enim et consectetuer ullamcor"
+client: compressed response from server: "78acd02c8741e5164a18e1237b2af715b4b072e5e65998e2f03ef20307de826af60a31b8b4227b3447131344da6cce1b7ecc2ecb958a68d637bcf00e1f622e6fc1e0d16d0aa95c72b9e127ab6627b6b979b28246890dbfe5a41ab61c31d2631f45560895"
+client: decompressed: "per, lectus ligula rutrum leo, a
+elementum elit tortor eu quam. Duis tincidunt nisi ut ante. Nulla
+facilisi. Sed tristique eros eu libero. Pellentesque vel arcu. Vivamus
+purus orci, iac"
+client: compressed response from server: "484950596191d98fb4f6c473849ed268da5c17cdb396ea83d8521e471678d0238aa5a9b4add36e2bb828b53d9576a18c7c67b8ec21fff97ba58b78a644ede322ffa4ca1e779a49bcf17db15452b6a09d704d87d3373c464eeda3c3862f2a93284e39798c"
+client: decompressed: "ulis ac, suscipit sit amet, pulvinar eu,
+lacus. Praesent placerat tortor sed nisl. Nunc blandit diam egestas
+dui. Pellentesque habitant morbi tristique senectus et netus et
+malesuada fames ac turpis egestas. Aliquam viverr"
+client: compressed response from server: "3c3872a032f9e520de51e2ca7193b44e719b0095e5ca2dedcfcd0729548ab4f3fccf84cbbd066999f5f2fa84f0e8ff1276a49698318eee1934237fbfdfaa6496fabf7c3e2a9fb399a8a34c7cef143fb0595795221ebbb4cfa252f3aded9234fe8479df96"
+client: decompressed: "a fringilla
+leo. Nulla feugiat augue eleifend nulla. Vivamus mauris. Vivamus sed
+mauris in nibh placerat egestas. Suspendisse potenti. Mauris massa. Ut
+eget velit auctor tortor blandit sollicitudin. Suspendisse imperdiet
+justo.
+"
+client: compressed response from server: "bf6f370ea5"
+client: BUFFERING
+client: null response
+client: no remainder, OK
+client: Full response: Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec
+egestas, enim et consectetuer ullamcorper, lectus ligula rutrum leo, a
+elementum elit tortor eu quam. Duis tincidunt nisi ut ante. Nulla
+facilisi. Sed tristique eros eu libero. Pellentesque vel arcu. Vivamus
+purus orci, iaculis ac, suscipit sit amet, pulvinar eu,
+lacus. Praesent placerat tortor sed nisl. Nunc blandit diam egestas
+dui. Pellentesque habitant morbi tristique senectus et netus et
+malesuada fames ac turpis egestas. Aliquam viverra fringilla
+leo. Nulla feugiat augue eleifend nulla. Vivamus mauris. Vivamus sed
+mauris in nibh placerat egestas. Suspendisse potenti. Mauris massa. Ut
+eget velit auctor tortor blandit sollicitudin. Suspendisse imperdiet
+justo.
+
+client: received full file: True
+client: closing socket
+client: done

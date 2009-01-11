@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+{% set page_links = [
+  (pathto('@rss/' + sourcename), 'application/rss+xml', 'Page Comments'),
+] %}
+{% block body %}
+  {% if oldurl %}
+  <div class="docwarning">
+    {% trans %}<strong>注意:</strong> 您请求了该服务器上的一个过时的网址。我们尝试重定向到该页的新位置，但它可能不是正确的。{% endtrans %}
+  </div>
+  {% endif %}
+  {{ body }}
+{% endblock %}
