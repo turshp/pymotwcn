@@ -136,7 +136,7 @@
 || PyMOTW: BaseHTTPServer || 初译ing || liz || - ||
 || PyMOTW: unittest || 初译ing || liz || - ||
 || PyMOTW: zipfile || 初译ing || liz || - ||
-|| PyMOTW: timeit || 初译done || vbarter || - ||
+|| PyMOTW: timeit || 初译done || vbarter(20090111) || - ||
 || PyMOTW: tempfile || 初译ing || vbarter || - ||
 || PyMOTW: pprint || 初译done || vbarter || - ||
 || PyMOTW: itertools || 初译ing || sunlianglei || - ||
