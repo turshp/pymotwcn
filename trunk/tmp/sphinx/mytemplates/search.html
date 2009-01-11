@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% set title = _('搜索') %}
+{% set script_files = script_files + ['_static/searchtools.js'] %}
+{% block body %}
+  <h1 id="search-documentation">{{ _('搜索') }}</h1>
+  <p>
+    {% trans %}从这里, 你可以搜索所有文档, 只要在下面的输入框中输入关键字, 然后点击"搜索"就可. 注意: 搜索会自动匹配所有您输入的词. 包含少数词的结果页面可能不会在结果列表中出现.{% endtrans %}
+  </p>
+  <form action="" method="get">
+    <input type="text" name="q" value="" />
+    <input type="submit" value="{{ _('搜索') }}" />
+    <span id="search-progress" style="padding-left: 10px"></span>
+  </form>
+  {% if search_performed %}
+    <h2>{{ _('搜索结果') }}</h2>
+    {% if not search_results %}
+      <p>{{ _('你的搜索关键词不匹配任何文档！') }}</p>
+    {% endif %}
+  {% endif %}
+  <div id="search-results">
+  {% if search_results %}
+    <ul>
+    {% for href, caption, context in search_results %}
+      <li><a href="{{ pathto(item.href) }}">{{ caption }}</a>
+        <div class="context">{{ context|e }}</div>
+      </li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  </div>
+{% endblock %}
+{% block footer %}
+  {{ super() }}
+  <script type="text/javascript" src="searchindex.js"></script>
+{% endblock %}

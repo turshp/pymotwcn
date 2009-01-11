@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+{% set title = _('概况') %}
+{% block body %}
+  <h1>{{ docstitle|e }}</h1>
+  <p>
+    欢迎！这是 
+    {% block description %}关于 {{ project|e }}
+    {{ release|e }}{% if last_updated %}, 最近更新在 {{ last_updated|e }}{% endif %}的文档{% endblock %}.
+  </p>
+  {% block tables %}
+  <p><strong>{{ _('索引表:') }}</strong></p>
+  <table class="contentstable" align="center"><tr>
+    <td width="50%">
+      <p class="biglink"><a class="biglink" href="{{ pathto("contents") }}">{{ _('完整的索引表') }}</a><br>
+         <span class="linkdescr">{{ _('列出所有章节及其子章节') }}</span></p>
+      <p class="biglink"><a class="biglink" href="{{ pathto("search") }}">{{ _('搜索页面') }}</a><br>
+         <span class="linkdescr">{{ _('搜索本文档') }}</span></p>
+    </td><td width="50%">
+      <p class="biglink"><a class="biglink" href="{{ pathto("modindex") }}">{{ _('全局模块索引') }}</a><br>
+         <span class="linkdescr">{{ _('所有模块的快速入口') }}</span></p>
+      <p class="biglink"><a class="biglink" href="{{ pathto("genindex") }}">{{ _('一般索引') }}</a><br>
+         <span class="linkdescr">{{ _('所有函数，类，术语') }}</span></p>
+    </td></tr>
+  </table>
+  {% endblock %}
+{% endblock %}

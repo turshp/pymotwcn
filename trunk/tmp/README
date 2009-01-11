@@ -1,0 +1,33 @@
+下载了PyMOTW-1.80英文版, 地址为http://www.doughellmann.com/downloads/PyMOTW-1.80.tar.gz
+
+解压后的目录为
+PyMOTW-1.80
+|--docs  ## 已生成好的html文档
+|--PyMOTW  ## 源文件, 纯rst文档, 可以直接使用这个文件夹
+|--PyMOTW.egg-info
+|--sphinx ## 包含sphix工程配置文件, 模板文件
+|--LICENSE.txt, MANIFEST.in, module
+|--pavement.py/paver-minilib.zip
+|--PKG-INFO, README.tex
+|--setup.cfg, setup.py ## python setup install 安装到系统中, 也可不用
+
+我的步骤:
+1) 拷贝源文档文件夹PyMOTW和sphinx到tmp目录下
+2) 将sphinx下的conf.py移至PyMOTW下, 这个里面相关设置可以修改, 我修改的是
+  * line21的版本version = os.environ['VERSION']为version = '1.0'
+  * line31的模板位置'../sphinx/templates/%s' % os.environ['TEMPLATES'],为'../sphinx/mytemplates/'
+  * 其中, Doug Hellmann自定义了一个index.html首页, 所以在line25中有
+  html_additional_pages = {
+    'index':'index.html',
+    } 所以在templates中也应包含index.html页面, 否则会提示出错.
+3) 将sphix下templates/web移至mytemplates/, 并将原先pymotwcn/sphinx-project/src/.templates/下的文件拷贝之mytemplates/, 提示覆盖相关文件. 使mytemplates下有defindex.html, genindex.html, genindex-single.html, genindex-split.html, index.html, layout.html, modindex.html, opensearch.xml, page.html, search.html这些文件,,,base.html不需要. 
+4) sphinx-build -b html PyMOTW/ html_doc 就可以生成html文档.如果修改PyMOTW下对应rst文档, 然后进行重新编译生成之后就可得到修改后的文档.
+
+PS: 生成文档时有5个warning, 分别是
+WARNING: /home/shengyan/MyDownloads/PyMOTW-1.80/tmp/PyMOTW/copyright.rst:4: duplicate label copyright, other instance in /home/shengyan/MyDownloads/PyMOTW-1.80/tmp/PyMOTW/about.rst
+pickling environment... done 
+checking consistency... WARNING: /home/shengyan/MyDownloads/PyMOTW-1.80/tmp/PyMOTW/copyright.rst:: document isn't included in any toctree
+WARNING: /home/shengyan/MyDownloads/PyMOTW-1.80/tmp/PyMOTW/pdf_contents.rst:: document isn't included in any toctree
+WARNING: /home/shengyan/MyDownloads/PyMOTW-1.80/tmp/PyMOTW/imaplib/index.rst:157: term not in glossary: status conditions  这两个term可以去掉.
+WARNING: /home/shengyan/MyDownloads/PyMOTW-1.80/tmp/PyMOTW/signal/index.rst:25: term not in glossary: signal handler
+
