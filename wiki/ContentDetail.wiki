@@ -14,7 +14,7 @@
     * Other Contributors
     * Copyright and Licensing
   * Builtin Objects
-    * _exceptions_ wwwjfy
+    * _exceptions_
   * String Services
     * *difflib* 
     * _string_ 
@@ -140,6 +140,7 @@
 || PyMOTW: tempfile || 初译ing || vbarter || - ||
 || PyMOTW: pprint || 初译done || vbarter || - ||
 || PyMOTW: itertools || 初译ing || sunlianglei || - ||
+|| PyMOTW: exceptions || 初译ing || wwwjfy || - ||
 || ... || ... || ... || ... ||
 || 标题  ||  状态 ||  翻译者   ||   校验者   ||
 
