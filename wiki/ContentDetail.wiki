@@ -133,14 +133,14 @@
 || 标题  ||  状态s ||  翻译者s   ||   校验者s   ||
 || PyMOTW: getpass || 初译done/初校done || wwwjfy || liz ||
 || PyMOTW: string || 初译done/初校done || wwwjfy || liz ||
-|| PyMOTW: BaseHTTPServer || 初译ing || liz || - ||
-|| PyMOTW: unittest || 初译ing || liz || - ||
-|| PyMOTW: zipfile || 初译ing || liz || - ||
+|| PyMOTW: BaseHTTPServer || 初译done/初校ing || liz || vbarter ||
+|| PyMOTW: unittest || 初译ing || vbarter || - ||
+|| PyMOTW: zipfile || 初译done/初校ing || liz || vbarter ||
 || PyMOTW: timeit || 初译done || vbarter(20090111) || - ||
-|| PyMOTW: tempfile || 初译ing || vbarter || - ||
+|| PyMOTW: tempfile || 初译done || vbarter || - ||
 || PyMOTW: pprint || 初译done || vbarter || - ||
-|| PyMOTW: itertools || 初译ing || sunlianglei || - ||
-|| PyMOTW: exceptions || 初译done || wwwjfy || - ||
+|| PyMOTW: itertools || 初译done/初校ing || sunlianglei || vbarter ||
+|| PyMOTW: exceptions || 初译done/初校ing || wwwjfy || vbarter ||
 || ... || ... || ... || ... ||
 || 标题  ||  状态 ||  翻译者   ||   校验者   ||
 
