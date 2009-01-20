@@ -3,7 +3,7 @@ PyMOTW: datetime
 
 .. currentmodule:: datetime
 
-datetime 模块包含了一些用于时间解析、格式化、计算的函数。
+datetime模块包含了一些用于时间解析、格式化、计算的函数.
 
 * 模块： datetime
 * 目的： 日期/时间处理
@@ -12,7 +12,7 @@ datetime 模块包含了一些用于时间解析、格式化、计算的函数�
 时间
 ----
 
-时间值由time类来表示，Times有小时，分，秒和微秒属性，以及包含时区信息。初始化time实例的参数是可选的，但这样的话，你将获得初始值0（也许不是你所想要的）。
+时间值由time类来表示, Times有小时, 分, 秒和微秒属性. 以及包含时区信息. 初始化time实例的参数是可选的, 但这样的话, 你将获得初始值0(也许不是你所想要的). 
 
 .. code-block:: python
 
@@ -36,7 +36,7 @@ datetime 模块包含了一些用于时间解析、格式化、计算的函数�
    microsecond: 0
    tzinfo: None
 
-一个time实例只包含时间值，不包含日期值。
+一个time实例只包含时间值, 不包含日期值.
 
 .. code-block:: python
 
@@ -47,7 +47,7 @@ datetime 模块包含了一些用于时间解析、格式化、计算的函数�
     print 'Resolution:', datetime.time.resolution
 
 
-类属性中的最大最小值反应了一天中的时间范围。
+类属性中的最大最小值反应了一天中的时间范围.
 
 ::
 
@@ -56,7 +56,7 @@ datetime 模块包含了一些用于时间解析、格式化、计算的函数�
    Latest    : 23:59:59.999999
    Resolution: 0:00:00.000001
 
-时间的最小取值是微秒，更精确的位数就被截断了。
+时间的最小取值是微秒, 更精确的位数就被截断了.
 
 .. code-block:: python
 
@@ -65,7 +65,7 @@ datetime 模块包含了一些用于时间解析、格式化、计算的函数�
     for m in [ 1, 0, 0.1, 0.6 ]:
         print '%02.1f :' % m, datetime.time(0, 0, 0, microsecond=m)
 
-实际中，如果使用浮点型作为微秒参数，那么将产生一些警告信息。
+实际中, 如果使用浮点型作为微秒参数, 那么将产生一些警告信息.
 
 ::
 
@@ -86,7 +86,7 @@ datetime 模块包含了一些用于时间解析、格式化、计算的函数�
 日期
 ------
 
-日期值可以由date类来表示，实例有年、月、日属性，使用data类的 ``today()`` 方法可以方便的表示出今天的日期。
+日期值可以由date类来表示, 实例有年、月、日属性, 使用data类的 ``today()`` 方法可以方便的表示出今天的日期.
 
 .. code-block:: python
 
@@ -101,7 +101,7 @@ datetime 模块包含了一些用于时间解析、格式化、计算的函数�
     print 'Mon :', today.month
     print 'Day :', today.day
 
-示例演示了今天日期的多种表示方法：
+示例演示了今天日期的多种表示方法:
 
 ::
 
@@ -114,7 +114,7 @@ datetime 模块包含了一些用于时间解析、格式化、计算的函数�
    Mon : 3
    Day : 13
 
-使用整数（从阳历的第1年1月1号开始）或者POSIX标准时间戳可以类实例。
+使用整数(从阳历的第1年1月1号开始)或者POSIX标准时间戳可以类实例.
 
 .. code-block:: python
 
@@ -128,7 +128,7 @@ datetime 模块包含了一些用于时间解析、格式化、计算的函数�
     print 't:', t
     print 'fromtimestamp(t):', datetime.date.fromtimestamp(t)
 
-示例显示了函数 ``fromordinal()`` 和 ``fromtimestamp()`` 返回了不同的结果。
+示例显示了函数 ``fromordinal()`` 和 ``fromtimestamp()`` 返回了不同的结果.
 
 ::
 
@@ -138,7 +138,7 @@ datetime 模块包含了一些用于时间解析、格式化、计算的函数�
    t: 1205436039.53
    fromtimestamp(t): 2008-03-13
 
-日期的最大和最小范围可以使用属性max和min来表示。
+日期的最大和最小范围可以使用属性max和min来表示.
 
 .. code-block:: python
 
@@ -148,7 +148,7 @@ datetime 模块包含了一些用于时间解析、格式化、计算的函数�
     print 'Latest :', datetime.date.max
     print 'Resolution:', datetime.date.resolution
 
-一个日期的单位就是1天。
+一个日期的单位就是1天.
 
 ::
 
@@ -157,7 +157,7 @@ datetime 模块包含了一些用于时间解析、格式化、计算的函数�
    Latest    : 9999-12-31
    Resolution: 1 day, 0:00:00
 
-对于一个存在的日期，可使用replace函数可以创建出一个新的日期实例。比如你可以改变年数，只保留月份和日。
+对于一个存在的日期, 可使用replace函数可以创建出一个新的日期实例. 比如你可以改变年数, 只保留月份和日.
 
 .. code-block:: python
 
@@ -178,7 +178,7 @@ datetime 模块包含了一些用于时间解析、格式化、计算的函数�
 timedelta
 -----------
 
-除了 ``replace()`` 函数可以计算过去或者未来的时间，还可以使用timedelta类对日期值进行基本运算。通过timedelta可以加减一个日期来产生另外一个日期。timedelta中的内部值可以用天、秒和微秒来表示。
+除了 ``replace()`` 函数可以计算过去或者未来的时间, 还可以使用timedelta类对日期值进行基本运算. 通过timedelta可以加减一个日期来产生另外一个日期. timedelta中的内部值可以用天、秒和微秒来表示.
 
 .. code-block:: python
 
@@ -192,7 +192,7 @@ timedelta
     print "days :", datetime.timedelta(days=1)
     print "weeks :", datetime.timedelta(weeks=1)
 
-传递给构造器的中间值被转换为天、秒和微秒。
+传递给构造器的中间值被转换为天、秒和微秒.
 
 ::
 
@@ -209,7 +209,7 @@ timedelta
 比较
 ------
 
-时间和日期值都可以通过标准的操作符来进行比较。
+时间和日期值都可以通过标准的操作符来进行比较.
 
 .. code-block:: python
 
@@ -246,7 +246,7 @@ timedelta
 日期和时间组合
 ----------------
 
-使用datetime类可以存储日期和时间的组合部分，类似于使用date。有多种方法可以创建datetime。
+使用datetime类可以存储日期和时间的组合部分, 类似于使用date. 有多种方法可以创建datetime.
 
 .. code-block:: python
 
@@ -260,7 +260,7 @@ timedelta
     for attr in [ 'year', 'month', 'day', 'hour', 'minute', 'second', 'microsecond']:
         print attr, ':', getattr(d, attr)
 
-同时，datetime实例拥有date和time对象的所有属性。
+同时, datetime实例拥有date和time对象的所有属性.
 
 ::
 
@@ -276,7 +276,7 @@ timedelta
    second : 14
    microsecond : 780399
 
-datetime类提供了一些类方法来创建新的实例，当然它也包含 ``fromordinal()`` 和 ``fromtimestamp()`` ，如果你已经有一个日期实例和时间实例，并需要创建datetime的话，combine()方法比较有用。
+datetime类提供了一些类方法来创建新的实例, 当然它也包含 ``fromordinal()`` 和 ``fromtimestamp()`` , 如果你已经有一个日期实例和时间实例, 并需要创建datetime的话, combine()方法比较有用. 
 
 .. code-block:: python
 
@@ -299,7 +299,7 @@ datetime类提供了一些类方法来创建新的实例，当然它也包含 ``
 格式化和解析
 --------------
 
-datetime对象的字符串表示方法默认使用的是ISO 8601格式（YYYY-MM-DDTHH:MM:SS.mmmmmm），使用 ``strftime()`` 可以产生其他格式，同样，如果你的输入值是用 ``time.strptime()`` 解析的时间戳，那么 ``strptime()`` 是一个合适的方法来把它转换为datetime实例。
+datetime对象的字符串表示方法默认使用的是ISO 8601格式(YYYY-MM-DDTHH:MM:SS.mmmmmm), 使用 ``strftime()`` 可以产生其他格式, 同样, 如果你的输入值是用 ``time.strptime()`` 解析的时间戳, 那么 ``strptime()`` 是一个合适的方法来把它转换为datetime实例.
 
 .. code-block:: python
 
@@ -326,7 +326,7 @@ datetime对象的字符串表示方法默认使用的是ISO 8601格式（YYYY-MM
 时区
 ------
 
-时区是由子类datetime.tzinfo来表示的，tzinfo是一个抽象的基类，你需要定义子类，并提供相应的方法去实现一些方法。很可惜，dateime不包含任何实际可用的实现，可以参考 `文档 <http://docs.python.org/lib/datetime-tzinfo.html>`_ 来获取一些示例。
+时区是由子类 ``datetime.tzinfo`` 来表示的, tzinfo是一个抽象的基类, 你需要定义子类, 并提供相应的方法去实现一些方法. 很可惜, dateime不包含任何实际可用的实现, 可以参考 `文档 <http://docs.python.org/lib/datetime-tzinfo.html>`_ 来获取一些示例.
 
 参考
 -------

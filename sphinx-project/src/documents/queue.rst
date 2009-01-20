@@ -4,16 +4,16 @@ PyMOTW: Queue
 .. currentmodule:: queue
 
 * 模块：Queue
-* 目的：提供一个线程安全的FIFO功能。
+* 目的：提供一个线程安全的FIFO功能.
 * python版本：1.4+
 
 
 描述
 ----
 
-Queue提供了FIFO功能，一般常用于多线程编程，它可以在生产者和消费者线程中安全的传递消息或者其他数据。调用者会自动创建锁，当使用Queue对象，你可以根据需求创建多个线程。一个Queue的大小(元素的个数)受可用内存的限制。
+Queue提供了FIFO功能, 一般常用于多线程编程, 它可以在生产者和消费者线程中安全的传递消息或者其他数据. 调用者会自动创建锁, 当使用Queue对象, 你可以根据需求创建多个线程. 一个Queue的大小(元素的个数)受可用内存的限制.
 
-本文假设你已经了解基本的Queue特点，如果你还不清楚，可以阅读参考后继续后面内容:
+本文假设你已经了解基本的Queue特点, 如果你还不清楚, 可以阅读参考后继续后面内容:
 
 * `Queue data structures <http://en.wikipedia.org/wiki/Queue_%28data_structure>`_
 * `FIFO <http://en.wikipedia.org/wiki/FIFO>`_
@@ -21,9 +21,9 @@ Queue提供了FIFO功能，一般常用于多线程编程，它可以在生产�
 示例
 ---------------
 
-举例说明如何在多线程中使用Queue对象，我们创建一个简单的 `podcasting <http://en.wikipedia.org/wiki/Podcasting>`_ 客户端，这个客户端读取一个或者多个RSS feeds，依次将需下载的内容置于队列中，然后采用多线程模式同时处理多个下载。这比较简单，也许没有多大实用价值，但这个框架代码很好的说明了如何来利用Queue模块。
+举例说明如何在多线程中使用Queue对象, 我们创建一个简单的 `podcasting <http://en.wikipedia.org/wiki/Podcasting>`_ 客户端, 这个客户端读取一个或者多个RSS feeds, 依次将需下载的内容置于队列中, 然后采用多线程模式同时处理多个下载. 这比较简单, 也许没有多大实用价值, 但这个框架代码很好的说明了如何来利用Queue模块.
 
-开始，我们加载一些有用的模块：
+开始, 我们加载一些有用的模块:
 
 .. code-block:: python
         
@@ -34,7 +34,7 @@ Queue提供了FIFO功能，一般常用于多线程编程，它可以在生产�
 
     import feedparser
 
-首先，需要创建一些运行参数，通常这些来自用户输入(可以任何东西，比如参数，数据库)，在我们的例子中，我们硬编码几个值。
+首先, 需要创建一些运行参数, 通常这些来自用户输入(可以任何东西, 比如参数, 数据库), 在我们的例子中, 我们硬编码几个值.
 
 .. code-block:: python
 
@@ -45,7 +45,7 @@ Queue提供了FIFO功能，一般常用于多线程编程，它可以在生产�
     # A real app wouldn't use hard-coded data...
     feed_urls = [ 'http://www.castsampler.com/cast/feed/rss/guest',]
 
-接下来，我们需要在工作线程中定义相应函数来处理下载。再次，这里为了便于说明模拟下载，实际下载可以参考 `urllib <http://docs.python.org/lib/module-urllib.html>`_ 模块(这再以后会介绍)。在这个示例中，我们只根据线程id，使其sleep一段时间。
+接下来, 我们需要在工作线程中定义相应函数来处理下载. 再次, 这里为了便于说明模拟下载, 实际下载可以参考 `urllib <http://docs.python.org/lib/module-urllib.html>`_ 模块(这再以后会介绍). 在这个示例中, 我们只根据线程id, 使其sleep一段时间.
 
 .. code-block:: python
         
@@ -63,7 +63,7 @@ Queue提供了FIFO功能，一般常用于多线程编程，它可以在生产�
         
         q.task_done()
 
-一旦定义好目标函数，我们就可以启动工作线程。注意，函数downloadEnclosures()在“url = q.get()”会阻塞，直到队列有东西返回，因此，当队列中有东西时，启动线程总是安全的。
+一旦定义好目标函数, 我们就可以启动工作线程. 注意, 函数downloadEnclosures()在"url = q.get()"会阻塞, 直到队列有东西返回, 因此, 当队列中有东西时, 启动线程总是安全的.
 
 .. code-block:: python
 
@@ -73,7 +73,7 @@ Queue提供了FIFO功能，一般常用于多线程编程，它可以在生产�
       worker.setDaemon(True)
       worker.start()
 
-现在，我们开始检索feed的内容（使用Mark Pilgrim的 `feedparser <http://www.feedparser.org/>`_ 模块）和一个url集合。当第一个url添加到队列后，一个工作线程即可选择它并启动下载。循环将继续运行并添加相应的feed，直到全部加完，工作线程将轮流取出url去下载它们。
+现在, 我们开始检索feed的内容(使用Mark Pilgrim的 `feedparser <http://www.feedparser.org/>`_ 模块)和一个url集合. 当第一个url添加到队列后, 一个工作线程即可选择它并启动下载. 循环将继续运行并添加相应的feed, 直到全部加完, 工作线程将轮流取出url去下载它们.
 
 .. code-block:: python
 
@@ -85,7 +85,7 @@ Queue提供了FIFO功能，一般常用于多线程编程，它可以在生产�
           print 'Queuing:', enclosure['url']
           enclosure_queue.put(enclosure['url'])
 
-剩下就可以等待队列为空。
+剩下就可以等待队列为空.
 
 .. code-block:: python
 
@@ -95,7 +95,7 @@ Queue提供了FIFO功能，一般常用于多线程编程，它可以在生产�
     enclosure_queue.join()
     print '*** Done'
 
-下载如下 `示例代码 <http://www.doughellmann.com/PyMOTW/fetch_podcasts.py>`_ ，运行即可看到如下输出：
+下载如下 `示例代码 <http://www.doughellmann.com/PyMOTW/fetch_podcasts.py>`_ , 运行即可看到如下输出:
 
 ::
 
