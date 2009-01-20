@@ -50,3 +50,6 @@
 
     struct.rst
     array.rst
+
+    getpass.rst
+
