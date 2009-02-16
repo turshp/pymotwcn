@@ -53,3 +53,9 @@
 
     getpass.rst
 
+    string.rst
+
+    exceptions.rst
+
+    itertools.rst
+
