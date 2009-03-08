@@ -13,7 +13,7 @@ string模块始于Python的最早版本. 2.0版本中, 许多之前只在模块�
 常量
 -----
 
-string模块中的常量, 例如ascii_letters和digits等, 用来指定字符的种类. 有些常量是依赖于系统的, 比如lowercase, 因此会受用户语言设置的影响而改变. 而其它的常量, 如hexdigits, 不会因本地设置的改变而改变.
+string模块中的常量, 例如ascii_letters和digits等, 用来指定字符的种类. 有些常量是依赖于系统的, 比如lowercase, 因此会受用户语言设置的影响而改变. 而其它的常量, 如hexdigits, 不会因本地设置(区域选项?)的改变而改变.
 
 .. code-block:: python
 
