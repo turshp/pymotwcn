@@ -60,6 +60,7 @@
   * Data Compression and Archiving
     * *bz2* 
     * *gzip* 
+    * *tarfile*
     * _zipfile_
     * *zlib* 
   * Data Persistence
@@ -89,7 +90,11 @@
     * *rlcompleter* 
   * Unix-specific Services
     * *commands* 
+    * *grp*
+    * *pwd*
   * Interprocess Communication and Networking
+    * *asynchat*
+    * *asyncore*
     * *signal* 
     * *subprocess* 
   * Internet Protocols and Support
@@ -122,6 +127,8 @@
     * *inspect*  
     * *traceback*
     * *warnings*
+  * Python Language Services
+    * *compileall*
   * Importing Modules
     * *imp* 
     * *pkgutil*
