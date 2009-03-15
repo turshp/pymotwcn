@@ -133,7 +133,7 @@
 || 标题  ||  状态s ||  翻译者s   ||   校验者s   ||
 || PyMOTW: getpass || 初译done/初校done || wwwjfy || liz ||
 || PyMOTW: string || 初译done/初校done || wwwjfy || liz ||
-|| PyMOTW: BaseHTTPServer || 初译done/初校ing || liz || vbarter ||
+|| PyMOTW: BaseHTTPServer || 初译done/初校done || liz || vbarter ||
 || PyMOTW: unittest || 初译ing || vbarter || - ||
 || PyMOTW: zipfile || 初译done/初校done || liz || vbarter ||
 || PyMOTW: timeit || 初译done || vbarter(20090111) || - ||
