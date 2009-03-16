@@ -52,6 +52,11 @@
 
     documents/struct.rst
     documents/array.rst
+    documents/getpass.rst
+    documents/string.rst
+    documents/exceptions.rst
+    documents/itertools.rst
+    documents/zipfile.rst
     
 
 索引表
