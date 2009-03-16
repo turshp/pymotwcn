@@ -3,12 +3,11 @@ PyMOTW: pickle & cPickle
 
 .. currentmodule:: pickle
 
-Python对象序列化
-
 * 模块：pickle 和 cPickle
 * 目的: Python对象序列化
 * python版本：pickle至少1.4, cPickle 至少1.5
 
+Python对象序列化
 
 描述
 ----
@@ -30,10 +29,10 @@ cPickle模块实现了同样的算法, 但它是用c而不是python. 因此, 它
 .. code-block:: python
 
     try:
-       import cPickle as pickle
+        import cPickle as pickle
     except:
-       import pickle
-       import pprint
+        import pickle
+        import pprint
 
 我们首先尝试导入cPickle, 并指定别名为"pickle". 如果因为某种原因导入pickle失败, 我们则导入由Python实现的pickle模块. 如果cPickle是可用的, 会给我们带来更快的实现, 但如果不可用, 也会有正确的实现.
 
@@ -100,20 +99,19 @@ pickle除了提供dumps()和loads(), 还提供非常方便的函数用于操作�
 .. code-block:: python
 
     try:
-       import cPickle as pickle
+        import cPickle as pickle
     except:
-       import pickle
+        import pickle
     import pprint
     from StringIO import StringIO
 
     class SimpleObject(object):
-
-       def __init__(self, name):
-          self.name = name
-          l = list(name)
-          l.reverse()
-          self.name_backwards = ''.join(l)
-          return
+        def __init__(self, name):
+            self.name = name
+            l = list(name)
+            l.reverse()
+            self.name_backwards = ''.join(l)
+            return
     
     data = []
     data.append(SimpleObject('pickle'))
@@ -125,21 +123,21 @@ pickle除了提供dumps()和loads(), 还提供非常方便的函数用于操作�
 
     # Write to the stream
     for o in data:
-       print 'WRITING: %s (%s)' % (o.name, o.name_backwards)
-       pickle.dump(o, out_s)
-       out_s.flush()
+        print 'WRITING: %s (%s)' % (o.name, o.name_backwards)
+        pickle.dump(o, out_s)
+        out_s.flush()
 
     # Set up a read-able stream
     in_s = StringIO(out_s.getvalue())
 
     # Read the data
     while True:
-       try:
-          o = pickle.load(in_s)
-       except EOFError:
-          break
-       else:
-          print 'READ: %s (%s)' % (o.name, o.name_backwards)
+        try:
+            o = pickle.load(in_s)
+        except EOFError:
+            break
+        else:
+            print 'READ: %s (%s)' % (o.name, o.name_backwards)
 
 这个例子使用StringIO缓冲区来模拟流, 因此我们在建立可读流时得玩点小花样. 一个简单数据库格式也可以使用pickle来存储对象, 虽然使用shelve模块可能会更简单.
 
@@ -160,37 +158,36 @@ pickle除了提供dumps()和loads(), 还提供非常方便的函数用于操作�
 .. code-block:: python
 
     try:
-       import cPickle as pickle
+        import cPickle as pickle
     except:
-       import pickle
-       import sys
+        import pickle
+        import sys
 
     class SimpleObject(object):
-
-       def __init__(self, name):
-          self.name = name
-          l = list(name)
-          l.reverse()
-          self.name_backwards = ''.join(l)
-          return
+        def __init__(self, name):
+            self.name = name
+            l = list(name)
+            l.reverse()
+            self.name_backwards = ''.join(l)
+            return
         
     if __name__ == '__main__':
-       data = []
-       data.append(SimpleObject('pickle'))
-       data.append(SimpleObject('cPickle'))
-       data.append(SimpleObject('last'))
-       try:
-          filename = sys.argv[1]
-          except IndexError:
-          raise RuntimeError('Please specify a filename as an argument to %s' % sys.argv[0])
-       out_s = open(filename, 'wb')
-       try:
-          # Write to the stream
-          for o in data:
-             print 'WRITING: %s (%s)' % (o.name, o.name_backwards)
-             pickle.dump(o, out_s)
-       finally:
-          out_s.close()
+        data = []
+        data.append(SimpleObject('pickle'))
+        data.append(SimpleObject('cPickle'))
+        data.append(SimpleObject('last'))
+        try:
+            filename = sys.argv[1]
+            except IndexError:
+            raise RuntimeError('Please specify a filename as an argument to %s' % sys.argv[0])
+        out_s = open(filename, 'wb')
+        try:
+            # Write to the stream
+            for o in data:
+                print 'WRITING: %s (%s)' % (o.name, o.name_backwards)
+                pickle.dump(o, out_s)
+        finally:
+            out_s.close()
         
 当我运行这个脚本时, 它会创建名为我在命令行中输入的参数的文件:
 
@@ -206,30 +203,30 @@ pickle除了提供dumps()和loads(), 还提供非常方便的函数用于操作�
 .. code-block:: python
 
     try:
-       import cPickle as pickle
+        import cPickle as pickle
     except:
-       import pickle
+        import pickle
     import pprint
     from StringIO import StringIO
     import sys
 
     try:
-       filename = sys.argv[1]
+        filename = sys.argv[1]
     except IndexError:
-       raise RuntimeError('Please specify a filename as an argument to %s' % sys.argv[0])
+        raise RuntimeError('Please specify a filename as an argument to %s' % sys.argv[0])
 
     in_s = open(filename, 'rb')
     try:
-       # Read the data
-       while True:
-          try:
-             o = pickle.load(in_s)
-          except EOFError:
-             break
-          else:
-             print 'READ: %s (%s)' % (o.name, o.name_backwards)
+        # Read the data
+        while True:
+            try:
+                o = pickle.load(in_s)
+            except EOFError:
+                break
+            else:
+                print 'READ: %s (%s)' % (o.name, o.name_backwards)
     finally:
-       in_s.close()
+        in_s.close()
 
 这个版本失败了, 因为这里没有可用的SimpleObject类.
 

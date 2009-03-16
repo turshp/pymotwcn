@@ -3,13 +3,11 @@ PyMOTW: urllib
 
 .. currentmodule:: urllib
 
-urllib模块提供了一个访问网络资源的简单接口.
-
 * 模块：urllib
 * 目的：访问不需要认证的远程资源 
 * python版本：1.4+
 
-虽然urllib可以与gopher和ftp协议一起使用, 但下面的例子都是用了http协议.
+urllib模块提供了一个访问网络资源的简单接口. 虽然urllib可以与gopher和ftp协议一起使用, 但下面的例子都是用了http协议.
 
 HTTP GET
 ----------
@@ -289,16 +287,16 @@ Paths vs. URLs:
             return
 
              
-     try:
-         filename, msg = urllib.urlretrieve('http://blog.doughellmann.com/', reporthook=reporthook)
-         print
-         print 'File:', filename
-         print 'Headers:'
-         print msg
-         print 'File exists before cleanup:', os.path.exists(filename)
-     finally:
-         urllib.urlcleanup()
-         print 'File still exists:', os.path.exists(filename)
+    try:
+        filename, msg = urllib.urlretrieve('http://blog.doughellmann.com/', reporthook=reporthook)
+        print
+        print 'File:', filename
+        print 'Headers:'
+        print msg
+        print 'File exists before cleanup:', os.path.exists(filename)
+    finally:
+        urllib.urlcleanup()
+        print 'File still exists:', os.path.exists(filename)
    
 由于服务器没有返回header中的Content-length, urlretrieve()不知道数据应该有多大, 所以将-1传给reporthook()中的参数total_size.
 

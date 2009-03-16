@@ -214,10 +214,10 @@ PyMOTW: os(4)
             print 'WORKER %s: Finishing' % i
             sys.exit(i)
 
-     for i in range(3):
-         print 'PARENT: Waiting for %s' % i
-         done = os.wait()
-         print 'PARENT:', done
+    for i in range(3):
+        print 'PARENT: Waiting for %s' % i
+        done = os.wait()
+        print 'PARENT:', done
 
 .. note::
 

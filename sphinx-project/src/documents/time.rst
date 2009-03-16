@@ -3,12 +3,11 @@ PyMOTW: time
 
 .. currentmodule:: time
 
-time模块提供了操作日期和时间的函数
-
 * 模块：time
 * 目的：操作times的函数
 * python版本：1.4+
 
+time模块提供了操作日期和时间的函数
 
 描述
 ----

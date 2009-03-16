@@ -74,9 +74,8 @@ AssertionError
     import unittest
 
     class AssertionExample(unittest.TestCase):
-        
-    def test(self):
-        self.failUnless(False)
+        def test(self):
+            self.failUnless(False)
 
     unittest.main()
 
@@ -467,7 +466,7 @@ OverflowError
             print i, f
             f = f ** 2        
     except OverflowError, err:                  
-    print 'Overflowed after ', f, err
+        print 'Overflowed after ', f, err
 
 ::
 

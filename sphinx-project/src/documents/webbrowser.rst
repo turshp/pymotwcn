@@ -3,12 +3,11 @@ PyMOTW: webbrowser
 
 .. currentmodule:: webbrowser
 
-利用webbrowser模块可以向用户显示web页面.
-
 * 模块：webbrowser
 * 目的：在浏览器中打开web页面
 * python版本：python2.1.3+
 
+利用webbrowser模块可以向用户显示web页面.
 
 描述
 ----
