@@ -22,7 +22,7 @@ string模块中的常量, 例如ascii_letters和digits等, 用来指定字符的
     for n in dir(string):
         if n.startswith('_'):
         continue
-        v = getattr(string, n)c
+        v = getattr(string, n)
         if isinstance(v, basestring):
         print '%s=%s' % (n, repr(v))
         print

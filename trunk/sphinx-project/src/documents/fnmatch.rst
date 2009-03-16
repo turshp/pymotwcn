@@ -3,12 +3,11 @@ PyMOTW: fnmatch
 
 .. currentmodule:: fnmatch
 
-使用fnmatch模块处理Unix风格的文件名的比较.
-
 * 模块： fnmatch
 * 目的： 对文件名和Unix风格模式进行比较.
 * python版本：1.4+
 
+使用fnmatch模块处理Unix风格的文件名的比较.
 
 描述
 ----

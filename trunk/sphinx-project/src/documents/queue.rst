@@ -50,16 +50,17 @@ Queue提供了FIFO功能, 一般常用于多线程编程, 它可以在生产者�
 .. code-block:: python
         
     def downloadEnclosures(i, q):
-      """This is the worker thread function.
-      It processes items in the queue one after another.
-      These daemon threads go into an infinite loop, 
-      and only exit when the main thread ends.
-      """
-      while True:
-        print '%s: Looking for the next enclosure' % i
-        url = q.get()
-        print '%s: Downloading:' % i, url 
-        time.sleep(i + 2) # instead of really downloading the URL, we just pretend
+        """This is the worker thread function.
+        It processes items in the queue one after another.
+        These daemon threads go into an infinite loop, 
+        and only exit when the main thread ends.
+        """
+      
+        while True:
+            print '%s: Looking for the next enclosure' % i
+            url = q.get()
+            print '%s: Downloading:' % i, url 
+            time.sleep(i + 2) # instead of really downloading the URL, we just pretend
         
         q.task_done()
 
@@ -69,9 +70,9 @@ Queue提供了FIFO功能, 一般常用于多线程编程, 它可以在生产者�
 
     # Set up some threads to fetch the enclosures
     for i in range(num_fetch_threads):
-      worker = Thread(target=downloadEnclosures, args=(i, enclosure_queue,))
-      worker.setDaemon(True)
-      worker.start()
+        worker = Thread(target=downloadEnclosures, args=(i, enclosure_queue,))
+        worker.setDaemon(True)
+        worker.start()
 
 现在, 我们开始检索feed的内容(使用Mark Pilgrim的 `feedparser <http://www.feedparser.org/>`_ 模块)和一个url集合. 当第一个url添加到队列后, 一个工作线程即可选择它并启动下载. 循环将继续运行并添加相应的feed, 直到全部加完, 工作线程将轮流取出url去下载它们.
 
@@ -79,11 +80,11 @@ Queue提供了FIFO功能, 一般常用于多线程编程, 它可以在生产者�
 
     # Download the feed(s) and put the enclosure URLs into the queue.
     for url in feed_urls:
-      response = feedparser.parse(url, agent='fetch_podcasts.py')
-      for entry in response['entries']:
-        for enclosure in entry.get('enclosures', []):
-          print 'Queuing:', enclosure['url']
-          enclosure_queue.put(enclosure['url'])
+        response = feedparser.parse(url, agent='fetch_podcasts.py')
+        for entry in response['entries']:
+            for enclosure in entry.get('enclosures', []):
+                print 'Queuing:', enclosure['url']
+                enclosure_queue.put(enclosure['url'])
 
 剩下就可以等待队列为空.
 

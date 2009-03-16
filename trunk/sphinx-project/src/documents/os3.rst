@@ -52,8 +52,8 @@ os.access()模块包含了2个特殊的含义, 首先, 在实际使用open()函�
     import time
 
     if len(sys.argv) == 1:
-      filename = __file__
-      else:
+        filename = __file__
+    else:
         filename = sys.argv[1]
 
     stat_info = os.stat(filename)
@@ -88,12 +88,12 @@ os.access()模块包含了2个特殊的含义, 首先, 在实际使用open()函�
     existing_permissions = stat.S_IMODE(os.stat(__file__).st_mode)
 
     if not os.access(__file__, os.X_OK):
-      print 'Adding execute permission'
-      new_permissions = existing_permissions | stat.S_IXUSR
+        print 'Adding execute permission'
+        new_permissions = existing_permissions | stat.S_IXUSR
     else:
-      print 'Removing execute permission'
-      # use xor to remove the user execute permission
-      new_permissions = existing_permissions ^ stat.S_IXUSR
+        print 'Removing execute permission'
+        # use xor to remove the user execute permission
+        new_permissions = existing_permissions ^ stat.S_IXUSR
 
     os.chmod(__file__, new_permissions)
 
@@ -125,9 +125,9 @@ os.access()模块包含了2个特殊的含义, 首先, 在实际使用open()函�
     print 'Creating', file_name
     f = open(file_name, 'wt')
     try:
-      f.write('example file')
+        f.write('example file')
     finally:
-      f.close()
+        f.close()
 
     print 'Listing', dir_name
     print os.listdir(dir_name)
@@ -189,20 +189,20 @@ os.walk()可以递归遍历一个目录, 对于每一个目录, 可以产生一�
 
     # If we are not given a path to list, use /tmp
     if len(sys.argv) == 1:
-      root = '/tmp'
+        root = '/tmp'
     else:
-      root = sys.argv[1]
+        root = sys.argv[1]
 
     for dir_name, sub_dirs, files in os.walk(root):
-      print '\n', dir_name
-      # Make the subdirectory names stand out with /
-      sub_dirs = [ '%s/' % n for n in sub_dirs ]
-      # Mix the directory contents together
-      contents = sub_dirs + files
-      contents.sort()
-      # Show the contents
-      for c in contents:
-        print '\t%s' % c
+        print '\n', dir_name
+        # Make the subdirectory names stand out with /
+        sub_dirs = [ '%s/' % n for n in sub_dirs ]
+        # Mix the directory contents together
+        contents = sub_dirs + files
+        contents.sort()
+        # Show the contents
+        for c in contents:
+            print '\t%s' % c
 
 ::
 

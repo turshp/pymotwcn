@@ -58,7 +58,7 @@ c和n的区别:
 打开一个存在的数据库
 ----------------------
    
-要打开一个存在的数据库, 使用标记"r"(只读)或者"w"(读写). 你不需要担心格式问题, 因为数据库格式会自动由whichdb来识别, 如果一个文件可以被识别, 那么对应的模块会打开它.
+要打开一个存在的数据库, 使用标记'r'(只读)或者'w'(读写). 你不需要担心格式问题, 因为数据库格式会自动由whichdb来识别, 如果一个文件可以被识别, 那么对应的模块会打开它.
 
 .. code-block:: python
 
@@ -70,19 +70,19 @@ c和n的区别:
         for k, v in db.iteritems():
             print 'iterating:', k, v
         print 'db["author"] =', db['author']
-     finally:
+    finally:
         db.close()
 
 一旦打开, db就是一个字典对象, 支持一些常规方法:
 
 ::
 
-  $ python anydbm_existing.py
-  keys(): ['key', 'today', 'author']
-  iterating: key value
-  iterating: today Sunday
-  iterating: author Doug
-  db["author"] = Doug
+   $ python anydbm_existing.py
+   keys(): ['key', 'today', 'author']
+   iterating: key value
+   iterating: today Sunday
+   iterating: author Doug
+   db["author"] = Doug
 
 错误案例
 ----------

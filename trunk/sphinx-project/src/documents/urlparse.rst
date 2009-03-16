@@ -3,12 +3,11 @@ PyMOTW: urlparse
 
 .. currentmodule:: urlparse
 
-urlparse模块提供了切分统一资源定位符(URL)的接口.
-
 * 模块： urlparse
 * 目的： 将URL切分为几个组成部分.
 * python版本： 1.4+
 
+urlparse模块提供了切分统一资源定位符(URL)的接口.
 
 描述
 ----

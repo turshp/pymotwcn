@@ -59,3 +59,4 @@
 
     itertools.rst
 
+    zipfile.rst

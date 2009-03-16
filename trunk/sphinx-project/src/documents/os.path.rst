@@ -31,7 +31,7 @@ os.path中的第一个函数集可以用于解析文件名字符串为不同部�
 
     import os.path
 
-    for path in [ '/one/two/three','/one/two/three/','/',.','']:
+    for path in [ '/one/two/three','/one/two/three/','/',',']:
         print '"%s" : "%s"' % (path, os.path.split(path))
 
 ::
