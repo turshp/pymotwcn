@@ -3,13 +3,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>PyMOTW: smtplib &mdash; PyMOTW v1.0 文档</title>
+    <title>PyMOTW: smtplib &mdash; PyMOTW v1.2 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0',
+        VERSION:     '1.2',
         COLLAPSE_MODINDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -21,7 +21,7 @@
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="copyright" title="Copyright" href="../copyright.html" />
-    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="top" title="PyMOTW v1.2 documentation" href="../index.html" />
     <link rel="next" title="PyMOTW: Trace" href="trace.html" />
     <link rel="prev" title="PyMOTW: anydbm" href="anydbm.html" /> 
   </head>
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="anydbm.html" title="PyMOTW: anydbm"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.2 documentation</a> &raquo;</li> 
       </ul>
     </div>  
     <div class="document">
@@ -51,20 +51,20 @@
 <h1>PyMOTW: smtplib<a class="headerlink" href="#pymotw-smtplib" title="Permalink to this headline">¶</a></h1>
 <ul class="simple">
 <li>模块：smtplib</li>
-<li>目的: 与smtp服务器交互，提供邮件发送</li>
+<li>目的: 与smtp服务器交互, 提供邮件发送</li>
 <li>python版本：1.5.2+</li>
 </ul>
-<p>smtplib包含了SMTP类，用于与邮件服务器进行邮件通信。</p>
+<p>smtplib包含了SMTP类, 用于与邮件服务器进行邮件通信.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
-<p class="last">在以下示例中，邮件地址、主机名称、ip地址都是虚假的，但是举例说明的命令副本和响应的信息都是存在的。</p>
+<p class="last">在以下示例中, 邮件地址、主机名称、ip地址都是虚假的, 但是举例说明的命令副本和响应的信息都是存在的.</p>
 </div>
 <div class="section" id="id1">
 <h2>发送一封邮件<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>SMTP最常用的方法是连接服务器并发送一封邮件，在构造器中指定邮件服务器名和端口名，或者你可以使用connect()方法来指定。一旦建立连接，就可以调用sendmail()函数，并附带信封体参数和消息内容，消息文本应该与RFC2822兼容。smtplib不会自动修改消息内容和头信息，这就意味着你需要自己添加From和To等头信息。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">smtplib</span>
-<span class="k">import</span> <span class="nn">email.utils</span>
-<span class="k">from</span> <span class="nn">email.mime.text</span> <span class="k">import</span> <span class="n">MIMEText</span>
+<p>SMTP最常用的方法是连接服务器并发送一封邮件, 在构造器中指定邮件服务器名和端口名, 或者你可以使用connect()方法来指定. 一旦建立连接, 就可以调用sendmail()函数, 并附带信封体参数和消息内容, 消息文本应该与RFC2822兼容. smtplib不会自动修改消息内容和头信息, 这就意味着你需要自己添加From和To等头信息.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">smtplib</span>
+<span class="kn">import</span> <span class="nn">email.utils</span>
+<span class="kn">from</span> <span class="nn">email.mime.text</span> <span class="kn">import</span> <span class="n">MIMEText</span>
 
 <span class="c"># Create the message</span>
 <span class="n">msg</span> <span class="o">=</span> <span class="n">MIMEText</span><span class="p">(</span><span class="s">&#39;This is the body of the message.&#39;</span><span class="p">)</span>
@@ -80,7 +80,7 @@
     <span class="n">server</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>在这个示例中，调试开关被打开了，这样可以显示客户端和服务端之间的通讯信息，否则，示例不会显示任何信息。</p>
+<p>在这个示例中, 调试开关被打开了, 这样可以显示客户端和服务端之间的通讯信息. 否则, 示例不会显示任何信息.</p>
 <div class="highlight-python"><pre>$ python smtplib_sendmail.py
 send: 'ehlo localhost.local\r\n'
 reply: '250-mail.example.com Hello [192.168.1.17], pleased to meet you\r\n'
@@ -121,15 +121,15 @@ send: 'quit\r\n'
 reply: '221 2.0.0 mail.example.com closing connection\r\n'
 reply: retcode (221); Msg: 2.0.0 mail.example.com closing connection</pre>
 </div>
-<p>注意sendmail的第二个参数，收件人信息需要是一个list结构，你可以在list写上很多的邮件地址，message会依次把消息发送给他们. 由于信封信息和和邮件头是分开的，所以你可以通过一些方法参数来指定密送一些人，但不可以在邮件头中设置。</p>
+<p>注意sendmail的第二个参数, 收件人信息需要是一个list结构, 你可以在list写上很多的邮件地址, message会依次把消息发送给他们. 由于信封信息和和邮件头是分开的, 所以你可以通过一些方法参数来指定密送一些人, 但不可以在邮件头中设置.</p>
 </div>
 <div class="section" id="id2">
 <h2>认证和加密<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>SMTP同样可以处理认证和TLS(一种底层通讯的安全协议)加密。如果服务器支持它们，你可以自己来检测服务器是否支持TLS，可以直接调用ehlo()来鉴定并询问服务器支持何种类型扩展 。然后通过调用has_extn()来检查结果。一旦启动TLS，你可以在认证之前再次调用ehlo()。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">smtplib</span>
-<span class="k">import</span> <span class="nn">email.utils</span>
-<span class="k">from</span> <span class="nn">email.mime.text</span> <span class="k">import</span> <span class="n">MIMEText</span>
-<span class="k">import</span> <span class="nn">getpass</span>
+<p>SMTP同样可以处理认证和TLS(一种底层通讯的安全协议)加密. 如果服务器支持它们, 你可以自己来检测服务器是否支持TLS, 可以直接调用ehlo()来鉴定并询问服务器支持何种类型扩展. 然后通过调用has_extn()来检查结果. 一旦启动TLS, 你可以在认证之前再次调用ehlo().</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">smtplib</span>
+<span class="kn">import</span> <span class="nn">email.utils</span>
+<span class="kn">from</span> <span class="nn">email.mime.text</span> <span class="kn">import</span> <span class="n">MIMEText</span>
+<span class="kn">import</span> <span class="nn">getpass</span>
 
 <span class="c"># Prompt the user for connection info</span>
 <span class="n">to_email</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">&#39;Recipient: &#39;</span><span class="p">)</span>
@@ -162,7 +162,7 @@ reply: retcode (221); Msg: 2.0.0 mail.example.com closing connection</pre>
     <span class="n">server</span><span class="o">.</span><span class="n">quit</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>注意STARTTLS不会出现在扩展列表中，因为启动了TLS。</p>
+<p>注意STARTTLS不会出现在扩展列表中, 因为启动了TLS.</p>
 <div class="highlight-python"><pre>$ python smtplib_authenticated.py
 Recipient: recipient@example.com
 Mail server name: smtpauth.isp.net
@@ -222,8 +222,8 @@ reply: retcode (221); Msg: elasmtp-isp.net closing connection</pre>
 </div>
 <div class="section" id="id3">
 <h2>验证一个邮件地址<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
-<p>SMTP协议包含一个命令可以询问服务器一个邮件地址是否合法，通常VRFY是关闭的，以防止垃圾邮件发送者找到合法的邮件地址，但是，如果它打开，你可以向服务器询问这个邮件地址并接受一个状态码，如果是可用的，那么会返回一个可用的完整用户名。</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">smtplib</span>
+<p>SMTP协议包含一个命令可以询问服务器一个邮件地址是否合法, 通常VRFY是关闭的, 以防止垃圾邮件发送者找到合法的邮件地址, 但是, 如果它打开, 你可以向服务器询问这个邮件地址并接受一个状态码, 如果是可用的, 那么会返回一个可用的完整用户名.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">smtplib</span>
 
 <span class="n">server</span> <span class="o">=</span> <span class="n">smtplib</span><span class="o">.</span><span class="n">SMTP</span><span class="p">(</span><span class="s">&#39;mail&#39;</span><span class="p">)</span>
 <span class="n">server</span><span class="o">.</span><span class="n">set_debuglevel</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span> <span class="c"># show communication with the server</span>
@@ -237,7 +237,7 @@ reply: retcode (221); Msg: elasmtp-isp.net closing connection</pre>
 <span class="k">print</span> <span class="s">&#39;notthere :&#39;</span><span class="p">,</span> <span class="n">notthere_result</span>
 </pre></div>
 </div>
-<p>最后二行输出中表示，地址 dhellmann是合法的，notthere是非法的。</p>
+<p>最后二行输出中表示, 地址dhellmann是合法的, notthere是非法的.</p>
 <div class="highlight-python"><pre>$ python smtplib_verify.py
 send: 'vrfy &lt;dhellmann&gt;\r\n'
 reply: '250 2.1.5 Doug Hellmann &lt;dhellmann@mail.example.com&gt;\r\n'
@@ -255,11 +255,11 @@ notthere : (550, '5.1.1 &lt;notthere&gt;... User unknown')</pre>
 <div class="section" id="id4">
 <h2>参考<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><a class="reference" href="http://www.faqs.org/rfcs/rfc821.html">RFC 821: Simple Mail Transfer Protocol</a></li>
-<li><a class="reference" href="http://www.faqs.org/rfcs/rfc822.html">RFC 822: Standard for the Format of ARPA Internet Text Messages</a></li>
-<li><a class="reference" href="http://www.faqs.org/rfcs/rfc1869.html">RFC 1869: SMTP Service Extensions</a></li>
-<li><a class="reference" href="http://www.faqs.org/rfcs/rfc2822.html">RFC 2822: Internet Message Format</a></li>
-<li><a class="reference" href="http://docs.python.org/lib/module-smtplib.html">标准库文档: smtplib</a></li>
+<li><a class="reference external" href="http://www.faqs.org/rfcs/rfc821.html">RFC 821: Simple Mail Transfer Protocol</a></li>
+<li><a class="reference external" href="http://www.faqs.org/rfcs/rfc822.html">RFC 822: Standard for the Format of ARPA Internet Text Messages</a></li>
+<li><a class="reference external" href="http://www.faqs.org/rfcs/rfc1869.html">RFC 1869: SMTP Service Extensions</a></li>
+<li><a class="reference external" href="http://www.faqs.org/rfcs/rfc2822.html">RFC 2822: Internet Message Format</a></li>
+<li><a class="reference external" href="http://docs.python.org/lib/module-smtplib.html">标准库文档: smtplib</a></li>
 </ul>
 </div>
 </div>
@@ -272,11 +272,11 @@ notthere : (550, '5.1.1 &lt;notthere&gt;... User unknown')</pre>
         <div class="sphinxsidebarwrapper">
             <h3><a href="../index.html">目录</a></h3>
             <ul>
-<li><a class="reference" href="">PyMOTW: smtplib</a><ul>
-<li><a class="reference" href="#id1">发送一封邮件</a></li>
-<li><a class="reference" href="#id2">认证和加密</a></li>
-<li><a class="reference" href="#id3">验证一个邮件地址</a></li>
-<li><a class="reference" href="#id4">参考</a></li>
+<li><a class="reference external" href="">PyMOTW: smtplib</a><ul>
+<li><a class="reference external" href="#id1">发送一封邮件</a></li>
+<li><a class="reference external" href="#id2">认证和加密</a></li>
+<li><a class="reference external" href="#id3">验证一个邮件地址</a></li>
+<li><a class="reference external" href="#id4">参考</a></li>
 </ul>
 </li>
 </ul>
@@ -311,7 +311,7 @@ notthere : (550, '5.1.1 &lt;notthere&gt;... User unknown')</pre>
         <li class="right" >
           <a href="anydbm.html" title="PyMOTW: anydbm"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.2 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

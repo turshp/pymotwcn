@@ -50,3 +50,21 @@
 
     struct.rst
     array.rst
+
+    getpass.rst
+
+    string.rst
+
+    exceptions.rst
+
+    itertools.rst
+
+    zipfile.rst
+
+    BaseHTTPServer
+
+    pprint.rst
+
+    SocketServer.rst
+
+    asyncore.rst

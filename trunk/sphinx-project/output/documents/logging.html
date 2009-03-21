@@ -3,13 +3,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>PyMOTW: logging &mdash; PyMOTW v1.0 文档</title>
+    <title>PyMOTW: logging &mdash; PyMOTW v1.2 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0',
+        VERSION:     '1.2',
         COLLAPSE_MODINDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -21,7 +21,7 @@
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="copyright" title="Copyright" href="../copyright.html" />
-    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="top" title="PyMOTW v1.2 documentation" href="../index.html" />
     <link rel="next" title="PyMOTW: locale" href="locale.html" />
     <link rel="prev" title="PyMOTW: bisect" href="bisect.html" /> 
   </head>
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="bisect.html" title="PyMOTW: bisect"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.2 documentation</a> &raquo;</li> 
       </ul>
     </div>  
     <div class="document">
@@ -62,7 +62,7 @@
 <div class="section" id="id2">
 <h2>例子<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
 <p>大多数应用程序可能会将日志写入到文件中, 所以让我从这个例子开始讲述. 我们使用basicConfig()函数来设置默认的处理用于将调试信息写入到文件.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">logging</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">logging</span>
 <span class="n">LOG_FILENAME</span> <span class="o">=</span> <span class="s">&#39;/tmp/logging_example.out&#39;</span>
 <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">filename</span><span class="o">=</span><span class="n">LOG_FILENAME</span><span class="p">,</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,)</span>
 
@@ -84,9 +84,9 @@
 DEBUG:root:This message should go to the log file</pre>
 </div>
 <p>如果我们重复运行之前的脚本, 那么另外的日志信息会附加到文件末尾. 为了每次能够创建一个新的文件, 你可以传递一个filemode参数值为 <tt class="docutils literal"><span class="pre">'w'</span></tt> 给basicConfig().尽管你自己不能控制这个日志文件大小, 但, 可以使用RotatingFileHandler, 这更方便:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">glob</span>
-<span class="k">import</span> <span class="nn">logging</span>
-<span class="k">import</span> <span class="nn">logging.handlers</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">glob</span>
+<span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">logging.handlers</span>
 
 <span class="n">LOG_FILENAME</span> <span class="o">=</span> <span class="s">&#39;/tmp/logging_rotatingfile_example.out&#39;</span>
 
@@ -126,9 +126,9 @@ INFO 20
 DEBUG 10
 UNSET 0</pre>
 </div>
-<p>日志记录器, handler, 日志信息可以分别调用不同的层次 . 一条日志信息, 只有当处理和日志记录器被设置为和它一样的层次或比它低层次时, 才被输出. 例如, 如果一个信息是CRITICAL, 记录器被设置为ERROR, 那么这个消息会输出来. 如果一个信息是WARNING, 记录器被设置为ERROR, 那么这个信息不被输出.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">logging</span>
-<span class="k">import</span> <span class="nn">sys</span>
+<p>日志记录器, handler, 日志信息可以分别调用不同的层次. 一条日志信息, 只有当处理和日志记录器被设置为和它一样的层次或比它低层次时, 才被输出. 例如, 如果一个信息是CRITICAL, 记录器被设置为ERROR, 那么这个消息会输出来. 如果一个信息是WARNING, 记录器被设置为ERROR, 那么这个信息不被输出.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">sys</span>
 
 <span class="n">LEVELS</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;debug&#39;</span><span class="p">:</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span>
            <span class="s">&#39;info&#39;</span><span class="p">:</span><span class="n">logging</span><span class="o">.</span><span class="n">INFO</span><span class="p">,</span>
@@ -164,7 +164,7 @@ ERROR:root:This is an error message
 CRITICAL:root:This is a critical error message</pre>
 </div>
 <p>你可能不会注意到这些日志信息中都含有 <tt class="docutils literal"><span class="pre">'root'</span></tt>. 这个日志模块支持一个不同名字日志记录器的层次结构. 一个告知某条日志信息来自于哪个日志器的简单方式是对每个模块使用独立的日志器对象. 每个新的日志器从它的父亲中&#8221;继承&#8221;一些配置, 日志信息发送到一个包含父日志器名字的日志器. 可选的, 每个日志器可以配置不同, 以便让来自不同模块的信息按不同的方式处理. 让我们看个简单的例子看怎样记录来自不同模块的信息, 这也便于追踪信息的对应源代码:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">logging</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">logging</span>
 
 <span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">WARNING</span><span class="p">)</span>
 
@@ -180,13 +180,13 @@ CRITICAL:root:This is a critical error message</pre>
 WARNING:package1.module1:This message comes from one module
 WARNING:package2.module2:And this message comes from another module</pre>
 </div>
-<p>还有许多许多许多配置日志记录的选项, 包括不同日志信息格式化选项, 将信息发送到多个记录器, 使用socket接口改变一个正在运行的长时间程序的配置. 所有这些选项进一步在 <a class="reference" href="http://docs.python.org/lib/module-logging.html">库模块文档</a> 中深入.</p>
+<p>还有许多许多许多配置日志记录的选项, 包括不同日志信息格式化选项, 将信息发送到多个记录器, 使用socket接口改变一个正在运行的长时间程序的配置. 所有这些选项进一步在 <a class="reference external" href="http://docs.python.org/lib/module-logging.html">库模块文档</a> 中深入.</p>
 </div>
 <div class="section" id="id4">
 <h2>参考<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><a class="reference" href="http://www.python.org/dev/peps/pep-0282/">PEP 282</a></li>
-<li><a class="reference" href="http://www.onlamp.com/pub/a/python/2005/06/02/">Python Standard Logging</a></li>
+<li><a class="reference external" href="http://www.python.org/dev/peps/pep-0282/">PEP 282</a></li>
+<li><a class="reference external" href="http://www.onlamp.com/pub/a/python/2005/06/02/">Python Standard Logging</a></li>
 </ul>
 </div>
 </div>
@@ -199,10 +199,10 @@ WARNING:package2.module2:And this message comes from another module</pre>
         <div class="sphinxsidebarwrapper">
             <h3><a href="../index.html">目录</a></h3>
             <ul>
-<li><a class="reference" href="">PyMOTW: logging</a><ul>
-<li><a class="reference" href="#id1">描述</a></li>
-<li><a class="reference" href="#id2">例子</a></li>
-<li><a class="reference" href="#id4">参考</a></li>
+<li><a class="reference external" href="">PyMOTW: logging</a><ul>
+<li><a class="reference external" href="#id1">描述</a></li>
+<li><a class="reference external" href="#id2">例子</a></li>
+<li><a class="reference external" href="#id4">参考</a></li>
 </ul>
 </li>
 </ul>
@@ -237,7 +237,7 @@ WARNING:package2.module2:And this message comes from another module</pre>
         <li class="right" >
           <a href="bisect.html" title="PyMOTW: bisect"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.2 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
