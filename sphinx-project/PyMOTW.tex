@@ -34,9 +34,9 @@
 \setromanfont{Vera Sans YuanTi Mono}
 
 \title{PyMOTW 文档}
-\date{January 03, 2009}
-\release{1.0}
-\author{作者: Doug Hellmann\footnote{Doug Hellmann<doug.hellmann@gmail.com>} \\译者:  蔡俊杰\footnote{蔡俊杰<yzcaijunjie@gmail.com>}, 盛艳\footnote{盛艳<shengyan1985@gmail.com>}}
+\date{March 21, 2009}
+\release{1.2}
+\author{作者: Doug Hellmann\footnote{Doug Hellmann<doug.hellmann@gmail.com>} \\译者:  蔡俊杰\footnote{蔡俊杰<yzcaijunjie@gmail.com>}, 盛艳\footnote{盛艳<shengyan1985@gmail.com>}, 王沐雨\footnote{王沐雨<wwwjfy@gmail.com>}}
 %\footnotetext{Doug Hellmann<doug.hellmann@gmail.com>}
 \newcommand{\sphinxlogo}{}
 %\renewcommand{\releasename}{Release}
@@ -6825,6 +6825,3690 @@ fmt @PYGbe[=] @PYGad[']@PYGbf[@%10s]@PYGad[ ]@PYGbf[@%10s]@PYGad[ ]@PYGbf[@%10s]
 
 \item {} 
 \href{http://www.scipy.org/}{Numerical Python} NumPy是Python针对大数据集的有效处理模块。
+
+\end{itemize}
+
+\resetcurrentobjects
+
+
+\chapter{PyMOTW: getpass}
+\begin{itemize}
+\item {} 
+模块： getpass
+
+\item {} 
+目的： 提示用户输入一个值(通常为密码), 输入时不显示内容.
+
+\item {} 
+python版本： 1.5.2
+
+\end{itemize}
+
+许多通过终端与用户交互的程序需要向用户询问密码而在用户输入时不将其内容显示出来, getpass这个模块提供了一种简单的方法来安全地处理这个密码输入问题.
+
+
+\section{例子}
+
+\code{getpass()} 函数提示用户输入, 并获取用户回车之前的内容. 输入内容以字符串的形式回传给调用者.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[getpass]
+
+p @PYGbf[=] getpass@PYGbf[.]getpass()
+@PYGay[print] @PYGad[']@PYGad[You entered:]@PYGad['], p
+\end{Verbatim}
+
+如果调用者没有指定提示内容, 默认为''Password:''.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python getpass@_defaults.py
+Password:
+You entered: sekret
+\end{Verbatim}
+
+当然提示可以是当然提示可以是程序所需要的任何内容.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[getpass]
+
+p @PYGbf[=] getpass@PYGbf[.]getpass(prompt@PYGbf[=]@PYGad[']@PYGad[What is your favorite color? ]@PYGad['])
+@PYGay[if] p@PYGbf[.]lower() @PYGbf[==] @PYGad[']@PYGad[blue]@PYGad[']:
+    @PYGay[print] @PYGad[']@PYGad[Right. Off you go.]@PYGad[']
+@PYGay[else]:
+    @PYGay[print] @PYGad[']@PYGad[Auuuuugh!]@PYGad[']
+\end{Verbatim}
+
+我不推荐使用这种不安全的认证方式, 但它仅仅只是为了说明这一点.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python getpass@_prompt.py
+What is your favorite color?
+Right. Off you go.
+@$ python getpass@_prompt.py
+What is your favorite color?
+Auuuuugh!
+\end{Verbatim}
+
+默认情况下, \code{getpass()} 在stdout中显示提示字符串. 程序可以产生有用的信息到sys.stdout, 那么也可以将提示发到另一个流中, 比如sys.stderr.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[getpass]
+@PYGbd[import] @PYGaV[sys]
+
+p @PYGbf[=] getpass@PYGbf[.]getpass(stream@PYGbf[=]sys@PYGbf[.]stderr)
+@PYGay[print] @PYGad[']@PYGad[You entered:]@PYGad['], p
+\end{Verbatim}
+
+这种方式将标准输出重定向到一个pipe或者文件, 这种方式将标准输出重定向到一个pipe或者文件, 因而不显示密码提示. 用户输入的值同样不会回显到屏幕上.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python getpass@_stream.py @textgreater[]/dev/null
+Password:
+\end{Verbatim}
+
+
+\section{在非终端中使用getpass}
+
+在Unix环境中, \code{getpass()} 总是需要一个通过termios控制的tty, 因此可以控制密码不回显. 这也意味着无法从一个重定向到标准输入流的非终端流中获取输入.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ echo "sekret" | python getpass@_defaults.py
+Traceback (most recent call last):
+File "getpass@_defaults.py", line 34, in
+  p = getpass.getpass()
+  File "/Library/Frameworks/Python.framework/Versions/2.5/lib/python2.5/getpass.py", line 32, in unix@_getpass
+  old = termios.tcgetattr(fd) @# a copy to save
+termios.error: (25, 'Inappropriate ioctl for device')
+\end{Verbatim}
+
+由调用者决定是否需要确定输入流是否为一个tty, 以及在非tty时使用备选方法.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[getpass]
+@PYGbd[import] @PYGaV[sys]
+
+@PYGay[if] sys@PYGbf[.]stdin@PYGbf[.]isatty():
+    p @PYGbf[=] getpass@PYGbf[.]getpass(@PYGad[']@PYGad[Using getpass: ]@PYGad['])
+@PYGay[else]:
+    @PYGay[print] @PYGad[']@PYGad[Using readline]@PYGad[']
+    p @PYGbf[=] sys@PYGbf[.]stdin@PYGbf[.]readline()@PYGbf[.]rstrip()
+
+@PYGay[print] @PYGad[']@PYGad[Read: ]@PYGad['], p
+\end{Verbatim}
+
+在tty中:
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python ./getpass@_noterminal.py
+Using getpass:
+Read: sekret
+\end{Verbatim}
+
+非tty环境:
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ echo "sekret" | python ./getpass@_noterminal.py
+Using readline
+Read: sekret
+\end{Verbatim}
+
+
+\section{参考}
+\begin{itemize}
+\item {} 
+\href{http://docs.python.org/library/getpass.html}{getpass}
+
+\end{itemize}
+
+\resetcurrentobjects
+
+
+\chapter{PyMOTW: string}
+\begin{itemize}
+\item {} 
+模块：string
+
+\item {} 
+目的：包括文本处理中的常量和类.
+
+\item {} 
+python版本：2.5
+
+\end{itemize}
+
+string模块始于Python的最早版本. 2.0版本中, 许多之前只在模块中实现的函数被转移为string对象的方法. 之后的版本中, 虽然这些函数仍然可用, 但是不推荐使用, 并且在Python 3.0中将被去掉. string模块也包含了一些有用的常量和类来处理字符串和unicode对象, 后面的讨论会集中在这个方面.
+
+
+\section{常量}
+
+string模块中的常量, 例如ascii\_letters和digits等, 用来指定字符的种类. 有些常量是依赖于系统的, 比如lowercase, 因此会受用户语言设置的影响而改变. 而其它的常量, 如hexdigits, 不会因本地设置(区域选项)的改变而改变.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[string]
+
+@PYGay[for] n @PYGan[in] @PYGaX[dir](string):
+    @PYGay[if] n@PYGbf[.]startswith(@PYGad[']@PYGad[@_]@PYGad[']):
+        @PYGay[continue]
+    v @PYGbf[=] @PYGaX[getattr](string, n)
+    @PYGay[if] @PYGaX[isinstance](v, @PYGaX[basestring]):
+        @PYGay[print] @PYGad[']@PYGbg[@%s]@PYGad[=]@PYGbg[@%s]@PYGad['] @PYGbf[@%] (n, @PYGaX[repr](v))
+        @PYGay[print]
+\end{Verbatim}
+
+大部分常量的名字是很直观的.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python string@_constants.py
+ascii@_letters='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+ascii@_lowercase='abcdefghijklmnopqrstuvwxyz'
+ascii@_uppercase='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+digits='0123456789'
+hexdigits='0123456789abcdefABCDEF'
+letters='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+lowercase='abcdefghijklmnopqrstuvwxyz'
+octdigits='01234567'
+printable='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"@#@$@%@&\'()*+,-./:;@textless[]=@textgreater[]?@PYGZat[]@PYGZlb[]\\@PYGZrb[]@textasciicircum[]@_[]`{|}@textasciitilde[] \t\n\r\x0b\x0c'
+punctuation='!"@#@$@%@&\'()*+,-./:;@textless[]=@textgreater[]?@PYGZat[]@PYGZlb[]\\@PYGZrb[]@textasciicircum[]@_[]`{|}@textasciitilde[]'
+uppercase='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+whitespace='\t\n\x0b\x0c\r '
+\end{Verbatim}
+
+
+\section{函数}
+
+有两个函数没有从string模块中移除. capwords()将一个字符串所有单词首字母大写.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[string]
+
+s @PYGbf[=] @PYGad[']@PYGad[The quick brown fox jumped over the lazy dog.]@PYGad[']
+
+@PYGay[print] s
+@PYGay[print] string@PYGbf[.]capwords(s)
+\end{Verbatim}
+
+得到的结果和调用split(), 将结果列表中的每个单词首字母大写, 然后调用join()连接这些单词这一系列动作的结果相同.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python string@_capwords.py
+The quick brown fox jumped over the lazy dog.
+The Quick Brown Fox Jumped Over The Lazy Dog.
+\end{Verbatim}
+
+另一个函数创建了一个翻译表. 这个翻译表作为translate()方法的参数, 用来将某一集合中的字符改成另一个集合中的字符.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[string]
+
+leet @PYGbf[=] string@PYGbf[.]maketrans(@PYGad[']@PYGad[abegiloprstz]@PYGad['], @PYGad[']@PYGad[463611092572]@PYGad['])
+
+s @PYGbf[=] @PYGad[']@PYGad[The quick brown fox jumped over the lazy dog.]@PYGad[']
+
+@PYGay[print] s
+@PYGay[print] s@PYGbf[.]translate(leet)
+\end{Verbatim}
+
+在这个例子中, 一些字符被替换为其 \href{http://en.wikipedia.org/wiki/Leet}{133t} 数字.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python string@_maketrans.py
+The quick brown fox jumped over the lazy dog.
+Th3 qu1ck 620wn f0x jum93d 0v32 7h3 142y d06.
+\end{Verbatim}
+
+
+\section{模板}
+
+字符串模板是在Python 2.4中增加的, 作为 \href{http://www.python.org/peps/pep-0292.html}{PEP 292} 的一部分, 以及用作内置的占位符表达式的另一种实现形式. 若使用了 \code{string.Template} 的占位符, 前缀为\$的单词就被认为是变量(如\$var), 如果需要将其在上下文中区别出来的话, 也可以将变量名包括在大括号中(如\$\{var\}).
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[string]
+
+values @PYGbf[=] { @PYGad[']@PYGad[var]@PYGad[']:@PYGad[']@PYGad[foo]@PYGad['] }
+t @PYGbf[=] string@PYGbf[.]Template(@PYGad["""]
+@PYGad[@$var]
+@PYGad[@$@$]
+@PYGad[@${var}iable]
+@PYGad["""])
+
+@PYGay[print] @PYGad[']@PYGad[TEMPLATE:]@PYGad['], t@PYGbf[.]substitute(values)
+
+s @PYGbf[=] @PYGad["""]
+@PYGbg[@%(var)s]
+@PYGbg[@%@%]
+@PYGbg[@%(var)s]@PYGad[iable]
+@PYGad["""]
+
+@PYGay[print] @PYGad[']@PYGad[INTERPLOATION:]@PYGad['], s @PYGbf[@%] values
+\end{Verbatim}
+
+如您所见, 两种形式中, 触发字符(\$或\%)若重复两次则被转义为普通字符.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python string@_template.py
+TEMPLATE:
+foo
+@$
+fooiable
+
+INTERPLOATION:
+foo
+@%
+fooiable
+\end{Verbatim}
+
+模板和标准字符串占位符的一个关键区别就是模板不会考虑参数类型. 参数的值将被转为字符串并插入到模板中. 模板中没有格式选项. 比如, 模板中无法控制显示一个浮点数时数字的个数.
+
+而使用模板的一个好处是调用 \code{safe\_substitute()} 方法, 当模板需要的参数值没有全部提供时, 可以避免了异常的产生.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[string]
+
+values @PYGbf[=] { @PYGad[']@PYGad[var]@PYGad[']:@PYGad[']@PYGad[foo]@PYGad['] }
+
+t @PYGbf[=] string@PYGbf[.]Template(@PYGad["]@PYGad[@$var is here but @$missing is not provided]@PYGad["])
+
+@PYGay[try]:
+    @PYGay[print] @PYGad[']@PYGad[TEMPLATE:]@PYGad['], t@PYGbf[.]substitute(values)
+@PYGay[except] @PYGaU[KeyError], err:
+    @PYGay[print] @PYGad[']@PYGad[ERROR:]@PYGad['], @PYGaX[str](err)
+
+@PYGay[print] @PYGad[']@PYGad[TEMPLATE:]@PYGad['], t@PYGbf[.]safe@_substitute(values)
+\end{Verbatim}
+
+因为missing这个变量的值没有出现在参数字典里, 所以 \code{substitue()} 会引发一个KeyError异常. 而 \code{safe\_substitute()} 则捕获了这个异常并将这个变量表达式保留在文本中.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python string@_template@_missing.py
+TEMPLATE: ERROR: 'missing'
+TEMPLATE: foo is here but @$missing is not provided
+\end{Verbatim}
+
+
+\section{模板的高级应用}
+
+如果string.Template的默认表达式无法满足你的要求, 你可以通过调整用于匹配模板正文中变量名的正则表达式来达到你的目的. 一种简单的方法就是改变delimiter和idpattern这两个类属性.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[string]
+
+@PYGay[class] @PYGaN[MyTemplate](string@PYGbf[.]Template):
+    delimiter @PYGbf[=] @PYGad[']@PYGad[@%]@PYGad[']
+    idpattern @PYGbf[=] @PYGad[']@PYGad[@PYGZlb[]a-z@PYGZrb[]+@_@PYGZlb[]a-z@PYGZrb[]+]@PYGad[']
+
+t @PYGbf[=] MyTemplate(@PYGad[']@PYGbg[@%@%]@PYGad[ ]@PYGad[@%]@PYGad[with@_underscore ]@PYGad[@%]@PYGad[notunderscored]@PYGad['])
+d @PYGbf[=] { @PYGad[']@PYGad[with@_underscore]@PYGad[']:@PYGad[']@PYGad[replaced]@PYGad['],
+          @PYGad[']@PYGad[notunderscored]@PYGad[']:@PYGad[']@PYGad[not replaced]@PYGad['],
+}
+
+@PYGay[print] t@PYGbf[.]safe@_substitute(d)
+\end{Verbatim}
+
+在这个例子中, 变量名必须在中间的某个位置包含一个下划线, 因此\%notunderscored不会被替换为任何东西.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python string@_template@_advanced.py
+@% replaced @%notunderscored
+\end{Verbatim}
+
+如果需要更复杂的变化, 你可以重载pattern属性, 定义一个全新的正则表达式. 新的pattern属性必须包含4个命名的组来分别匹配定界符, 已命名的变量, 区分变量的括号类型, 和无效界定符模式.
+
+让我们看一下默认的模式:
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[string]
+
+t @PYGbf[=] string@PYGbf[.]Template(@PYGad[']@PYGad[@$var]@PYGad['])
+@PYGay[print] t@PYGbf[.]pattern@PYGbf[.]pattern
+\end{Verbatim}
+
+因为t.pattern是已经被编译的正则表达式, 我们只能通过它的pattern属性来看真实的字符串.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python string@_template@_defaultpattern.py
+
+\@$(?:
+(?P@textless[]escaped@textgreater[]\@$) | @# Escape sequence of two delimiters
+(?P@textless[]named@textgreater[]@PYGZlb[]@_a-z@PYGZrb[]@PYGZlb[]@_a-z0-9@PYGZrb[]*) | @# delimiter and a Python identifier
+{(?P@textless[]braced@textgreater[]@PYGZlb[]@_a-z@PYGZrb[]@PYGZlb[]@_a-z0-9@PYGZrb[]*)} | @# delimiter and a braced identifier
+(?P@textless[]invalid@textgreater[]) @# Other ill-formed delimiter exprs
+)
+\end{Verbatim}
+
+如果希望创建一个新的模板, 如, 以\{\{var\}\}作为变量表达式, 可以使用这样的一个pattern:
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[re]
+@PYGbd[import] @PYGaV[string]
+
+@PYGay[class] @PYGaN[MyTemplate](string@PYGbf[.]Template):
+    delimiter @PYGbf[=] @PYGad[']@PYGad[{{]@PYGad[']
+    pattern @PYGbf[=] re@PYGbf[.]compile(@PYGad[r''']
+@PYGad[              ]@PYGad[\]@PYGad[{]@PYGad[\]@PYGad[{(?:]
+@PYGad[              (?P@textless[]escaped@textgreater[]]@PYGad[\]@PYGad[{]@PYGad[\]@PYGad[{)|]
+@PYGad[              (?P@textless[]named@textgreater[]@PYGZlb[]@_a-z@PYGZrb[]@PYGZlb[]@_a-z0-9@PYGZrb[]*)]@PYGad[\]@PYGad[}]@PYGad[\]@PYGad[}|]
+@PYGad[              (?P@textless[]braced@textgreater[]@PYGZlb[]@_a-z@PYGZrb[]@PYGZlb[]@_a-z0-9@PYGZrb[]*)]@PYGad[\]@PYGad[}]@PYGad[\]@PYGad[}|]
+@PYGad[              (?P@textless[]invalid@textgreater[])]
+@PYGad[              )]
+@PYGad[    ]@PYGad['''], re@PYGbf[.]VERBOSE @PYGbf[|] re@PYGbf[.]DOTALL)
+
+t @PYGbf[=] MyTemplate(@PYGad[''']
+@PYGad[    {{{{]
+@PYGad[    {{var}}]
+@PYGad['''])
+
+@PYGay[print] @PYGad[']@PYGad[MATCHES:]@PYGad['], t@PYGbf[.]pattern@PYGbf[.]findall(t@PYGbf[.]template)
+@PYGay[print] @PYGad[']@PYGad[SUBSTITUTED:]@PYGad['], t@PYGbf[.]safe@_substitute(var@PYGbf[=]@PYGad[']@PYGad[replacement]@PYGad['])
+\end{Verbatim}
+
+即使named和braced是一样的, 仍然需要将它们都描述出来. 下面是输出:
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python string@_template@_newsyntax.py
+MATCHES: @PYGZlb[]('{{', '', '', ''), ('', 'var', '', '')@PYGZrb[]
+SUBSTITUTED:
+{{
+replacement
+\end{Verbatim}
+
+
+\section{不推荐使用的函数}
+
+那些不推荐使用的函数已经被转移到string和unicode类中, 可参考手册中的 \href{http://docs.python.org/library/stdtypes.html\#string-methods}{String Methods}.
+
+
+\section{参考}
+\begin{itemize}
+\item {} 
+\href{http://docs.python.org/library/string.html}{string}
+
+\item {} 
+\href{http://www.python.org/peps/pep-0292.html}{PEP 292}
+
+\end{itemize}
+
+\resetcurrentobjects
+
+
+\chapter{PyMOTW: exceptions}
+\begin{itemize}
+\item {} 
+模块： exceptions
+
+\item {} 
+目的： excpetions模块定义了在整个标准库和解释器中使用的内置错误.
+
+\item {} 
+python版本： 1.5+
+
+\end{itemize}
+
+
+\section{描述}
+
+Python之前就支持将简单的字符串信息和类一样作为异常. 从Python 1.5开始, 所有的标准库模块使用类作为异常. 而从Python 2.5开始, 字符串的异常会导致一个DeprecationWarning, 而对于字符串异常的支持会在未来的版本中去掉.
+
+
+\section{基类}
+
+在标准库文档的描述中, 异常类以分层结构定义. 这样做除了结构清晰之外, 异常的继承关系也很有用, 可以通过捕获基类的异常来捕获相关的异常. 大部分情况下, 这些基类异常不会直接被引发.
+
+
+\subsection{BaseException}
+
+所有异常的基类. 实现逻辑为使用 \code{str()} 将传给构造函数的参数创建为一个异常的字符串表达式.
+
+
+\subsection{Exception}
+
+不会导致运行的应用程序退出的异常的基类.
+所有用户自定义的异常应该使用Exception作为基类.
+
+
+\subsection{StandardError}
+
+在标准库中使用的内置异常的基类.
+
+
+\subsection{ArithmeticError}
+
+数学相关错误的基类.
+
+
+\subsection{LookupError}
+
+因无法找到某些东西产生的错误的基类.
+
+
+\subsection{EnvironmentError}
+
+因Python之外的原因(操作系统, 文件系统, 等等)产生的错误的基类.
+
+
+\section{异常的引发}
+
+
+\subsection{AssertionError}
+
+一个AssertionError由一个失败的 \code{assert} 语句引发.
+
+\begin{Verbatim}[commandchars=@\[\]]
+assert False, 'The assertion failed'
+
+@$ python exceptions@_AssertionError@_assert.py
+Traceback (most recent call last):
+File "/Users/dhellmann/Documents/PyMOTW/in@_progress/exceptions/PyMOTW/exceptions/exceptions@_AssertionError@_assert.py", line 12, in @textless[]module@textgreater[]
+assert False, 'The assertion failed'
+AssertionError: The assertion failed
+\end{Verbatim}
+
+也可以在 \code{unittest} 模块中像 \code{failIf()} 一样使用.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[unittest]
+
+@PYGay[class] @PYGaN[AssertionExample](unittest@PYGbf[.]TestCase):
+    @PYGay[def] @PYGaK[test](@PYGaA[self]):
+        @PYGaA[self]@PYGbf[.]failUnless(@PYGaA[False])
+
+unittest@PYGbf[.]main()
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python exceptions@_AssertionError@_unittest.py
+F
+======================================================================
+FAIL: test (@_@_main@_@_.AssertionExample)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in@_progress/exceptions/PyMOTW/exceptions/exceptions@_AssertionError@_unittest.py", line 17, in test
+  self.failUnless(False)
+AssertionError
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (failures=1)
+\end{Verbatim}
+
+
+\subsection{AttributeError}
+
+若引用一个属性或对一个属性赋值时发生错误, 则会引发AttributeError.
+
+例如, 当引用一个不存在的属性时:
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[class] @PYGaN[NoAttributes](@PYGaX[object]):
+    @PYGay[pass]
+
+o @PYGbf[=] NoAttributes()
+@PYGay[print] o@PYGbf[.]attribute
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python exceptions@_AttributeError.py
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in@_progress/exceptions/PyMOTW/exceptions/exceptions@_AttributeError.py", line 16, in @textless[]module@textgreater[]
+  print o.attribute
+AttributeError: 'NoAttributes' object has no attribute 'attribute'
+\end{Verbatim}
+
+或者尝试修改一个只读属性:
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[class] @PYGaN[MyClass](@PYGaX[object]):
+
+    @PYGaC[@PYGZat[]property]
+    @PYGay[def] @PYGaK[attribute](@PYGaA[self]):
+        @PYGay[return] @PYGad[']@PYGad[This is the attribute value]@PYGad[']
+
+o @PYGbf[=] MyClass()
+@PYGay[print] o@PYGbf[.]attribute
+o@PYGbf[.]attribute @PYGbf[=] @PYGad[']@PYGad[New value]@PYGad[']
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python exceptions@_AttributeError@_assignment.py
+This is the attribute value
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in@_progress/exceptions/PyMOTW/exceptions/exceptions@_AttributeError@_assignment.py", line 20, in @textless[]module@textgreater[]
+  o.attribute = 'New value'
+AttributeError: can't set attribute
+\end{Verbatim}
+
+
+\subsection{EOFError}
+
+当一个内置函数, 如 \code{input()} 或 \code{raw\_input()}, 直到输入流的结尾也没有读到任何数据时, 会引发EOFError异常. 而对于文件的方法, 如 \code{read()}, 如果文件为空, 则会在文件末尾处返回一个空字符串.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[while] @PYGaA[True]:
+    data @PYGbf[=] @PYGaX[raw@_input](@PYGad[']@PYGad[prompt:]@PYGad['])
+    @PYGay[print] @PYGad[']@PYGad[READ:]@PYGad['], data
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ echo hello | python PyMOTW/exceptions/exceptions@_EOFError.py
+prompt:READ: hello
+prompt:Traceback (most recent call last):
+  File "PyMOTW/exceptions/exceptions@_EOFError.py", line 13, in @textless[]module@textgreater[]
+  data = raw@_input('prompt:')
+EOFError: EOF when reading a line
+\end{Verbatim}
+
+
+\subsection{FloatingPointError}
+
+若浮点异常控制(fpectl)启用, 则会在浮点运算出错时引发FloatingPointError. 启用:mod:\emph{fpectl} 需要有 \code{--with-fpectl} 选项编译的解释器. \code{fpectl}  \emph{在stdlib文档 \textless{}http://docs.python.org/lib/module-fpectl.html\textgreater{}中不推荐使用。}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[math]
+@PYGbd[import] @PYGaV[fpectl]
+
+@PYGay[print] @PYGad[']@PYGad[Control off:]@PYGad['], math@PYGbf[.]exp(@PYGaw[1000])
+fpectl@PYGbf[.]turnon@_sigfpe()
+@PYGay[print] @PYGad[']@PYGad[Control on:]@PYGad['], math@PYGbf[.]exp(@PYGaw[1000])
+\end{Verbatim}
+
+
+\subsection{GeneratorExit}
+
+若调用generator的 \code{close()} 方法, 则在generator内引发GeneratorExit异常.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[def] @PYGaK[my@_generator]():
+    @PYGay[try]:
+        @PYGay[for] i @PYGan[in] @PYGaX[range](@PYGaw[5]):
+            @PYGay[print] @PYGad[']@PYGad[Yielding]@PYGad['], i
+            @PYGay[yield] i
+    @PYGay[except] @PYGaU[GeneratorExit]:
+        @PYGay[print] @PYGad[']@PYGad[Exiting early]@PYGad[']
+
+g @PYGbf[=] my@_generator()
+@PYGay[print] g@PYGbf[.]next()
+g@PYGbf[.]close()
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python exceptions@_GeneratorExit.py
+Yielding 0
+0
+Exiting early
+\end{Verbatim}
+
+
+\subsection{IOError}
+
+输入或输出失败时引发IOError. 例如, 磁盘已满或输入文件不存在.
+
+\begin{Verbatim}[commandchars=@\[\]]
+f @PYGbf[=] @PYGaX[open](@PYGad[']@PYGad[/does/not/exist]@PYGad['], @PYGad[']@PYGad[r]@PYGad['])
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python exceptions@_IOError.py
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in@_progress/exceptions/PyMOTW/exceptions/exceptions@_IOError.py", line 12, in @textless[]module@textgreater[]
+  f = open('/does/not/exist', 'r')
+IOError: @PYGZlb[]Errno 2@PYGZrb[] No such file or directory: '/does/not/exist'
+\end{Verbatim}
+
+
+\subsection{ImportError}
+
+当一个模块, 或者模块的成员, 不能被引入时引发ImportError. 以下是几种可能引发ImportError的情况.
+\begin{enumerate}
+\item {} 
+若一个模块不存在.
+
+\end{enumerate}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[module@_does@_not@_exist]
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python exceptions@_ImportError@_nomodule.py
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in@_progress/exceptions/PyMOTW/exceptions/exceptions@_ImportError@_nomodule.py", line 12, in @textless[]module@textgreater[]
+  import module@_does@_not@_exist
+ImportError: No module named module@_does@_not@_exist
+\end{Verbatim}
+\begin{enumerate}
+\item {} 
+若执行了 \code{from X import Y}, 而X模块中不存在Y, 则引发ImportError.
+
+\end{enumerate}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[from] @PYGaV[exceptions] @PYGbd[import] MadeUpName
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python exceptions@_ImportError@_missingname.py
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in@_progress/exceptions/PyMOTW/exceptions/exceptions@_ImportError@_missingname.py", line 12, in @textless[]module@textgreater[]
+  from exceptions import MadeUpName
+ImportError: cannot import name MadeUpName
+\end{Verbatim}
+
+
+\subsection{IndexError}
+
+当引用的序列下标越界时引发IndexError.
+
+\begin{Verbatim}[commandchars=@\[\]]
+my@_seq @PYGbf[=] @PYGZlb[] @PYGaw[0], @PYGaw[1], @PYGaw[2] @PYGZrb[]
+@PYGay[print] my@_seq@PYGZlb[]@PYGaw[3]@PYGZrb[]
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python exceptions@_IndexError.py
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in@_progress/exceptions/PyMOTW/exceptions/exceptions@_IndexError.py", line 13, in @textless[]module@textgreater[]
+  print my@_seq@PYGZlb[]3@PYGZrb[]
+IndexError: list index out of range
+\end{Verbatim}
+
+
+\subsection{KeyError}
+
+类似地, 当一个字典中的键无法找到时引发KeyError.
+
+\begin{Verbatim}[commandchars=@\[\]]
+d @PYGbf[=] { @PYGad[']@PYGad[a]@PYGad[']:@PYGaw[1], @PYGad[']@PYGad[b]@PYGad[']:@PYGaw[2] }
+@PYGay[print] d@PYGZlb[]@PYGad[']@PYGad[c]@PYGad[']@PYGZrb[]
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python exceptions@_KeyError.py
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in@_progress/exceptions/PyMOTW/exceptions/exceptions@_KeyError.py", line 13, in @textless[]module@textgreater[]
+  print d@PYGZlb[]'c'@PYGZrb[]
+KeyError: 'c'
+\end{Verbatim}
+
+KeyboardInterrupt
+\textasciitilde{}\textasciitilde{}\textasciitilde{}\textasciitilde{}\textasciitilde{}\textasciitilde{}\textasciitilde{}\textasciitilde{}\textasciitilde{}\textasciitilde{}\textasciitilde{}\textasciitilde{}\textasciitilde{}\textasciitilde{}\textasciitilde{}\textasciitilde{}\textasciitilde{}\textasciitilde{}{}`
+
+KeyboardInterrupt发生在用户按下Ctrl-C(或Delete)使一个正在运行的程序停止时. 和大部分别的异常不同, KeyboardInterrupt直接继承了BaseException, 以防止其被用来捕获Exception的全局异常处理器捕获.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[try]:
+    @PYGay[print] @PYGad[']@PYGad[Press Return or Ctrl-C:]@PYGad['],
+    ignored @PYGbf[=] @PYGaX[raw@_input]()
+@PYGay[except] @PYGaU[Exception], err:
+    @PYGay[print] @PYGad[']@PYGad[Caught exception:]@PYGad['], err
+@PYGay[except] @PYGaU[KeyboardInterrupt], err:
+    @PYGay[print] @PYGad[']@PYGad[Caught KeyboardInterrupt]@PYGad[']
+@PYGay[else]:
+    @PYGay[print] @PYGad[']@PYGad[No exception]@PYGad[']
+\end{Verbatim}
+
+在提示符下按下Ctrl-C导致KeyboardInterrupt异常.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python PyMOTW/exceptions/exceptions@_KeyboardInterrupt.py
+Press Return or Ctrl-C: @textasciicircum[]CCaught KeyboardInterrupt
+\end{Verbatim}
+
+
+\subsection{MemoryError}
+
+如果程序用完了内存并且有可能恢复(例如, 通过删除某些对象)时, 引发MemoryError.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[itertools]
+
+@PYGaD[@# Try to create a MemoryError by allocating a lot of memory]
+l @PYGbf[=] @PYGZlb[]@PYGZrb[]
+@PYGay[for] i @PYGan[in] @PYGaX[range](@PYGaw[3]):
+    @PYGay[try]:
+        @PYGay[for] j @PYGan[in] itertools@PYGbf[.]count(@PYGaw[1]):
+            @PYGay[print] i, j
+            l@PYGbf[.]append(@PYGad[']@PYGad[*]@PYGad['] @PYGbf[*] (@PYGaw[2]@PYGbf[*]@PYGbf[*]@PYGaw[30]))
+    @PYGay[except] @PYGaU[MemoryError]:
+        @PYGay[print] @PYGad[']@PYGad[(error, discarding existing list)]@PYGad[']
+        l @PYGbf[=] @PYGZlb[]@PYGZrb[]
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python PyMOTW/exceptions/exceptions@_MemoryError.py
+0 1
+0 2
+0 3
+python(13482) malloc: *** mmap(size=1073745920) failed (error code=12)
+*** error: can't allocate region
+*** set a breakpoint in malloc@_error@_break to debug
+(error, discarding existing list)
+1 1
+1 2
+1 3
+python(13482) malloc: *** mmap(size=1073745920) failed (error code=12)
+*** error: can't allocate region
+*** set a breakpoint in malloc@_error@_break to debug
+(error, discarding existing list)
+2 1
+2 2
+2 3
+python(13482) malloc: *** mmap(size=1073745920) failed (error code=12)
+*** error: can't allocate region
+*** set a breakpoint in malloc@_error@_break to debug
+(error, discarding existing list)
+\end{Verbatim}
+
+
+\subsection{NameError}
+
+若代码引用当前作用域下不存在的名字, 则引发NameError. 例如, 一个不存在的变量名.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[def] @PYGaK[func]():
+    @PYGay[print] unknown@_name
+
+func()
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python exceptions@_NameError.py
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in@_progress/exceptions/PyMOTW/exceptions/exceptions@_NameError.py", line 15, in @textless[]module@textgreater[]
+    func()
+  File "/Users/dhellmann/Documents/PyMOTW/in@_progress/exceptions/PyMOTW/exceptions/exceptions@_NameError.py", line 13, in func
+    print unknown@_name
+NameError: global name 'unknown@_name' is not defined
+\end{Verbatim}
+
+
+\subsection{NotImplementedError}
+
+用户自定义基类可以引发NotImplementedError来模拟 \emph{接口} , 意思是一个方法或行为需要在子类中定义.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[class] @PYGaN[BaseClass](@PYGaX[object]):
+    @PYGas["""Defines the interface"""]
+    @PYGay[def] @PYGaK[@_@_init@_@_](@PYGaA[self]):
+        @PYGaX[super](BaseClass, @PYGaA[self])@PYGbf[.]@_@_init@_@_()
+    @PYGay[def] @PYGaK[do@_something](@PYGaA[self]):
+        @PYGas["""The interface, not implemented"""]
+        @PYGay[raise] @PYGaU[NotImplementedError](@PYGaA[self]@PYGbf[.]@_@_class@_@_@PYGbf[.]@_@_name@_@_ @PYGbf[+] @PYGad[']@PYGad[.do@_something]@PYGad['])
+
+@PYGay[class] @PYGaN[SubClass](BaseClass):
+    @PYGas["""Implementes the interface"""]
+    @PYGay[def] @PYGaK[do@_something](@PYGaA[self]):
+        @PYGas["""really does something"""]
+        @PYGay[print] @PYGaA[self]@PYGbf[.]@_@_class@_@_@PYGbf[.]@_@_name@_@_ @PYGbf[+] @PYGad[']@PYGad[ doing something!]@PYGad[']
+
+
+SubClass()@PYGbf[.]do@_something()
+BaseClass()@PYGbf[.]do@_something()
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python exceptions@_NotImplementedError.py
+SubClass doing something!
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in@_progress/exceptions/PyMOTW/exceptions/exceptions@_NotImplementedError.py", line 27, in @textless[]module@textgreater[]
+    BaseClass().do@_something()
+  File "/Users/dhellmann/Documents/PyMOTW/in@_progress/exceptions/PyMOTW/exceptions/exceptions@_NotImplementedError.py", line 18, in do@_something
+    raise NotImplementedError(self.@_@_class@_@_.@_@_name@_@_ + '.do@_something')
+NotImplementedError: BaseClass.do@_something
+\end{Verbatim}
+
+
+\subsection{OSError}
+
+OSError是为 \code{os} 模块服务的错误类, 当一个系统相关的函数返回错误时引发.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[os]
+
+@PYGay[for] i @PYGan[in] @PYGaX[range](@PYGaw[10]):
+    @PYGay[print] i, os@PYGbf[.]ttyname(i)
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python exceptions@_OSError.py
+0
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in@_progress/exceptions/PyMOTW/exceptions/exceptions@_OSError.py", line 15, in @textless[]module@textgreater[]
+    print i, os.ttyname(i)
+OSError: @PYGZlb[]Errno 25@PYGZrb[] Inappropriate ioctl for device
+\end{Verbatim}
+
+
+\subsection{OverflowError}
+
+当一个算术操作超过了变量类型的限制时, 引发OverflowError. 长整型会在其值增加时分配更多的空间, 因此会最终引发MemoryError. 浮点数的异常处理不是标准化的, 所以不会检查浮点数. 普通的整数在需要时会被转化为长整型.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[sys]
+
+@PYGay[print] @PYGad[']@PYGad[Regular integer: (maxint=]@PYGbg[@%s]@PYGad[)]@PYGad['] @PYGbf[@%] sys@PYGbf[.]maxint
+@PYGay[try]:
+    i @PYGbf[=] sys@PYGbf[.]maxint @PYGbf[*] @PYGaw[3]
+    @PYGay[print] @PYGad[']@PYGad[No overflow for ]@PYGad['], @PYGaX[type](i), @PYGad[']@PYGad[i =]@PYGad['], i
+@PYGay[except] @PYGaU[OverflowError], err:
+    @PYGay[print] @PYGad[']@PYGad[Overflowed at ]@PYGad['], i, err
+
+@PYGay[print]
+@PYGay[print] @PYGad[']@PYGad[Long integer:]@PYGad[']
+@PYGay[for] i @PYGan[in] @PYGaX[range](@PYGaw[0], @PYGaw[100], @PYGaw[10]):
+    @PYGay[print] @PYGad[']@PYGbg[@%2d]@PYGad['] @PYGbf[@%] i, @PYGaw[2]L @PYGbf[*]@PYGbf[*] i
+
+@PYGay[print]
+@PYGay[print] @PYGad[']@PYGad[Floating point values:]@PYGad[']
+@PYGay[try]:
+    f @PYGbf[=] @PYGaw[2.0]@PYGbf[*]@PYGbf[*]i
+    @PYGay[for] i @PYGan[in] @PYGaX[range](@PYGaw[100]):
+        @PYGay[print] i, f
+        f @PYGbf[=] f @PYGbf[*]@PYGbf[*] @PYGaw[2]
+@PYGay[except] @PYGaU[OverflowError], err:
+    @PYGay[print] @PYGad[']@PYGad[Overflowed after ]@PYGad['], f, err
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python exceptions@_OverflowError.py
+Regular integer: (maxint=2147483647)
+No overflow for  @textless[]type 'long'@textgreater[] i = 6442450941
+
+Long integer:
+0 1
+10 1024
+20 1048576
+30 1073741824
+40 1099511627776
+50 1125899906842624
+60 1152921504606846976
+70 1180591620717411303424
+80 1208925819614629174706176
+90 1237940039285380274899124224
+
+Floating point values:
+0 1.23794003929e+27
+1 1.53249554087e+54
+2 2.34854258277e+108
+3 5.5156522631e+216
+Overflowed after  5.5156522631e+216 (34, 'Result too large')
+\end{Verbatim}
+
+
+\subsection{ReferenceError}
+
+当使用:mod:\emph{weakref} 代理访问已经被作为垃圾回收的对象时, 引发ReferenceError.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[gc]
+@PYGbd[import] @PYGaV[weakref]
+
+@PYGay[class] @PYGaN[ExpensiveObject](@PYGaX[object]):
+    @PYGay[def] @PYGaK[@_@_init@_@_](@PYGaA[self], name):
+        @PYGaA[self]@PYGbf[.]name @PYGbf[=] name
+    @PYGay[def] @PYGaK[@_@_del@_@_](@PYGaA[self]):
+        @PYGay[print] @PYGad[']@PYGad[(Deleting ]@PYGbg[@%s]@PYGad[)]@PYGad['] @PYGbf[@%] @PYGaA[self]
+
+obj @PYGbf[=] ExpensiveObject(@PYGad[']@PYGad[obj]@PYGad['])
+p @PYGbf[=] weakref@PYGbf[.]proxy(obj)
+
+@PYGay[print] @PYGad[']@PYGad[BEFORE:]@PYGad['], p@PYGbf[.]name
+obj @PYGbf[=] @PYGaA[None]
+@PYGay[print] @PYGad[']@PYGad[AFTER:]@PYGad['], p@PYGbf[.]name
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python exceptions@_ReferenceError.py
+BEFORE: obj
+(Deleting @textless[]@_@_main@_@_.ExpensiveObject object at 0x844f0@textgreater[])
+AFTER:
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in@_progress/exceptions/PyMOTW/exceptions/exceptions@_ReferenceError.py", line 26, in @textless[]module@textgreater[]
+    print 'AFTER:', p.name
+ReferenceError: weakly-referenced object no longer exists
+\end{Verbatim}
+
+
+\subsection{RuntimeError}
+
+RuntimeError在没有其它具体的异常可用时被引发. 解释器本身并不会经常引发这个异常, 但是一些用户代码可能会.
+
+
+\subsection{StopIteration}
+
+当一个迭代器完成后, 它的 \code{next()} 方法引发StopIteration. 这个异常不被认为是错误.
+
+\begin{Verbatim}[commandchars=@\[\]]
+l@PYGbf[=]@PYGZlb[]@PYGaw[0],@PYGaw[1],@PYGaw[2]@PYGZrb[]
+i@PYGbf[=]@PYGaX[iter](l)
+
+@PYGay[print] i
+@PYGay[print] i@PYGbf[.]next()
+@PYGay[print] i@PYGbf[.]next()
+@PYGay[print] i@PYGbf[.]next()
+@PYGay[print] i@PYGbf[.]next()
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python exceptions@_StopIteration.py
+@textless[]listiterator object at 0x808b0@textgreater[]
+0
+1
+2
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in@_progress/exceptions/PyMOTW/exceptions/exceptions@_StopIteration.py", line 19, in @textless[]module@textgreater[]
+    print i.next()
+StopIteration
+\end{Verbatim}
+
+
+\subsection{SyntaxError}
+
+分析器发现无法理解的源码时引发SyntaxError. 可能是在引入一个模块, 调用exec, 或 \code{eval()} 时发生. 异常的属性确切找到输入的哪一部分导致了异常.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[try]:
+    @PYGay[print] @PYGaX[eval](@PYGad[']@PYGad[five times three]@PYGad['])
+@PYGay[except] @PYGaU[SyntaxError], err:
+    @PYGay[print] @PYGad[']@PYGad[Syntax error ]@PYGbg[@%s]@PYGad[ (]@PYGbg[@%s]@PYGad[-]@PYGbg[@%s]@PYGad[): ]@PYGbg[@%s]@PYGad['] @PYGbf[@%] \
+           (err@PYGbf[.]filename, err@PYGbf[.]lineno, err@PYGbf[.]offset, err@PYGbf[.]text)
+    @PYGay[print] err
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python exceptions@_SyntaxError.py
+Syntax error @textless[]string@textgreater[] (1-10): five times three
+invalid syntax (@textless[]string@textgreater[], line 1)
+\end{Verbatim}
+
+
+\subsection{SystemError}
+
+解释器本身发生错误, 并且有可能继续正常运行时, 引发SystemError. SystemError可能表示解释器本身的bug, 并且需要报告给维护者.
+
+
+\subsection{SystemExit}
+
+当调用sys.exit()时, 引发SystemExit, 而不是立即退出. 这样允许 \code{try:finally} 代码块的完成清理工作, 以及调用者(比如调试器和测试框架)捕获异常, 从而避免退出.
+
+
+\subsection{TypeError}
+
+连接类型不正确的对象, 或使用类型不正确的对象调用函数时, 引发TypeError.
+
+\begin{Verbatim}[commandchars=@\[\]]
+result @PYGbf[=] (@PYGad[']@PYGad[tuple]@PYGad['],) @PYGbf[+] @PYGad[']@PYGad[string]@PYGad[']
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python exceptions@_TypeError.py
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in@_progress/exceptions/PyMOTW/exceptions/exceptions@_TypeError.py", line 12, in @textless[]module@textgreater[]
+    result = ('tuple',) + 'string'
+TypeError: can only concatenate tuple (not "str") to tuple
+\end{Verbatim}
+
+
+\subsection{UnboundLocalError}
+
+UnboundLocalError是NameError的一种, 针对本地变量名.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[def] @PYGaK[throws@_global@_name@_error]():
+    @PYGay[print] unknown@_global@_name
+
+@PYGay[def] @PYGaK[throws@_unbound@_local]():
+    local@_val @PYGbf[=] local@_val @PYGbf[+] @PYGaw[1]
+    @PYGay[print] local@_val
+
+@PYGay[try]:
+    throws@_global@_name@_error()
+@PYGay[except] @PYGaU[NameError], err:
+    @PYGay[print] @PYGad[']@PYGad[Global name error:]@PYGad['], err
+
+@PYGay[try]:
+    throws@_unbound@_local()
+@PYGay[except] @PYGaU[UnboundLocalError], err:
+    @PYGay[print] @PYGad[']@PYGad[Local name error:]@PYGad['], err
+\end{Verbatim}
+
+全局NameError和UnboundLocal的区别是使用变量名的方式. 因为变量名''local\_val''出现在表达式的左边, 所以被解释为一个本地变量名.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python exceptions@_UnboundLocalError.py
+Global name error: global name 'unknown@_global@_name' is not defined
+Local name error: local variable 'local@_val' referenced before assignment
+\end{Verbatim}
+
+
+\subsection{UnicodeError}
+
+UnicodeError是ValueError的子类, 当出现Unicode问题时引发. UnicodeError有不同的子类: UnicodeEncodeError, UnicodeDecodeError和UnicodeTranslateError.
+
+
+\subsection{ValueError}
+
+当一个函数得到一个类型正确但是非有效值时, 引发ValueError.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[print] @PYGaX[chr](@PYGaw[1024])
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python exceptions@_ValueError.py
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in@_progress/exceptions/PyMOTW/exceptions/exceptions@_ValueError.py", line 12, in @textless[]module@textgreater[]
+    print chr(1024)
+ValueError: chr() arg not in range(256)
+\end{Verbatim}
+
+
+\subsection{ZeroDivisionError}
+
+当0作为一个除法操作的分母时, 引发ZeroDivisionError.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[print] @PYGaw[1]@PYGbf[/]@PYGaw[0]
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python exceptions@_ZeroDivisionError.py
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in@_progress/exceptions/PyMOTW/exceptions/exceptions@_ZeroDivisionError.py", line 12, in @textless[]module@textgreater[]
+    print 1/0
+ZeroDivisionError: integer division or modulo by zero
+\end{Verbatim}
+
+
+\section{Warning列表}
+
+还有一些异常用来在:mod:\emph{warnings} 模块中使用.
+\begin{itemize}
+\item {} 
+Warning: 所有警告的基类.
+
+\item {} 
+UserWarning: 所有来自用户代码的警告的基类.
+
+\item {} 
+DeprecationWarning: 用在不再被维护的特性上.
+
+\item {} 
+PendingDeprecationWarning: 用在很快就会不推荐使用的特性上.
+
+\item {} 
+SyntaxWarning: 用在值得商榷的表达式上.
+
+\item {} 
+RuntimeWarning: 运行时可能发生问题的事件的警告.
+
+\item {} 
+FutureWarning: 对于语言或库的改变会在之后实现时警告.
+
+\item {} 
+ImportWarning: 导入一个模块的问题的警告.
+
+\item {} 
+UnicodeWarning: 关于unicode文本的问题的警告.
+
+\end{itemize}
+
+
+\section{参考}
+\begin{itemize}
+\item {} 
+\href{http://docs.python.org/library/exceptions.html}{exceptions}
+
+\end{itemize}
+
+\resetcurrentobjects
+
+
+\chapter{PyMOTW: itertools}
+\begin{itemize}
+\item {} 
+模块： itertools
+
+\item {} 
+目的： 用于高效循环的迭代函数
+
+\item {} 
+python版本： 2.3+
+
+\end{itemize}
+
+
+\section{描述}
+
+这个模块中提供的函数具有和''lazy functional programming language'' \href{http://www.haskell.org/}{Haskell} 和 \href{http://en.wikipedia.org/wiki/Standard\_ML}{SML} 相似的特点. 他们都是为了跑得更快和更有效的使用内存. 但他们也被牵扯在一起以表示更为复杂的迭代算法.
+
+由于某些原因, 基于迭代的代码可能更优于使用列表的代码. 由于数据只有在需要它的时候才产生, 所以所有的数据不会同时被存储在内存中.节省内存使用可以减少数据的交换次数和其他大数据集操作的副作用, 从而提高性能.
+
+以下所有的例子都是使用from itertools import * 来导入itertools的.
+
+
+\section{合并和切分迭代器}
+
+\code{chain()} 函数将多个迭代器作为参数, 但只返回单个迭代器, 它产生所有参数迭代器的内容, 就好像他们是来自于一个单一的序列.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[for] i @PYGan[in] chain(@PYGZlb[]@PYGaw[1], @PYGaw[2], @PYGaw[3]@PYGZrb[], @PYGZlb[]@PYGad[']@PYGad[a]@PYGad['], @PYGad[']@PYGad[b]@PYGad['], @PYGad[']@PYGad[c]@PYGad[']@PYGZrb[]):
+    @PYGay[print] i
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python itertools@_chain.py
+1
+2
+3
+a
+b
+c
+\end{Verbatim}
+
+\code{izip()} 函数返回一个合并了多个迭代器为一个元组的迭代器. 它类似于内置函数zip(), 只是它返回的是一个迭代器而不是一个列表.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[for] i @PYGan[in] izip(@PYGZlb[]@PYGaw[1], @PYGaw[2], @PYGaw[3]@PYGZrb[], @PYGZlb[]@PYGad[']@PYGad[a]@PYGad['], @PYGad[']@PYGad[b]@PYGad['], @PYGad[']@PYGad[c]@PYGad[']@PYGZrb[]):
+    @PYGay[print] i
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python itertools@_izip.py
+(1, 'a')
+(2, 'b')
+(3, 'c')
+\end{Verbatim}
+
+\code{islice()} 函数返回的迭代器是返回了输入迭代器根据索引来选取的项.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[print] @PYGad[']@PYGad[Stop at 5:]@PYGad[']
+@PYGay[for] i @PYGan[in] islice(count(), @PYGaw[5]):
+    @PYGay[print] i
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+class count(@_@_builtin@_@_.object)
+  |  count(@PYGZlb[]firstval@PYGZrb[]) --@textgreater[] count object
+  |
+  |  Return a count object whose .next() method returns consecutive
+  |  integers starting from zero or, if specified, from firstval.
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+Stop at 5:
+0
+1
+2
+3
+4
+\end{Verbatim}
+
+它可以使用和列表的slice操作相同的参数: start, stop和step. start和step参数是可选的.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[print] @PYGad[']@PYGad[Start at 5, Stop at 10:]@PYGad[']
+@PYGay[for] i @PYGan[in] islice(count(), @PYGaw[5], @PYGaw[10]):
+    @PYGay[print] i
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+Start at 5, Stop at 10:
+5
+6
+7
+8
+9
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[print] @PYGad[']@PYGad[By tens to 100:]@PYGad[']
+@PYGay[for] i @PYGan[in] islice(count(), @PYGaw[0], @PYGaw[100], @PYGaw[10]):
+    @PYGay[print] i
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+By tens to 100:
+0
+10
+20
+30
+40
+50
+60
+70
+80
+90
+\end{Verbatim}
+
+\code{tee()} 函数返回一些基于单个原始输入的独立迭代器(默认为2). 它和Unix上的tee工具有点语义相似, 也就是说它们都重复读取输入设备中的值并将值写入到一个命名文件和标准输出中.
+
+\begin{Verbatim}[commandchars=@\[\]]
+r @PYGbf[=] islice(count(), @PYGaw[5])
+i1, i2 @PYGbf[=] tee(r)
+
+@PYGay[for] i @PYGan[in] i1:
+    @PYGay[print] @PYGad[']@PYGad[i1:]@PYGad['], i
+@PYGay[for] i @PYGan[in] i2:
+    @PYGay[print] @PYGad[']@PYGad[i2:]@PYGad['], i
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python itertools@_tee.py
+i1: 0
+i1: 1
+i1: 2
+i1: 3
+i1: 4
+i2: 0
+i2: 1
+i2: 2
+i2: 3
+i2: 4
+\end{Verbatim}
+
+因为 \code{tee()} 新建的迭代器共享了输入, 所以你就不需要使用原始的迭代器. 如果你使用了原始输入中的值, 新的迭代器就不会产生对应的值:
+
+\begin{Verbatim}[commandchars=@\[\]]
+r @PYGbf[=] islice(count(), @PYGaw[5])
+i1, i2 @PYGbf[=] tee(r)
+
+@PYGay[for] i @PYGan[in] r:
+    @PYGay[print] @PYGad[']@PYGad[r:]@PYGad['], i
+    @PYGay[if] i @PYGbf[@textgreater[]] @PYGaw[1]:
+        @PYGay[break]
+
+@PYGay[for] i @PYGan[in] i1:
+    @PYGay[print] @PYGad[']@PYGad[i1:]@PYGad['], i
+@PYGay[for] i @PYGan[in] i2:
+    @PYGay[print] @PYGad[']@PYGad[i2:]@PYGad['], i
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python itertools@_tee@_error.py
+r: 0
+r: 1
+r: 2
+i1: 3
+i1: 4
+i2: 3
+i2: 4
+\end{Verbatim}
+
+
+\section{转换输入}
+
+\code{imap()} 函数返回一个迭代器, 它是调用了一个其值在输入迭代器上的函数, 返回结果. 它类似于内置函数 \code{map()} , 只是前者在任意输入迭代器结束后就停止(而不是插入None值来补全所有的输入).
+
+在下面的第一个例子中, lambda函数将输入的值乘上2:
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[print] @PYGad[']@PYGad[Doubles:]@PYGad[']
+@PYGay[for] i @PYGan[in] imap(@PYGay[lambda] x:@PYGaw[2]@PYGbf[*]x, @PYGaX[xrange](@PYGaw[5])):
+    @PYGay[print] i
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python itertools@_imap.py
+Doubles:
+0
+2
+4
+6
+8
+\end{Verbatim}
+
+在第二个例子中, lambda函数将2个参数相乘, 这两个参数各自取自两个独立的迭代器并返回一个原始参数和计算结果的元组.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[print] @PYGad[']@PYGad[Multiples:]@PYGad[']
+@PYGay[for] i @PYGan[in] imap(@PYGay[lambda] x,y:(x, y, x@PYGbf[*]y), @PYGaX[xrange](@PYGaw[5]), @PYGaX[xrange](@PYGaw[5],@PYGaw[10])):
+    @PYGay[print] @PYGad[']@PYGbg[@%d]@PYGad[ * ]@PYGbg[@%d]@PYGad[ = ]@PYGbg[@%d]@PYGad['] @PYGbf[@%] i
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+Multiples:
+0 * 5 = 0
+1 * 6 = 6
+2 * 7 = 14
+3 * 8 = 24
+4 * 9 = 36
+\end{Verbatim}
+
+\code{starmap()} 函数类似于 \code{imap()} , 但是在从多个迭代器中构造元组时, 它先将各个项切分成单个迭代器并将它作为参数以*语法传递给映射函数. \code{imap()} 的映射函数被称为f(i1, i2), \code{startmap()} 的映射函数被称为f({\color{red}\bfseries{}*}i).
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python itertools@_starmap.py
+0 * 5 = 0
+1 * 6 = 6
+2 * 7 = 14
+3 * 8 = 24
+4 * 9 = 36
+\end{Verbatim}
+
+
+\section{产生新值}
+
+\code{count()} 函数返回一个不断产生连续整数的迭代器. 第一个数可以由参数指定, 默认为0. 它没有上届参数(可参见内置函数 \code{xrange()} , 它更好的控制结果集). 在下面的例子中, 迭代器由于参数列表结束而停止.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[for] i @PYGan[in] izip(count(@PYGaw[1]), @PYGZlb[]@PYGad[']@PYGad[a]@PYGad['], @PYGad[']@PYGad[b]@PYGad['], @PYGad[']@PYGad[c]@PYGad[']@PYGZrb[]):
+     @PYGay[print] i
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python itertools@_count.py
+(1, 'a')
+(2, 'b')
+(3, 'c')
+\end{Verbatim}
+
+\code{cycle()} 函数返回一个不断重复参数内容的迭代器. 由于它必须记住整个输入迭代器的内容, 所以如果输入迭代器很长的话, 它可能会消耗大量的内存. 在下面的例子中, 一个计数变量用于在一定数量的循环后, 跳出循环.
+
+\begin{Verbatim}[commandchars=@\[\]]
+i @PYGbf[=] @PYGaw[0]
+@PYGay[for] item @PYGan[in] cycle(@PYGZlb[]@PYGad[']@PYGad[a]@PYGad['], @PYGad[']@PYGad[b]@PYGad['], @PYGad[']@PYGad[c]@PYGad[']@PYGZrb[]):
+    i @PYGbf[+]@PYGbf[=] @PYGaw[1]
+    @PYGay[if] i @PYGbf[==] @PYGaw[10]:
+        @PYGay[break]
+    @PYGay[print] (i, item)
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python itertools@_cycle.py
+(1, 'a')
+(2, 'b')
+(3, 'c')
+(4, 'a')
+(5, 'b')
+(6, 'c')
+(7, 'a')
+(8, 'b')
+(9, 'c')
+\end{Verbatim}
+
+\code{repeat()} 函数返回一个每次都产生相同值的迭代器. 它也是永远继续的, 除非你设置了times参数来限制.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[for] i @PYGan[in] repeat(@PYGad[']@PYGad[over-and-over]@PYGad['], @PYGaw[5]):
+    @PYGay[print] i
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python itertools@_repeat.py
+over-and-over
+over-and-over
+over-and-over
+over-and-over
+over-and-over
+\end{Verbatim}
+
+当其他迭代器使用的是一个固定值时, 将 \code{repeat()} 和 \code{izip()} 或 \code{imap()} 联合起来使用是非常有用的.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[for] i, s @PYGan[in] izip(count(), repeat(@PYGad[']@PYGad[over-and-over]@PYGad['], @PYGaw[5])):
+     @PYGay[print] i, s
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python itertools@_repeat@_izip.py
+0 over-and-over
+1 over-and-over
+2 over-and-over
+3 over-and-over
+4 over-and-over
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python itertools@_repeat@_imap.py
+2 * 0 = 0
+2 * 1 = 2
+2 * 2 = 4
+2 * 3 = 6
+2 * 4 = 8
+\end{Verbatim}
+
+
+\section{过滤}
+
+\code{dropwhile()} 函数返回一个当条件为false之后的输入迭代器中剩余元素的迭代器. 它不过滤输入迭代器中的每一个项; 在条件为false之后的第一次, 返回迭代器中剩下来的项.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[def] @PYGaK[should@_drop](x):
+    @PYGay[print] @PYGad[']@PYGad[Testing:]@PYGad['], x
+    @PYGay[return] (x@PYGbf[@textless[]]@PYGaw[1])
+
+@PYGay[for] i @PYGan[in] dropwhile(should@_drop, @PYGZlb[] @PYGbf[-]@PYGaw[1], @PYGaw[0], @PYGaw[1], @PYGaw[2], @PYGaw[3], @PYGaw[4], @PYGaw[1], @PYGbf[-]@PYGaw[2] @PYGZrb[]):
+    @PYGay[print] @PYGad[']@PYGad[Yielding:]@PYGad['], i
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python itertools@_dropwhile.py
+Testing: -1
+Testing: 0
+Testing: 1
+Yielding: 1
+Yielding: 2
+Yielding: 3
+Yielding: 4
+Yielding: 1
+Yielding: -2
+\end{Verbatim}
+
+和 \code{dropwhile()} 相反的是, \code{tabkewhile()} , 它返回的是一个产生输入迭代器中只要测试函数返回true的项的迭代器.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[def] @PYGaK[should@_take](x):
+    @PYGay[print] @PYGad[']@PYGad[Testing:]@PYGad['], x
+    @PYGay[return] (x@PYGbf[@textless[]]@PYGaw[2])
+
+@PYGay[for] i @PYGan[in] takewhile(should@_take, @PYGZlb[] @PYGbf[-]@PYGaw[1], @PYGaw[0], @PYGaw[1], @PYGaw[2], @PYGaw[3], @PYGaw[4], @PYGaw[1], @PYGbf[-]@PYGaw[2] @PYGZrb[]):
+    @PYGay[print] @PYGad[']@PYGad[Yielding:]@PYGad['], i
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python itertools@_takewhile.py
+Testing: -1
+Yielding: -1
+Testing: 0
+Yielding: 0
+Testing: 1
+Yielding: 1
+Testing: 2
+\end{Verbatim}
+
+\code{ifilter()} 返回的是迭代器类似于针对列表的内置函数 \code{filter()} , 它只包括当测试函数返回true时的项. 它不同于 \code{dropwhile()} 的是每个项是在被返回之前进行测试的.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[def] @PYGaK[check@_item](x):
+    @PYGay[print] @PYGad[']@PYGad[Testing:]@PYGad['], x
+    @PYGay[return] (x@PYGbf[@textless[]]@PYGaw[1])
+
+@PYGay[for] i @PYGan[in] ifilter(check@_item, @PYGZlb[] @PYGbf[-]@PYGaw[1], @PYGaw[0], @PYGaw[1], @PYGaw[2], @PYGaw[3], @PYGaw[4], @PYGaw[1], @PYGbf[-]@PYGaw[2] @PYGZrb[]):
+    @PYGay[print] @PYGad[']@PYGad[Yielding:]@PYGad['], i
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python itertools@_ifilter.py
+Testing: -1
+Yielding: -1
+Testing: 0
+Yielding: 0
+Testing: 1
+Testing: 2
+Testing: 3
+Testing: 4
+Testing: 1
+Testing: -2
+Yielding: -2
+\end{Verbatim}
+
+和 \code{ifilter()} 函数相反的是, \code{ifilterfalse()} 返回一个包含那些测试函数返回false的项的迭代器.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[def] @PYGaK[check@_item](x):
+    @PYGay[print] @PYGad[']@PYGad[Testing:]@PYGad['], x
+    @PYGay[return] (x@PYGbf[@textless[]]@PYGaw[1])
+
+@PYGay[for] i @PYGan[in] ifilterfalse(check@_item, @PYGZlb[] @PYGbf[-]@PYGaw[1], @PYGaw[0], @PYGaw[1], @PYGaw[2], @PYGaw[3], @PYGaw[4], @PYGaw[1], @PYGbf[-]@PYGaw[2] @PYGZrb[]):
+    @PYGay[print] @PYGad[']@PYGad[Yielding:]@PYGad['], i
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python itertools@_ifilterfalse.py Testing: -1
+Testing: 0
+Testing: 1
+Yielding: 1
+Testing: 2
+Yielding: 2
+Testing: 3
+Yielding: 3
+Testing: 4
+Yielding: 4
+Testing: 1
+Yielding: 1
+Testing: -2
+\end{Verbatim}
+
+
+\section{分组数据}
+
+\code{groupby()} 函数返回一个产生按照key进行分组后的值集合的迭代器.
+
+下面的例子来自于标准库文档, 它表明怎样将一个字典根据值将关键字分组.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[from] @PYGaV[itertools] @PYGbd[import] @PYGbf[*]
+@PYGbd[from] @PYGaV[operator] @PYGbd[import] itemgetter
+
+d @PYGbf[=] @PYGaX[dict](a@PYGbf[=]@PYGaw[1], b@PYGbf[=]@PYGaw[2], c@PYGbf[=]@PYGaw[1], d@PYGbf[=]@PYGaw[2], e@PYGbf[=]@PYGaw[1], f@PYGbf[=]@PYGaw[2], g@PYGbf[=]@PYGaw[3])
+di @PYGbf[=] sorted(d@PYGbf[.]iteritems(), key@PYGbf[=]itemgetter(@PYGaw[1]))
+@PYGay[for] k, g @PYGan[in] groupby(di, key@PYGbf[=]itemgetter(@PYGaw[1])):
+    @PYGay[print] k, @PYGaX[map](itemgetter(@PYGaw[0]), g)
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python itertools@_groupby.py
+1 @PYGZlb[]'a', 'c', 'e'@PYGZrb[]
+2 @PYGZlb[]'b', 'd', 'f'@PYGZrb[]
+3 @PYGZlb[]'g'@PYGZrb[]
+\end{Verbatim}
+
+下面一个更复杂的例子说明了如何基于一些属性来对值进行分组的. 注意了, 输入的序列需要按照关键字进行排序, 这样就可以得到预期的分组结果了:
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[class] @PYGaN[Point]:
+    @PYGay[def] @PYGaK[@_@_init@_@_](@PYGaA[self], x, y):
+        @PYGaA[self]@PYGbf[.]x @PYGbf[=] x
+        @PYGaA[self]@PYGbf[.]y @PYGbf[=] y
+
+    @PYGay[def] @PYGaK[@_@_repr@_@_](@PYGaA[self]):
+        @PYGay[return] @PYGad[']@PYGad[Point(]@PYGbg[@%s]@PYGad[, ]@PYGbg[@%s]@PYGad[)]@PYGad['] @PYGbf[@%] (@PYGaA[self]@PYGbf[.]x, @PYGaA[self]@PYGbf[.]y)
+
+    @PYGay[def] @PYGaK[@_@_cmp@_@_](@PYGaA[self], other):
+        @PYGay[return] @PYGaX[cmp]((@PYGaA[self]@PYGbf[.]x, @PYGaA[self]@PYGbf[.]y), (other@PYGbf[.]x, other@PYGbf[.]y)) @PYGaD[@#@# 比较]
+
+@PYGaD[@# Create a dataset of Point instances]
+data @PYGbf[=] @PYGaX[list](imap(Point, cycle(islice(count(), @PYGaw[3])), islice(count(), @PYGaw[10]),))
+@PYGay[print] @PYGad[']@PYGad[Data:]@PYGad['], data
+@PYGay[print]
+
+@PYGaD[@# Try to group the unsorted data based on X values]
+@PYGay[print] @PYGad[']@PYGad[Grouped, unsorted:]@PYGad[']
+@PYGay[for] k, g @PYGan[in] groupby(data, @PYGay[lambda] o:o@PYGbf[.]x):
+    @PYGay[print] k, @PYGaX[list](g)
+@PYGay[print]
+
+@PYGaD[@# Sort the data]
+data@PYGbf[.]sort()
+@PYGay[print] @PYGad[']@PYGad[Sorted:]@PYGad['], data
+@PYGay[print]
+
+@PYGaD[@# Group the sorted data based on X values]
+@PYGay[print] @PYGad[']@PYGad[Grouped, sorted:]@PYGad[']
+@PYGay[for] k, g @PYGan[in] groupby(data, @PYGay[lambda] o:o@PYGbf[.]x):
+    @PYGay[print] k, @PYGaX[list](g)
+@PYGay[print]
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python itertools@_groupby@_seq.py
+Data: @PYGZlb[]Point(0, 0), Point(1, 1), Point(2, 2), Point(0, 3),
+  Point(1, 4), Point(2, 5), Point(0, 6), Point(1, 7),
+  Point(2, 8), Point(0, 9)@PYGZrb[]
+
+Grouped, unsorted:
+0 @PYGZlb[]Point(0, 0)@PYGZrb[]
+1 @PYGZlb[]Point(1, 1)@PYGZrb[]
+2 @PYGZlb[]Point(2, 2)@PYGZrb[]
+0 @PYGZlb[]Point(0, 3)@PYGZrb[]
+1 @PYGZlb[]Point(1, 4)@PYGZrb[]
+2 @PYGZlb[]Point(2, 5)@PYGZrb[]
+0 @PYGZlb[]Point(0, 6)@PYGZrb[]
+1 @PYGZlb[]Point(1, 7)@PYGZrb[]
+2 @PYGZlb[]Point(2, 8)@PYGZrb[]
+0 @PYGZlb[]Point(0, 9)@PYGZrb[]
+
+Sorted: @PYGZlb[]Point(0, 0), Point(0, 3), Point(0, 6), Point(0, 9),
+  Point(1, 1), Point(1, 4), Point(1, 7), Point(2, 2),
+  Point(2, 5), Point(2, 8)@PYGZrb[]
+
+Grouped, sorted:
+0 @PYGZlb[]Point(0, 0), Point(0, 3), Point(0, 6), Point(0, 9)@PYGZrb[]
+1 @PYGZlb[]Point(1, 1), Point(1, 4), Point(1, 7)@PYGZrb[]
+2 @PYGZlb[]Point(2, 2), Point(2, 5), Point(2, 8)@PYGZrb[]
+\end{Verbatim}
+
+
+\section{参考}
+\begin{itemize}
+\item {} 
+\href{http://www.standardml.org/Basis/}{The Standard ML Basis Library}
+
+\item {} 
+\href{http://www.haskell.org/definition/}{Definition of Haskell and the Standard Libraries}
+
+\end{itemize}
+
+\resetcurrentobjects
+
+
+\chapter{PyMOTW: zipfile}
+\begin{itemize}
+\item {} 
+模块： zipfile
+
+\item {} 
+目的： 读写ZIP档案文件.
+
+\item {} 
+python版本： 1.6+
+
+\end{itemize}
+
+zipfile模块能用来处理ZIP档案文件.
+
+
+\section{局限}
+
+zipfile模块不支持附加评论的或者多磁盘ZIP文件, 支持大于4GB使用ZIP64扩展的ZIP文件.
+
+
+\section{测试ZIP文件}
+
+\code{is\_zipfile()} 函数返回一个布尔值, 判断给定的文件是否是一个有效的ZIP文件.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[zipfile]
+
+@PYGay[for] filename @PYGan[in] @PYGZlb[] @PYGad[']@PYGad[README.txt]@PYGad['], @PYGad[']@PYGad[example.zip]@PYGad['], @PYGad[']@PYGad[bad@_example.zip]@PYGad['], @PYGad[']@PYGad[notthere.zip]@PYGad['] @PYGZrb[]:
+    @PYGay[print] @PYGad[']@PYGbg[@%20s]@PYGad[ ]@PYGbg[@%s]@PYGad['] @PYGbf[@%] (filename, zipfile@PYGbf[.]is@_zipfile(filename))
+\end{Verbatim}
+
+注意：如果文件不存在, \code{is\_zipfile()} 返回False.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python zipfile@_is@_zipfile.py
+README.txt False
+example.zip True
+bad@_example.zip False
+notthere.zip False
+\end{Verbatim}
+
+
+\section{从ZIP存档中读取元数据}
+
+使用ZipFile类直接处理ZIP存档, 它支持从现有存档中读取数据也支持向存档中加入其它文件更改存档.
+
+使用 \code{namelist()} 函数读取现有存档中所有文件的名字.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[zipfile]
+
+zf @PYGbf[=] zipfile@PYGbf[.]ZipFile(@PYGad[']@PYGad[example.zip]@PYGad['], @PYGad[']@PYGad[r]@PYGad['])
+@PYGay[print] zf@PYGbf[.]namelist()
+\end{Verbatim}
+
+返回的是存档内容名字的字符串列表.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python zipfile@_namelist.py
+@PYGZlb[]'README.txt'@PYGZrb[]
+\end{Verbatim}
+
+然而，名字列表只是存档中可用信息的一小部分, 使用 \code{infolist()} 或者 \code{getinfo()} 方法来访问存档内容的所有元数据.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[datetime]
+@PYGbd[import] @PYGaV[zipfile]
+
+@PYGay[def] @PYGaK[print@_info](archive@_name):
+    zf @PYGbf[=] zipfile@PYGbf[.]ZipFile(archive@_name)
+    @PYGay[for] info @PYGan[in] zf@PYGbf[.]infolist():
+        @PYGay[print] info@PYGbf[.]filename
+        @PYGay[print] @PYGad[']@PYGao[\t]@PYGad[Comment:]@PYGao[\t]@PYGad['], info@PYGbf[.]comment
+        @PYGay[print] @PYGad[']@PYGao[\t]@PYGad[Modified:]@PYGao[\t]@PYGad['], datetime@PYGbf[.]datetime(@PYGbf[*]info@PYGbf[.]date@_time)
+        @PYGay[print] @PYGad[']@PYGao[\t]@PYGad[System:]@PYGao[\t]@PYGao[\t]@PYGad['], info@PYGbf[.]create@_system, @PYGad[']@PYGad[(0 = Windows, 3 = Unix)]@PYGad[']
+        @PYGay[print] @PYGad[']@PYGao[\t]@PYGad[ZIP version:]@PYGao[\t]@PYGad['], info@PYGbf[.]create@_version
+        @PYGay[print] @PYGad[']@PYGao[\t]@PYGad[Compressed:]@PYGao[\t]@PYGad['], info@PYGbf[.]compress@_size, @PYGad[']@PYGad[bytes]@PYGad[']
+        @PYGay[print] @PYGad[']@PYGao[\t]@PYGad[Uncompressed:]@PYGao[\t]@PYGad['], info@PYGbf[.]file@_size, @PYGad[']@PYGad[bytes]@PYGad[']
+        @PYGay[print]
+
+@PYGay[if] @_@_name@_@_ @PYGbf[==] @PYGad[']@PYGad[@_@_main@_@_]@PYGad[']:
+    print@_info(@PYGad[']@PYGad[example.zip]@PYGad['])
+\end{Verbatim}
+
+除了这儿输出的一些信息外, 还有别的东西, 但是需要仔细阅读ZIP文件说明书上的 \href{http://www.pkware.com/business\_and\_developers/developer/appnote/}{PKZIP应用注释} 才能将其解密成有用的东西.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python zipfile@_infolist.py
+README.txt
+  Comment:
+  Modified: 2007-12-16 10:08:52
+  System: 3 (0 = Windows, 3 = Unix)
+  ZIP version: 23
+  Compressed: 63 bytes
+  Uncompressed: 75 bytes
+\end{Verbatim}
+
+如果你已经知道了存档中各文件的名字, 你也可以通过 \code{getinfo()} 方法获得它的ZipInfo对象.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[zipfile]
+
+zf @PYGbf[=] zipfile@PYGbf[.]ZipFile(@PYGad[']@PYGad[example.zip]@PYGad['])
+@PYGay[for] filename @PYGan[in] @PYGZlb[] @PYGad[']@PYGad[README.txt]@PYGad['], @PYGad[']@PYGad[notthere.txt]@PYGad['] @PYGZrb[]:
+    @PYGay[try]:
+        info @PYGbf[=] zf@PYGbf[.]getinfo(filename)
+    @PYGay[except] @PYGaU[KeyError]:
+        @PYGay[print] @PYGad[']@PYGad[ERROR: Did not find ]@PYGbg[@%s]@PYGad[ in zip file]@PYGad['] @PYGbf[@%] filename
+    @PYGay[else]:
+        @PYGay[print] @PYGad[']@PYGbg[@%s]@PYGad[ is ]@PYGbg[@%d]@PYGad[ bytes]@PYGad['] @PYGbf[@%] (info@PYGbf[.]filename, info@PYGbf[.]file@_size)
+\end{Verbatim}
+
+如果存档中的某个文件不存在, \code{getinfo()} 方法会产生一个KeyError.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python zipfile@_getinfo.py
+README.txt is 75 bytes
+ERROR: Did not find notthere.txt in zip file
+\end{Verbatim}
+
+
+\section{从ZIP档案中提取文件}
+
+为了访问存档文件的数据, 使用 \code{read()} 方法，并将该成员的名字传递给它.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[zipfile]
+
+zf @PYGbf[=] zipfile@PYGbf[.]ZipFile(@PYGad[']@PYGad[example.zip]@PYGad['])
+@PYGay[for] filename @PYGan[in] @PYGZlb[] @PYGad[']@PYGad[README.txt]@PYGad['], @PYGad[']@PYGad[notthere.txt]@PYGad['] @PYGZrb[]:
+    @PYGay[try]:
+        data @PYGbf[=] zf@PYGbf[.]read(filename)
+    @PYGay[except] @PYGaU[KeyError]:
+        @PYGay[print] @PYGad[']@PYGad[ERROR: Did not find ]@PYGbg[@%s]@PYGad[ in zip file]@PYGad['] @PYGbf[@%] filename
+    @PYGay[else]:
+        @PYGay[print] filename, @PYGad[']@PYGad[:]@PYGad[']
+        @PYGay[print] @PYGaX[repr](data)
+        @PYGay[print]
+\end{Verbatim}
+
+必要时, 数据会自动解压缩.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python zipfile@_read.py
+README.txt :
+'The examples for the zipfile module use this file and example.zip as data.\n'
+
+ERROR: Did not find notthere.txt in zip file
+\end{Verbatim}
+
+
+\section{创建一个新的档案}
+
+为了创建一个新的档案, 以‘w’模式简单实例化ZipFile对象. 档案中任何现有文件会被清空, 开始新档案. 使用 \code{write()} 方法可以在档案中增加文件.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[from] @PYGaV[zipfile@_infolist] @PYGbd[import] print@_info
+@PYGbd[import] @PYGaV[zipfile]
+
+@PYGay[print] @PYGad[']@PYGad[creating archive]@PYGad[']
+zf @PYGbf[=] zipfile@PYGbf[.]ZipFile(@PYGad[']@PYGad[zipfile@_write.zip]@PYGad['], mode@PYGbf[=]@PYGad[']@PYGad[w]@PYGad['])
+@PYGay[try]:
+    @PYGay[print] @PYGad[']@PYGad[adding README.txt]@PYGad[']
+    zf@PYGbf[.]write(@PYGad[']@PYGad[README.txt]@PYGad['])
+@PYGay[finally]:
+    @PYGay[print] @PYGad[']@PYGad[closing]@PYGad[']
+    zf@PYGbf[.]close()
+
+@PYGay[print]
+print@_info(@PYGad[']@PYGad[zipfile@_write.zip]@PYGad['])
+\end{Verbatim}
+
+默认情况下, 档案的文件不会被压缩:
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python zipfile@_write.py
+creating archive
+adding README.txt
+closing
+
+README.txt
+  Comment:
+  Modified: 2007-12-16 10:08:50
+  System: 3 (0 = Windows, 3 = Unix)
+  ZIP version: 20
+  Compressed: 75 bytes
+  Uncompressed: 75 bytes
+\end{Verbatim}
+
+zlib模块提供压缩功能. 如果zlib是可用的, 你能使用zipfile.ZIP\_DEFLATED对个人文件或者整个档案设置压缩模式. 默认压缩模式为zipfile.ZIP\_STORED.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[from] @PYGaV[zipfile@_infolist] @PYGbd[import] print@_info
+@PYGbd[import] @PYGaV[zipfile]
+@PYGay[try]:
+    @PYGbd[import] @PYGaV[zlib]
+    compression @PYGbf[=] zipfile@PYGbf[.]ZIP@_DEFLATED
+@PYGay[except]:
+    compression @PYGbf[=] zipfile@PYGbf[.]ZIP@_STORED
+
+modes @PYGbf[=] { zipfile@PYGbf[.]ZIP@_DEFLATED: @PYGad[']@PYGad[deflated]@PYGad['],
+    zipfile@PYGbf[.]ZIP@_STORED: @PYGad[']@PYGad[stored]@PYGad['],
+}
+
+@PYGay[print] @PYGad[']@PYGad[creating archive]@PYGad[']
+zf @PYGbf[=] zipfile@PYGbf[.]ZipFile(@PYGad[']@PYGad[zipfile@_write@_compression.zip]@PYGad['], mode@PYGbf[=]@PYGad[']@PYGad[w]@PYGad['])
+@PYGay[try]:
+    @PYGay[print] @PYGad[']@PYGad[adding README.txt with compression mode]@PYGad['], modes@PYGZlb[]compression@PYGZrb[]
+    zf@PYGbf[.]write(@PYGad[']@PYGad[README.txt]@PYGad['], compress@_type@PYGbf[=]compression)
+@PYGay[finally]:
+    @PYGay[print] @PYGad[']@PYGad[closing]@PYGad[']
+    zf@PYGbf[.]close()
+
+@PYGay[print]
+print@_info(@PYGad[']@PYGad[zipfile@_write@_compression.zip]@PYGad['])
+\end{Verbatim}
+
+这次, 归档中的文件被压缩了:
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python zipfile@_write@_compression.py creating archive
+adding README.txt with compression mode deflated
+closing
+
+README.txt
+  Comment:
+  Modified: 2007-12-16 10:08:50
+  System: 3 (0 = Windows, 3 = Unix)
+  ZIP version: 20
+  Compressed: 63 bytes
+  Uncompressed: 75 bytes
+\end{Verbatim}
+
+
+\section{使用备选的存档成员名}
+
+传递arcname参数给 \code{wirte()} 可以很容易将一个文件添加到存档中, 但命名不能是原始文件名.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[from] @PYGaV[zipfile@_infolist] @PYGbd[import] print@_info
+@PYGbd[import] @PYGaV[zipfile]
+
+zf @PYGbf[=] zipfile@PYGbf[.]ZipFile(@PYGad[']@PYGad[zipfile@_write@_arcname.zip]@PYGad['], mode@PYGbf[=]@PYGad[']@PYGad[w]@PYGad['])
+@PYGay[try]:
+    zf@PYGbf[.]write(@PYGad[']@PYGad[README.txt]@PYGad['], arcname@PYGbf[=]@PYGad[']@PYGad[NOT@_README.txt]@PYGad['])
+@PYGay[finally]:
+    zf@PYGbf[.]close()
+print@_info(@PYGad[']@PYGad[zipfile@_write@_arcname.zip]@PYGad['])
+\end{Verbatim}
+
+在档案中, 新的文件没有使用原来的文件名.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python zipfile@_write@_arcname.py
+NOT@_README.txt
+  Comment:
+  Modified: 2007-12-16 10:08:50
+  System: 3 (0 = Windows, 3 = Unix)
+  ZIP version: 20
+  Compressed: 75 bytes
+  Uncompressed: 75 bytes
+\end{Verbatim}
+
+
+\section{从源而非文件上写数据}
+
+有时候, 将那些不是来自现有文件的数据直接写入到ZIP档案中也是有必要的, 而不是通过先把这些数据写入到一个文件中, 再把这个文件添加到ZIP档案中, 你可以使用writestr()函数将字符串字节流直接写入到档案中.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[from] @PYGaV[zipfile@_infolist] @PYGbd[import] print@_info
+@PYGbd[import] @PYGaV[zipfile]
+
+msg @PYGbf[=] @PYGad[']@PYGad[This data did not exist in a file before being added to the ZIP file]@PYGad[']
+zf @PYGbf[=] zipfile@PYGbf[.]ZipFile(@PYGad[']@PYGad[zipfile@_writestr.zip]@PYGad['],
+ mode@PYGbf[=]@PYGad[']@PYGad[w]@PYGad['],
+ compression@PYGbf[=]zipfile@PYGbf[.]ZIP@_DEFLATED,
+)
+@PYGay[try]:
+    zf@PYGbf[.]writestr(@PYGad[']@PYGad[from@_string.txt]@PYGad['], msg)
+@PYGay[finally]:
+    zf@PYGbf[.]close()
+
+print@_info(@PYGad[']@PYGad[zipfile@_writestr.zip]@PYGad['])
+
+zf @PYGbf[=] zipfile@PYGbf[.]ZipFile(@PYGad[']@PYGad[zipfile@_writestr.zip]@PYGad['], @PYGad[']@PYGad[r]@PYGad['])
+@PYGay[print] zf@PYGbf[.]read(@PYGad[']@PYGad[from@_string.txt]@PYGad['])
+\end{Verbatim}
+
+上述实例中, 我在ZipFile中使用compress参数来压缩数据, 但 \code{writestr()} 方法中不支持该参数.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python zipfile@_writestr.py
+from@_string.txt
+  Comment:
+  Modified: 2007-12-16 11:38:14
+  System: 3 (0 = Windows, 3 = Unix)
+  ZIP version: 20
+  Compressed: 62 bytes
+  Uncompressed: 68 bytes
+
+This data did not exist in a file before being added to the ZIP file
+\end{Verbatim}
+
+
+\section{通过ZipInfo实例写入}
+
+默认情况下, 当你在档案中加入文件或者字符串时, 需要计算修改日期. 当使用 \code{writestr()} 方法时, 也需要传递一个ZipInfo实例给它, 该实例包含了修改日期和别的自定义元数据.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[time]
+@PYGbd[import] @PYGaV[zipfile]
+@PYGbd[from] @PYGaV[zipfile@_infolist] @PYGbd[import] print@_info
+
+msg @PYGbf[=] @PYGad[']@PYGad[This data did not exist in a file before being added to the ZIP file]@PYGad[']
+zf @PYGbf[=] zipfile@PYGbf[.]ZipFile(@PYGad[']@PYGad[zipfile@_writestr@_zipinfo.zip]@PYGad['], mode@PYGbf[=]@PYGad[']@PYGad[w]@PYGad['],)
+@PYGay[try]:
+    info @PYGbf[=] zipfile@PYGbf[.]ZipInfo(@PYGad[']@PYGad[from@_string.txt]@PYGad['], date@_time@PYGbf[=]time@PYGbf[.]localtime(time@PYGbf[.]time()),)
+    info@PYGbf[.]compress@_type@PYGbf[=]zipfile@PYGbf[.]ZIP@_DEFLATED
+    info@PYGbf[.]comment@PYGbf[=]@PYGad[']@PYGad[Remarks go here]@PYGad[']
+    info@PYGbf[.]create@_system@PYGbf[=]@PYGaw[0]
+    zf@PYGbf[.]writestr(info, msg)
+@PYGay[finally]:
+    zf@PYGbf[.]close()
+
+print@_info(@PYGad[']@PYGad[zipfile@_writestr@_zipinfo.zip]@PYGad['])
+\end{Verbatim}
+
+在这个例子中, 我修改时间为当前时间. 压缩数据, 赋create\_system值为0. 还增添了评论.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python zipfile@_writestr@_zipinfo.pyfrom@_string.txt
+  Comment: Remarks go here
+  Modified: 2007-12-16 11:44:14
+  System: 0 (0 = Windows, 3 = Unix)
+  ZIP version: 20
+  Compressed: 62 bytes
+      Uncompressed: 68 bytes
+\end{Verbatim}
+
+
+\section{追加文件}
+
+除了创建一个新档案之外, 还可以在现有档案上追加一个文件或在一个现有文件(如a.exe, 自解压档案文件)的末尾增加一个档案文件. 使用模式‘a‘打开文件以便追加.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[from] @PYGaV[zipfile@_infolist] @PYGbd[import] print@_info
+@PYGbd[import] @PYGaV[zipfile]
+
+@PYGay[print] @PYGad[']@PYGad[creating archive]@PYGad[']
+zf @PYGbf[=] zipfile@PYGbf[.]ZipFile(@PYGad[']@PYGad[zipfile@_append.zip]@PYGad['], mode@PYGbf[=]@PYGad[']@PYGad[w]@PYGad['])
+@PYGay[try]:
+    zf@PYGbf[.]write(@PYGad[']@PYGad[README.txt]@PYGad['])
+@PYGay[finally]:
+    zf@PYGbf[.]close()
+
+@PYGay[print]
+print@_info(@PYGad[']@PYGad[zipfile@_append.zip]@PYGad['])
+
+@PYGay[print] @PYGad[']@PYGad[appending to the archive]@PYGad[']
+zf @PYGbf[=] zipfile@PYGbf[.]ZipFile(@PYGad[']@PYGad[zipfile@_append.zip]@PYGad['], mode@PYGbf[=]@PYGad[']@PYGad[a]@PYGad['])
+@PYGay[try]:
+    zf@PYGbf[.]write(@PYGad[']@PYGad[README.txt]@PYGad['], arcname@PYGbf[=]@PYGad[']@PYGad[README2.txt]@PYGad['])
+@PYGay[finally]:
+    zf@PYGbf[.]close()
+
+@PYGay[print]
+print@_info(@PYGad[']@PYGad[zipfile@_append.zip]@PYGad['])
+\end{Verbatim}
+
+结果档案有2个文件：
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python zipfile@_append.py
+creating archive
+
+README.txt
+  Comment:
+  Modified: 2007-12-16 10:08:50
+  System: 3 (0 = Windows, 3 = Unix)
+  ZIP version: 20
+  Compressed: 75 bytes
+  Uncompressed: 75 bytes
+
+appending to the archive
+
+README.txt
+  Comment:
+  Modified: 2007-12-16 10:08:50
+  System: 3 (0 = Windows, 3 = Unix)
+  ZIP version: 20
+  Compressed: 75 bytes
+  Uncompressed: 75 bytes
+
+README2.txt
+  Comment:
+  Modified: 2007-12-16 10:08:50
+  System: 3 (0 = Windows, 3 = Unix)
+  ZIP version: 20
+  Compressed: 75 bytes
+  Uncompressed: 75 bytes
+\end{Verbatim}
+
+
+\section{Python ZIP档案}
+
+如果存档出现在sys.path中, Python 2.3及以后版本都有能力从ZIP档案内部引入模块. 使用类zpfile.PyZipFile可以构造一个模块来适合这种用法. 当你使用其他方法 \code{writepy()} 时,PyZipFile浏览目录寻找.py文件, 并且将关联文件 \code{.pyo} 或 \code{.pyc} 加入到档案中. 如果两者都不存在, 则生成一个.pyc文件, 并将其加入到档案中.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[sys]
+@PYGbd[import] @PYGaV[zipfile]
+
+@PYGay[if] @_@_name@_@_ @PYGbf[==] @PYGad[']@PYGad[@_@_main@_@_]@PYGad[']:
+    zf @PYGbf[=] zipfile@PYGbf[.]PyZipFile(@PYGad[']@PYGad[zipfile@_pyzipfile.zip]@PYGad['], mode@PYGbf[=]@PYGad[']@PYGad[w]@PYGad[']) @PYGaD[@#@# 这段代码就可以直接将当前目录压缩打包，还能编译py脚本]
+    @PYGay[try]:
+        zf@PYGbf[.]debug @PYGbf[=] @PYGaw[3]
+        @PYGay[print] @PYGad[']@PYGad[Adding python files]@PYGad[']
+        zf@PYGbf[.]writepy(@PYGad[']@PYGad[.]@PYGad['])
+    @PYGay[finally]:
+        zf@PYGbf[.]close()
+        @PYGay[for] name @PYGan[in] zf@PYGbf[.]namelist():
+            @PYGay[print] name
+
+    @PYGay[print]
+    sys@PYGbf[.]path@PYGbf[.]insert(@PYGaw[0], @PYGad[']@PYGad[zipfile@_pyzipfile.zip]@PYGad['])
+    @PYGbd[import] @PYGaV[zipfile@_pyzipfile]
+    @PYGay[print] @PYGad[']@PYGad[Imported from:]@PYGad['], zipfile@_pyzipfile@PYGbf[.]@_@_file@_@_
+\end{Verbatim}
+
+当我设置PyZipFile的属性debug=3, 就激活了verbose debugging, 这在编译每一个.py文件时可以看到.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python zipfile@_pyzipfile.py
+Adding python files
+Adding package in . as .
+Compiling ./@_@_init@_@_.py
+Adding ./@_@_init@_@_.pyc
+Compiling ./zipfile@_append.py
+Adding ./zipfile@_append.pyc
+Compiling ./zipfile@_getinfo.py
+Adding ./zipfile@_getinfo.pyc
+Compiling ./zipfile@_infolist.py
+Adding ./zipfile@_infolist.pyc
+Compiling ./zipfile@_is@_zipfile.py
+Adding ./zipfile@_is@_zipfile.pyc
+Compiling ./zipfile@_namelist.py
+Adding ./zipfile@_namelist.pyc
+Compiling ./zipfile@_printdir.py
+Adding ./zipfile@_printdir.pyc
+Compiling ./zipfile@_pyzipfile.py
+Adding ./zipfile@_pyzipfile.pyc
+Compiling ./zipfile@_read.py
+Adding ./zipfile@_read.pyc
+Compiling ./zipfile@_write.py
+Adding ./zipfile@_write.pyc
+Compiling ./zipfile@_write@_arcname.py
+Adding ./zipfile@_write@_arcname.pyc
+Compiling ./zipfile@_write@_compression.py
+Adding ./zipfile@_write@_compression.pyc
+Compiling ./zipfile@_writestr.py
+Adding ./zipfile@_writestr.pyc
+Compiling ./zipfile@_writestr@_zipinfo.py
+Adding ./zipfile@_writestr@_zipinfo.pyc
+@_@_init@_@_.pyc
+zipfile@_append.pyc
+zipfile@_getinfo.pyc
+zipfile@_infolist.pyc
+zipfile@_is@_zipfile.pyc
+zipfile@_namelist.pyc
+zipfile@_printdir.pyc
+zipfile@_pyzipfile.pyc
+zipfile@_read.pyc
+zipfile@_write.pyc
+zipfile@_write@_arcname.pyc
+zipfile@_write@_compression.pyc
+zipfile@_writestr.pyc
+zipfile@_writestr@_zipinfo.pyc
+
+Imported from: zipfile@_pyzipfile.zip/zipfile@_pyzipfile.pyc
+\end{Verbatim}
+
+
+\section{参考}
+\begin{itemize}
+\item {} 
+\href{http://www.pkware.com/business\_and\_developers/developer/appnote/}{PKZIP Application Note}
+
+\item {} 
+\href{http://docs.python.org/lib/module-zipimport.html}{zipimport module}
+
+\end{itemize}
+
+\resetcurrentobjects
+
+
+\chapter{PyMOTW: BaseHTTPServer}
+\begin{itemize}
+\item {} 
+模块： BaseHTTPServer
+
+\item {} 
+目的： 提供实现web服务的基础类.
+
+\item {} 
+python版本： 1.4+
+
+\end{itemize}
+
+BaseHTTPServer模块包括了能够构成基本的web服务器的类.
+
+
+\section{描述}
+
+BaseHTTPServer使用 \href{http://docs.python.org/lib/module-SocketServer.html}{SocketServer} 中的类来创建HTTP服务基本类, HTTPServer可以被直接使用, 但是其中的BaseHTTPRequestHandler需要被扩展去处理各种协议方法(如GET, POST等).
+
+
+\section{简单的GET请求例子}
+
+实现 \code{do\_METHOD()} 方法可以让你的请求类支持HTTP方法, 这里的METHOD用具体的HTTP方法名字代替. 例如, \code{do\_GET()}, \code{do\_POST()} 等. 为了保持一致, 这些方法不含参数. 用于请求的所有的参数被BaseHTTPRequestHandler解析, 然后被存储在一个实例属性集合中, 这样你可以很方便地检索它们.
+
+下面的例子中, 请求处理对象说明了如何返回一个响应对象给客户端, 一些本地属性在构造响应对象中很有用的.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[from] @PYGaV[BaseHTTPServer] @PYGbd[import] BaseHTTPRequestHandler
+@PYGbd[import] @PYGaV[urlparse]
+
+@PYGay[class] @PYGaN[GetHandler](BaseHTTPRequestHandler):
+
+    @PYGay[def] @PYGaK[do@_GET](@PYGaA[self]):
+        parsed@_path @PYGbf[=] urlparse@PYGbf[.]urlparse(@PYGaA[self]@PYGbf[.]path)
+        message @PYGbf[=] @PYGad[']@PYGao[\n]@PYGad[']@PYGbf[.]join(@PYGZlb[]
+          @PYGad[']@PYGad[CLIENT VALUES:]@PYGad['],
+          @PYGad[']@PYGad[client@_address=]@PYGbg[@%s]@PYGad[ (]@PYGbg[@%s]@PYGad[)]@PYGad['] @PYGbf[@%] (@PYGaA[self]@PYGbf[.]client@_address, @PYGaA[self]@PYGbf[.]address@_string()),
+          @PYGad[']@PYGad[command=]@PYGbg[@%s]@PYGad['] @PYGbf[@%] @PYGaA[self]@PYGbf[.]command,
+          @PYGad[']@PYGad[path=]@PYGbg[@%s]@PYGad['] @PYGbf[@%] @PYGaA[self]@PYGbf[.]path,
+          @PYGad[']@PYGad[real path=]@PYGbg[@%s]@PYGad['] @PYGbf[@%] parsed@_path@PYGbf[.]path,
+          @PYGad[']@PYGad[query=]@PYGbg[@%s]@PYGad['] @PYGbf[@%] parsed@_path@PYGbf[.]query,
+          @PYGad[']@PYGad[request@_version=]@PYGbg[@%s]@PYGad['] @PYGbf[@%] @PYGaA[self]@PYGbf[.]request@_version,
+          @PYGad[']@PYGad['],
+          @PYGad[']@PYGad[SERVER VALUES:]@PYGad['],
+          @PYGad[']@PYGad[server@_version=]@PYGbg[@%s]@PYGad['] @PYGbf[@%] @PYGaA[self]@PYGbf[.]server@_version,
+          @PYGad[']@PYGad[sys@_version=]@PYGbg[@%s]@PYGad['] @PYGbf[@%] @PYGaA[self]@PYGbf[.]sys@_version,
+          @PYGad[']@PYGad[protocol@_version=]@PYGbg[@%s]@PYGad['] @PYGbf[@%] @PYGaA[self]@PYGbf[.]protocol@_version,
+          @PYGad[']@PYGad['],
+        @PYGZrb[])
+        @PYGaA[self]@PYGbf[.]send@_response(@PYGaw[200])
+        @PYGaA[self]@PYGbf[.]end@_headers()
+
+        @PYGaA[self]@PYGbf[.]wfile@PYGbf[.]write(message)
+
+        @PYGay[return]
+\end{Verbatim}
+
+消息正文被组装好后就写入到self.wfile中, 这个文件处理对象封装了整个响应socket. 每个响应对象需要一个响应代码, 它可以通过self.send\_response()来设置. 如果使用了一个错误代码(如404, 501等), 那么对应的默认错误信息会被包含在消息头中, 或者, 你能使用错误码来传递信息.
+
+在服务器中运行请求处理对象, 将这个请求处理对象传递给HTTPServer构造器.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[if] @_@_name@_@_ @PYGbf[==] @PYGad[']@PYGad[@_@_main@_@_]@PYGad[']:
+    @PYGbd[from] @PYGaV[BaseHTTPServer] @PYGbd[import] HTTPServer
+    server @PYGbf[=] HTTPServer((@PYGad[']@PYGad[localhost]@PYGad['], @PYGaw[8080]), GetHandler)
+    @PYGay[print] @PYGad[']@PYGad[Starting server, use @textless[]Ctrl-C@textgreater[] to stop]@PYGad[']
+    server@PYGbf[.]serve@_forever()
+\end{Verbatim}
+
+接下来启动服务器:
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python BaseHTTPServer@_GET.py
+Starting server, use @textless[]Ctrl-C@textgreater[] to stop
+\end{Verbatim}
+
+在另外一终端中, 使用curl访问:
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ curl -i http://localhost:8080/?foo=barHTTP/1.0 200 OK
+Server: BaseHTTP/0.3 Python/2.5.1
+Date: Sun, 09 Dec 2007 16:00:34 GMT
+
+CLIENT VALUES:
+client@_address=('127.0.0.1', 51275) (localhost)
+command=GET
+path=/?foo=bar
+real path=/
+query=foo=bar
+request@_version=HTTP/1.1
+
+SERVER VALUES:
+server@_version=BaseHTTP/0.3
+sys@_version=Python/2.5.1
+protocol@_version=HTTP/1.0
+\end{Verbatim}
+
+
+\section{线程和进程}
+
+HTTPServer是SocketServer.TCPServer的一个简单子类. 它不使用多线程或多进程来处理请求. 要增加多线程和多进程, 可以使用SocketServer中的合适的混用类来创建一个新的类.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[from] @PYGaV[BaseHTTPServer] @PYGbd[import] HTTPServer, BaseHTTPRequestHandler
+@PYGbd[from] @PYGaV[SocketServer] @PYGbd[import] ThreadingMixIn
+@PYGbd[import] @PYGaV[threading]
+
+@PYGay[class] @PYGaN[Handler](BaseHTTPRequestHandler):
+
+    @PYGay[def] @PYGaK[do@_GET](@PYGaA[self]):
+        @PYGaA[self]@PYGbf[.]send@_response(@PYGaw[200])
+        @PYGaA[self]@PYGbf[.]end@_headers()
+        message @PYGbf[=] threading@PYGbf[.]currentThread()@PYGbf[.]getName() @PYGaD[@#@# 这里threading就可以自己处理]
+        @PYGaA[self]@PYGbf[.]wfile@PYGbf[.]write(message)
+        @PYGaA[self]@PYGbf[.]wfile@PYGbf[.]write(@PYGad[']@PYGao[\n]@PYGad['])
+        @PYGay[return]
+
+@PYGay[class] @PYGaN[ThreadedHTTPServer](ThreadingMixIn, HTTPServer):
+    @PYGas["""Handle requests in a separate thread."""]
+
+@PYGay[if] @_@_name@_@_ @PYGbf[==] @PYGad[']@PYGad[@_@_main@_@_]@PYGad[']:
+    server @PYGbf[=] ThreadedHTTPServer((@PYGad[']@PYGad[localhost]@PYGad['], @PYGaw[8080]), Handler)
+    @PYGay[print] @PYGad[']@PYGad[Starting server, use @textless[]Ctrl-C@textgreater[] to stop]@PYGad[']
+    server@PYGbf[.]serve@_forever()
+\end{Verbatim}
+
+每次当一个请求过来的时候, 一个新的线程或进程会被创建来处理它:
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ curl http://localhost:8080/
+Thread-1
+@$ curl http://localhost:8080/
+Thread-2
+@$ curl http://localhost:8080/
+Thread-3
+\end{Verbatim}
+
+如果把上面的ThreadingMixIn换成ForkingMixIn, 也可以获得类似的结果, 但是后者是使用了独立的进程而不是线程.
+
+
+\section{POST}
+
+支持POST请求需要多一点的工作, 因为基本类不会为我们解析表单数据. \href{http://docs.python.org/lib/module-cgi.html}{cgi} 模块提供了用于解析表单的FieldStorage类,只要我们提供正确的输入格式.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[from] @PYGaV[BaseHTTPServer] @PYGbd[import] BaseHTTPRequestHandler
+@PYGbd[import] @PYGaV[cgi]
+
+@PYGay[class] @PYGaN[PostHandler](BaseHTTPRequestHandler):
+
+    @PYGay[def] @PYGaK[do@_POST](@PYGaA[self]):
+        @PYGaD[@# Parse the form data posted]
+        form @PYGbf[=] cgi@PYGbf[.]FieldStorage(
+        fp@PYGbf[=]@PYGaA[self]@PYGbf[.]rfile,
+        headers@PYGbf[=]@PYGaA[self]@PYGbf[.]headers,
+        environ@PYGbf[=]{@PYGad[']@PYGad[REQUEST@_METHOD]@PYGad[']:@PYGad[']@PYGad[POST]@PYGad['],
+          @PYGad[']@PYGad[CONTENT@_TYPE]@PYGad[']:@PYGaA[self]@PYGbf[.]headers@PYGZlb[]@PYGad[']@PYGad[Content-Type]@PYGad[']@PYGZrb[],
+        })
+
+        @PYGaD[@# Begin the response]
+        @PYGaA[self]@PYGbf[.]send@_response(@PYGaw[200])
+        @PYGaA[self]@PYGbf[.]end@_headers()
+        @PYGaA[self]@PYGbf[.]wfile@PYGbf[.]write(@PYGad[']@PYGad[Client: ]@PYGbg[@%s]@PYGao[\n]@PYGad['] @PYGbf[@%] @PYGaX[str](@PYGaA[self]@PYGbf[.]client@_address))
+        @PYGaA[self]@PYGbf[.]wfile@PYGbf[.]write(@PYGad[']@PYGad[Path: ]@PYGbg[@%s]@PYGao[\n]@PYGad['] @PYGbf[@%] @PYGaA[self]@PYGbf[.]path)
+        @PYGaA[self]@PYGbf[.]wfile@PYGbf[.]write(@PYGad[']@PYGad[Form data:]@PYGao[\n]@PYGad['])
+
+
+        @PYGaD[@# Echo back information about what was posted in the form]
+        @PYGay[for] field @PYGan[in] form@PYGbf[.]keys():
+            field@_item @PYGbf[=] form@PYGZlb[]field@PYGZrb[]
+            @PYGay[if] field@_item@PYGbf[.]filename:
+                @PYGaD[@# The field contains an uploaded file]
+                file@_data @PYGbf[=] field@_item@PYGbf[.]file@PYGbf[.]read()
+                file@_len @PYGbf[=] @PYGaX[len](file@_data)
+                @PYGay[del] file@_data
+                @PYGaA[self]@PYGbf[.]wfile@PYGbf[.]write(@PYGad[']@PYGao[\t]@PYGad[Uploaded ]@PYGbg[@%s]@PYGad[ (]@PYGbg[@%d]@PYGad[ bytes)]@PYGao[\n]@PYGad['] @PYGbf[@%] (field, file@_len))
+            @PYGay[else]:
+                @PYGaD[@# Regular form value]
+                @PYGaA[self]@PYGbf[.]wfile@PYGbf[.]write(@PYGad[']@PYGao[\t]@PYGbg[@%s]@PYGad[=]@PYGbg[@%s]@PYGao[\n]@PYGad['] @PYGbf[@%] (field, form@PYGZlb[]field@PYGZrb[]@PYGbf[.]value))
+        @PYGay[return]
+
+@PYGay[if] @_@_name@_@_ @PYGbf[==] @PYGad[']@PYGad[@_@_main@_@_]@PYGad[']:
+    @PYGbd[from] @PYGaV[BaseHTTPServer] @PYGbd[import] HTTPServer
+    server @PYGbf[=] HTTPServer((@PYGad[']@PYGad[localhost]@PYGad['], @PYGaw[8080]), PostHandler)
+    @PYGay[print] @PYGad[']@PYGad[Starting server, use @textless[]Ctrl-C@textgreater[] to stop]@PYGad[']
+    server@PYGbf[.]serve@_forever()
+\end{Verbatim}
+
+再次使用curl, 我们可以包含表单数据, 它自动以POST方式发送. 最后的参数, -F \href{mailto:datafile=@BaseHTTPServer\_GET.py}{datafile=@BaseHTTPServer\_GET.py}, 将文件BaseHTTPServer\_GET.py的内容发送, 从而表示已从表单中读取了文件数据.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ curl http://localhost:8080/ -F name=dhellmann -F foo=bar -F datafile=@PYGZat[]BaseHTTPServer@_GET.py
+Client: ('127.0.0.1', 51128)
+Path: /
+Form data:
+         name=dhellmann
+         foo=bar
+         Uploaded datafile (2222 bytes)
+\end{Verbatim}
+
+
+\section{Errors}
+
+错误处理可以使用 \code{send\_error()} 方法. 简单的传递给它合适的错误代码以及一个可选的错误信息, 那么就会为你生成整个响应对象(包括头, 状态码, 消息体).
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[from] @PYGaV[BaseHTTPServer] @PYGbd[import] BaseHTTPRequestHandler
+
+@PYGay[class] @PYGaN[ErrorHandler](BaseHTTPRequestHandler):
+
+    @PYGay[def] @PYGaK[do@_GET](@PYGaA[self]):
+        @PYGaA[self]@PYGbf[.]send@_error(@PYGaw[404])
+        @PYGay[return]
+
+@PYGay[if] @_@_name@_@_ @PYGbf[==] @PYGad[']@PYGad[@_@_main@_@_]@PYGad[']:
+    @PYGbd[from] @PYGaV[BaseHTTPServer] @PYGbd[import] HTTPServer
+    server @PYGbf[=] HTTPServer((@PYGad[']@PYGad[localhost]@PYGad['], @PYGaw[8080]), ErrorHandler)
+    @PYGay[print] @PYGad[']@PYGad[Starting server, use @textless[]Ctrl-C@textgreater[] to stop]@PYGad[']
+    server@PYGbf[.]serve@_forever()
+\end{Verbatim}
+
+在这种情况下, 一直返回404错误.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ curl -i http://localhost:8080/
+HTTP/1.0 404 Not Found
+Server: BaseHTTP/0.3 Python/2.5.1
+Date: Sun, 09 Dec 2007 15:49:44 GMT
+Content-Type: text/html
+Connection: close
+
+@textless[]head@textgreater[]
+@textless[]title@textgreater[]Error response@textless[]/title@textgreater[]
+@textless[]/head@textgreater[]
+@textless[]body@textgreater[]
+@textless[]h1@textgreater[]Error response@textless[]/h1@textgreater[]
+@textless[]p@textgreater[]Error code 404.
+@textless[]p@textgreater[]Message: Not Found.
+@textless[]p@textgreater[]Error code explanation: 404 = Nothing matches the given URI.
+@textless[]/body@textgreater[]
+\end{Verbatim}
+
+\resetcurrentobjects
+
+
+\chapter{PyMOTW: pprint}
+\begin{itemize}
+\item {} 
+模块： pprint
+
+\item {} 
+目的： 用于更加好看的显示数据
+
+\item {} 
+python版本： 1.4+
+
+\end{itemize}
+
+pprint模块让你的数据的显示结构更加美观.
+
+
+\section{描述}
+
+pprint模块中使用的格式化可以按照一种格式正确的显示数据, 这种格式即可被解析器解析, 又很易读. 输出保存在一个单行内, 但如果有必要, 在分割多行数据时也可使用缩进表示.
+
+这里的例子全部依赖于pprint\_data.py这个脚本, 它包含:
+
+\begin{Verbatim}[commandchars=@\[\]]
+data @PYGbf[=] @PYGZlb[] (i, { @PYGad[']@PYGad[a]@PYGad[']:@PYGad[']@PYGad[A]@PYGad['],
+ @PYGad[']@PYGad[b]@PYGad[']:@PYGad[']@PYGad[B]@PYGad['],
+ @PYGad[']@PYGad[c]@PYGad[']:@PYGad[']@PYGad[C]@PYGad['],
+ @PYGad[']@PYGad[d]@PYGad[']:@PYGad[']@PYGad[D]@PYGad['],
+ @PYGad[']@PYGad[e]@PYGad[']:@PYGad[']@PYGad[E]@PYGad['],
+ @PYGad[']@PYGad[f]@PYGad[']:@PYGad[']@PYGad[F]@PYGad['],
+ @PYGad[']@PYGad[g]@PYGad[']:@PYGad[']@PYGad[G]@PYGad['],
+ @PYGad[']@PYGad[h]@PYGad[']:@PYGad[']@PYGad[H]@PYGad['],
+ })
+ @PYGay[for] i @PYGan[in] @PYGaX[xrange](@PYGaw[3])
+ @PYGZrb[]
+\end{Verbatim}
+
+
+\section{输出}
+
+使用这个模块的最简单方式是使用 \code{pprint()} 函数. 它格式化你的对象并作为参数写入到数据流中(默认为sys.stdout)中.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[from] @PYGaV[pprint] @PYGbd[import] pprint
+@PYGbd[from] @PYGaV[pprint@_data] @PYGbd[import] data
+
+@PYGay[print] @PYGad[']@PYGad[PRINT:]@PYGad[']
+@PYGay[print] data
+@PYGay[print]
+@PYGay[print] @PYGad[']@PYGad[PPRINT:]@PYGad[']
+pprint(data)
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python pprint@_pprint.py
+PRINT:
+@PYGZlb[](0, {'a': 'A', 'c': 'C', 'b': 'B', 'e': 'E', 'd': 'D', 'g': 'G', 'f': 'F', 'h': 'H'}), (1, {'a': 'A', 'c': 'C', 'b': 'B', 'e': 'E', 'd': 'D', 'g': 'G', 'f': 'F', 'h': 'H'}), (2, {'a': 'A', 'c': 'C', 'b': 'B', 'e': 'E', 'd': 'D', 'g': 'G', 'f': 'F', 'h': 'H'})@PYGZrb[]
+
+
+PPRINT:
+@PYGZlb[](0,
+ {'a': 'A',
+ 'b': 'B',
+ 'c': 'C',
+ 'd': 'D',
+ 'e': 'E',
+ 'f': 'F',
+ 'g': 'G',
+ 'h': 'H'}),
+ (1,
+ {'a': 'A',
+ 'b': 'B',
+ 'c': 'C',
+ 'd': 'D',
+ 'e': 'E',
+ 'f': 'F',
+ 'g': 'G',
+ 'h': 'H'}),
+ (2,
+ {'a': 'A',
+ 'b': 'B',
+ 'c': 'C',
+ 'd': 'D',
+ 'e': 'E',
+ 'f': 'F',
+ 'g': 'G',
+ 'h': 'H'})@PYGZrb[]
+\end{Verbatim}
+
+
+\section{格式化}
+
+如果你需要格式化一个数据结构, 但不想直接写入到流中(比如, 为了记录日志), 你可以使用 \code{pformat()} 来构建一个字符串传递给其他函数.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[logging]
+@PYGbd[from] @PYGaV[pprint] @PYGbd[import] pformat
+@PYGbd[from] @PYGaV[pprint@_data] @PYGbd[import] data
+
+logging@PYGbf[.]basicConfig(level@PYGbf[=]logging@PYGbf[.]DEBUG,
+ format@PYGbf[=]@PYGad[']@PYGbg[@%(asctime)s]@PYGad[ ]@PYGbg[@%(levelname)-8s]@PYGad[ ]@PYGbg[@%(message)s]@PYGad['],
+)
+
+logging@PYGbf[.]debug(@PYGad[']@PYGad[Logging pformatted data]@PYGad['])
+logging@PYGbf[.]debug(pformat(data))
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python pprint@_pformat.py
+2007-10-21 18:10:32,881 DEBUG Logging pformatted data
+2007-10-21 18:10:32,884 DEBUG @PYGZlb[](0,
+{'a': 'A',
+ 'b': 'B',
+ 'c': 'C',
+ 'd': 'D',
+ 'e': 'E',
+ 'f': 'F',
+ 'g': 'G',
+ 'h': 'H'}),
+ (1,
+ {'a': 'A',
+ 'b': 'B',
+ 'c': 'C',
+ 'd': 'D',
+ 'e': 'E',
+ 'f': 'F',
+ 'g': 'G',
+ 'h': 'H'}),
+ (2,
+ {'a': 'A',
+ 'b': 'B',
+ 'c': 'C',
+ 'd': 'D',
+ 'e': 'E',
+ 'f': 'F',
+ 'g': 'G',
+ 'h': 'H'})@PYGZrb[]
+\end{Verbatim}
+
+
+\section{其他类}
+
+\code{pprint()} 中使用到的PrettyPrinter类也支持自定义类, 前提是在自定义类中, 定义了 \code{\_\_repr\_\_} 方法.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[from] @PYGaV[pprint] @PYGbd[import] pprint
+
+@PYGay[class] @PYGaN[node](@PYGaX[object]):
+    @PYGay[def] @PYGaK[@_@_init@_@_](@PYGaA[self], name, contents@PYGbf[=]@PYGZlb[]@PYGZrb[]):
+        @PYGaA[self]@PYGbf[.]name @PYGbf[=] name
+        @PYGaA[self]@PYGbf[.]contents @PYGbf[=] contents@PYGZlb[]:@PYGZrb[]
+
+    @PYGay[def] @PYGaK[@_@_repr@_@_](@PYGaA[self]):
+        @PYGay[return] @PYGad[']@PYGad[node(]@PYGad['] @PYGbf[+] @PYGaX[repr](@PYGaA[self]@PYGbf[.]name) @PYGbf[+] @PYGad[']@PYGad[, ]@PYGad['] @PYGbf[+] @PYGaX[repr](@PYGaA[self]@PYGbf[.]contents) @PYGbf[+] @PYGad[']@PYGad[)]@PYGad[']
+
+trees @PYGbf[=] @PYGZlb[] node(@PYGad[']@PYGad[node-1]@PYGad[']),
+    node(@PYGad[']@PYGad[node-2]@PYGad['], @PYGZlb[] node(@PYGad[']@PYGad[node-2-1]@PYGad['])@PYGZrb[]),
+    node(@PYGad[']@PYGad[node-3]@PYGad['], @PYGZlb[] node(@PYGad[']@PYGad[node-3-1]@PYGad['])@PYGZrb[]),
+@PYGZrb[]
+pprint(trees)
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python pprint@_arbitrary@_object.py
+@PYGZlb[]node('node-1', @PYGZlb[]@PYGZrb[]),
+ node('node-2', @PYGZlb[]node('node-2-1', @PYGZlb[]@PYGZrb[])@PYGZrb[]),
+ node('node-3', @PYGZlb[]node('node-3-1', @PYGZlb[]@PYGZrb[])@PYGZrb[])@PYGZrb[]
+\end{Verbatim}
+
+
+\section{递归}
+
+递归的数据可用一个指向原始数据的引用来表示, 具体的形式为 \emph{\textless{}Recursion on typename with id=number\textgreater{}}. 例如:
+
+\begin{Verbatim}[commandchars=@\[\]]
+local@_data @PYGbf[=] @PYGZlb[] @PYGad[']@PYGad[a]@PYGad['], @PYGad[']@PYGad[b]@PYGad['], @PYGaw[1], @PYGaw[2] @PYGZrb[]
+local@_data@PYGbf[.]append(local@_data)
+
+@PYGay[print] @PYGad[']@PYGad[id(local@_data) =@textgreater[]]@PYGad['], @PYGaX[id](local@_data)
+pprint(local@_data)
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python pprint@_recursion.py
+id(local@_data) =@textgreater[] 486936
+@PYGZlb[]'a', 'b', 1, 2, @textless[]Recursion on list with id=486936@textgreater[]@PYGZrb[]
+\end{Verbatim}
+
+
+\section{限制嵌套输出}
+
+对于每一个深层次的数据结构, 你可能不想输出所有的细节. 也可能无法适当的格式化数据, 或者要格式化的文本很大而难控制, 或者你可能需要全部使用. 在这种情况下, 指定depth参数可控制嵌套数据结构显示的深度.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[from] @PYGaV[pprint] @PYGbd[import] pprint
+@PYGbd[from] @PYGaV[pprint@_data] @PYGbd[import] data
+
+pprint(data, depth@PYGbf[=]@PYGaw[1])
+\end{Verbatim}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python pprint@_depth.py
+@PYGZlb[](0, {...}), (1, {...}), (2, {...})@PYGZrb[]
+\end{Verbatim}
+
+
+\section{控制输出宽度}
+
+默认的格式化文本输出宽度是80列. 指定 \code{pprint()} 中的width参数可以调整文本输出宽度.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[from] @PYGaV[pprint] @PYGbd[import] pprint
+@PYGbd[from] @PYGaV[pprint@_data] @PYGbd[import] data
+
+@PYGay[for] d @PYGan[in] data:
+    @PYGay[for] c @PYGan[in] @PYGad[']@PYGad[defgh]@PYGad[']:
+        @PYGay[del] d@PYGZlb[]@PYGaw[1]@PYGZrb[]@PYGZlb[]c@PYGZrb[]
+
+@PYGay[for] width @PYGan[in] @PYGZlb[] @PYGaw[80], @PYGaw[20], @PYGaw[5] @PYGZrb[]:
+    @PYGay[print] @PYGad[']@PYGad[WIDTH =]@PYGad['], width
+    pprint(data, width@PYGbf[=]width)
+    @PYGay[print]
+\end{Verbatim}
+
+注意: 当width被定义的太小而不能容纳所有的格式化数据时, 行是不会被截断. 如果有出现无效的语法时, 也不会被包裹起来.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python pprint@_width.py
+WIDTH = 80
+@PYGZlb[](0, {'a': 'A', 'b': 'B', 'c': 'C'}),
+ (1, {'a': 'A', 'b': 'B', 'c': 'C'}),
+ (2, {'a': 'A', 'b': 'B', 'c': 'C'})@PYGZrb[]
+
+WIDTH = 20
+@PYGZlb[](0,
+ {'a': 'A',
+ 'b': 'B',
+ 'c': 'C'}),
+ (1,
+ {'a': 'A',
+ 'b': 'B',
+ 'c': 'C'}),
+ (2,
+ {'a': 'A',
+ 'b': 'B',
+ 'c': 'C'})@PYGZrb[]
+
+WIDTH = 5
+@PYGZlb[](0,
+ {'a': 'A',
+ 'b': 'B',
+ 'c': 'C'}),
+ (1,
+ {'a': 'A',
+ 'b': 'B',
+ 'c': 'C'}),
+ (2,
+ {'a': 'A',
+ 'b': 'B',
+ 'c': 'C'})@PYGZrb[]
+\end{Verbatim}
+
+\resetcurrentobjects
+
+
+\chapter{PyMOTW: SocketServer}
+\begin{itemize}
+\item {} 
+模块： SocketServer
+
+\item {} 
+目的： 创建网络服务器.
+
+\item {} 
+python版本： 1.4+
+
+\end{itemize}
+
+SocketServer模块是一个用于创建网络服务器的框架. 他提供了处理TCP, UDP, Unix流和Unix数据报的基本类和支持线程和进程服务器, 这依赖于具体的应用情况.
+
+
+\section{描述}
+
+SocketServer模块定义了处理同步网络请求(服务器请求处理时会阻塞直到请求完成)的类. 它也提供了一个接口类, 可以方便地将服务器转换使其对于每个请求使用独立线程或进程.
+
+处理一个请求需要先将server(服务器)类和request handler(请求处理)类分开来. 服务器处理通信事宜(如列出一个socket, 接受连接等等), 而请求处理类处理''协议''事宜(解释来到的数据并处理他, 返回数据给客户端). 这种任务的划分意味着，在许多情况下，你可以简单地并且可以不加修改的使用一个现有的服务器类，并为之提供一个符合用户特定需要的请求处理类.
+
+
+\section{服务器类型}
+
+在SocketServer模块中定义了5种不同的服务器类. BaseServer仅定义了API, 但没有实例化很多方法所以不能直接使用. TCPServer使用TCP/IP sockets来通信. UDPServer使用数据报sockets. UnixStreamServer和UnixDatagramServer使用Unix-domain sockets，这仅在Unix平台上可用.
+
+
+\section{服务器对象}
+
+构造一个服务器对象，需要传递给它一个监听请求的地址和一个请求处理类(不是实例). 地址格式根据服务器的类型和所使用的socket族. 细节可以参考 \href{http://docs.python.org/lib/module-socket.html}{socket模块文档}.
+
+一旦一个服务器对象被实例化, 使用 \code{handle\_request()} 或者 \code{serve\_forever()} 来处理请求. \code{serve\_forever()} 方法简单的在一个无穷循环中调用 \code{handle\_request()}, 所以如果你需要在服务器中集成其他事件循环, 或者使用 \code{select()} 监视多个不同服务器的sockets, 你可以独立调用 \code{handle\_request()}. 可以看下面的例子.
+
+
+\section{实现一个服务器}
+
+如果你要创建一个服务器, 它通常是复用现有的类并简单提供自定义的请求处理类. 如果这不能满足你的需求, 还可以使用BaseServer并在其子类中重载一些方法:
+
+verify\_request(request, client\_address) - 返回True来处理请求, 或者False表示忽略这个请求. 比如, 你也可以拒绝从一个IP范围来的请求, 假如你想要阻断某些客户端访问服务器.
+
+process\_request(request, client\_address) - 它通常是调用finish\_request()来完成实际工作. 但它也看创建一个独立的线程或进程, 作为混合类来使用(如下).
+
+finish\_request(request, client\_address) - 使用在服务器构造时指定的类来创建一个请求处理实例. 她调用请求处理类的 \code{handle()} 来处理请求.
+
+
+\section{请求处理者}
+
+请求处理者做了大部分的接受到达的请求和决定如何处理. 处理者应该实现socket层面的 \emph{protocol} (例如, HTTP或XML-RPC). 请求处理者从到达的数据通道中读取请求, 处理它, 并写回一个response. 有下面的3个方法可以被重载.
+
+setup() - 准备一个请求处理者. 在StreamRequestHandler中, 例如, \code{setup()} 方法创建一个类文件对象用于读取和写入socket.
+
+handle() - 做实际处理请求的工作. 解析到来的请求, 处理数据并发送一个response.
+
+finish() - 清除在setup()中创建的所有东西.
+
+在很多情况下, 你可以简单提供handle()方法就可.
+
+
+\section{Echo例子}
+
+在这个例子中, 让我们看下一对简单的server/request处理对象, 它们接受TCP连接, 并将接收的数据返回给客户端. 例子代码中, 唯一实际需要的方法是 \code{EchoRequestHandler.handle()}, 但我已经重载上述描述的所有方法并插入了日志功能调用以便输出示例程序调用时的执行顺序.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[logging]
+@PYGbd[import] @PYGaV[sys]
+@PYGbd[import] @PYGaV[SocketServer]
+
+logging@PYGbf[.]basicConfig(level@PYGbf[=]logging@PYGbf[.]DEBUG,
+  format@PYGbf[=]@PYGad[']@PYGbg[@%(name)s]@PYGad[: ]@PYGbg[@%(message)s]@PYGad['],
+)
+
+@PYGay[class] @PYGaN[EchoRequestHandler](SocketServer@PYGbf[.]BaseRequestHandler):
+
+    @PYGay[def] @PYGaK[@_@_init@_@_](@PYGaA[self], request, client@_address, server):
+        @PYGaA[self]@PYGbf[.]logger @PYGbf[=] logging@PYGbf[.]getLogger(@PYGad[']@PYGad[EchoRequestHandler]@PYGad['])
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[@_@_init@_@_]@PYGad['])
+        SocketServer@PYGbf[.]BaseRequestHandler@PYGbf[.]@_@_init@_@_(@PYGaA[self], request, client@_address, server)
+        @PYGay[return]
+
+    @PYGay[def] @PYGaK[setup](@PYGaA[self]):
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[setup]@PYGad['])
+        @PYGay[return] SocketServer@PYGbf[.]BaseRequestHandler@PYGbf[.]setup(@PYGaA[self])
+
+    @PYGay[def] @PYGaK[handle](@PYGaA[self]):
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[handle]@PYGad['])
+
+        @PYGaD[@# Echo the back to the client]
+        data @PYGbf[=] @PYGaA[self]@PYGbf[.]request@PYGbf[.]recv(@PYGaw[1024])
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[recv()-@textgreater[]]@PYGad["]@PYGbg[@%s]@PYGad["]@PYGad['], data)
+        @PYGaA[self]@PYGbf[.]request@PYGbf[.]send(data)
+        @PYGay[return]
+
+    @PYGay[def] @PYGaK[finish](@PYGaA[self]):
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[finish]@PYGad['])
+        @PYGay[return] SocketServer@PYGbf[.]BaseRequestHandler@PYGbf[.]finish(@PYGaA[self])
+
+@PYGay[class] @PYGaN[EchoServer](SocketServer@PYGbf[.]TCPServer):
+
+    @PYGay[def] @PYGaK[@_@_init@_@_](@PYGaA[self], server@_address, handler@_class@PYGbf[=]EchoRequestHandler):
+        @PYGaA[self]@PYGbf[.]logger @PYGbf[=] logging@PYGbf[.]getLogger(@PYGad[']@PYGad[EchoServer]@PYGad['])
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[@_@_init@_@_]@PYGad['])
+        SocketServer@PYGbf[.]TCPServer@PYGbf[.]@_@_init@_@_(@PYGaA[self], server@_address, handler@_class)
+        @PYGay[return]
+
+    @PYGay[def] @PYGaK[server@_activate](@PYGaA[self]):
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[server@_activate]@PYGad['])
+        SocketServer@PYGbf[.]TCPServer@PYGbf[.]server@_activate(@PYGaA[self])
+        @PYGay[return]
+
+    @PYGay[def] @PYGaK[serve@_forever](@PYGaA[self]):
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[waiting for request]@PYGad['])
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]info(@PYGad[']@PYGad[Handling requests, press @textless[]Ctrl-C@textgreater[] to quit]@PYGad['])
+        @PYGay[while] @PYGaA[True]:
+            @PYGaA[self]@PYGbf[.]handle@_request()
+        @PYGay[return]
+
+    @PYGay[def] @PYGaK[handle@_request](@PYGaA[self]):
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[handle@_request]@PYGad['])
+        @PYGay[return] SocketServer@PYGbf[.]TCPServer@PYGbf[.]handle@_request(@PYGaA[self])
+
+    @PYGay[def] @PYGaK[verify@_request](@PYGaA[self], request, client@_address):
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[verify@_request(]@PYGbg[@%s]@PYGad[, ]@PYGbg[@%s]@PYGad[)]@PYGad['], request, client@_address)
+        @PYGay[return] SocketServer@PYGbf[.]TCPServer@PYGbf[.]verify@_request(@PYGaA[self], request, client@_address)
+
+    @PYGay[def] @PYGaK[process@_request](@PYGaA[self], request, client@_address):
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[process@_request(]@PYGbg[@%s]@PYGad[, ]@PYGbg[@%s]@PYGad[)]@PYGad['], request, client@_address)
+        @PYGay[return] SocketServer@PYGbf[.]TCPServer@PYGbf[.]process@_request(@PYGaA[self], request, client@_address)
+
+    @PYGay[def] @PYGaK[server@_close](@PYGaA[self]):
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[server@_close]@PYGad['])
+        @PYGay[return] SocketServer@PYGbf[.]TCPServer@PYGbf[.]server@_close(@PYGaA[self])
+
+    @PYGay[def] @PYGaK[finish@_request](@PYGaA[self], request, client@_address):
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[finish@_request(]@PYGbg[@%s]@PYGad[, ]@PYGbg[@%s]@PYGad[)]@PYGad['], request, client@_address)
+        @PYGay[return] SocketServer@PYGbf[.]TCPServer@PYGbf[.]finish@_request(@PYGaA[self], request, client@_address)
+
+    @PYGay[def] @PYGaK[close@_request](@PYGaA[self], request@_address):
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[close@_request(]@PYGbg[@%s]@PYGad[)]@PYGad['], request@_address)
+        @PYGay[return] SocketServer@PYGbf[.]TCPServer@PYGbf[.]close@_request(@PYGaA[self], request@_address)
+\end{Verbatim}
+
+这是一个简单的程序, 他创建了服务器, 在一个线程中运行, 连接它能返回哪些方法被调用的信息.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGay[if] @_@_name@_@_ @PYGbf[==] @PYGad[']@PYGad[@_@_main@_@_]@PYGad[']:
+    @PYGbd[import] @PYGaV[socket]
+    @PYGbd[import] @PYGaV[threading]
+
+    address @PYGbf[=] (@PYGad[']@PYGad[localhost]@PYGad['], @PYGaw[0]) @PYGaD[@# let the kernel give us a port]
+    server @PYGbf[=] EchoServer(address, EchoRequestHandler)
+    ip, port @PYGbf[=] server@PYGbf[.]server@_address @PYGaD[@# find out what port we were given]
+
+    t @PYGbf[=] threading@PYGbf[.]Thread(target@PYGbf[=]server@PYGbf[.]serve@_forever)
+    t@PYGbf[.]setDaemon(@PYGaA[True]) @PYGaD[@# don't hang on exit]
+    t@PYGbf[.]start()
+
+    logger @PYGbf[=] logging@PYGbf[.]getLogger(@PYGad[']@PYGad[client]@PYGad['])
+    logger@PYGbf[.]info(@PYGad[']@PYGad[Server on ]@PYGbg[@%s]@PYGad[:]@PYGbg[@%s]@PYGad['], ip, port)
+
+    @PYGaD[@# Connect to the server]
+    logger@PYGbf[.]debug(@PYGad[']@PYGad[creating socket]@PYGad['])
+    s @PYGbf[=] socket@PYGbf[.]socket(socket@PYGbf[.]AF@_INET, socket@PYGbf[.]SOCK@_STREAM)
+    logger@PYGbf[.]debug(@PYGad[']@PYGad[connecting to server]@PYGad['])
+    s@PYGbf[.]connect((ip, port))
+
+    @PYGaD[@# Send the data]
+    message @PYGbf[=] @PYGad[']@PYGad[Hello, world]@PYGad[']
+    logger@PYGbf[.]debug(@PYGad[']@PYGad[sending data: ]@PYGad["]@PYGbg[@%s]@PYGad["]@PYGad['], message)
+    len@_sent @PYGbf[=] s@PYGbf[.]send(message)
+
+    @PYGaD[@# Receive a response]
+    logger@PYGbf[.]debug(@PYGad[']@PYGad[waiting for response]@PYGad['])
+    response @PYGbf[=] s@PYGbf[.]recv(len@_sent)
+    logger@PYGbf[.]debug(@PYGad[']@PYGad[response from server: ]@PYGad["]@PYGbg[@%s]@PYGad["]@PYGad['], response)
+
+    @PYGaD[@# Clean up]
+    logger@PYGbf[.]debug(@PYGad[']@PYGad[closing socket]@PYGad['])
+    s@PYGbf[.]close()
+    logger@PYGbf[.]debug(@PYGad[']@PYGad[done]@PYGad['])
+    server@PYGbf[.]socket@PYGbf[.]close()
+\end{Verbatim}
+
+程序输出的结果如下:
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python SocketServer@_echo.py
+EchoServer: @_@_init@_@_
+EchoServer: server@_activate
+EchoServer: waiting for request
+EchoServer: Handling requests, press to quit
+EchoServer: handle@_request
+client: Server on 127.0.0.1:53477
+client: creating socket
+client: connecting to server
+EchoServer: verify@_request(, ('127.0.0.1', 53478))
+EchoServer: process@_request(, ('127.0.0.1', 53478))
+EchoServer: finish@_request(, ('127.0.0.1', 53478))
+EchoRequestHandler: @_@_init@_@_
+EchoRequestHandler: setup
+EchoRequestHandler: handle
+client: sending data: "Hello, world"
+EchoRequestHandler: recv()-@textgreater[]"Hello, world"
+EchoRequestHandler: finish
+EchoServer: close@_request()
+EchoServer: handle@_request
+client: waiting for response
+client: response from server: "Hello, world"
+client: closing socket
+client: done
+\end{Verbatim}
+
+程序使用的端口号会在你每次运行时改变, 因为内核自动分配给他可用的端口. 如果你想让服务器每次运行时都监听固定的端口, 可以为地址元组提供一个数字而不是0.
+
+上述例子的简单版本, 没有日志记录, 如下:
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[SocketServer]
+
+@PYGay[class] @PYGaN[EchoRequestHandler](SocketServer@PYGbf[.]BaseRequestHandler):
+
+    @PYGay[def] @PYGaK[handle](@PYGaA[self]):
+        @PYGaD[@# Echo the back to the client]
+        data @PYGbf[=] @PYGaA[self]@PYGbf[.]request@PYGbf[.]recv(@PYGaw[1024])
+        @PYGaA[self]@PYGbf[.]request@PYGbf[.]send(data)
+        @PYGay[return]
+
+@PYGay[if] @_@_name@_@_ @PYGbf[==] @PYGad[']@PYGad[@_@_main@_@_]@PYGad[']:
+    @PYGbd[import] @PYGaV[socket]
+    @PYGbd[import] @PYGaV[threading]
+    address @PYGbf[=] (@PYGad[']@PYGad[localhost]@PYGad['], @PYGaw[0]) @PYGaD[@# let the kernel give us a port]
+    server @PYGbf[=] SocketServer@PYGbf[.]TCPServer(address, EchoRequestHandler)
+    ip, port @PYGbf[=] server@PYGbf[.]server@_address @PYGaD[@# find out what port we were given]
+
+    t @PYGbf[=] threading@PYGbf[.]Thread(target@PYGbf[=]server@PYGbf[.]serve@_forever)
+    t@PYGbf[.]setDaemon(@PYGaA[True]) @PYGaD[@# don't hang on exit]
+    t@PYGbf[.]start()
+
+    @PYGaD[@# Connect to the server]
+    s @PYGbf[=] socket@PYGbf[.]socket(socket@PYGbf[.]AF@_INET, socket@PYGbf[.]SOCK@_STREAM)
+    s@PYGbf[.]connect((ip, port))
+
+    @PYGaD[@# Send the data]
+    message @PYGbf[=] @PYGad[']@PYGad[Hello, world]@PYGad[']
+    @PYGay[print] @PYGad[']@PYGad[Sending : ]@PYGad["]@PYGbg[@%s]@PYGad["]@PYGad['] @PYGbf[@%] message
+    len@_sent @PYGbf[=] s@PYGbf[.]send(message)
+
+    @PYGaD[@# Receive a response]
+    response @PYGbf[=] s@PYGbf[.]recv(len@_sent)
+    @PYGay[print] @PYGad[']@PYGad[Received: ]@PYGad["]@PYGbg[@%s]@PYGad["]@PYGad['] @PYGbf[@%] response
+
+    @PYGaD[@# Clean up]
+    s@PYGbf[.]close()
+    server@PYGbf[.]socket@PYGbf[.]close()
+\end{Verbatim}
+
+\begin{notice}{note}{Note:}
+这种情况下, 不需要特殊的服务器类, 因为TCPServer已经符合我们的需要了.
+\end{notice}
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python SocketServer@_echo@_simple.py
+Sending : "Hello, world"
+Received: "Hello, world"
+\end{Verbatim}
+
+
+\section{线程和进程}
+
+为服务器增加线程或forking支持, 只需要简单的在类层次结构中增加包含合适的混合类. 这个混合类重载 \code{process\_request()}, 当要处理一个请求时开始一个新的线程或进程, 并且会在一个新的孩子线程或进程中完成工作.
+
+对于线程, 使用ThreadingMixIn:
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[threading]
+@PYGbd[import] @PYGaV[SocketServer]
+
+@PYGay[class] @PYGaN[ThreadedEchoRequestHandler](SocketServer@PYGbf[.]BaseRequestHandler):
+
+    @PYGay[def] @PYGaK[handle](@PYGaA[self]):
+        @PYGaD[@# Echo the back to the client]
+        data @PYGbf[=] @PYGaA[self]@PYGbf[.]request@PYGbf[.]recv(@PYGaw[1024])
+        cur@_thread @PYGbf[=] threading@PYGbf[.]currentThread()
+        response @PYGbf[=] @PYGad[']@PYGbg[@%s]@PYGad[: ]@PYGbg[@%s]@PYGad['] @PYGbf[@%] (cur@_thread@PYGbf[.]getName(), data)
+        @PYGaA[self]@PYGbf[.]request@PYGbf[.]send(response)
+        @PYGay[return]
+
+@PYGay[class] @PYGaN[ThreadedEchoServer](SocketServer@PYGbf[.]ThreadingMixIn, SocketServer@PYGbf[.]TCPServer):
+    @PYGay[pass]
+
+@PYGay[if] @_@_name@_@_ @PYGbf[==] @PYGad[']@PYGad[@_@_main@_@_]@PYGad[']:
+    @PYGbd[import] @PYGaV[socket]
+    @PYGbd[import] @PYGaV[threading]
+
+    address @PYGbf[=] (@PYGad[']@PYGad[localhost]@PYGad['], @PYGaw[0]) @PYGaD[@# let the kernel give us a port]
+    server @PYGbf[=] ThreadedEchoServer(address, ThreadedEchoRequestHandler)
+    ip, port @PYGbf[=] server@PYGbf[.]server@_address @PYGaD[@# find out what port we were given]
+
+    t @PYGbf[=] threading@PYGbf[.]Thread(target@PYGbf[=]server@PYGbf[.]serve@_forever)
+    t@PYGbf[.]setDaemon(@PYGaA[True]) @PYGaD[@# don't hang on exit]
+    t@PYGbf[.]start()
+    @PYGay[print] @PYGad[']@PYGad[Server loop running in thread:]@PYGad['], t@PYGbf[.]getName()
+
+    @PYGaD[@# Connect to the server]
+    s @PYGbf[=] socket@PYGbf[.]socket(socket@PYGbf[.]AF@_INET, socket@PYGbf[.]SOCK@_STREAM)
+    s@PYGbf[.]connect((ip, port))
+
+    @PYGaD[@# Send the data]
+    message @PYGbf[=] @PYGad[']@PYGad[Hello, world]@PYGad[']
+    @PYGay[print] @PYGad[']@PYGad[Sending : ]@PYGad["]@PYGbg[@%s]@PYGad["]@PYGad['] @PYGbf[@%] message
+    len@_sent @PYGbf[=] s@PYGbf[.]send(message)
+
+    @PYGaD[@# Receive a response]
+    response @PYGbf[=] s@PYGbf[.]recv(@PYGaw[1024])
+    @PYGay[print] @PYGad[']@PYGad[Received: ]@PYGad["]@PYGbg[@%s]@PYGad["]@PYGad['] @PYGbf[@%] response
+
+    @PYGaD[@# Clean up]
+    s@PYGbf[.]close()
+    server@PYGbf[.]socket@PYGbf[.]close()
+\end{Verbatim}
+
+从服务器返回的response包括了处理请求的线程id:
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python SocketServer@_threaded.py
+Server loop running in thread: Thread-1
+Sending : "Hello, world"
+Received: "Thread-2: Hello, world"
+\end{Verbatim}
+
+使用独立的进程, 可以使用ForkingMixIn:
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[os]
+@PYGbd[import] @PYGaV[SocketServer]
+
+@PYGay[class] @PYGaN[ForkingEchoRequestHandler](SocketServer@PYGbf[.]BaseRequestHandler):
+
+    @PYGay[def] @PYGaK[handle](@PYGaA[self]):
+        @PYGaD[@# Echo the back to the client]
+        data @PYGbf[=] @PYGaA[self]@PYGbf[.]request@PYGbf[.]recv(@PYGaw[1024])
+        cur@_pid @PYGbf[=] os@PYGbf[.]getpid()
+        response @PYGbf[=] @PYGad[']@PYGbg[@%s]@PYGad[: ]@PYGbg[@%s]@PYGad['] @PYGbf[@%] (cur@_pid, data)
+        @PYGaA[self]@PYGbf[.]request@PYGbf[.]send(response)
+        @PYGay[return]
+
+@PYGay[class] @PYGaN[ForkingEchoServer](SocketServer@PYGbf[.]ForkingMixIn, SocketServer@PYGbf[.]TCPServer):
+    @PYGay[pass]
+
+@PYGay[if] @_@_name@_@_ @PYGbf[==] @PYGad[']@PYGad[@_@_main@_@_]@PYGad[']:
+    @PYGbd[import] @PYGaV[socket]
+    @PYGbd[import] @PYGaV[threading]
+
+    address @PYGbf[=] (@PYGad[']@PYGad[localhost]@PYGad['], @PYGaw[0]) @PYGaD[@# let the kernel give us a port]
+    server @PYGbf[=] ForkingEchoServer(address, ForkingEchoRequestHandler)
+    ip, port @PYGbf[=] server@PYGbf[.]server@_address @PYGaD[@# find out what port we were given]
+
+    t @PYGbf[=] threading@PYGbf[.]Thread(target@PYGbf[=]server@PYGbf[.]serve@_forever)
+    t@PYGbf[.]setDaemon(@PYGaA[True]) @PYGaD[@# don't hang on exit]
+    t@PYGbf[.]start()
+
+    @PYGay[print] @PYGad[']@PYGad[Server loop running in process:]@PYGad['], os@PYGbf[.]getpid()
+    @PYGaD[@# Connect to the server]
+    s @PYGbf[=] socket@PYGbf[.]socket(socket@PYGbf[.]AF@_INET, socket@PYGbf[.]SOCK@_STREAM)
+    s@PYGbf[.]connect((ip, port))
+
+    @PYGaD[@# Send the data]
+    message @PYGbf[=] @PYGad[']@PYGad[Hello, world]@PYGad[']
+    @PYGay[print] @PYGad[']@PYGad[Sending : ]@PYGad["]@PYGbg[@%s]@PYGad["]@PYGad['] @PYGbf[@%] message
+    len@_sent @PYGbf[=] s@PYGbf[.]send(message)
+
+    @PYGaD[@# Receive a response]
+    response @PYGbf[=] s@PYGbf[.]recv(@PYGaw[1024])
+    @PYGay[print] @PYGad[']@PYGad[Received: ]@PYGad["]@PYGbg[@%s]@PYGad["]@PYGad['] @PYGbf[@%] response
+
+    @PYGaD[@# Clean up]
+    s@PYGbf[.]close()
+
+    server@PYGbf[.]socket@PYGbf[.]close()
+\end{Verbatim}
+
+在这种情况下, 从服务器返回的response包含了一个子进程的id:
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python SocketServer@_forking.py
+Server loop running in process: 20173
+Sending : "Hello, world"
+Received: "20175: Hello, world"
+\end{Verbatim}
+
+
+\section{参考}
+\begin{itemize}
+\item {} 
+\href{http://effbot.org/zone/socket-intro.htm}{effbot.org: Sockets}
+
+\end{itemize}
+
+\resetcurrentobjects
+
+
+\chapter{PyMOTW: asyncore}
+\begin{itemize}
+\item {} 
+模块： asyncore
+
+\item {} 
+目的： 异步I/O操作
+
+\item {} 
+python版本： 1.5.2+
+
+\end{itemize}
+
+asyncore模块包含了使用I/O对象如sockets以方便我们异步的进行操作(可以代替例如线程). 他提供的主要类是dispatcher, 是一个封装了一个socket并提供了处理如连接, 读取, 写入等的事件钩子, 这些会在主循环函数loop()中被调用.
+
+
+\section{客户端}
+
+创建一个异步客户端，继承dispatcher并提供了创建, 读取和写入socket的实现. 让我们拿HTTP客户端来做示例, 它基于一个来自标准库文档的例子.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[asyncore]
+@PYGbd[import] @PYGaV[logging]
+@PYGbd[import] @PYGaV[socket]
+@PYGbd[from] @PYGaV[cStringIO] @PYGbd[import] StringIO
+@PYGbd[import] @PYGaV[urlparse]
+
+@PYGay[class] @PYGaN[HttpClient](asyncore@PYGbf[.]dispatcher):
+
+    @PYGay[def] @PYGaK[@_@_init@_@_](@PYGaA[self], url):
+        @PYGaA[self]@PYGbf[.]url @PYGbf[=] url
+        @PYGaA[self]@PYGbf[.]logger @PYGbf[=] logging@PYGbf[.]getLogger(@PYGaA[self]@PYGbf[.]url)
+        @PYGaA[self]@PYGbf[.]parsed@_url @PYGbf[=] urlparse@PYGbf[.]urlparse(url)
+        asyncore@PYGbf[.]dispatcher@PYGbf[.]@_@_init@_@_(@PYGaA[self])
+        @PYGaA[self]@PYGbf[.]write@_buffer @PYGbf[=] @PYGad[']@PYGad[GET ]@PYGbg[@%s]@PYGad[ HTTP/1.0]@PYGao[\r]@PYGao[\n]@PYGao[\r]@PYGao[\n]@PYGad['] @PYGbf[@%] @PYGaA[self]@PYGbf[.]url
+        @PYGaA[self]@PYGbf[.]read@_buffer @PYGbf[=] StringIO()
+        @PYGaA[self]@PYGbf[.]create@_socket(socket@PYGbf[.]AF@_INET, socket@PYGbf[.]SOCK@_STREAM)
+        address @PYGbf[=] (@PYGaA[self]@PYGbf[.]parsed@_url@PYGbf[.]netloc, @PYGaw[80])
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[connecting to ]@PYGbg[@%s]@PYGad['], address)
+        @PYGaA[self]@PYGbf[.]connect(address)
+
+    @PYGay[def] @PYGaK[handle@_connect](@PYGaA[self]):
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[handle@_connect()]@PYGad['])
+
+    @PYGay[def] @PYGaK[handle@_close](@PYGaA[self]):
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[handle@_close()]@PYGad['])
+        @PYGaA[self]@PYGbf[.]close()
+
+    @PYGay[def] @PYGaK[writable](@PYGaA[self]):
+        is@_writable @PYGbf[=] (@PYGaX[len](@PYGaA[self]@PYGbf[.]write@_buffer) @PYGbf[@textgreater[]] @PYGaw[0])
+        @PYGay[if] is@_writable:
+            @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[writable() -@textgreater[] ]@PYGbg[@%s]@PYGad['], is@_writable)
+        @PYGay[return] is@_writable
+
+    @PYGay[def] @PYGaK[readable](@PYGaA[self]):
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[readable() -@textgreater[] True]@PYGad['])
+        @PYGay[return] @PYGaA[True]
+
+    @PYGay[def] @PYGaK[handle@_write](@PYGaA[self]):
+        sent @PYGbf[=] @PYGaA[self]@PYGbf[.]send(@PYGaA[self]@PYGbf[.]write@_buffer)
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[handle@_write() -@textgreater[] ]@PYGad["]@PYGbg[@%s]@PYGad["]@PYGad['], @PYGaA[self]@PYGbf[.]write@_buffer@PYGZlb[]:sent@PYGZrb[])
+        @PYGaA[self]@PYGbf[.]write@_buffer @PYGbf[=] @PYGaA[self]@PYGbf[.]write@_buffer@PYGZlb[]sent:@PYGZrb[]
+
+    @PYGay[def] @PYGaK[handle@_read](@PYGaA[self]):
+        data @PYGbf[=] @PYGaA[self]@PYGbf[.]recv(@PYGaw[8192])
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[handle@_read() -@textgreater[] ]@PYGbg[@%d]@PYGad[ bytes]@PYGad['], @PYGaX[len](data))
+        @PYGaA[self]@PYGbf[.]read@_buffer@PYGbf[.]write(data)
+
+
+@PYGay[if] @_@_name@_@_ @PYGbf[==] @PYGad[']@PYGad[@_@_main@_@_]@PYGad[']:
+    logging@PYGbf[.]basicConfig(level@PYGbf[=]logging@PYGbf[.]DEBUG,
+      format@PYGbf[=]@PYGad[']@PYGbg[@%(name)s]@PYGad[: ]@PYGbg[@%(message)s]@PYGad['],
+    )
+
+    clients @PYGbf[=] @PYGZlb[]
+      HttpClient(@PYGad[']@PYGad[http://www.python.org/]@PYGad[']),
+      HttpClient(@PYGad[']@PYGad[http://www.doughellmann.com/PyMOTW/contents.html]@PYGad[']),
+    @PYGZrb[]
+
+    logging@PYGbf[.]debug(@PYGad[']@PYGad[LOOP STARTING]@PYGad['])
+    asyncore@PYGbf[.]loop()
+    logging@PYGbf[.]debug(@PYGad[']@PYGad[LOOP DONE]@PYGad['])
+    @PYGay[for] c @PYGan[in] clients:
+        response@_body @PYGbf[=] c@PYGbf[.]read@_buffer@PYGbf[.]getvalue()
+        @PYGay[print] c@PYGbf[.]url, @PYGad[']@PYGad[got]@PYGad['], @PYGaX[len](response@_body), @PYGad[']@PYGad[bytes]@PYGad[']
+\end{Verbatim}
+
+首先，通过在 \code{\_\_init\_\_()} 中使用基类的 \code{create\_socket()} 方法创建socket. 当然还有其他的方法, 但在这个例子中. 我们创建的是一个TCP/IP socket. 因此使用基类已经可以满足需要了.
+
+handle\_connect()钩子简单的显示了被调用的信息. 其他客户端还可以在 \code{handle\_connect()} 中进行一些握手或者协议交涉等类似的处理.
+
+handle\_close()同样的显示了被调用的信息. 基类可以正确的关闭socket, 如果你不想作额外的工作可以交给函数来处理.
+
+asyncore循环中, 使用 \code{writeable()} 和同属方法 \code{readable()} 决定什么样的操作来处理每个dispatcher. 实际上, sockets的 \code{poll()} 和 \code{select()} 方法或由每个dispatcher操作的文件描述符会在asyncore代码内部处理. 因此你不必自己来实现这些. 只需简单的指出某dispatcher是否是对读和写都要处理. 在这个HTTP client的例子中, 只要存在请求发送到服务器的数据, \code{writable()} 会返回True, 而 \code{readable()} 一直返回True, 因为我们想读取所有到来的数据.
+
+在每次循环中, 当 \code{writable()} 正确响应, \code{handle\_write()} 会被调用. 在这个例子中, 在 \code{\_\_init\_\_()} 中创建的HTTP请求字符串会被发送到服务器, 写缓冲区会清除成功发送的数据.
+
+类似地, 当 \code{readable()} 正确响应, 也就是有数据要读取了. 那么, \code{handle\_read()} 会被调用.
+
+例子中\_\_main\_\_之后的代码首先配置一个日志记录以便调试, 然后创建了两个客户端分别下载网页. 创建客户端需要在一个由asyncore内部保存的 \emph{map} 中注册. 随着主循环的开始, 客户端的下载也开始, 当一个客户端从可读socket中读取0个字节, 这会被解释成关闭连接然后.
+
+下面是这个例子中客户端app运行出的可能结果:
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python asyncore@_http@_client.py
+http://www.python.org/: connecting to ('www.python.org', 80)
+http://www.doughellmann.com/PyMOTW/contents.html: connecting to ('www.doughellmann.com', 80)
+root: LOOP STARTING
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: writable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: readable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: writable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: handle@_connect()
+http://www.doughellmann.com/PyMOTW/contents.html: handle@_write() -@textgreater[] "GET http://www.doughellmann.com/PyMOTW/contents.html HTTP/1.0
+
+"
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: writable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: readable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: handle@_read() -@textgreater[] 3163 bytes
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: writable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: readable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: handle@_read() -@textgreater[] 1448 bytes
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: writable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: readable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: handle@_read() -@textgreater[] 2896 bytes
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: writable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: readable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: handle@_read() -@textgreater[] 2896 bytes
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: writable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: readable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: handle@_read() -@textgreater[] 2896 bytes
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: writable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: readable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: handle@_read() -@textgreater[] 2896 bytes
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: writable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: readable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: handle@_read() -@textgreater[] 1448 bytes
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: writable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: readable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: handle@_read() -@textgreater[] 1448 bytes
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: writable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: readable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: handle@_read() -@textgreater[] 1448 bytes
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: writable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: readable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: handle@_read() -@textgreater[] 1448 bytes
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: writable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: readable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: handle@_read() -@textgreater[] 895 bytes
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: writable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: readable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: handle@_close()
+http://www.doughellmann.com/PyMOTW/contents.html: handle@_read() -@textgreater[] 0 bytes
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: writable() -@textgreater[] True
+http://www.python.org/: handle@_connect()
+http://www.python.org/: handle@_write() -@textgreater[] "GET http://www.python.org/ HTTP/1.0
+
+"
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_read() -@textgreater[] 1396 bytes
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_read() -@textgreater[] 1396 bytes
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_read() -@textgreater[] 1396 bytes
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_read() -@textgreater[] 1396 bytes
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_read() -@textgreater[] 1396 bytes
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_read() -@textgreater[] 1396 bytes
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_read() -@textgreater[] 1396 bytes
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_read() -@textgreater[] 1396 bytes
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_read() -@textgreater[] 1396 bytes
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_read() -@textgreater[] 1396 bytes
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_read() -@textgreater[] 1396 bytes
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_read() -@textgreater[] 1396 bytes
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_read() -@textgreater[] 1257 bytes
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_close()
+http://www.python.org/: handle@_read() -@textgreater[] 0 bytes
+root: LOOP DONE
+http://www.python.org/ got 18009 bytes
+http://www.doughellmann.com/PyMOTW/contents.html got 22882 bytes
+\end{Verbatim}
+
+
+\section{服务器}
+
+下面的例子, 通过重新实现SocketServe中的EchoServer例子来说明如何在服务器上使用异步. 这里主要有3个类: EchoServer用于接收来自客户端的连接并创建各自的EchoHandler实例, EchoClient是类似于HTTPClient的异步dispatche.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[asyncore]
+@PYGbd[import] @PYGaV[logging]
+
+@PYGay[class] @PYGaN[EchoServer](asyncore@PYGbf[.]dispatcher):
+    @PYGas["""Receives connections and establishes handlers for each client.]
+@PYGas[    """]
+
+    @PYGay[def] @PYGaK[@_@_init@_@_](@PYGaA[self], address):
+        @PYGaA[self]@PYGbf[.]logger @PYGbf[=] logging@PYGbf[.]getLogger(@PYGad[']@PYGad[EchoServer]@PYGad['])
+        asyncore@PYGbf[.]dispatcher@PYGbf[.]@_@_init@_@_(@PYGaA[self])
+        @PYGaA[self]@PYGbf[.]create@_socket(socket@PYGbf[.]AF@_INET, socket@PYGbf[.]SOCK@_STREAM)
+        @PYGaA[self]@PYGbf[.]bind(address)
+        @PYGaA[self]@PYGbf[.]address @PYGbf[=] @PYGaA[self]@PYGbf[.]socket@PYGbf[.]getsockname()
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[binding to ]@PYGbg[@%s]@PYGad['], @PYGaA[self]@PYGbf[.]address)
+        @PYGaA[self]@PYGbf[.]listen(@PYGaw[1])
+        @PYGay[return]
+
+    @PYGay[def] @PYGaK[handle@_accept](@PYGaA[self]):
+        @PYGaD[@# Called when a client connects to our socket]
+        client@_info @PYGbf[=] @PYGaA[self]@PYGbf[.]accept()
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[handle@_accept() -@textgreater[] ]@PYGbg[@%s]@PYGad['], client@_info@PYGZlb[]@PYGaw[1]@PYGZrb[])
+        EchoHandler(sock@PYGbf[=]client@_info@PYGZlb[]@PYGaw[0]@PYGZrb[])
+        @PYGaD[@# We only want to deal with one client at a time,]
+        @PYGaD[@# so close as soon as we set up the handler.]
+        @PYGaD[@# Normally you would not do this and the server]
+        @PYGaD[@# would run forever or until it received instructions]
+        @PYGaD[@# to stop.]
+        @PYGaA[self]@PYGbf[.]handle@_close()
+        @PYGay[return]
+
+    @PYGay[def] @PYGaK[handle@_close](@PYGaA[self]):
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[handle@_close()]@PYGad['])
+        @PYGaA[self]@PYGbf[.]close()
+        @PYGay[return]
+
+@PYGay[class] @PYGaN[EchoHandler](asyncore@PYGbf[.]dispatcher):
+    @PYGas["""Handles echoing messages from a single client.]
+@PYGas[    """]
+
+    @PYGay[def] @PYGaK[@_@_init@_@_](@PYGaA[self], sock, chunk@_size@PYGbf[=]@PYGaw[256]):
+        @PYGaA[self]@PYGbf[.]chunk@_size @PYGbf[=] chunk@_size
+        @PYGaA[self]@PYGbf[.]logger @PYGbf[=] logging@PYGbf[.]getLogger(@PYGad[']@PYGad[EchoHandler]@PYGbg[@%s]@PYGad['] @PYGbf[@%] @PYGaX[str](sock@PYGbf[.]getsockname()))
+        asyncore@PYGbf[.]dispatcher@PYGbf[.]@_@_init@_@_(@PYGaA[self], sock@PYGbf[=]sock)
+        @PYGaA[self]@PYGbf[.]data@_to@_write @PYGbf[=] @PYGZlb[]@PYGZrb[]
+        @PYGay[return]
+
+    @PYGay[def] @PYGaK[writable](@PYGaA[self]):
+        @PYGas["""We want to write if we have received data."""]
+        response @PYGbf[=] @PYGaX[bool](@PYGaA[self]@PYGbf[.]data@_to@_write)
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[writable() -@textgreater[] ]@PYGbg[@%s]@PYGad['], response)
+        @PYGay[return] response
+
+
+    @PYGay[def] @PYGaK[handle@_write](@PYGaA[self]):
+        @PYGas["""Write as much as possible of the most recent message we have received."""]
+        data @PYGbf[=] @PYGaA[self]@PYGbf[.]data@_to@_write@PYGbf[.]pop()
+        sent @PYGbf[=] @PYGaA[self]@PYGbf[.]send(data@PYGZlb[]:@PYGaA[self]@PYGbf[.]chunk@_size@PYGZrb[])
+        @PYGay[if] sent @PYGbf[@textless[]] @PYGaX[len](data):
+            remaining @PYGbf[=] data@PYGZlb[]sent:@PYGZrb[]
+            @PYGaA[self]@PYGbf[.]data@_to@_write@PYGbf[.]append(remaining)
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[handle@_write() -@textgreater[] (]@PYGbg[@%d]@PYGad[) ]@PYGad["]@PYGbg[@%s]@PYGad["]@PYGad['], sent, data@PYGZlb[]:sent@PYGZrb[])
+        @PYGay[if] @PYGan[not] @PYGaA[self]@PYGbf[.]writable():
+            @PYGaA[self]@PYGbf[.]handle@_close()
+
+    @PYGay[def] @PYGaK[handle@_read](@PYGaA[self]):
+        @PYGas["""Read an incoming message from the client and put it into our outgoing queue."""]
+        data @PYGbf[=] @PYGaA[self]@PYGbf[.]recv(@PYGaA[self]@PYGbf[.]chunk@_size)
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[handle@_read() -@textgreater[] (]@PYGbg[@%d]@PYGad[) ]@PYGad["]@PYGbg[@%s]@PYGad["]@PYGad['], @PYGaX[len](data), data)
+        @PYGaA[self]@PYGbf[.]data@_to@_write@PYGbf[.]insert(@PYGaw[0], data)
+
+    @PYGay[def] @PYGaK[handle@_close](@PYGaA[self]):
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[handle@_close()]@PYGad['])
+        @PYGaA[self]@PYGbf[.]close()
+
+
+
+@PYGay[class] @PYGaN[EchoClient](asyncore@PYGbf[.]dispatcher):
+    @PYGas["""Sends messages to the server and receives responses.]
+@PYGas[    """]
+
+    @PYGay[def] @PYGaK[@_@_init@_@_](@PYGaA[self], host, port, message, chunk@_size@PYGbf[=]@PYGaw[512]):
+        @PYGaA[self]@PYGbf[.]message @PYGbf[=] message
+        @PYGaA[self]@PYGbf[.]to@_send @PYGbf[=] message
+        @PYGaA[self]@PYGbf[.]received@_data @PYGbf[=] @PYGZlb[]@PYGZrb[]
+        @PYGaA[self]@PYGbf[.]chunk@_size @PYGbf[=] chunk@_size
+        @PYGaA[self]@PYGbf[.]logger @PYGbf[=] logging@PYGbf[.]getLogger(@PYGad[']@PYGad[EchoClient]@PYGad['])
+        asyncore@PYGbf[.]dispatcher@PYGbf[.]@_@_init@_@_(@PYGaA[self])
+        @PYGaA[self]@PYGbf[.]create@_socket(socket@PYGbf[.]AF@_INET, socket@PYGbf[.]SOCK@_STREAM)
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[connecting to ]@PYGbg[@%s]@PYGad['], (host, port))
+        @PYGaA[self]@PYGbf[.]connect((host, port))
+        @PYGay[return]
+
+    @PYGay[def] @PYGaK[handle@_connect](@PYGaA[self]):
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[handle@_connect()]@PYGad['])
+
+    @PYGay[def] @PYGaK[handle@_close](@PYGaA[self]):
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[handle@_close()]@PYGad['])
+        @PYGaA[self]@PYGbf[.]close()
+        received@_message @PYGbf[=] @PYGad[']@PYGad[']@PYGbf[.]join(@PYGaA[self]@PYGbf[.]received@_data)
+        @PYGay[if] received@_message @PYGbf[==] @PYGaA[self]@PYGbf[.]message:
+            @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[RECEIVED COPY OF MESSAGE]@PYGad['])
+        @PYGay[else]:
+            @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[ERROR IN TRANSMISSION]@PYGad['])
+            @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[EXPECTED ]@PYGad["]@PYGbg[@%s]@PYGad["]@PYGad['], @PYGaA[self]@PYGbf[.]message)
+            @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[RECEIVED ]@PYGad["]@PYGbg[@%s]@PYGad["]@PYGad['], received@_message)
+        @PYGay[return]
+
+    @PYGay[def] @PYGaK[writable](@PYGaA[self]):
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[writable() -@textgreater[] ]@PYGbg[@%s]@PYGad['], @PYGaX[bool](@PYGaA[self]@PYGbf[.]to@_send))
+        @PYGay[return] @PYGaX[bool](@PYGaA[self]@PYGbf[.]to@_send)
+
+    @PYGay[def] @PYGaK[handle@_write](@PYGaA[self]):
+        sent @PYGbf[=] @PYGaA[self]@PYGbf[.]send(@PYGaA[self]@PYGbf[.]to@_send@PYGZlb[]:@PYGaA[self]@PYGbf[.]chunk@_size@PYGZrb[])
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[handle@_write() -@textgreater[] (]@PYGbg[@%d]@PYGad[) ]@PYGad["]@PYGbg[@%s]@PYGad["]@PYGad['], sent, @PYGaA[self]@PYGbf[.]to@_send@PYGZlb[]:sent@PYGZrb[])
+        @PYGaA[self]@PYGbf[.]to@_send @PYGbf[=] @PYGaA[self]@PYGbf[.]to@_send@PYGZlb[]sent:@PYGZrb[]
+
+    @PYGay[def] @PYGaK[handle@_read](@PYGaA[self]):
+        data @PYGbf[=] @PYGaA[self]@PYGbf[.]recv(@PYGaA[self]@PYGbf[.]chunk@_size)
+        @PYGaA[self]@PYGbf[.]logger@PYGbf[.]debug(@PYGad[']@PYGad[handle@_read() -@textgreater[] (]@PYGbg[@%d]@PYGad[) ]@PYGad["]@PYGbg[@%s]@PYGad["]@PYGad['], @PYGaX[len](data), data)
+        @PYGaA[self]@PYGbf[.]received@_data@PYGbf[.]append(data)
+
+@PYGay[if] @_@_name@_@_ @PYGbf[==] @PYGad[']@PYGad[@_@_main@_@_]@PYGad[']:
+    @PYGbd[import] @PYGaV[socket]
+    @PYGbd[import] @PYGaV[threading]
+
+    logging@PYGbf[.]basicConfig(level@PYGbf[=]logging@PYGbf[.]DEBUG,
+      format@PYGbf[=]@PYGad[']@PYGbg[@%(name)s]@PYGad[: ]@PYGbg[@%(message)s]@PYGad['],
+    )
+
+    address @PYGbf[=] (@PYGad[']@PYGad[localhost]@PYGad['], @PYGaw[0]) @PYGaD[@# let the kernel give us a port]
+    server @PYGbf[=] EchoServer(address)
+    ip, port @PYGbf[=] server@PYGbf[.]address @PYGaD[@# find out what port we were given]
+    client @PYGbf[=] EchoClient(ip, port, message@PYGbf[=]@PYGaX[open](@PYGad[']@PYGad[lorem.txt]@PYGad['], @PYGad[']@PYGad[r]@PYGad['])@PYGbf[.]read())
+    asyncore@PYGbf[.]loop()
+\end{Verbatim}
+
+EchoServer和EchoHandler被定义在独立的类中因为他们各自处理不同的事情. 当EchoServer接收一个连接, 一个新的socket被建立. 一个利用socket map(这是由asyncore内部维护的)的EchoHandler被创建, 而不是在EchoServer内部进行各个客户端请求的分配.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python asyncore@_echo@_server.py
+EchoServer: binding to ('127.0.0.1', 52235)
+EchoClient: connecting to ('127.0.0.1', 52235)
+EchoClient: writable() -@textgreater[] True
+EchoServer: handle@_accept() -@textgreater[] ('127.0.0.1', 52236)
+EchoServer: handle@_close()
+EchoClient: handle@_connect()
+EchoClient: handle@_write() -@textgreater[] (512) "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec
+egestas, enim et consectetuer ullamcorper, lectus ligula rutrum leo, a
+elementum elit tortor eu quam. Duis tincidunt nisi ut ante. Nulla
+facilisi. Sed tristique eros eu libero. Pellentesque vel arcu. Vivamus
+purus orci, iaculis ac, suscipit sit amet, pulvinar eu,
+lacus. Praesent placerat tortor sed nisl. Nunc blandit diam egestas
+dui. Pellentesque habitant morbi tristique senectus et netus et
+malesuada fames ac turpis egestas. Aliquam viverra f"
+EchoClient: writable() -@textgreater[] True
+EchoHandler('127.0.0.1', 52235): writable() -@textgreater[] False
+EchoHandler('127.0.0.1', 52235): handle@_read() -@textgreater[] (256) "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec
+egestas, enim et consectetuer ullamcorper, lectus ligula rutrum leo, a
+elementum elit tortor eu quam. Duis tincidunt nisi ut ante. Nulla
+facilisi. Sed tristique eros eu libero. Pellentesque ve"
+EchoClient: handle@_write() -@textgreater[] (225) "ringilla
+leo. Nulla feugiat augue eleifend nulla. Vivamus mauris. Vivamus sed
+mauris in nibh placerat egestas. Suspendisse potenti. Mauris massa. Ut
+eget velit auctor tortor blandit sollicitudin. Suspendisse imperdiet
+justo.
+"
+EchoClient: writable() -@textgreater[] False
+EchoHandler('127.0.0.1', 52235): writable() -@textgreater[] True
+EchoHandler('127.0.0.1', 52235): handle@_read() -@textgreater[] (256) "l arcu. Vivamus
+purus orci, iaculis ac, suscipit sit amet, pulvinar eu,
+lacus. Praesent placerat tortor sed nisl. Nunc blandit diam egestas
+dui. Pellentesque habitant morbi tristique senectus et netus et
+malesuada fames ac turpis egestas. Aliquam viverra f"
+EchoHandler('127.0.0.1', 52235): handle@_write() -@textgreater[] (256) "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec
+egestas, enim et consectetuer ullamcorper, lectus ligula rutrum leo, a
+elementum elit tortor eu quam. Duis tincidunt nisi ut ante. Nulla
+facilisi. Sed tristique eros eu libero. Pellentesque ve"
+EchoHandler('127.0.0.1', 52235): writable() -@textgreater[] True
+EchoClient: writable() -@textgreater[] False
+EchoHandler('127.0.0.1', 52235): writable() -@textgreater[] True
+EchoClient: handle@_read() -@textgreater[] (256) "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec
+egestas, enim et consectetuer ullamcorper, lectus ligula rutrum leo, a
+elementum elit tortor eu quam. Duis tincidunt nisi ut ante. Nulla
+facilisi. Sed tristique eros eu libero. Pellentesque ve"
+EchoHandler('127.0.0.1', 52235): handle@_read() -@textgreater[] (225) "ringilla
+leo. Nulla feugiat augue eleifend nulla. Vivamus mauris. Vivamus sed
+mauris in nibh placerat egestas. Suspendisse potenti. Mauris massa. Ut
+eget velit auctor tortor blandit sollicitudin. Suspendisse imperdiet
+justo.
+"
+EchoHandler('127.0.0.1', 52235): handle@_write() -@textgreater[] (256) "l arcu. Vivamus
+purus orci, iaculis ac, suscipit sit amet, pulvinar eu,
+lacus. Praesent placerat tortor sed nisl. Nunc blandit diam egestas
+dui. Pellentesque habitant morbi tristique senectus et netus et
+malesuada fames ac turpis egestas. Aliquam viverra f"
+EchoHandler('127.0.0.1', 52235): writable() -@textgreater[] True
+EchoClient: writable() -@textgreater[] False
+EchoHandler('127.0.0.1', 52235): writable() -@textgreater[] True
+EchoClient: handle@_read() -@textgreater[] (256) "l arcu. Vivamus
+purus orci, iaculis ac, suscipit sit amet, pulvinar eu,
+lacus. Praesent placerat tortor sed nisl. Nunc blandit diam egestas
+dui. Pellentesque habitant morbi tristique senectus et netus et
+malesuada fames ac turpis egestas. Aliquam viverra f"
+EchoHandler('127.0.0.1', 52235): handle@_write() -@textgreater[] (225) "ringilla
+leo. Nulla feugiat augue eleifend nulla. Vivamus mauris. Vivamus sed
+mauris in nibh placerat egestas. Suspendisse potenti. Mauris massa. Ut
+eget velit auctor tortor blandit sollicitudin. Suspendisse imperdiet
+justo.
+"
+EchoHandler('127.0.0.1', 52235): writable() -@textgreater[] False
+EchoHandler('127.0.0.1', 52235): handle@_close()
+EchoClient: writable() -@textgreater[] False
+EchoClient: handle@_read() -@textgreater[] (225) "ringilla
+leo. Nulla feugiat augue eleifend nulla. Vivamus mauris. Vivamus sed
+mauris in nibh placerat egestas. Suspendisse potenti. Mauris massa. Ut
+eget velit auctor tortor blandit sollicitudin. Suspendisse imperdiet
+justo.
+"
+EchoClient: writable() -@textgreater[] False
+EchoClient: handle@_close()
+EchoClient: RECEIVED COPY OF MESSAGE
+EchoClient: handle@_read() -@textgreater[] (0) ""
+\end{Verbatim}
+
+在这个例子中, 服务器, 处理者, 客户端对象都被asyncore在一个单独进程中使用一相同的socket map维护. 将服务器和客户端分开, 简单的将相关代码分开, 并且在各自程序中运行 \code{asyncore.loop()}. 当一个dispatcher被关闭了, 会从map中删掉, 整个循环会在map为空时停下来.
+
+
+\section{其他循环事件的处理}
+
+有时候需必须在已有的应用事件中加入异步事件. 例如, 一个GUI应用不想在所有异步操作处理时阻断UI-这是违背了异步的目的. 为了使这种集成更方便, \code{asycore.loop()} 接收一个用于设置超时的参数和一个用于限制循环次数的参数, 重新使用第一个例子中的HttpClient, 我们可以看到他们各自的效果.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[asyncore]
+@PYGbd[import] @PYGaV[logging]
+
+@PYGbd[from] @PYGaV[asyncore@_http@_client] @PYGbd[import] HttpClient
+
+logging@PYGbf[.]basicConfig(level@PYGbf[=]logging@PYGbf[.]DEBUG,
+  format@PYGbf[=]@PYGad[']@PYGbg[@%(name)s]@PYGad[: ]@PYGbg[@%(message)s]@PYGad['],
+)
+
+clients @PYGbf[=] @PYGZlb[]
+  HttpClient(@PYGad[']@PYGad[http://www.doughellmann.com/PyMOTW/contents.html]@PYGad[']),
+  HttpClient(@PYGad[']@PYGad[http://www.python.org/]@PYGad[']),
+@PYGZrb[]
+
+loop@_counter @PYGbf[=] @PYGaw[0]
+@PYGay[while] asyncore@PYGbf[.]socket@_map:
+    loop@_counter @PYGbf[+]@PYGbf[=] @PYGaw[1]
+    logging@PYGbf[.]debug(@PYGad[']@PYGad[loop@_counter=]@PYGbg[@%s]@PYGad['], loop@_counter)
+    asyncore@PYGbf[.]loop(timeout@PYGbf[=]@PYGaw[1], count@PYGbf[=]@PYGaw[1])
+\end{Verbatim}
+
+我们可以看到, 在 \code{asyncore.loop()} 中调用时, 客户端仅读或写数据一次, 替代我们自己的while循环. 我们可以在GUI工具包活其他需要这种功能机制的地方类似的调用 \code{asyncore.loop()} (ui不会忙于处理其他事件).
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python asyncore@_loop.py
+
+http://www.doughellmann.com/PyMOTW/contents.html: connecting to ('www.doughellmann.com', 80)
+http://www.python.org/: connecting to ('www.python.org', 80)
+root: loop@_counter=1
+http://www.doughellmann.com/PyMOTW/contents.html: readable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: writable() -@textgreater[] True
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: writable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: handle@_connect()
+http://www.doughellmann.com/PyMOTW/contents.html: handle@_write() -@textgreater[] "GET http://www.doughellmann.com/PyMOTW/contents.html HTTP/1.0
+
+"
+root: loop@_counter=2
+http://www.doughellmann.com/PyMOTW/contents.html: readable() -@textgreater[] True
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: writable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: handle@_read() -@textgreater[] 267 bytes
+root: loop@_counter=3
+http://www.doughellmann.com/PyMOTW/contents.html: readable() -@textgreater[] True
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: writable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: handle@_read() -@textgreater[] 8192 bytes
+root: loop@_counter=4
+http://www.doughellmann.com/PyMOTW/contents.html: readable() -@textgreater[] True
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: writable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: handle@_read() -@textgreater[] 6288 bytes
+root: loop@_counter=5
+http://www.doughellmann.com/PyMOTW/contents.html: readable() -@textgreater[] True
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: writable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: handle@_read() -@textgreater[] 1448 bytes
+root: loop@_counter=6
+http://www.doughellmann.com/PyMOTW/contents.html: readable() -@textgreater[] True
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: writable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: handle@_read() -@textgreater[] 1448 bytes
+root: loop@_counter=7
+http://www.doughellmann.com/PyMOTW/contents.html: readable() -@textgreater[] True
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: writable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: handle@_read() -@textgreater[] 2896 bytes
+root: loop@_counter=8
+http://www.doughellmann.com/PyMOTW/contents.html: readable() -@textgreater[] True
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: writable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: handle@_read() -@textgreater[] 2343 bytes
+root: loop@_counter=9
+http://www.doughellmann.com/PyMOTW/contents.html: readable() -@textgreater[] True
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: writable() -@textgreater[] True
+http://www.doughellmann.com/PyMOTW/contents.html: handle@_close()
+http://www.doughellmann.com/PyMOTW/contents.html: handle@_read() -@textgreater[] 0 bytes
+root: loop@_counter=10
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: writable() -@textgreater[] True
+http://www.python.org/: handle@_connect()
+http://www.python.org/: handle@_write() -@textgreater[] "GET http://www.python.org/ HTTP/1.0
+
+"
+root: loop@_counter=11
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_read() -@textgreater[] 1396 bytes
+root: loop@_counter=12
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_read() -@textgreater[] 1396 bytes
+root: loop@_counter=13
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_read() -@textgreater[] 1396 bytes
+root: loop@_counter=14
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_read() -@textgreater[] 1396 bytes
+root: loop@_counter=15
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_read() -@textgreater[] 1396 bytes
+root: loop@_counter=16
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_read() -@textgreater[] 1396 bytes
+root: loop@_counter=17
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_read() -@textgreater[] 1396 bytes
+root: loop@_counter=18
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_read() -@textgreater[] 1396 bytes
+root: loop@_counter=19
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_read() -@textgreater[] 1396 bytes
+root: loop@_counter=20
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_read() -@textgreater[] 1396 bytes
+root: loop@_counter=21
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_read() -@textgreater[] 1396 bytes
+root: loop@_counter=22
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_read() -@textgreater[] 1396 bytes
+root: loop@_counter=23
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_read() -@textgreater[] 1257 bytes
+root: loop@_counter=24
+http://www.python.org/: readable() -@textgreater[] True
+http://www.python.org/: handle@_close()
+http://www.python.org/: handle@_read() -@textgreater[] 0 bytes
+\end{Verbatim}
+
+
+\section{文件处理}
+
+一般情况下, 你可能只想在sockets中使用asyncore, 但有时异步的读取文件也是有用的(当测试网络服务器而不需要网络设置使用文件，或者是部分读取, 写入大数据文件）在这些情况下, asyncore提供了file\_dispatcher和file\_wrapper类.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@PYGbd[import] @PYGaV[asyncore]
+@PYGbd[import] @PYGaV[os]
+
+@PYGay[class] @PYGaN[FileReader](asyncore@PYGbf[.]file@_dispatcher):
+
+    @PYGay[def] @PYGaK[writable](@PYGaA[self]):
+        @PYGay[return] @PYGaA[False]
+
+    @PYGay[def] @PYGaK[handle@_read](@PYGaA[self]):
+        data @PYGbf[=] @PYGaA[self]@PYGbf[.]recv(@PYGaw[256])
+        @PYGay[print] @PYGad[']@PYGad[READ: (]@PYGbg[@%d]@PYGad[) ]@PYGad["]@PYGbg[@%s]@PYGad["]@PYGad['] @PYGbf[@%] (@PYGaX[len](data), data)
+
+    @PYGay[def] @PYGaK[handle@_expt](@PYGaA[self]):
+        @PYGaD[@# Ignore events that look like out of band data]
+        @PYGay[pass]
+
+    @PYGay[def] @PYGaK[handle@_close](@PYGaA[self]):
+        @PYGaA[self]@PYGbf[.]close()
+
+lorem@_fd @PYGbf[=] os@PYGbf[.]open(@PYGad[']@PYGad[lorem.txt]@PYGad['], os@PYGbf[.]O@_RDONLY)
+reader @PYGbf[=] FileReader(lorem@_fd)
+asyncore@PYGbf[.]loop()
+\end{Verbatim}
+
+这个例子在Python2.5.2下进行测试, 我使用了 \code{os.open()} 获得文件描述符. 对于Python2.6之后, file\_dispatcher自动将所有具有 \code{fileno()} 方法的东西转换成一个文件描述符.
+
+\begin{Verbatim}[commandchars=@\[\]]
+@$ python asyncore@_file@_dispatcher.py
+READ: (256) "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Donec
+egestas, enim et consectetuer ullamcorper, lectus ligula rutrum leo, a
+elementum elit tortor eu quam. Duis tincidunt nisi ut ante. Nulla
+facilisi. Sed tristique eros eu libero. Pellentesque ve"
+READ: (256) "l arcu. Vivamus
+purus orci, iaculis ac, suscipit sit amet, pulvinar eu,
+lacus. Praesent placerat tortor sed nisl. Nunc blandit diam egestas
+dui. Pellentesque habitant morbi tristique senectus et netus et
+malesuada fames ac turpis egestas. Aliquam viverra f"
+READ: (225) "ringilla
+leo. Nulla feugiat augue eleifend nulla. Vivamus mauris. Vivamus sed
+mauris in nibh placerat egestas. Suspendisse potenti. Mauris massa. Ut
+eget velit auctor tortor blandit sollicitudin. Suspendisse imperdiet
+justo.
+"
+READ: (0) ""
+\end{Verbatim}
+
+
+\section{参考}
+\begin{itemize}
+\item {} 
+\href{http://docs.python.org/library/asyncore.html}{asyncore: 该模块的标准库文档}
 
 \end{itemize}
 
