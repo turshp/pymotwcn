@@ -60,3 +60,11 @@
     itertools.rst
 
     zipfile.rst
+
+    BaseHTTPServer
+
+    pprint.rst
+
+    SocketServer.rst
+
+    asyncore.rst
