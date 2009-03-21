@@ -18,7 +18,7 @@ locale模块是Python国际化和本地化支持库的一部分. 他提供一种
 例子
 ----
 
-让用户改变一个应用程序的本地设置的最一般的方式是通过一个环境变量（LC__ALL, LC__CTYPE, LANG, 或LANGUAGE, 这依赖于你的平台). 然后程序会调用locale.setlocale(), 没有使用硬编码值, 而是使用环境变量.
+让用户改变一个应用程序的本地设置的最一般的方式是通过一个环境变量(LC__ALL, LC__CTYPE, LANG, 或LANGUAGE, 这依赖于你的平台). 然后程序会调用locale.setlocale(), 没有使用硬编码值, 而是使用环境变量.
 
 .. code-block:: python
 

@@ -3,20 +3,18 @@ PyMOTW: urllib
 
 .. currentmodule:: urllib
 
-urllib模块提供了一个访问网络资源的简单接口。
-
 * 模块：urllib
 * 目的：访问不需要认证的远程资源 
 * python版本：1.4+
 
-虽然urllib可以与gopher和ftp协议一起使用, 但下面的例子都是用了http协议。
+urllib模块提供了一个访问网络资源的简单接口. 虽然urllib可以与gopher和ftp协议一起使用, 但下面的例子都是用了http协议.
 
-HTTP GET:
+HTTP GET
 ----------
 
-这些例子的测试服务器是在BaseHTTPServer_GET.py中, 这个脚本在PyMOTW例子的BaseHTTPServer模块中.在一个终端窗口中启动服务器, 然后在另一个窗口中运行以下这些例子.
+这些例子的测试服务器是在BaseHTTPServer_GET.py中, 这个脚本在PyMOTW例子的BaseHTTPServer模块中. 在一个终端窗口中启动服务器, 然后在另一个窗口中运行以下这些例子.
 
-HTTP GET 是urllib最简单的操作。简单把URL传递给urlopen()来获取一个用于操作远程数据的类文件句柄。
+``HTTP GET`` 是urllib最简单的操作. 简单把URL传递给urlopen()来获取一个用于操作远程数据的类文件句柄.
 
 .. code-block:: python
 
@@ -38,7 +36,7 @@ HTTP GET 是urllib最简单的操作。简单把URL传递给urlopen()来获取�
     print '---------'
     print data
 
-该示例服务器取得传入的值，并且返回格式化的纯文本response。从urlopen()返回的值通过info()方法给出HTTP服务器的headers的入口，并且通过read()和readlines()等方法获得远程资源的数据。
+该示例服务器取得传入的值, 并且返回格式化的纯文本response. 从urlopen()返回的值通过info()方法给出HTTP服务器的headers的入口, 并且通过read()和readlines()等方法获得远程资源的数据.
 
 ::
 
@@ -77,7 +75,7 @@ HTTP GET 是urllib最简单的操作。简单把URL传递给urlopen()来获取�
     for line in response:
         print line.rstrip()
 
-因为返回的每一行都有换行符和完整的框架回车符 -艳 盛 11/21/08 1:31 PM ，所以在输出之前先去掉他们。
+因为返回的每一行都有换行符和完整的框架回车符, 所以在输出之前先去掉他们.
 
 ::
 
@@ -95,23 +93,23 @@ HTTP GET 是urllib最简单的操作。简单把URL传递给urlopen()来获取�
    sys_version=Python/2.5.1
    protocol_version=HTTP/1.0
 
-编码参数：
+编码参数
 ----------
 
-将参数编码并且追加在URL之后，传给服务器。
+将参数编码并且追加在URL之后, 传给服务器.
 
 .. code-block:: python
         
     import urllib
     query_args = { 'q':'query string', 'foo':'bar' }
-    encoded_args = urllib.urlencode(query_args) ##这个编码, 是将其转换为a=aa&b=bb的形式
+    encoded_args = urllib.urlencode(query_args) 
     print 'Encoded:', encoded_args
 
     url = 'http://localhost:8080/?' + encoded_args
     print urllib.urlopen(url).read()
 
 
-注意query，在客户端的值的列表中包含了已编码的参数query。
+注意query, 在客户端的值的列表中包含了已编码的参数query.
 
 ::
 
@@ -130,7 +128,7 @@ HTTP GET 是urllib最简单的操作。简单把URL传递给urlopen()来获取�
    sys_version=Python/2.5.1
    protocol_version=HTTP/1.0
 
-在查询字符串中使用单独的变量来传递值序列时, 需传递doseq=True给urlencode()。
+在查询字符串中使用单独的变量来传递值序列时, 需传递doseq=True给urlencode().
 
 .. code-block:: python
 
@@ -145,9 +143,9 @@ HTTP GET 是urllib最简单的操作。简单把URL传递给urlopen()来获取�
    Single : foo=%5B%27foo1%27%2C+%27foo2%27%5D
    Sequence: foo=foo1&foo=foo2
 
-为了解码查询字符串，可查看cgi模块中的FieldStorage类。
+为了解码查询字符串, 可查看cgi模块中的FieldStorage类.
 
-在查询参数里的一些特别字符，在传递给urlencode()后，在服务器端可能和URL一起引起解析错误。可以直接使用quote()或者quote_plus()函数在本地引用他们以生成安全的字符串。
+在查询参数里的一些特别字符, 在传递给urlencode()后, 在服务器端可能和URL一起引起解析错误. 可以直接使用quote()或者quote_plus()函数在本地引用他们以生成安全的字符串.
 
 .. code-block:: python
 
@@ -160,7 +158,7 @@ HTTP GET 是urllib最简单的操作。简单把URL传递给urlopen()来获取�
 
 .. note::
 
-    quote_plus()能够替换更多的特殊字符。
+    quote_plus()能够替换更多的特殊字符.
 
 ::
 
@@ -169,7 +167,7 @@ HTTP GET 是urllib最简单的操作。简单把URL传递给urlopen()来获取�
    quote() : http%3A//localhost%3A8080/%7Edhellmann/
    quote_plus(): http%3A%2F%2Flocalhost%3A8080%2F%7Edhellmann%2F
 
-视情况而定，用unquote()或者unquote_plus()来还原quote操作。
+视情况而定, 用unquote()或者unquote_plus()来还原quote操作.
 
 .. code-block:: python
 
@@ -184,12 +182,12 @@ HTTP GET 是urllib最简单的操作。简单把URL传递给urlopen()来获取�
    http://localhost:8080/~dhellmann/
    http://localhost:8080/~dhellmann/
 
-HTTP POST:
+HTTP POST
 -----------
 
-这些例子的测试服务器是在BaseHTTPServer_POST.py中, 这个脚本在PyMOTW例子的BaseHTTPServer模块中.在一个终端窗口中启动服务器, 然后在另一个窗口中运行以下这些例子.
+这些例子的测试服务器是在BaseHTTPServer_POST.py中, 这个脚本在PyMOTW例子的BaseHTTPServer模块中. 在一个终端窗口中启动服务器, 然后在另一个窗口中运行以下这些例子.
 
-通过POST代替GET方式传递数据给远程服务器，仅仅是把已编码的查询参数当作数据传递给urlopen().
+通过POST代替GET方式传递数据给远程服务器, 仅仅是把已编码的查询参数当作数据传递给urlopen().
 
 .. code-block:: python
 
@@ -208,12 +206,12 @@ HTTP POST:
         q=query string
         foo=bar
    
-如果服务器需要的不是已编码url形式的参数，你可以传递任一字节字符串作为发送的数据。
+如果服务器需要的不是已编码url形式的参数, 你可以传递任一字节字符串作为发送的数据.
 
 Paths vs. URLs:
 ----------------
 
-一些操作系统使用不同的方法分离本地文件路径和URL。为了使代码简捷，你应该反复地使用函数pathname2url() 和 url2pathname()。因为我在Mac上工作，我必须明确引入Windows上的函数版本。使用由urllib导出的函数版本可以让你默认在正确平台下，因此就不用自己做了。
+一些操作系统使用不同的方法分离本地文件路径和URL. 为了使代码简捷, 你应该反复地使用函数pathname2url()和url2pathname(). 因为我在Mac上工作, 我必须明确引入Windows上的函数版本. 使用由urllib导出的函数版本可以让你默认在正确平台下, 因此就不用自己做了.
 
 .. code-block:: python
 
@@ -243,7 +241,7 @@ Paths vs. URLs:
     print 'URL :', pathname2url(path)
     print 'Path :', url2pathname('/d/e/f')
 
-有两个Windows例子，分别是路径的前缀中有和没有驱动器名。
+有两个Windows例子, 分别是路径的前缀中有和没有驱动器名.
 
 ::
 
@@ -264,12 +262,12 @@ Paths vs. URLs:
    Path : \d\e\f
 
 
-带Cache简单检索：
+带Cache简单检索
 ------------------
 
-检索数据是常见的操作，urllib包括urlretrieve()函数，因此你不用自己写它。urlretrieve()带有URL中的参数, 一个用于存储数据的临时文件, 一个用于报告下载进度的函数, 和URL中要POST数据。如果没有给定文件名，urlretrieve()就建立一个临时文件。你自己能删除它，或者把它看作一个cache，可以用urlcleanup()移除它。
+检索数据是常见的操作, urllib包括urlretrieve()函数, 因此你不用自己写它. urlretrieve()带有URL中的参数, 一个用于存储数据的临时文件, 一个用于报告下载进度的函数, 和URL中要POST数据. 如果没有给定文件名, urlretrieve()就建立一个临时文件. 你自己能删除它, 或者把它看作一个cache, 可以用urlcleanup()移除它.
 
-这个例子使用GET从web服务器中检索数据。
+这个例子使用GET从web服务器中检索数据.
 
 .. code-block:: python
 
@@ -289,18 +287,18 @@ Paths vs. URLs:
             return
 
              
-     try:
-         filename, msg = urllib.urlretrieve('http://blog.doughellmann.com/', reporthook=reporthook)
-         print
-         print 'File:', filename
-         print 'Headers:'
-         print msg
-         print 'File exists before cleanup:', os.path.exists(filename)
-     finally:
-         urllib.urlcleanup()
-         print 'File still exists:', os.path.exists(filename)
+    try:
+        filename, msg = urllib.urlretrieve('http://blog.doughellmann.com/', reporthook=reporthook)
+        print
+        print 'File:', filename
+        print 'Headers:'
+        print msg
+        print 'File exists before cleanup:', os.path.exists(filename)
+    finally:
+        urllib.urlcleanup()
+        print 'File still exists:', os.path.exists(filename)
    
-由于服务器没有返回header中的Content-length，urlretrieve()不知道数据应该有多大，所以将-1传给reporthook()中的参数total_size。
+由于服务器没有返回header中的Content-length, urlretrieve()不知道数据应该有多大, 所以将-1传给reporthook()中的参数total_size.
 
 ::
 
@@ -339,10 +337,10 @@ Paths vs. URLs:
    File exists before cleanup: True
    File still exists: False
 
-URLopener:
+URLopener
 -----------
 
-urllib提供了一个URLopener基类，并且默认使用FancyURLopener处理支持的协议。如果你想要改变其行为，你可能需要查看Python2.1中新加的urllib2模块（PyMOTW将会阐述）。
+urllib提供了一个URLopener基类, 并且默认使用FancyURLopener处理支持的协议. 如果你想要改变其行为, 你可能需要查看Python2.1中新加的urllib2模块(PyMOTW将会阐述).
 
 参考
 ----

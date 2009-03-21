@@ -7,12 +7,12 @@ PyMOTW: Trace
 
 trace - 跟踪正在执行的Python语句
 
-trace模块帮助你明白程序的运行过程.你可以跟踪执行的语句,产生报表,也能获取函数间的调用关系.
+trace模块帮助你明白程序的运行过程. 你可以跟踪执行的语句, 产生报表, 也能获取函数间的调用关系.
 
 命令行接口
 --------------
 
-可以很简单的直接从命令行使用trace.给定以下的Python脚本:
+可以很简单的直接从命令行使用trace. 给定以下的Python脚本:
 
 .. code-block:: python
 
@@ -79,12 +79,12 @@ trace模块帮助你明白程序的运行过程.你可以跟踪执行的语句,�
    recurse.py(16): return
    main.py(17): return
 
-输出结构的第一部分表明了trace的一个安装操作.剩下来的输出显示了每个函数的入口信息,包括函数位于哪个模块,然后是原脚本文件中的语句行.你可以看到函数recurse()被进入了3次,正如你在main()中调用的那样.
+输出结构的第一部分表明了trace的一个安装操作. 剩下来的输出显示了每个函数的入口信息, 包括函数位于哪个模块, 然后是原脚本文件中的语句行. 你可以看到函数recurse()被进入了3次, 正如你在main()中调用的那样.
 
 代码报告
 ------------
 
-从命令行中运行trace并使用--count选项可以产生代码信息报告,因此可以看到哪些行是被执行的,哪些被跳过了.因为你的程序通常是多个文件组成,那就会为每个文件产生独立的报表.默认下,报表文件在和模块的同一目录下被创建,并以模块名命名,而且使用.cover后缀名替换.py.
+从命令行中运行trace并使用--count选项可以产生代码信息报告, 因此可以看到哪些行是被执行的, 哪些被跳过了. 因为你的程序通常是多个文件组成, 那就会为每个文件产生独立的报表. 默认下, 报表文件在和模块的同一目录下被创建, 并以模块名命名, 而且使用 ``.cover`` 后缀名替换 ``.py`` .
 
 ::
 
@@ -120,8 +120,8 @@ trace_example/recurse.cover:
 
 .. note::
 
-     虽然代码行def recurse(level):有一个1数值, 这不意味着这个函数仅运行一次,而是意味着这个函数definition仅被执行一次.
-     使用不同的选项来多次运行程序是有可能的,并且保存报告数据,产生一个联合报告. 
+     虽然代码行def recurse(level):有一个1数值, 这不意味着这个函数仅运行一次, 而是意味着这个函数definition仅被执行一次.
+     使用不同的选项来多次运行程序是有可能的, 并且保存报告数据, 产生一个联合报告. 
 
 ::
   
@@ -154,7 +154,7 @@ trace_example/recurse.cover:
    coverdir1
    coverdir1/coverage_report.dat
 
-一旦报告信息被记录到.cover文件中,你可以使用--report选项产生报告.
+一旦报告信息被记录到 ``.cover`` 文件中, 你可以使用--report选项产生报告.
 
 ::
 
@@ -170,7 +170,7 @@ trace_example/recurse.cover:
    coverdir1/trace_example.main.cover
    coverdir1/trace_example.recurse.cover
 
-程序一共运行了3次,因此在报告中显示的值要比第一份报告中的值高3倍.--summary选项在输出信息中增加了百分比信息.模块recurse只有 87%被报告.从这个报告中还可看到not_called()这个函数从未被运行,这个是由前缀>>>>>>表示.
+程序一共运行了3次, 因此在报告中显示的值要比第一份报告中的值高3倍. --summary选项在输出信息中增加了百分比信息. 模块recurse只有87%被报告. 从这个报告中还可看到not_called()这个函数从未被运行, 这个是由前缀>>>>>>表示.
 
 ::
 
@@ -186,7 +186,7 @@ trace_example/recurse.cover:
 调用关系
 ----------
 
-除了以上覆盖信息,trace还可以收集函数间调用关系.使用--listfuncs可以在结果中输出简单的函数调用关系: 
+除了以上覆盖信息, trace还可以收集函数间调用关系. 使用--listfuncs可以在结果中输出简单的函数调用关系: 
 
 ::
 
@@ -204,7 +204,7 @@ trace_example/recurse.cover:
    filename: trace_example/recurse.py, modulename: recurse, funcname: <module>
    filename: trace_example/recurse.py, modulename: recurse, funcname: recurse
 
-可以使用--trackcalls获得更多信息,比如说谁调用了函数.
+可以使用--trackcalls获得更多信息, 比如说谁调用了函数.
 
 ::
 
@@ -238,7 +238,7 @@ trace_example/recurse.cover:
 编程接口
 ---------
 
-通过trace接口增加更多的控制,你可以在你的程序中使用Trace对象.Trace可以让你设置fixtures和其他依赖关系在运行单个函数前或执行一个用于跟踪的Python命令.
+通过trace接口增加更多的控制, 你可以在你的程序中使用Trace对象. Trace可以让你设置fixtures和其他依赖关系在运行单个函数前或执行一个用于跟踪的Python命令.
 
 .. code-block:: python
 
@@ -274,7 +274,7 @@ trace_example/recurse.cover:
    recurse.py(16): return
    recurse.py(16): return
 
-使用runfunc()也可以得到上述同样的输出.runfunc()接收任意位置和关键字参数,他们在函数被tracer调用时都被传递给函数.
+使用runfunc()也可以得到上述同样的输出. runfunc()接收任意位置和关键字参数, 他们在函数被tracer调用时都被传递给函数.
 
 .. code-block:: python
 
@@ -308,7 +308,7 @@ trace_example/recurse.cover:
 保存结果数据
 --------------
 
-就像在命令行中使用一样, 计算和报告信息也可以被记录下来.使用Trace对象的CoverageResults可以将这些数据明确的保存下来.
+就像在命令行中使用一样, 计算和报告信息也可以被记录下来. 使用Trace对象的CoverageResults可以将这些数据明确的保存下来.
 
 .. code-block:: python
 
@@ -353,7 +353,7 @@ trace_example/recurse.cover:
    >>>>>> def not_called():
    >>>>>> print 'This function is never called.'
 
-为了在生成报告时也保存计算数据,可以使用参数infile和outfile.
+为了在生成报告时也保存计算数据, 可以使用参数infile和outfile.
 
 .. code-block:: python
 
@@ -367,7 +367,7 @@ trace_example/recurse.cover:
     results = tracer.results()
     results.write_results(summary=True, coverdir='/tmp')
 
-传递给参数infile一个文件名来余弦读取存储的数据, 参数outfile指定在跟踪之后需要新建的一个结果文件名.如果infile和outfile是相同的,那么,就相当于在原有文件中增加新的数据.
+传递给参数infile一个文件名来余弦读取存储的数据, 参数outfile指定在跟踪之后需要新建的一个结果文件名. 如果infile和outfile是相同的, 那么, 就相当于在原有文件中增加新的数据.
 
 ::
 

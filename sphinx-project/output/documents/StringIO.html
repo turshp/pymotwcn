@@ -3,13 +3,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>PyMOTW: StringIO and cStringIO &mdash; PyMOTW v1.0 文档</title>
+    <title>PyMOTW: StringIO and cStringIO &mdash; PyMOTW v1.2 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0',
+        VERSION:     '1.2',
         COLLAPSE_MODINDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -21,7 +21,7 @@
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="copyright" title="Copyright" href="../copyright.html" />
-    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="top" title="PyMOTW v1.2 documentation" href="../index.html" />
     <link rel="next" title="PyMOTW: textwrap" href="textwrap.html" />
     <link rel="prev" title="PyMOTW: Queue" href="queue.html" /> 
   </head>
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="queue.html" title="PyMOTW: Queue"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.2 documentation</a> &raquo;</li> 
       </ul>
     </div>  
     <div class="document">
@@ -56,11 +56,11 @@
 </ul>
 <div class="section" id="id1">
 <h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
-<p>类StringIO提供了一个在内存中方便处理文本的类文件(读, 写等操作)API. 他有两个独立的实现, 一个是用c实现的cStringIP模块,速度较快, 另一个是StringIO模块,他用python实现的以增强其可移植性. 使用cStringIO来处理大字符串可以提高运行性能,优于其他字符串串联技术.</p>
+<p>类StringIO提供了一个在内存中方便处理文本的类文件(读, 写等操作)API. 他有两个独立的实现, 一个是用c实现的cStringIP模块, 速度较快, 另一个是StringIO模块, 他用python实现的以增强其可移植性. 使用cStringIO来处理大字符串可以提高运行性能,优于其他字符串串联技术.</p>
 </div>
 <div class="section" id="id2">
 <h2>例子<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>这里是一个好的,标准的,简单的.使用StringIO缓冲的例子:</p>
+<p>这里是一个好的, 标准的, 简单的. 使用StringIO缓冲的例子:</p>
 <div class="highlight-python"><div class="highlight"><pre><span class="c">#!/usr/bin/env python</span>
 
 <span class="sd">&quot;&quot;&quot;</span>
@@ -70,9 +70,9 @@
 <span class="c"># Find the best implementation available on this platform</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="k">from</span> <span class="nn">cStringIO</span> <span class="k">import</span> <span class="n">StringIO</span>
+    <span class="kn">from</span> <span class="nn">cStringIO</span> <span class="kn">import</span> <span class="n">StringIO</span>
 <span class="k">except</span><span class="p">:</span>
-    <span class="k">from</span> <span class="nn">StringIO</span> <span class="k">import</span> <span class="n">StringIO</span>
+    <span class="kn">from</span> <span class="nn">StringIO</span> <span class="kn">import</span> <span class="n">StringIO</span>
 
 <span class="c"># Writing to a buffer</span>
 <span class="n">output</span> <span class="o">=</span> <span class="n">StringIO</span><span class="p">()</span>
@@ -91,16 +91,16 @@
 <span class="k">print</span> <span class="nb">input</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
 </pre></div>
 </div>
-<p>这个例子中使用了 <tt class="docutils literal"><span class="pre">read()</span></tt> ,但当然,函数 <tt class="docutils literal"><span class="pre">readline()</span></tt> 和 <tt class="docutils literal"><span class="pre">readlines()</span></tt> 也都是可用的.类StringIO提供 <tt class="docutils literal"><span class="pre">seek()</span></tt> 函数,因此在读取数据时可以任意跳到某个点上, 这也当你使用某些前看解析算法可以回头读取.</p>
-<p>现实世界中,StringIO的应用包括一个网络应用程序栈,栈的各个部分都可以增加文本到响应response对象中,或者测试由程序某段输出(典型是写入到文件)的数据.</p>
-<p>我们想在创建的工程应用中包括一个shell脚本接口,他是以多个命令行程序的形式.这些程序中的某些是负责从数据库中取数据,然后将这些数据转储到控制台(可以是现实给用户,也可以是文本中,这样就可以作为另一个命令的输入). 这些命令他们共享了一组格式化插件以便产生一个对象的多种文本表示(XML, bash语法, 人可读的,等等).</p>
-<p>因为格式化可以将输出数据标准化后写到标准输出,如果没有StringIO模块,所得的测试结果可能会有些奇怪. 而使用了StringIO来拦截格式化的输出,这样以便我们用一个简单的方式来收集内存中的输出数据,来对预期的结果做比较.</p>
+<p>这个例子中使用了 <tt class="docutils literal"><span class="pre">read()</span></tt> , 但当然, 函数 <tt class="docutils literal"><span class="pre">readline()</span></tt> 和 <tt class="docutils literal"><span class="pre">readlines()</span></tt> 也都是可用的.类StringIO提供 <tt class="docutils literal"><span class="pre">seek()</span></tt> 函数, 因此在读取数据时可以任意跳到某个点上, 这也当你使用某些前看解析算法可以回头读取.</p>
+<p>现实世界中, StringIO的应用包括一个网络应用程序栈, 栈的各个部分都可以增加文本到响应response对象中, 或者测试由程序某段输出(典型是写入到文件)的数据.</p>
+<p>我们想在创建的工程应用中包括一个shell脚本接口, 他是以多个命令行程序的形式. 这些程序中的某些是负责从数据库中取数据, 然后将这些数据转储到控制台(可以是现实给用户, 也可以是文本中, 这样就可以作为另一个命令的输入). 这些命令他们共享了一组格式化插件以便产生一个对象的多种文本表示(XML, bash语法, 人可读的, 等等).</p>
+<p>因为格式化可以将输出数据标准化后写到标准输出, 如果没有StringIO模块, 所得的测试结果可能会有些奇怪. 而使用了StringIO来拦截格式化的输出, 这样以便我们用一个简单的方式来收集内存中的输出数据, 来对预期的结果做比较.</p>
 </div>
 <div class="section" id="id3">
 <h2>参考<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><a class="reference" href="http://effbot.org/librarybook/stringio.htm">The StringIO module ::: www.effbot.org</a></li>
-<li><a class="reference" href="http://www.skymind.com/%7Eocrow/python_string/">Efficient String Concatenation in Python</a></li>
+<li><a class="reference external" href="http://effbot.org/librarybook/stringio.htm">The StringIO module ::: www.effbot.org</a></li>
+<li><a class="reference external" href="http://www.skymind.com/%7Eocrow/python_string/">Efficient String Concatenation in Python</a></li>
 </ul>
 </div>
 </div>
@@ -113,10 +113,10 @@
         <div class="sphinxsidebarwrapper">
             <h3><a href="../index.html">目录</a></h3>
             <ul>
-<li><a class="reference" href="">PyMOTW: StringIO and cStringIO</a><ul>
-<li><a class="reference" href="#id1">描述</a></li>
-<li><a class="reference" href="#id2">例子</a></li>
-<li><a class="reference" href="#id3">参考</a></li>
+<li><a class="reference external" href="">PyMOTW: StringIO and cStringIO</a><ul>
+<li><a class="reference external" href="#id1">描述</a></li>
+<li><a class="reference external" href="#id2">例子</a></li>
+<li><a class="reference external" href="#id3">参考</a></li>
 </ul>
 </li>
 </ul>
@@ -151,7 +151,7 @@
         <li class="right" >
           <a href="queue.html" title="PyMOTW: Queue"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.2 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">

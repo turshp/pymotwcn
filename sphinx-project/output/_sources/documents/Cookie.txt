@@ -11,14 +11,14 @@ PyMOTW: Cookie
 描述
 ----
 
-很久以前，Cookies就已成为HTTP协议的一部分。现有的web开发框架提供了简单的访问cookies的接口。因此，程序员几乎不用担心怎样去格式化cookies数据或者确保头的正确发送。明白cookies是怎样工作以及有哪些工作模式是很让人受启发的事情。
+很久以前, Cookies就已成为HTTP协议的一部分. 现有的web开发框架提供了简单的访问cookies的接口. 因此, 程序员几乎不用担心怎样去格式化cookies数据或者确保头的正确发送. 明白cookies是怎样工作以及有哪些工作模式是很让人受启发的事情.
 
-Cookie模块实现了对cookies的解析，其大多是兼容RFC 2109的。它没有严重按照标准是因为MSIE 3.0x不支持整个标准。
+Cookie模块实现了对cookies的解析, 其大多是兼容RFC 2109的. 它没有严重按照标准是因为MSIE 3.0x不支持整个标准. 
 
 创建和设置Cookie
 -------------------
 
-Cookies可以用作状态管理, 通常被服务器存储并由客户端返回。最普通的创建cookies的用法可以如下的样子：
+Cookies可以用作状态管理, 通常被服务器存储并由客户端返回. 最普通的创建cookies的用法可以如下的样子:
 
 .. code-block:: python
 
@@ -28,7 +28,7 @@ Cookies可以用作状态管理, 通常被服务器存储并由客户端返回�
     c['mycookie'] = 'cookie_value'
     print c
 
-输出是一个有效的Set-Cookie头，之后会作为HTTP响应传递给客户端。
+输出是一个有效的Set-Cookie头, 之后会作为HTTP响应传递给客户端.
 
 ::
 
@@ -38,7 +38,7 @@ Cookies可以用作状态管理, 通常被服务器存储并由客户端返回�
 Morsels
 ---------
 
-控制cookie的其他方面也是有必要的，比如说期限、路径、域。事实上，RFC对应的所有的cookies属性可以通过代表cookie值的Morsel对象来操作。
+控制cookie的其他方面也是有必要的, 比如说期限、路径、域. 事实上, RFC对应的所有的cookies属性可以通过代表cookie值的Morsel对象来操作.
 
 .. code-block:: python
 
@@ -79,7 +79,7 @@ Morsels
     
     show_cookie(c)
 
-以上的例子包括了两个不同的设置cookies期限的方法。你可以设置max-age为一些秒数，或者指定一个cookie失效的时间和日期。
+以上的例子包括了两个不同的设置cookies期限的方法. 你可以设置max-age为一些秒数, 或者指定一个cookie失效的时间和日期.
 
 ::
 
@@ -111,7 +111,7 @@ Morsels
    coded_value = cookie_value
    expires = Sun, 01 Jun 2008 11:37:00
 
-Cookie和Morsel对象都像是一个字典。Morsel对应以下固定的键值：
+Cookie和Morsel对象都像是一个字典. Morsel对应以下固定的键值:
 
 - expires 期限
 - path 路径
@@ -121,12 +121,12 @@ Cookie和Morsel对象都像是一个字典。Morsel对应以下固定的键值�
 - secure 安全性
 - version 版本
 
-一个Cookie对象的键是一些独立的会被cookie存储的名字。来自于Morsel的键属性的信息也是可用的。
+一个Cookie对象的键是一些独立的会被cookie存储的名字. 来自于Morsel的键属性的信息也是可用的. 
 
 编码后的值
 -----------
 
-cookie头可能会需要编码后的值以便它们被正确的解析。
+cookie头可能会需要编码后的值以便它们被正确的解析.
 
 .. code-block:: python
 
@@ -143,7 +143,7 @@ cookie头可能会需要编码后的值以便它们被正确的解析。
         print ' coded_value=%s' % c[name].coded_value
         print
 
-Morsel.value常常是cookie中已经被解码的值，而 ``Morsel.coded_value`` 的值是以一种符合传递给客户端要求的形式来表示的。
+Morsel.value常常是cookie中已经被解码的值, 而 ``Morsel.coded_value`` 的值是以一种符合传递给客户端要求的形式来表示的.
 
 ::
 
@@ -161,14 +161,14 @@ Morsel.value常常是cookie中已经被解码的值，而 ``Morsel.coded_value``
 接收和解析Cookie头
 --------------------
 
-一旦客户端收到Set-Cookie头，它会将这些cookies在接下来的请求中作为新的Cookie头返回给服务器。那么传入的头看起来是：
+一旦客户端收到Set-Cookie头, 它会将这些cookies在接下来的请求中作为新的Cookie头返回给服务器. 那么传入的头看起来是:
 
 ::
 
    Cookie: integer=5; string_with_quotes="He said, \"Hello, World!\""
 
 
-cookies既可以直接从HTTP响应头，或环境变量HTTP_COOKIE，这依赖于你的web服务器/框架。实例化时，将经过解码的没有头前缀的字符串传递给SimpleCookie，或者使用 ``load()`` 。
+cookies既可以直接从HTTP响应头, 或环境变量HTTP_COOKIE, 这依赖于你的web服务器/框架. 实例化时, 将经过解码的没有头前缀的字符串传递给SimpleCookie, 或者使用 ``load()`` .
 
 .. code-block:: python
 
@@ -202,7 +202,7 @@ cookies既可以直接从HTTP响应头，或环境变量HTTP_COOKIE，这依赖�
 选择输出格式
 --------------
 
-除了使用Set-Cookie头外，使用JavaScript给客户端增加cookies也是可以的。SimpleCookie和Morsel提供一种JavaScript输出格式，通过使用 ``js_output()`` 方法：
+除了使用Set-Cookie头外, 使用JavaScript给客户端增加cookies也是可以的. SimpleCookie和Morsel提供一种JavaScript输出格式, 通过使用 ``js_output()`` 方法:
 
 .. code-block:: python
 
@@ -233,7 +233,7 @@ cookies既可以直接从HTTP响应头，或环境变量HTTP_COOKIE，这依赖�
 不推荐使用的类
 -----------------
 
-上面所有的例子中都是使用的SimpleCookie类。Cookie模块也提供2个其他的类，SerialCookie和SmartCookie。SerialCookie可以处理任何可以被pickle的值。SmartCookie指明了一个值是否需要被unpickle或者是否是一个简单的值。由于他们两者都使用了pickle，他们是你应用中的潜在安全漏洞，所以你最好不要使用他们。在服务器上存贮cookie状态。然后传递给客户端一个会话key，这是更安全的。
+上面所有的例子中都是使用的SimpleCookie类. Cookie模块也提供2个其他的类, SerialCookie和SmartCookie. SerialCookie可以处理任何可以被pickle的值. SmartCookie指明了一个值是否需要被unpickle或者是否是一个简单的值. 由于他们两者都使用了pickle, 他们是你应用中的潜在安全漏洞, 所以你最好不要使用他们. 在服务器上存贮cookie状态, 然后传递给客户端一个会话key, 这是更安全的.
 
 
 参考

@@ -3,13 +3,13 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     
-    <title>PyMOTW: locale &mdash; PyMOTW v1.0 文档</title>
+    <title>PyMOTW: locale &mdash; PyMOTW v1.2 documentation</title>
     <link rel="stylesheet" href="../_static/default.css" type="text/css" />
     <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
     <script type="text/javascript">
       var DOCUMENTATION_OPTIONS = {
         URL_ROOT:    '../',
-        VERSION:     '1.0',
+        VERSION:     '1.2',
         COLLAPSE_MODINDEX: false,
         FILE_SUFFIX: '.html',
         HAS_SOURCE:  true
@@ -21,7 +21,7 @@
     <link rel="index" title="索引" href="../genindex.html" />
     <link rel="search" title="搜索" href="../search.html" />
     <link rel="copyright" title="Copyright" href="../copyright.html" />
-    <link rel="top" title="PyMOTW v1.0 文档" href="../index.html" />
+    <link rel="top" title="PyMOTW v1.2 documentation" href="../index.html" />
     <link rel="next" title="PyMOTW: os" href="os.html" />
     <link rel="prev" title="PyMOTW: logging" href="logging.html" /> 
   </head>
@@ -38,7 +38,7 @@
         <li class="right" >
           <a href="logging.html" title="PyMOTW: logging"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.2 documentation</a> &raquo;</li> 
       </ul>
     </div>  
     <div class="document">
@@ -61,10 +61,10 @@
 </div>
 <div class="section" id="id2">
 <h2>例子<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
-<p>让用户改变一个应用程序的本地设置的最一般的方式是通过一个环境变量（LC__ALL, LC__CTYPE, LANG, 或LANGUAGE, 这依赖于你的平台). 然后程序会调用locale.setlocale(), 没有使用硬编码值, 而是使用环境变量.</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">locale</span>
-<span class="k">import</span> <span class="nn">os</span>
-<span class="k">import</span> <span class="nn">pprint</span>
+<p>让用户改变一个应用程序的本地设置的最一般的方式是通过一个环境变量(LC__ALL, LC__CTYPE, LANG, 或LANGUAGE, 这依赖于你的平台). 然后程序会调用locale.setlocale(), 没有使用硬编码值, 而是使用环境变量.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">locale</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">pprint</span>
 
 <span class="k">print</span> <span class="s">&#39;Environment settings:&#39;</span>
 <span class="k">for</span> <span class="n">env_name</span> <span class="ow">in</span> <span class="p">[</span> <span class="s">&#39;LC_ALL&#39;</span><span class="p">,</span> <span class="s">&#39;LC_CTYPE&#39;</span><span class="p">,</span> <span class="s">&#39;LANG&#39;</span><span class="p">,</span> <span class="s">&#39;LANGUAGE&#39;</span> <span class="p">]:</span>
@@ -273,8 +273,8 @@ Portugal: 1234.56 =&gt; 1234.560000
 Poland: 1234,56 =&gt; 1234.560000</pre>
 </div>
 <p>另一个本地化的重要方面是时间和日期的格式化:</p>
-<div class="highlight-python"><div class="highlight"><pre><span class="k">import</span> <span class="nn">locale</span>
-<span class="k">import</span> <span class="nn">time</span>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">locale</span>
+<span class="kn">import</span> <span class="nn">time</span>
 
 <span class="n">sample_locales</span> <span class="o">=</span> <span class="p">[</span> <span class="p">(</span><span class="s">&#39;USA&#39;</span><span class="p">,</span> <span class="s">&#39;en_US&#39;</span><span class="p">),</span>
                    <span class="p">(</span><span class="s">&#39;France&#39;</span><span class="p">,</span> <span class="s">&#39;fr_FR&#39;</span><span class="p">),</span>
@@ -301,11 +301,11 @@ Poland: ndz 20 maj 10:19:54 2007</pre>
 <div class="section" id="id3">
 <h2>参考<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><a class="reference" href="http://en.wikipedia.org/wiki/Locale">Locale - Wikipedia</a></li>
-<li><a class="reference" href="http://en.wikipedia.org/wiki/Internationalization_and_localization">Internationalization and localization - Wikipedia</a></li>
-<li><a class="reference" href="http://www.openi18n.org/">OpenI18N.org - The Free standards Group Open Internationalisation Initiative</a></li>
-<li><a class="reference" href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/intl/nls_238z.asp">MSDN - National Language Support Constants</a></li>
-<li><a class="reference" href="http://www.python.org/workshops/1997-10/proceedings/loewis.html">Internationalizing Python</a></li>
+<li><a class="reference external" href="http://en.wikipedia.org/wiki/Locale">Locale - Wikipedia</a></li>
+<li><a class="reference external" href="http://en.wikipedia.org/wiki/Internationalization_and_localization">Internationalization and localization - Wikipedia</a></li>
+<li><a class="reference external" href="http://www.openi18n.org/">OpenI18N.org - The Free standards Group Open Internationalisation Initiative</a></li>
+<li><a class="reference external" href="http://msdn.microsoft.com/library/default.asp?url=/library/en-us/intl/nls_238z.asp">MSDN - National Language Support Constants</a></li>
+<li><a class="reference external" href="http://www.python.org/workshops/1997-10/proceedings/loewis.html">Internationalizing Python</a></li>
 </ul>
 </div>
 </div>
@@ -318,10 +318,10 @@ Poland: ndz 20 maj 10:19:54 2007</pre>
         <div class="sphinxsidebarwrapper">
             <h3><a href="../index.html">目录</a></h3>
             <ul>
-<li><a class="reference" href="">PyMOTW: locale</a><ul>
-<li><a class="reference" href="#id1">描述</a></li>
-<li><a class="reference" href="#id2">例子</a></li>
-<li><a class="reference" href="#id3">参考</a></li>
+<li><a class="reference external" href="">PyMOTW: locale</a><ul>
+<li><a class="reference external" href="#id1">描述</a></li>
+<li><a class="reference external" href="#id2">例子</a></li>
+<li><a class="reference external" href="#id3">参考</a></li>
 </ul>
 </li>
 </ul>
@@ -356,7 +356,7 @@ Poland: ndz 20 maj 10:19:54 2007</pre>
         <li class="right" >
           <a href="logging.html" title="PyMOTW: logging"
              accesskey="P">前一篇</a> |</li>
-        <li><a href="../index.html">PyMOTW v1.0 文档</a> &raquo;</li> 
+        <li><a href="../index.html">PyMOTW v1.2 documentation</a> &raquo;</li> 
       </ul>
     </div>
     <div class="footer">
