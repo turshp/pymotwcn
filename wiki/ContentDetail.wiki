@@ -16,7 +16,7 @@
   * Builtin Objects
     * _exceptions_
   * String Services
-    * *difflib* 
+    * _difflib_ 
     * _string_ 
     * [http://www.vbarter.cn/pymotw/documents/StringIO.html StringIO and cStringIO] ~ 100% by vbarter/liz
     * [http://www.vbarter.cn/pymotw/documents/struct.html struct] ~ 100% by vbarter/liz
@@ -139,6 +139,7 @@
 = 处理中的章节 =
 || 标题  ||  状态s ||  翻译者s   ||   校验者s   ||
 || PyMOTW: getpass || 初译done/初校done || wwwjfy || liz ||
+|| PyMOTW: difflib || 初译ing || walker || - ||
 || PyMOTW: string || 初译done/初校done || wwwjfy || liz ||
 || PyMOTW: BaseHTTPServer || 初译done/初校done || liz || vbarter ||
 || PyMOTW: unittest || 初译ing || vbarter || - ||
