@@ -32,7 +32,7 @@ cPickle模块实现了同样的算法, 但它是用c而不是python. 因此, 它
         import cPickle as pickle
     except:
         import pickle
-        import pprint
+    import pprint
 
 我们首先尝试导入cPickle, 并指定别名为"pickle". 如果因为某种原因导入pickle失败, 我们则导入由Python实现的pickle模块. 如果cPickle是可用的, 会给我们带来更快的实现, 但如果不可用, 也会有正确的实现.
 
