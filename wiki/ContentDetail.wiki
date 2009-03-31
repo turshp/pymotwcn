@@ -5,7 +5,7 @@
 
 = 所有章节 =
 组织结构和[http://www.doughellmann.com/PyMOTW/contents.html Doug Hellmann章节]一致.
-*粗体*表示未处理的章节; _斜体_表示正在处理中, 即下表中包含的章节; 有链接的表示已经完成并发布出来
+*粗体*表示未处理的章节; _斜体_表示正在处理中; 有链接的表示已经完成并发布出来
 
   * About Python Module of the Week
     * Tools
@@ -16,7 +16,7 @@
   * Builtin Objects
     * [http://vbarter.cn/pymotw/documents/exceptions.html exceptions]
   * String Services
-    * _difflib_ 
+    * *difflib*
     * [http://vbarter.cn/pymotw/documents/string.html string] 
     * [http://www.vbarter.cn/pymotw/documents/StringIO.html StringIO and cStringIO] ~ 100% by vbarter/liz
     * [http://www.vbarter.cn/pymotw/documents/struct.html struct] ~ 100% by vbarter/liz
@@ -24,13 +24,13 @@
   * Data Types
     * [http://www.vbarter.cn/pymotw/documents/array.html array] ~ 100% by vbarter/liz
     * [http://www.vbarter.cn/pymotw/documents/datetime.html datetime] ~ 100% by vbarter/liz
-    * *calendar* 
-    * *collections*
+    * _calendar_ 
+    * _collections_
     * *heapq* 
     * [http://www.vbarter.cn/pymotw/documents/bisect.html bisect] ~ 100% by vbarter/liz
     * *sched* 
     * [http://www.vbarter.cn/pymotw/documents/queue.html Queue] ~ 100% by vbarter/liz
-    * *weakref*
+    * _weakref_
     * *copy* 
     * [http://vbarter.cn/pymotw/documents/pprint.html pprint] 
   * Numeric and Mathematical Modules
@@ -42,7 +42,7 @@
     * *mailbox*
     * *mhlib* 
   * File Formats
-    * *csv*
+    * _csv_
     * [http://www.vbarter.cn/pymotw/documents/configparser.html ConfigParser] ~ 100% by vbarter/liz
   * Cryptographic Services
     * *hashlib* 
@@ -79,7 +79,7 @@
     * [http://www.vbarter.cn/pymotw/documents/os4.html os4] ~ 100% by vbarter/liz
     * [http://www.vbarter.cn/pymotw/documents/time.html time] ~ 100% by vbarter/liz
     * [http://www.vbarter.cn/pymotw/documents/optparse.html optparse] ~ 100% by vbarter/liz
-    * *getopt* 
+    * _getopt_
     * [http://www.vbarter.cn/pymotw/documents/logging.html logging] ~ 100% by vbarter/liz
     * [http://vbarter.cn/pymotw/documents/getpass.html getpass] 
     * *platform* 
@@ -96,15 +96,15 @@
     * *asynchat*
     * [http://vbarter.cn/pymotw/documents/asyncore.html asyncore]
     * *signal* 
-    * *subprocess* 
+    * _subprocess_
   * Internet Protocols and Support
-    * _BaseHTTPServer_ 
+    * [http://www.vbarter.cn/pymotw/documents/BaseHTTPServer.html BaseHTTPServer] ~ 100% by vbarter/liz
     * [http://www.vbarter.cn/pymotw/documents/Cookie.html Cookie] ~ 100% by vbarter/liz
     * *imaplib*
     * *SimpleXMLRPCServer* 
     * *smtpd*
     * [http://www.vbarter.cn/pymotw/documents/smtplib.html smtplib] ~ 100% by vbarter/liz
-    * *SocketServer* 
+    * [http://www.vbarter.cn/pymotw/documents/SocketServer.html SocketServer]  ~ 100% by vbarter/liz
     * [http://www.vbarter.cn/pymotw/documents/urllib.html urllib] ~ 100% by vbarter/liz
     * [http://www.vbarter.cn/pymotw/documents/urlparse.html urlparse] ~ 100% by vbarter/liz
     * *uuid* 
@@ -122,7 +122,7 @@
     * _timeit_  
     * [http://www.vbarter.cn/pymotw/documents/trace.html trace] ~ 100% by vbarter/liz
   * Python Runtime Services
-    * *atexit*  
+    * _atexit_ 
     * *contextlib*  
     * *inspect*  
     * *traceback*
