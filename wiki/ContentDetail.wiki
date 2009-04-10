@@ -28,7 +28,7 @@
     * _collections_
     * *heapq* 
     * [http://www.vbarter.cn/pymotw/documents/bisect.html bisect] ~ 100% by vbarter/liz
-    * *sched* 
+    * _sched_ 
     * [http://www.vbarter.cn/pymotw/documents/queue.html Queue] ~ 100% by vbarter/liz
     * _weakref_
     * *copy* 
@@ -46,7 +46,7 @@
     * [http://www.vbarter.cn/pymotw/documents/configparser.html ConfigParser] ~ 100% by vbarter/liz
   * Cryptographic Services
     * *hashlib* 
-    * *hmac*
+    * _hmac_
   * File and Directory Access
     * [http://www.vbarter.cn/pymotw/documents/os.path.html os.path] ~ 100% by vbarter/liz
     * *fileinput*
@@ -89,13 +89,13 @@
     * *readline* 
     * *rlcompleter* 
   * Unix-specific Services
-    * *commands* 
+    * _commands_ 
     * *grp*
     * *pwd*
   * Interprocess Communication and Networking
     * *asynchat*
     * [http://vbarter.cn/pymotw/documents/asyncore.html asyncore]
-    * *signal* 
+    * _signal_ 
     * _subprocess_
   * Internet Protocols and Support
     * [http://www.vbarter.cn/pymotw/documents/BaseHTTPServer.html BaseHTTPServer] ~ 100% by vbarter/liz
@@ -114,7 +114,7 @@
     * [http://www.vbarter.cn/pymotw/documents/locale.html locale] ~ 100% by vbarter/liz
   * Program Frameworks
     * *cmd*  
-    * *shlex*  
+    * _shlex_  
   * Development Tools
     * _unittest_
   * Debugging and Profiling
