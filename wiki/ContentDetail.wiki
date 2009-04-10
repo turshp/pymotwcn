@@ -91,6 +91,7 @@
   * Unix-specific Services
     * _commands_ 
     * *grp*
+    * _pipes_
     * *pwd*
   * Interprocess Communication and Networking
     * *asynchat*
