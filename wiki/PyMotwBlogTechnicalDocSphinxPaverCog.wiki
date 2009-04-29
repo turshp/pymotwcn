@@ -1,0 +1,7 @@
+#summary PyMOTW的Blog好文
+#labels Phase-Support,Blog
+
+ * 项目:[PyMotwBlogZh PyMOTW的Blog好文]
+ * 原文:[http://www.doughellmann.com/articles/Writing-Technical-Documentation-Sphinx/index.htm Writing Technical Documentation with Sphinx, Paver, and Cog - Doug Hellmann]
+
+

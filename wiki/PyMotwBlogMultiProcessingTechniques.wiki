@@ -1,0 +1,6 @@
+#summary PyMOTW的Blog好文
+#labels Phase-Support,Blog
+
+
+ * 项目:[PyMotwBlogZh PyMOTW的Blog好文]
+ * 原文: [http://www.doughellmann.com/articles/CompletelyDifferent-2007-10-multiprocessing/index.htm Multi-processing techniques in Python | And Now For Something Completely Different]

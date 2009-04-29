@@ -3,12 +3,13 @@
 
 = Introduction =
 
-Add your content here.
+在PyMOTW 作者的Blog 中:
+ * [http://www.doughellmann.com www.doughellmann.com]
+ * [http://blog.doughellmann.com blog.doughellmann.com]
+很有些文章非常实用和有趣，我们也就在此组织翻译了:
 
+== Tasks ==
 
-= Details =
-
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+ * 090428 PyMotwBlogMapReduceMultiprocessing ~ 使用 multiprocessing 进行 Map Reduce 开发
+ * 090328 PyMotwBlogMultiProcessingTechniques ~ Python 的多线程技术
+ * 090202 PyMotwBlogTechnicalDocSphinxPaverCog ~ 使用 Sphinx+Paver+Cog 进行科技写作
