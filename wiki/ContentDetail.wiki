@@ -26,7 +26,7 @@
     * [http://www.vbarter.cn/pymotw/documents/datetime.html datetime] ~ 100% by vbarter/liz
     * _calendar_ 
     * _collections_
-    * *heapq* 
+    * _heapq_ 
     * [http://www.vbarter.cn/pymotw/documents/bisect.html bisect] ~ 100% by vbarter/liz
     * _sched_ 
     * [http://www.vbarter.cn/pymotw/documents/queue.html Queue] ~ 100% by vbarter/liz
@@ -45,12 +45,12 @@
     * _csv_
     * [http://www.vbarter.cn/pymotw/documents/configparser.html ConfigParser] ~ 100% by vbarter/liz
   * Cryptographic Services
-    * *hashlib* 
+    * _hashlib_ 
     * _hmac_
   * File and Directory Access
     * [http://www.vbarter.cn/pymotw/documents/os.path.html os.path] ~ 100% by vbarter/liz
-    * *fileinput*
-    * *filecmp* 
+    * _fileinput_
+    * _filecmp_
     * _tempfile_ 
     * [http://www.vbarter.cn/pymotw/documents/glob.html glob] ~ 100% by vbarter/liz
     * [http://www.vbarter.cn/pymotw/documents/fnmatch.html fnmatch] ~ 100% by vbarter/liz
@@ -139,17 +139,27 @@
 
 = 处理中的章节 =
 || 标题  ||  状态s ||  翻译者s   ||   校验者s   ||
-|| PyMOTW: getpass || 初译done/初校done || wwwjfy || liz ||
 || PyMOTW: difflib || 初译ing || walker || - ||
-|| PyMOTW: string || 初译done/初校done || wwwjfy || liz ||
-|| PyMOTW: BaseHTTPServer || 初译done/初校done || liz || vbarter ||
-|| PyMOTW: unittest || 初译ing || vbarter || - ||
-|| PyMOTW: zipfile || 初译done/初校done || liz || vbarter ||
-|| PyMOTW: timeit || 初译done || vbarter(20090111) || - ||
-|| PyMOTW: tempfile || 初译done || vbarter || - ||
-|| PyMOTW: pprint || 初译done/初校验done || vbarter || vbarter ||
-|| PyMOTW: itertools || 初译done/初校done || sunlianglei || vbarter ||
-|| PyMOTW: exceptions || 初译done/初校done || wwwjfy || vbarter ||
+|| PyMOTW: hashlib || 初译ing || liz || - ||
+|| PyMOTW: filecmp || 初译ing || liz || - ||
+|| PyMOTW: fileinput || 初译ing || liz || - ||
+|| PyMOTW: heapq || 初译ing || liz || - ||
+|| PyMOTW: pipes || 初译ing || liz || - ||
+|| PyMOTW: hmac || 初译ing || liz || - ||
+|| PyMOTW: shlex || 初译ing || liz || - ||
+|| PyMOTW: sched || 初译ing || liz || - ||
+|| PyMOTW: subprocess || 初译ing || liz || - ||
+|| PyMOTW: weakref || 初译ing || liz || - ||
+|| PyMOTW: collections || 初译ing || liz || - ||
+|| PyMOTW: csv || 初译ing || liz || - ||
+|| PyMOTW: atexit || 初译ing || liz || - ||
+|| PyMOTW: tempfile || 初译done/初校done || liz || ws ||
+|| PyMOTW: calendar|| 初译ing || liz || - ||
+|| PyMOTW: getopt || 初译ing || liz || - ||
+|| PyMOTW: signal || 初译ing || liz || - ||
+|| PyMOTW: commands || 初译ing || liz || - ||
+|| PyMOTW: unittest || 初译ing || liz || - ||
+|| PyMOTW: timeit || 初译done/初校done || vbarter || liz ||
 || ... || ... || ... || ... ||
 || 标题  ||  状态 ||  翻译者   ||   校验者   ||
 
