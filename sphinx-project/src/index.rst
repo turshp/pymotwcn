@@ -63,6 +63,8 @@
     documents/SocketServer.rst
     documents/asyncore.rst
     
+    documents/tempfile.rst
+    
 
 索引表
 ==================
