@@ -3,34 +3,34 @@ PyMOTW: sched
 
 .. currentmodule:: sched
 
-schedÄ£¿éÊµÏÖÁËÒ»°ãÊÂ¼þµ÷¶È¹¦ÄÜ, ÄÜÔÚÖ¸¶¨Ê±¼äÖ´ÐÐÄ³¸öÈÎÎñ.
+schedæ¨¡å—å®žçŽ°äº†ä¸€èˆ¬äº‹ä»¶è°ƒåº¦åŠŸèƒ½, èƒ½åœ¨æŒ‡å®šæ—¶é—´æ‰§è¡ŒæŸä¸ªä»»åŠ¡.
 
-* Ä£¿é: sched
-* Ä¿µÄ: Ò»°ãÊÂ¼þµ÷¶È.
-* Python °æ±¾: 1.4 + 
+* æ¨¡å—: sched
+* ç›®çš„: ä¸€èˆ¬äº‹ä»¶è°ƒåº¦.
+* Python ç‰ˆæœ¬: 1.4 + 
 
-ÃèÊö:
+æè¿°:
 ------
 
-schedulerÀàÊ¹ÓÃÒ»°ãµÄÊÂ¼þµ÷¶È½Ó¿Ú. ËüÊ¹ÓÃtimeº¯ÊýÀ´»ñµÃµ±Ç°Ê±¼ä, delayº¯ÊýÓÃÓÚµÈ´ýÒ»¶ÎÌØ¶¨Ê±¼ä. ÕâÀï, ÕæÕýÊ¹ÓÃÊ²Ã´ÑùµÄÊ±¼äµ¥Î»²»ÊÇºÜÖØÒª, ÒòÎªÕâÄÜÈÃ½Ó¿Ú¸ü¾ßÁé»îÐÔ, ¿ÉÓÃÓÚ¶àÖÖÓÃÍ¾.
+schedulerç±»ä½¿ç”¨ä¸€èˆ¬çš„äº‹ä»¶è°ƒåº¦æŽ¥å£. å®ƒä½¿ç”¨timeå‡½æ•°æ¥èŽ·å¾—å½“å‰æ—¶é—´, delayå‡½æ•°ç”¨äºŽç­‰å¾…ä¸€æ®µç‰¹å®šæ—¶é—´. è¿™é‡Œ, çœŸæ­£ä½¿ç”¨ä»€ä¹ˆæ ·çš„æ—¶é—´å•ä½ä¸æ˜¯å¾ˆé‡è¦, å› ä¸ºè¿™èƒ½è®©æŽ¥å£æ›´å…·çµæ´»æ€§, å¯ç”¨äºŽå¤šç§ç”¨é€”.
 
-timeº¯Êýµ÷ÓÃÊ±²»ÐèÒª¸ø¶¨ÈÎºÎ²ÎÊý, Ó¦·µ»Øµ±Ç°Ê±¼äµÄ×Ö·û´®±íÊ¾. ¶ødelayº¯ÊýÐèÒªÒ»¸öÕûÐÍ²ÎÊý, ºÍtimeº¯ÊýÊ¹ÓÃÏàÍ¬µÄÊ±¼ä¿Ì¶È, ¸Ãº¯ÊýÔÚ·µ»ØÇ°ÐèÒªµÈ´ýÌØ¶¨¸öÊ±¼äµ¥Ôª. ÀýÈç, time.time()ºÍtime.sleep()ÕâÁ½¸öº¯Êý·ûºÏÕâÐ©ÒªÇó.
+timeå‡½æ•°è°ƒç”¨æ—¶ä¸éœ€è¦ç»™å®šä»»ä½•å‚æ•°, åº”è¿”å›žå½“å‰æ—¶é—´çš„å­—ç¬¦ä¸²è¡¨ç¤º. è€Œdelayå‡½æ•°éœ€è¦ä¸€ä¸ªæ•´åž‹å‚æ•°, å’Œtimeå‡½æ•°ä½¿ç”¨ç›¸åŒçš„æ—¶é—´åˆ»åº¦, è¯¥å‡½æ•°åœ¨è¿”å›žå‰éœ€è¦ç­‰å¾…ç‰¹å®šä¸ªæ—¶é—´å•å…ƒ. ä¾‹å¦‚, time.time()å’Œtime.sleep()è¿™ä¸¤ä¸ªå‡½æ•°ç¬¦åˆè¿™äº›è¦æ±‚.
 
-ÎªÁËÖ§³Ö¶àÏß³ÌÓ¦ÓÃ, ÔÚÉú³ÉÃ¿¸öÏß³ÌÖ®ºó, µ÷ÓÃ²ÎÊýÎª0µÄdelayº¯Êý, ÕâÑùÀ´±£Ö¤ÆäËûÏß³ÌÓÐ»ú»áÔËÐÐ.
+ä¸ºäº†æ”¯æŒå¤šçº¿ç¨‹åº”ç”¨, åœ¨ç”Ÿæˆæ¯ä¸ªçº¿ç¨‹ä¹‹åŽ, è°ƒç”¨å‚æ•°ä¸º0çš„delayå‡½æ•°, è¿™æ ·æ¥ä¿è¯å…¶ä»–çº¿ç¨‹æœ‰æœºä¼šè¿è¡Œ.
 
 
-ÑÓ³ÙºóÔËÐÐÊÂ¼þ:
+å»¶è¿ŸåŽè¿è¡Œäº‹ä»¶:
 --------------------
 
-ÊÂ¼þ¿ÉÒÔÔÚÑÓ³ÙÒ»¶ÎÊ±¼äºó, »òÔÚÖ¸¶¨Ê±¼äµãÉÏµ÷¶ÈÖ´ÐÐ.  enter()·½·¨Ê¹ÕâÐ©ÊÂ¼þÔÚÑÓ³ÙÒ»¶ÎÊ±¼äºó±»µ÷¶È, ËüÐèÒª4¸ö²ÎÊý:
+äº‹ä»¶å¯ä»¥åœ¨å»¶è¿Ÿä¸€æ®µæ—¶é—´åŽ, æˆ–åœ¨æŒ‡å®šæ—¶é—´ç‚¹ä¸Šè°ƒåº¦æ‰§è¡Œ.  enter()æ–¹æ³•ä½¿è¿™äº›äº‹ä»¶åœ¨å»¶è¿Ÿä¸€æ®µæ—¶é—´åŽè¢«è°ƒåº¦, å®ƒéœ€è¦4ä¸ªå‚æ•°:
 
- * A number representing the delay ´ú±íÑÓ³Ù¶à³¤Ê±¼äµÄÊý×Ö
- * A priority value ÓÅÏÈ¼¶Öµ
- * The function to call ÐèÒª±»µ÷ÓÃµÄº¯Êý
- * A tuple of arguments for the function º¯ÊýµÄ²ÎÊýÔª×é
+ * A number representing the delay ä»£è¡¨å»¶è¿Ÿå¤šé•¿æ—¶é—´çš„æ•°å­—
+ * A priority value ä¼˜å…ˆçº§å€¼
+ * The function to call éœ€è¦è¢«è°ƒç”¨çš„å‡½æ•°
+ * A tuple of arguments for the function å‡½æ•°çš„å‚æ•°å…ƒç»„
 
 
-ÏÂÃæÕâ¸öÀý×ÓÖÐ, ·Ö±ðÔÚ2ºÍ3ÃëÖ®ºóµ÷¶È2¸ö²»Í¬µÄÊÂ¼þ. µ±µ½´ïÄ³ÊÂ¼þµÄµ÷¶ÈÊ±¿Ì, print_event()±»µ÷ÓÃ, ÏÔÊ¾³öÄ¿Ç°Ê±¼äºÍ´«µÝ¸øÊÂ¼þµÄ²ÎÊýÃû×Ö.
+ä¸‹é¢è¿™ä¸ªä¾‹å­ä¸­, åˆ†åˆ«åœ¨2å’Œ3ç§’ä¹‹åŽè°ƒåº¦2ä¸ªä¸åŒçš„äº‹ä»¶. å½“åˆ°è¾¾æŸäº‹ä»¶çš„è°ƒåº¦æ—¶åˆ», print_event()è¢«è°ƒç”¨, æ˜¾ç¤ºå‡ºç›®å‰æ—¶é—´å’Œä¼ é€’ç»™äº‹ä»¶çš„å‚æ•°åå­—.
 
 .. code-block:: python
 
@@ -48,7 +48,7 @@ timeº¯Êýµ÷ÓÃÊ±²»ÐèÒª¸ø¶¨ÈÎºÎ²ÎÊý, Ó¦·µ»Øµ±Ç°Ê±¼äµÄ×Ö·û´®±íÊ¾. ¶ødelayº¯ÊýÐèÒªÒ»¸
 
     scheduler.run()
 
-Êä³öÈçÏÂ:
+è¾“å‡ºå¦‚ä¸‹:
 
 ::
 
@@ -57,12 +57,12 @@ timeº¯Êýµ÷ÓÃÊ±²»ÐèÒª¸ø¶¨ÈÎºÎ²ÎÊý, Ó¦·µ»Øµ±Ç°Ê±¼äµÄ×Ö·û´®±íÊ¾. ¶ødelayº¯ÊýÐèÒªÒ»¸
     EVENT: 1190727945.36 first
     EVENT: 1190727946.36 second
 
-µÚÒ»¸öÊÂ¼þµÄÊ±¼äÐÅÏ¢ÊÇµ÷¶È¿ªÊ¼2Ãëºó, µÚ¶þ¸öÊÂ¼þµÄÊ±¼äÐÅÏ¢ÊÇµ÷¶È¿ªÊ¼3Ãëºó.
+ç¬¬ä¸€ä¸ªäº‹ä»¶çš„æ—¶é—´ä¿¡æ¯æ˜¯è°ƒåº¦å¼€å§‹2ç§’åŽ, ç¬¬äºŒä¸ªäº‹ä»¶çš„æ—¶é—´ä¿¡æ¯æ˜¯è°ƒåº¦å¼€å§‹3ç§’åŽ.
 
-ÊÂ¼þÖØµþ:
+äº‹ä»¶é‡å :
 -------------
 
-run()Ò»Ö±±»×èÈû, Ö±µ½ËùÓÐÊÂ¼þ±»È«²¿Ö´ÐÐÍê. Ã¿¸öÊÂ¼þÔÚÍ¬Ò»Ïß³ÌÖÐÔËÐÐ, ËùÒÔÈç¹ûÒ»¸öÊÂ¼þµÄÖ´ÐÐÊ±¼ä´óÓÚÆäËûÊÂ¼þµÄÑÓ³ÙÊ±¼ä, ÄÇÃ´, ¾Í»á²úÉúÖØµþ. ÖØµþµÄ½â¾ö·½·¨ÊÇÍÆ³ÙºóÀ´ÊÂ¼þµÄÖ´ÐÐÊ±¼ä. ÕâÑù±£Ö¤Ã»ÓÐ¶ªÊ§ÈÎºÎÊÂ¼þ, µ«ÕâÐ©ÊÂ¼þµÄµ÷ÓÃÊ±¿Ì»á±ÈÔ­ÏÈÉè¶¨µÄ³Ù. ÔÚÏÂÃæµÄÀý×ÓÖÐ, long_event()ÖÐÍ¨¹ýË¯Ãß2ÃëÖÓÀ´ÑÓ³Ùµ÷¶È, Í¬ÑùÑÓ³Ùµ÷¶ÈºÜÈÝÒ×Í¨¹ýÔËÐÐ³¤Ê±¼ä¼ÆËã»ò×èÈûI/OÀ´ÊµÏÖ.
+run()ä¸€ç›´è¢«é˜»å¡ž, ç›´åˆ°æ‰€æœ‰äº‹ä»¶è¢«å…¨éƒ¨æ‰§è¡Œå®Œ. æ¯ä¸ªäº‹ä»¶åœ¨åŒä¸€çº¿ç¨‹ä¸­è¿è¡Œ, æ‰€ä»¥å¦‚æžœä¸€ä¸ªäº‹ä»¶çš„æ‰§è¡Œæ—¶é—´å¤§äºŽå…¶ä»–äº‹ä»¶çš„å»¶è¿Ÿæ—¶é—´, é‚£ä¹ˆ, å°±ä¼šäº§ç”Ÿé‡å . é‡å çš„è§£å†³æ–¹æ³•æ˜¯æŽ¨è¿ŸåŽæ¥äº‹ä»¶çš„æ‰§è¡Œæ—¶é—´. è¿™æ ·ä¿è¯æ²¡æœ‰ä¸¢å¤±ä»»ä½•äº‹ä»¶, ä½†è¿™äº›äº‹ä»¶çš„è°ƒç”¨æ—¶åˆ»ä¼šæ¯”åŽŸå…ˆè®¾å®šçš„è¿Ÿ. åœ¨ä¸‹é¢çš„ä¾‹å­ä¸­, long_event()ä¸­é€šè¿‡ç¡çœ 2ç§’é’Ÿæ¥å»¶è¿Ÿè°ƒåº¦, åŒæ ·å»¶è¿Ÿè°ƒåº¦å¾ˆå®¹æ˜“é€šè¿‡è¿è¡Œé•¿æ—¶é—´è®¡ç®—æˆ–é˜»å¡žI/Oæ¥å®žçŽ°.
 
 .. code-block:: python
 
@@ -82,7 +82,7 @@ run()Ò»Ö±±»×èÈû, Ö±µ½ËùÓÐÊÂ¼þ±»È«²¿Ö´ÐÐÍê. Ã¿¸öÊÂ¼þÔÚÍ¬Ò»Ïß³ÌÖÐÔËÐÐ, ËùÒÔÈç¹ûÒ»¸
 
     scheduler.run()
 
-µÚ¶þ¸öÊÂ¼þÔÚµÚÒ»¸öÊÂ¼þÔËÐÐ½áÊøºóÁ¢¼´ÔËÐÐ, ÒòÎªµÚÒ»¸öÊÂ¼þµÄÖ´ÐÐÊ±¼ä×ã¹»³¤, ÒÑ¾­³¬¹ýµÚ¶þ¸öÊÂ¼þµÄÔ¤ÆÚ¿ªÊ¼Ê±¿Ì.
+ç¬¬äºŒä¸ªäº‹ä»¶åœ¨ç¬¬ä¸€ä¸ªäº‹ä»¶è¿è¡Œç»“æŸåŽç«‹å³è¿è¡Œ, å› ä¸ºç¬¬ä¸€ä¸ªäº‹ä»¶çš„æ‰§è¡Œæ—¶é—´è¶³å¤Ÿé•¿, å·²ç»è¶…è¿‡ç¬¬äºŒä¸ªäº‹ä»¶çš„é¢„æœŸå¼€å§‹æ—¶åˆ».
 
 ::
 
@@ -94,10 +94,10 @@ run()Ò»Ö±±»×èÈû, Ö±µ½ËùÓÐÊÂ¼þ±»È«²¿Ö´ÐÐÍê. Ã¿¸öÊÂ¼þÔÚÍ¬Ò»Ïß³ÌÖÐÔËÐÐ, ËùÒÔÈç¹ûÒ»¸
     FINISH EVENT: 1190728579.16 second
 
 
-ÊÂ¼þÓÅÏÈ¼¶:
+äº‹ä»¶ä¼˜å…ˆçº§:
 ---------------
 
-Èç¹ûÔÚÏàÍ¬µÄÊ±¿ÌµãÉÏÓÐ¶à¸öÊÂ¼þÐèÒª±»Ö´ÐÐ, ÄÇÃ´ËüÃÇµÄÓÅÏÈ¼¶²ÎÊý¾ö¶¨ËûÃÇµÄÖ´ÐÐË³Ðò.
+å¦‚æžœåœ¨ç›¸åŒçš„æ—¶åˆ»ç‚¹ä¸Šæœ‰å¤šä¸ªäº‹ä»¶éœ€è¦è¢«æ‰§è¡Œ, é‚£ä¹ˆå®ƒä»¬çš„ä¼˜å…ˆçº§å‚æ•°å†³å®šä»–ä»¬çš„æ‰§è¡Œé¡ºåº.
 
 .. code-block:: python
 
@@ -107,7 +107,7 @@ run()Ò»Ö±±»×èÈû, Ö±µ½ËùÓÐÊÂ¼þ±»È«²¿Ö´ÐÐÍê. Ã¿¸öÊÂ¼þÔÚÍ¬Ò»Ïß³ÌÖÐÔËÐÐ, ËùÒÔÈç¹ûÒ»¸
     scheduler.enterabs(now+2, 1, print_event, ('second',))
     scheduler.run()
 
-ÎªÁË±£Ö¤ÊÂ¼þ×¼È·µÄÔÚÍ¬Ò»Ê±¿ÌÖ´ÐÐ, Ê¹ÓÃÁËenterabs()·½·¨¶ø²»ÊÇenter()·½·¨. enterabs()µÄµÚÒ»¸ö²ÎÊýÊÇÔËÐÐÊÂ¼þµÄÈ·ÇÐÊ±¼ä, ¶ø²»ÊÇÑÓ³ÙÊ±¼äÁ¿.
+ä¸ºäº†ä¿è¯äº‹ä»¶å‡†ç¡®çš„åœ¨åŒä¸€æ—¶åˆ»æ‰§è¡Œ, ä½¿ç”¨äº†enterabs()æ–¹æ³•è€Œä¸æ˜¯enter()æ–¹æ³•. enterabs()çš„ç¬¬ä¸€ä¸ªå‚æ•°æ˜¯è¿è¡Œäº‹ä»¶çš„ç¡®åˆ‡æ—¶é—´, è€Œä¸æ˜¯å»¶è¿Ÿæ—¶é—´é‡.
 
 ::
 
@@ -117,10 +117,10 @@ run()Ò»Ö±±»×èÈû, Ö±µ½ËùÓÐÊÂ¼þ±»È«²¿Ö´ÐÐÍê. Ã¿¸öÊÂ¼þÔÚÍ¬Ò»Ïß³ÌÖÐÔËÐÐ, ËùÒÔÈç¹ûÒ»¸
     EVENT: 1190728791.4 first
 
 
-È¡ÏûÊÂ¼þ:
+å–æ¶ˆäº‹ä»¶:
 --------------
 
-enter()ºÍenterabs()·µ»ØÒ»ÊÂ¼þµÄÒýÓÃ, ¸ÃÒýÓÃ¿É±»ÓÃÓÚÊÂ¼þµÄÈ¡Ïû. ÓÉÓÚrun()×èÈû, ËùÒÔÊÂ¼þµÄÈ¡Ïû²Ù×÷ÐèÒªÔÚÁíÍâÒ»¸öÏß³ÌÖÐ½øÐÐ. ÈçÏÂÀý×Ó, ÔÚÒ»¸ö×ÓÏß³Ì¿ªÊ¼Ö´ÐÐµ÷¶È, ¶øÖ÷´¦ÀíÏß³ÌÓÃÓÚÈ¡ÏûÄ³¸öÊÂ¼þ.
+enter()å’Œenterabs()è¿”å›žä¸€äº‹ä»¶çš„å¼•ç”¨, è¯¥å¼•ç”¨å¯è¢«ç”¨äºŽäº‹ä»¶çš„å–æ¶ˆ. ç”±äºŽrun()é˜»å¡ž, æ‰€ä»¥äº‹ä»¶çš„å–æ¶ˆæ“ä½œéœ€è¦åœ¨å¦å¤–ä¸€ä¸ªçº¿ç¨‹ä¸­è¿›è¡Œ. å¦‚ä¸‹ä¾‹å­, åœ¨ä¸€ä¸ªå­çº¿ç¨‹å¼€å§‹æ‰§è¡Œè°ƒåº¦, è€Œä¸»å¤„ç†çº¿ç¨‹ç”¨äºŽå–æ¶ˆæŸä¸ªäº‹ä»¶.
 
 .. code-block:: python
 
@@ -158,7 +158,7 @@ enter()ºÍenterabs()·µ»ØÒ»ÊÂ¼þµÄÒýÓÃ, ¸ÃÒýÓÃ¿É±»ÓÃÓÚÊÂ¼þµÄÈ¡Ïû. ÓÉÓÚrun()×èÈû, Ëù
     print 'FINAL:', counter
 
 
-Á½¸öÊÂ¼þ±»°²ÅÅµ÷¶È, µ«Ö®ºóÈ¡ÏûÁËµÚÒ»¸öÊÂ¼þ. Ö»ÓÐµÚ¶þ¸öÊÂ¼þÖ´ÐÐÁË, ËùÒÔÎÒÃÇ¿´µ½¼ÆÊýÆ÷½öÀÛ¼ÓÁËÒ»´Î.
+ä¸¤ä¸ªäº‹ä»¶è¢«å®‰æŽ’è°ƒåº¦, ä½†ä¹‹åŽå–æ¶ˆäº†ç¬¬ä¸€ä¸ªäº‹ä»¶. åªæœ‰ç¬¬äºŒä¸ªäº‹ä»¶æ‰§è¡Œäº†, æ‰€ä»¥æˆ‘ä»¬çœ‹åˆ°è®¡æ•°å™¨ä»…ç´¯åŠ äº†ä¸€æ¬¡.
 
 ::
     $ python sched_cancel.py
@@ -168,7 +168,7 @@ enter()ºÍenterabs()·µ»ØÒ»ÊÂ¼þµÄÒýÓÃ, ¸ÃÒýÓÃ¿É±»ÓÃÓÚÊÂ¼þµÄÈ¡Ïû. ÓÉÓÚrun()×èÈû, Ëù
     FINAL: 1
 
 
-²Î¿¼:
+å‚è€ƒ:
 -------
 
 * `Python Module of the Week Home <http://www.doughellmann.com/projects/PyMOTW/>`_

@@ -66,7 +66,9 @@
     documents/tempfile.rst
     documents/sched.rst
     documents/csv.rst
-    
+    documents/calendar.rst
+    documents/commands.rst
+    documents/atexit.rst
 
 索引表
 ==================
