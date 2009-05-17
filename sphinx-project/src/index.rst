@@ -64,6 +64,7 @@
     documents/asyncore.rst
     
     documents/tempfile.rst
+    documents/sched.rst
     
 
 索引表
