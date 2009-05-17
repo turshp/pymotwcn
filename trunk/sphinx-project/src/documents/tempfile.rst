@@ -79,8 +79,8 @@ PyMOTW: tempfile
 
 ::
 
-$ python tempfile_TemporaryFile_binary.py
-Some data
+    $ python tempfile_TemporaryFile_binary.py
+    Some data
 
 如果你想要的是文本模式的临时文件, 可以传递mode='w+t':
 
