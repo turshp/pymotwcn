@@ -3,24 +3,24 @@ PyMOTW: csv
 
 .. currentmodule:: csv
 
-* Ä£¿é: csv
-* Ä¿µÄ: ¶ÔÒÔ·ÖºÅ·Ö¸ôµÄÊýÖµÎÄ¼þ½øÐÐ¶ÁÐ´
-* Python °æ±¾: 2.3+
+* æ¨¡å—: csv
+* ç›®çš„: å¯¹ä»¥åˆ†å·åˆ†éš”çš„æ•°å€¼æ–‡ä»¶è¿›è¡Œè¯»å†™
+* Python ç‰ˆæœ¬: 2.3+
 
-ÃèÊö:
+æè¿°:
 ---------
 
-csv Ä£¿éÔÚ´¦ÀíÄÇÐ©´Óµç×ÓÊý¾Ý±í¸ñ»òÊý¾Ý¿âÖÐµ¼Èëµ½ÎÄ±¾ÎÄ¼þµÄÊý¾ÝÊ±, ÊÇºÜÓÐÓÃµÄ. ÕâÀï²¢Ã»ÓÐºÜºÃµÄ¶¨Òå±ê×¼, Òò´ËcsvÄ£¿éÊ¹ÓÃÁË"dialects", Í¨¹ýÊ¹ÓÃ²»Í¬µÄ²ÎÊýÀ´½âÎöcsvÎÄ¼þ. ¶ÔÓÚÒ»°ãµÄ¶ÁºÍÐ´, Õâ¸öÄ£¿éÒ²ÄÜ´¦ÀíMicrosoft Excel¸ñÊ½Êý¾Ý.
+csv æ¨¡å—åœ¨å¤„ç†é‚£äº›ä»Žç”µå­æ•°æ®è¡¨æ ¼æˆ–æ•°æ®åº“ä¸­å¯¼å…¥åˆ°æ–‡æœ¬æ–‡ä»¶çš„æ•°æ®æ—¶, æ˜¯å¾ˆæœ‰ç”¨çš„. è¿™é‡Œå¹¶æ²¡æœ‰å¾ˆå¥½çš„å®šä¹‰æ ‡å‡†, å› æ­¤csvæ¨¡å—ä½¿ç”¨äº†"dialects", é€šè¿‡ä½¿ç”¨ä¸åŒçš„å‚æ•°æ¥è§£æžcsvæ–‡ä»¶. å¯¹äºŽä¸€èˆ¬çš„è¯»å’Œå†™, è¿™ä¸ªæ¨¡å—ä¹Ÿèƒ½å¤„ç†Microsoft Excelæ ¼å¼æ•°æ®.
 
-¾ÖÏÞÐÔ:
+å±€é™æ€§:
 ----------
 
-Python 2.5 °æ±¾µÄcsv²»Ö§³ÖunicodeÊý¾Ý, ¶ø¶ÔÓÚASCIIµÄNUL×Ö·û´¦ÀíÒ²ÓÐµãÎÊÌâ, ËùÒÔÍÆ¼öÊ¹ÓÃUTF-8»ò¿É´òÓ¡ASCII×Ö·û.
+Python 2.5 ç‰ˆæœ¬çš„csvä¸æ”¯æŒunicodeæ•°æ®, è€Œå¯¹äºŽASCIIçš„NULå­—ç¬¦å¤„ç†ä¹Ÿæœ‰ç‚¹é—®é¢˜, æ‰€ä»¥æŽ¨èä½¿ç”¨UTF-8æˆ–å¯æ‰“å°ASCIIå­—ç¬¦.
 
-¶ÁÈ¡:
+è¯»å–:
 ----------
 
-´ÓcsvÎÄ¼þÖÐ¶ÁÈ¡Êý¾Ý, ¿ÉÒÔÊ¹ÓÃreader()º¯ÊýÀ´´´½¨Ò»¸ö¶ÁÈ¡¶ÔÏó. Õâ¸ö¶ÁÈ¡¶ÔÏóË³Ðò´¦ÀíÎÄ¼þµÄÃ¿Ò»ÐÐ, ¿ÉÒÔ°ÑËüµ±³Éµü´úÆ÷Ê¹ÓÃ, ÀýÈç:
+ä»Žcsvæ–‡ä»¶ä¸­è¯»å–æ•°æ®, å¯ä»¥ä½¿ç”¨reader()å‡½æ•°æ¥åˆ›å»ºä¸€ä¸ªè¯»å–å¯¹è±¡. è¿™ä¸ªè¯»å–å¯¹è±¡é¡ºåºå¤„ç†æ–‡ä»¶çš„æ¯ä¸€è¡Œ, å¯ä»¥æŠŠå®ƒå½“æˆè¿­ä»£å™¨ä½¿ç”¨, ä¾‹å¦‚:
 
 .. code-block::python
 
@@ -39,9 +39,9 @@ Python 2.5 °æ±¾µÄcsv²»Ö§³ÖunicodeÊý¾Ý, ¶ø¶ÔÓÚASCIIµÄNUL×Ö·û´¦ÀíÒ²ÓÐµãÎÊÌâ, ËùÒÔÍ
         f.close()
 
 
-reader()µÄµÚÒ»¸ö²ÎÊýÖ¸Ê¾Ô´ÎÄ±¾ÐÐ, ÔÚÕâ¸öÀý×ÓÖÐ, ÊÇÒ»¸öÎÄ¼þ, µ«Ëü¿ÉÒÔÊÇÈÎºÎ¿É×ª»»µÄ¶ÔÏó(StringIO¶ÔÏó, listsµÈ). Ö¸¶¨ÆäËû¿ÉÑ¡µÄ²ÎÊý¿ÉÓÃÓÚ¿ØÖÆÊäÈëµÄÊý¾ÝÈçºÎ±»½âÎö.
+reader()çš„ç¬¬ä¸€ä¸ªå‚æ•°æŒ‡ç¤ºæºæ–‡æœ¬è¡Œ, åœ¨è¿™ä¸ªä¾‹å­ä¸­, æ˜¯ä¸€ä¸ªæ–‡ä»¶, ä½†å®ƒå¯ä»¥æ˜¯ä»»ä½•å¯è½¬æ¢çš„å¯¹è±¡(StringIOå¯¹è±¡, listsç­‰). æŒ‡å®šå…¶ä»–å¯é€‰çš„å‚æ•°å¯ç”¨äºŽæŽ§åˆ¶è¾“å…¥çš„æ•°æ®å¦‚ä½•è¢«è§£æž.
 
-Àý×ÓÎÄ¼þ"testdata.csv"ÊÇ´ÓNeoOfficeÖÐµ¼ÈëµÄ, ÆäÄÚÈÝÈçÏÂ.
+ä¾‹å­æ–‡ä»¶"testdata.csv"æ˜¯ä»ŽNeoOfficeä¸­å¯¼å…¥çš„, å…¶å†…å®¹å¦‚ä¸‹.
 
 ::
 
@@ -57,7 +57,7 @@ reader()µÄµÚÒ»¸ö²ÎÊýÖ¸Ê¾Ô´ÎÄ±¾ÐÐ, ÔÚÕâ¸öÀý×ÓÖÐ, ÊÇÒ»¸öÎÄ¼þ, µ«Ëü¿ÉÒÔÊÇÈÎºÎ¿É×ª»»
     8,"h",08/25/07
     9,"i",08/26/07
 
-Ëü±»¶ÁÈ¡Ê±, ÊäÈëÊý¾ÝµÄÃ¿Ò»ÐÐ±»×ª»»ÎªÒ»¸ö×Ö·û´®ÁÐ±í.
+å®ƒè¢«è¯»å–æ—¶, è¾“å…¥æ•°æ®çš„æ¯ä¸€è¡Œè¢«è½¬æ¢ä¸ºä¸€ä¸ªå­—ç¬¦ä¸²åˆ—è¡¨.
 
 ::
 
@@ -74,24 +74,24 @@ reader()µÄµÚÒ»¸ö²ÎÊýÖ¸Ê¾Ô´ÎÄ±¾ÐÐ, ÔÚÕâ¸öÀý×ÓÖÐ, ÊÇÒ»¸öÎÄ¼þ, µ«Ëü¿ÉÒÔÊÇÈÎºÎ¿É×ª»»
     ['9', 'i', '08/26/07']
 
 
-Èç¹ûÄãÖªµÀÌØ¶¨µÄÁÐ¾ßÓÐÌØ¶¨µÄÀàÐÍ, Äã¾Í¿ÉÒÔ×ÔÐÐ×ª»», µ«csv²»»á×Ô¶¯×ª»». Ëü»á×Ô¶¯´¦ÀíÇ¶ÈëÔÚÒ»ÐÐ×Ö·û´®ÖÐ(Õâ¸öÐÐºÍÊäÈëÔ´ÎÄ¼þµÄ"ÐÐ"ÒâË¼ÊÇ²»Í¬µÄ)µÄ»»ÐÐ·û.
+å¦‚æžœä½ çŸ¥é“ç‰¹å®šçš„åˆ—å…·æœ‰ç‰¹å®šçš„ç±»åž‹, ä½ å°±å¯ä»¥è‡ªè¡Œè½¬æ¢, ä½†csvä¸ä¼šè‡ªåŠ¨è½¬æ¢. å®ƒä¼šè‡ªåŠ¨å¤„ç†åµŒå…¥åœ¨ä¸€è¡Œå­—ç¬¦ä¸²ä¸­(è¿™ä¸ªè¡Œå’Œè¾“å…¥æºæ–‡ä»¶çš„"è¡Œ"æ„æ€æ˜¯ä¸åŒçš„)çš„æ¢è¡Œç¬¦.
 
 ::
 
     $ cat testlinebreak.csv 
     "Title 1","Title 2","Title 3"
-    1,"first line ## ÕâÊÇÔ´ÎÄ¼þµÄÒ»¸öline
+    1,"first line ## è¿™æ˜¯æºæ–‡ä»¶çš„ä¸€ä¸ªline
     second line",08/18/07
 
     $ python csv_reader.py testlinebreak.csv 
     ['Title 1', 'Title 2', 'Title 3']
-    ['1', 'first line\nsecond line', '08/18/07'] ## ÕâÊÇcsvµÄÒ»¸örow
+    ['1', 'first line\nsecond line', '08/18/07'] ## è¿™æ˜¯csvçš„ä¸€ä¸ªrow
 
 
-Ð´Èë:
+å†™å…¥:
 ---------
 
-µ±ÄãÏë°ÑÊý¾Ýµ¼Èëµ½ÆäËûÓ¦ÓÃ³ÌÐòÖÐ, ¶ÔCSVÎÄ¼þµÄÐ´ÈëÒ²ÊÇ·Ç³£·½±ãµÄ. Ê¹ÓÃwriter()º¯ÊýÀ´´´½¨Ò»¸öÐ´Èë¶ÔÏó, ¶ÔÓÚÃ¿Ò»ÐÐ, Ê¹ÓÃwriterow()À´Êä³öÒ»ÐÐ.
+å½“ä½ æƒ³æŠŠæ•°æ®å¯¼å…¥åˆ°å…¶ä»–åº”ç”¨ç¨‹åºä¸­, å¯¹CSVæ–‡ä»¶çš„å†™å…¥ä¹Ÿæ˜¯éžå¸¸æ–¹ä¾¿çš„. ä½¿ç”¨writer()å‡½æ•°æ¥åˆ›å»ºä¸€ä¸ªå†™å…¥å¯¹è±¡, å¯¹äºŽæ¯ä¸€è¡Œ, ä½¿ç”¨writerow()æ¥è¾“å‡ºä¸€è¡Œ.
 
 .. code-block::python
 
@@ -110,7 +110,7 @@ reader()µÄµÚÒ»¸ö²ÎÊýÖ¸Ê¾Ô´ÎÄ±¾ÐÐ, ÔÚÕâ¸öÀý×ÓÖÐ, ÊÇÒ»¸öÎÄ¼þ, µ«Ëü¿ÉÒÔÊÇÈÎºÎ¿É×ª»»
 
         f.close()
 
-Õâ¸öÀý×ÓµÄÊä³öºÍÉÏÊö¶ÁÈ¡Àý×ÓµÄµ¼³öÊý¾Ý¿´ÆðÀ´²»ÔõÃ´Ò»Ñù.
+è¿™ä¸ªä¾‹å­çš„è¾“å‡ºå’Œä¸Šè¿°è¯»å–ä¾‹å­çš„å¯¼å‡ºæ•°æ®çœ‹èµ·æ¥ä¸æ€Žä¹ˆä¸€æ ·.
 
 ::
     $ python csv_writer.py testout.csv 
@@ -127,14 +127,14 @@ reader()µÄµÚÒ»¸ö²ÎÊýÖ¸Ê¾Ô´ÎÄ±¾ÐÐ, ÔÚÕâ¸öÀý×ÓÖÐ, ÊÇÒ»¸öÎÄ¼þ, µ«Ëü¿ÉÒÔÊÇÈÎºÎ¿É×ª»»
     9,i,08/09/07
     10,j,08/10/07
 
-Ð´Èë¶ÔÏóÃ»ÓÐÊ¹ÓÃÄ¬ÈÏµÄÒýºÅ, ËùÒÔÃ¿ÁÐ×Ö·û´®Ã»ÓÐÓÃÒýºÅÒýÆðÀ´. µ«Èç¹ûÔö¼Ó¶îÍâµÄÒýÓÃ²ÎÊý¼´¿É½«·ÇÊýÖµÊý¾ÝÓÃÒýºÅÒýÆðÀ´.
+å†™å…¥å¯¹è±¡æ²¡æœ‰ä½¿ç”¨é»˜è®¤çš„å¼•å·, æ‰€ä»¥æ¯åˆ—å­—ç¬¦ä¸²æ²¡æœ‰ç”¨å¼•å·å¼•èµ·æ¥. ä½†å¦‚æžœå¢žåŠ é¢å¤–çš„å¼•ç”¨å‚æ•°å³å¯å°†éžæ•°å€¼æ•°æ®ç”¨å¼•å·å¼•èµ·æ¥.
 
 .. code-block::python
 
     writer = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
 
 
-ÏÖÔÚÃ¿¸ö×Ö·û´®¶¼±»ÒýÆðÀ´ÁË:
+çŽ°åœ¨æ¯ä¸ªå­—ç¬¦ä¸²éƒ½è¢«å¼•èµ·æ¥äº†:
 
 ::
 
@@ -153,33 +153,33 @@ reader()µÄµÚÒ»¸ö²ÎÊýÖ¸Ê¾Ô´ÎÄ±¾ÐÐ, ÔÚÕâ¸öÀý×ÓÖÐ, ÊÇÒ»¸öÎÄ¼þ, µ«Ëü¿ÉÒÔÊÇÈÎºÎ¿É×ª»»
     10,"j","08/10/07"
 
 
-ÒýÓÃ:
+å¼•ç”¨:
 --------
 
-»¹ÓÐ4ÖÖ²»Í¬µÄÒýÓÃÑ¡Ïî, ËüÃÇ×÷Îª³£Á¿¶¨ÒåÔÚcsvÄ£¿éÖÐ.
+è¿˜æœ‰4ç§ä¸åŒçš„å¼•ç”¨é€‰é¡¹, å®ƒä»¬ä½œä¸ºå¸¸é‡å®šä¹‰åœ¨csvæ¨¡å—ä¸­.
 
 QUOTE_ALL
-    ²»¹ÜÊÇÊ²Ã´ÀàÐÍ, ÈÎºÎÄÚÈÝ¶¼¼ÓÉÏÒýºÅ
+    ä¸ç®¡æ˜¯ä»€ä¹ˆç±»åž‹, ä»»ä½•å†…å®¹éƒ½åŠ ä¸Šå¼•å·
 
 QUOTE_MINIMAL
-    ÕâÊÇÄ¬ÈÏµÄ, Ê¹ÓÃÖ¸¶¨µÄ×Ö·ûÒýÓÃ¸÷¸öÓò(Èç¹û½âÎöÆ÷±»ÅäÖÃÎªÏàÍ¬µÄdialectºÍÑ¡ÏîÊ±, ¿ÉÄÜ»áÈÃ½âÎöÆ÷ÔÚ½âÎöÊ±²úÉú»ìÏý)
+    è¿™æ˜¯é»˜è®¤çš„, ä½¿ç”¨æŒ‡å®šçš„å­—ç¬¦å¼•ç”¨å„ä¸ªåŸŸ(å¦‚æžœè§£æžå™¨è¢«é…ç½®ä¸ºç›¸åŒçš„dialectå’Œé€‰é¡¹æ—¶, å¯èƒ½ä¼šè®©è§£æžå™¨åœ¨è§£æžæ—¶äº§ç”Ÿæ··æ·†)
 
 QUOTE_NONNUMERIC
-    ÒýÓÃÄÇÐ©²»ÊÇÕûÊý»ò¸¡µãÊýµÄÓò. µ±Ê¹ÓÃ¶ÁÈ¡¶ÔÏóÊ±, Èç¹ûÊäÈëµÄÓòÊÇÃ»ÓÐÒýºÅ, ÄÇÃ´ËüÃÇ»á±»×ª»»³É¸¡µãÊý.
+    å¼•ç”¨é‚£äº›ä¸æ˜¯æ•´æ•°æˆ–æµ®ç‚¹æ•°çš„åŸŸ. å½“ä½¿ç”¨è¯»å–å¯¹è±¡æ—¶, å¦‚æžœè¾“å…¥çš„åŸŸæ˜¯æ²¡æœ‰å¼•å·, é‚£ä¹ˆå®ƒä»¬ä¼šè¢«è½¬æ¢æˆæµ®ç‚¹æ•°.
 
 QUOTE_NONE
-    ¶ÔËùÓÐµÄÊä³öÄÚÈÝ¶¼²»¼ÓÒýÓÃ, µ±Ê¹ÓÃ¶ÁÈ¡¶ÔÏóÊ±, ÒýÓÃ×Ö·û¿´×÷ÊÇ°üº¬ÔÚÃ¿¸öÓòµÄÖµÀï(µ«ÔÚÕý³£Çé¿öÏÂ, ËûÃÇ±»µ±³É¶¨½ç·û¶ø±»È¥µô)
+    å¯¹æ‰€æœ‰çš„è¾“å‡ºå†…å®¹éƒ½ä¸åŠ å¼•ç”¨, å½“ä½¿ç”¨è¯»å–å¯¹è±¡æ—¶, å¼•ç”¨å­—ç¬¦çœ‹ä½œæ˜¯åŒ…å«åœ¨æ¯ä¸ªåŸŸçš„å€¼é‡Œ(ä½†åœ¨æ­£å¸¸æƒ…å†µä¸‹, ä»–ä»¬è¢«å½“æˆå®šç•Œç¬¦è€Œè¢«åŽ»æŽ‰)
 
 
 Dialects:
 ------------
 
-ÓÐºÜ¶à²ÎÊý¿ÉÒÔ¿ØÖÆcsvÄ£¿éÈçºÎ½âÎö»ò¶ÁÈ¡Êý¾Ý. µ«Õâ²»ÊÇÍ¨¹ý¸÷×Ô´«µÝ¸ø¶ÁÈ¡¶ÔÏóºÍÐ´Èë¶ÔÏóÏà¹Ø²ÎÊý, ¶øÊÇÍ³Ò»ÆðÀ´, Ê¹ÓÃÒ»¸ö"dialect"¶ÔÏó. DialectÀà¿ÉÒÔÍ¨¹ýÃû×Ö×¢²á, Òò´ËcsvÄ£¿éµ÷ÓÃËüÊ±¿ÉÒÔ²»±ØÔ¤ÏÈÖªµÀÏà¹ØµÄ²ÎÊýÉèÖÃ. ±ê×¼¿â°üº¬Á½ÖÖdialects: excelºÍexcel-tabs. "excel" dialectÊÇÓÃÓÚ´¦ÀíÄ¬ÈÏÀ´×Ô Microsoft Excel¸ñÊ½µÄÊý¾ÝµÄ, Í¬Ñù, Ò²¿ÉÒÔ´¦Àí OpenOffice »ò NeoOfficeµÄÊý¾Ý. ¸ü¶àÏêÏ¸µÄdialect²ÎÊý¼°ÆäÊ¹ÓÃÔÚcsvÄ£¿éµÄ `½Ú9.1.2 <http://docs.python.org/lib/csv-fmt-params.html>`_ ÖÐÓÐËµÃ÷.      ## dialect¾ÍÊÇÒ»Ð©²ÎÊý(¶¨½ç·û, »»ÐÐ·ûµÈµÈ)ÉèÖÃ, Ô¤ÏÈÉèÖÃºÃµÄ, µ«Í¬ÑùÎÒÃÇÒ²¿ÉÒÔ×Ô¼ºÉè¶¨,
+æœ‰å¾ˆå¤šå‚æ•°å¯ä»¥æŽ§åˆ¶csvæ¨¡å—å¦‚ä½•è§£æžæˆ–è¯»å–æ•°æ®. ä½†è¿™ä¸æ˜¯é€šè¿‡å„è‡ªä¼ é€’ç»™è¯»å–å¯¹è±¡å’Œå†™å…¥å¯¹è±¡ç›¸å…³å‚æ•°, è€Œæ˜¯ç»Ÿä¸€èµ·æ¥, ä½¿ç”¨ä¸€ä¸ª"dialect"å¯¹è±¡. Dialectç±»å¯ä»¥é€šè¿‡åå­—æ³¨å†Œ, å› æ­¤csvæ¨¡å—è°ƒç”¨å®ƒæ—¶å¯ä»¥ä¸å¿…é¢„å…ˆçŸ¥é“ç›¸å…³çš„å‚æ•°è®¾ç½®. æ ‡å‡†åº“åŒ…å«ä¸¤ç§dialects: excelå’Œexcel-tabs. "excel" dialectæ˜¯ç”¨äºŽå¤„ç†é»˜è®¤æ¥è‡ª Microsoft Excelæ ¼å¼çš„æ•°æ®çš„, åŒæ ·, ä¹Ÿå¯ä»¥å¤„ç† OpenOffice æˆ– NeoOfficeçš„æ•°æ®. æ›´å¤šè¯¦ç»†çš„dialectå‚æ•°åŠå…¶ä½¿ç”¨åœ¨csvæ¨¡å—çš„ `èŠ‚9.1.2 <http://docs.python.org/lib/csv-fmt-params.html>`_ ä¸­æœ‰è¯´æ˜Ž.      ## dialectå°±æ˜¯ä¸€äº›å‚æ•°(å®šç•Œç¬¦, æ¢è¡Œç¬¦ç­‰ç­‰)è®¾ç½®, é¢„å…ˆè®¾ç½®å¥½çš„, ä½†åŒæ ·æˆ‘ä»¬ä¹Ÿå¯ä»¥è‡ªå·±è®¾å®š,
 
-DictReader ºÍDictWriter:
+DictReader å’ŒDictWriter:
 ---------------------------
 
-ÁíÍâ, ÔÚ´¦ÀíÊý¾ÝÐòÁÐÊ±, csvÄ£¿é°üº¬ÁËÒ»Ð©½«ÐÐ×÷Îª×Öµä½øÐÐ´¦ÀíµÄÀà. ÀàDictReaderºÍÀàDictWriter½«Ã¿Ò»ÐÐ×ª³É×Öµä¶ÔÏó, ¿ÉÒÔ´«µÝ×Öµä¼üÖµ, »òÕß´ÓÊäÈëÎÄ¼þµÄµÚÒ»ÐÐÖÐÍÆ¶Ï³ö¼üÖµ.
+å¦å¤–, åœ¨å¤„ç†æ•°æ®åºåˆ—æ—¶, csvæ¨¡å—åŒ…å«äº†ä¸€äº›å°†è¡Œä½œä¸ºå­—å…¸è¿›è¡Œå¤„ç†çš„ç±». ç±»DictReaderå’Œç±»DictWriterå°†æ¯ä¸€è¡Œè½¬æˆå­—å…¸å¯¹è±¡, å¯ä»¥ä¼ é€’å­—å…¸é”®å€¼, æˆ–è€…ä»Žè¾“å…¥æ–‡ä»¶çš„ç¬¬ä¸€è¡Œä¸­æŽ¨æ–­å‡ºé”®å€¼.
 
 .. code-block:: python
 
@@ -197,7 +197,7 @@ DictReader ºÍDictWriter:
          f.close()
 
 
-»ùÓÚ×ÖµäµÄ¶ÁÈ¡ºÍÐ´Èë¶ÔÏó¿ÉÒÔµ±×÷ÊÇ»ùÓÚÐòÁÐ¶ÔÏóµÄ½øÒ»²½ÊµÏÖ, ËüÃÇÊ¹ÓÃÏàÍ¬µÄ²ÎÊýºÍAPI. Î¨Ò»µÄ²î±ð¾ÍÊÇÇ°Õß°ÑÃ¿Ò»ÐÐµ±³ÉÊÇ×Öµä¶ø²»ÊÇÁÐ±í»òÔª×é.
+åŸºäºŽå­—å…¸çš„è¯»å–å’Œå†™å…¥å¯¹è±¡å¯ä»¥å½“ä½œæ˜¯åŸºäºŽåºåˆ—å¯¹è±¡çš„è¿›ä¸€æ­¥å®žçŽ°, å®ƒä»¬ä½¿ç”¨ç›¸åŒçš„å‚æ•°å’ŒAPI. å”¯ä¸€çš„å·®åˆ«å°±æ˜¯å‰è€…æŠŠæ¯ä¸€è¡Œå½“æˆæ˜¯å­—å…¸è€Œä¸æ˜¯åˆ—è¡¨æˆ–å…ƒç»„.
 
 ::
 
@@ -214,7 +214,7 @@ DictReader ºÍDictWriter:
 
 
 
-DictWriter±ØÐëÖ¸¶¨Ò»¸öÓòÃû×ÖµÄÁÐ±í, ÒòÎªÕâÑùËü²ÅÔÚÊä³öÊ±ÖªµÀÃ¿¸öÁÐµÄË³Ðò.
+DictWriterå¿…é¡»æŒ‡å®šä¸€ä¸ªåŸŸåå­—çš„åˆ—è¡¨, å› ä¸ºè¿™æ ·å®ƒæ‰åœ¨è¾“å‡ºæ—¶çŸ¥é“æ¯ä¸ªåˆ—çš„é¡ºåº.
 
 .. code-block:: python
 
@@ -257,7 +257,7 @@ DictWriter±ØÐëÖ¸¶¨Ò»¸öÓòÃû×ÖµÄÁÐ±í, ÒòÎªÕâÑùËü²ÅÔÚÊä³öÊ±ÖªµÀÃ¿¸öÁÐµÄË³Ðò.
     10,j,08/10/07
 
 
-²Î¿¼:
+å‚è€ƒ:
 -------
 * `Python Module of the Week Home <http://www.doughellmann.com/projects/PyMOTW/>`_
 * `Download Sample Code <http://www.doughellmann.com/downloads/PyMOTW-1.14.tar.gz>`_
