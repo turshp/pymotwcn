@@ -139,9 +139,9 @@
 
 = 处理中的章节 =
 || 标题  ||  状态s ||  翻译者s   ||   校验者s   ||
-|| PyMOTW: difflib || 初译ing || walker || - ||
-|| PyMOTW: hashlib || 初译ing || liz || - ||
-|| PyMOTW: filecmp || 初译ing || liz || - ||
+|| PyMOTW: difflib || 初译ing || walker || vbarter ||
+|| PyMOTW: hashlib || 初译ing || liz || vbarter ||
+|| PyMOTW: filecmp || 初译ing || liz || vbarter ||
 || PyMOTW: fileinput || 初译ing || liz || - ||
 || PyMOTW: heapq || 初译ing || liz || - ||
 || PyMOTW: pipes || 初译ing || liz || - ||
@@ -154,11 +154,11 @@
 || PyMOTW: csv || 初译ing || liz || - ||
 || PyMOTW: atexit || 初译ing || liz || - ||
 || PyMOTW: tempfile || 初译done/初校done || liz || ws ||
-|| PyMOTW: calendar|| 初译ing || liz || - ||
-|| PyMOTW: getopt || 初译ing || liz || - ||
-|| PyMOTW: signal || 初译ing || liz || - ||
-|| PyMOTW: commands || 初译ing || liz || - ||
-|| PyMOTW: unittest || 初译ing || liz || - ||
+|| PyMOTW: calendar|| 初译ing || liz || vbarter ||
+|| PyMOTW: getopt || 初译ing || liz || vbarter ||
+|| PyMOTW: signal || 初译ing || liz || vbarter ||
+|| PyMOTW: commands || 初译ing || liz || vbarter ||
+|| PyMOTW: unittest || 初译ing || liz || vbarter ||
 || PyMOTW: timeit || 初译done/初校done || vbarter || liz ||
 || ... || ... || ... || ... ||
 || 标题  ||  状态 ||  翻译者   ||   校验者   ||
