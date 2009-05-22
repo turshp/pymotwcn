@@ -69,6 +69,7 @@
     documents/calendar.rst
     documents/commands.rst
     documents/atexit.rst
+    documents/collections.rst
 
 索引表
 ==================
