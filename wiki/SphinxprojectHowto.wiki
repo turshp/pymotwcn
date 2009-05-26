@@ -32,7 +32,7 @@ test
 |    |-- introduce.rst 相关介绍
 |    |-- about.rst 关于
 |    |-- bugs.rst  其他...
-|    \-- Makefile  自动生成的, 可直接使用make html or make latex生成, 所生成的html和latex文档在.build/html和latex下
+|    |-- Makefile  自动生成的, 可直接使用make html or make latex生成, 所生成的html和latex文档在.build/html和latex下
 |    |-- conf.py  当前为默认, 也可修改相关选项
 |    |-- documents Documents二级目录
 |    |      |-- index.rst 二级目录首页
