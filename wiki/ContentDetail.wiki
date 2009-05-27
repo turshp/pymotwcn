@@ -35,8 +35,8 @@
     * [http://vbarter.cn/pymotw/documents/pprint.html pprint] 
   * Numeric and Mathematical Modules
     * [http://vbarter.cn/pymotw/documents/itertools.html itertools] 
-    * *functools* 
-    * *operator*
+    * _functools_
+    * _operator_
   * Internet Data Handling
     * [http://www.vbarter.cn/pymotw/documents/base64.html base64] ~ 100% by vbarter/liz
     * *mailbox*
@@ -84,8 +84,8 @@
     * [http://vbarter.cn/pymotw/documents/getpass.html getpass] 
     * *platform* 
   * Optional Operating System Services
-    * *threading*
-    * *mmap* 
+    * _threading_
+    * _mmap_ 
     * *readline* 
     * *rlcompleter* 
   * Unix-specific Services
@@ -114,7 +114,7 @@
   * Internationalization
     * [http://www.vbarter.cn/pymotw/documents/locale.html locale] ~ 100% by vbarter/liz
   * Program Frameworks
-    * *cmd*  
+    * _cmd_ 
     * _shlex_  
   * Development Tools
     * _unittest_
@@ -124,43 +124,55 @@
     * [http://www.vbarter.cn/pymotw/documents/trace.html trace] ~ 100% by vbarter/liz
   * Python Runtime Services
     * _atexit_ 
-    * *contextlib*  
-    * *inspect*  
-    * *traceback*
+    * _contextlib_ 
+    * _inspect_  
+    * _traceback_
     * *warnings*
   * Python Language Services
     * *compileall*
   * Importing Modules
-    * *imp* 
-    * *pkgutil*
-    * *zipimport*
+    * _imp_ 
+    * _pkgutil_
+    * _zipimport_
   * Miscelaneous
-    * *EasyDialogs* 
+    * _EasyDialogs_
 
 = 处理中的章节 =
 || 标题  ||  状态s ||  翻译者s   ||   校验者s   ||
 || PyMOTW: difflib || 初译ing || walker || vbarter ||
-|| PyMOTW: hashlib || 初译ing || liz || vbarter ||
-|| PyMOTW: filecmp || 初译ing || liz || vbarter ||
+|| PyMOTW: hashlib || 初译done || liz || vbarter ||
+|| PyMOTW: filecmp || 初译done || liz || vbarter ||
+|| PyMOTW: pipes || 初译done || liz || - ||
+|| PyMOTW: hmac || 初译done || liz || - ||
+|| PyMOTW: shlex || 初译done || liz || - ||
+|| PyMOTW: sched || 初译done || liz || - ||
+|| PyMOTW: subprocess || 初译done || liz || - ||
+|| PyMOTW: weakref || 初译done || liz || - ||
+|| PyMOTW: collections || 初译done || liz || - ||
+|| PyMOTW: csv || 初译done || liz || - ||
+|| PyMOTW: atexit || 初译done || liz || - ||
+|| PyMOTW: tempfile || 初译done/初校done || liz || ws ||
+|| PyMOTW: calendar|| 初译done || liz || vbarter ||
+|| PyMOTW: getopt || 初译done || liz || vbarter ||
+|| PyMOTW: signal || 初译done || liz || vbarter ||
+|| PyMOTW: commands || 初译done || liz || vbarter ||
+|| PyMOTW: unittest || 初译done || liz || vbarter ||
+|| PyMOTW: timeit || 初译done/初校done || vbarter || liz ||
+|| - || - || - || - ||
 || PyMOTW: fileinput || 初译ing || liz || - ||
 || PyMOTW: heapq || 初译ing || liz || - ||
-|| PyMOTW: pipes || 初译ing || liz || - ||
-|| PyMOTW: hmac || 初译ing || liz || - ||
-|| PyMOTW: shlex || 初译ing || liz || - ||
-|| PyMOTW: sched || 初译ing || liz || - ||
-|| PyMOTW: subprocess || 初译ing || liz || - ||
-|| PyMOTW: weakref || 初译ing || liz || - ||
-|| PyMOTW: collections || 初译ing || liz || - ||
-|| PyMOTW: csv || 初译ing || liz || - ||
-|| PyMOTW: atexit || 初译ing || liz || - ||
-|| PyMOTW: tempfile || 初译done/初校done || liz || ws ||
-|| PyMOTW: calendar|| 初译ing || liz || vbarter ||
-|| PyMOTW: getopt || 初译ing || liz || vbarter ||
-|| PyMOTW: signal || 初译ing || liz || vbarter ||
-|| PyMOTW: commands || 初译ing || liz || vbarter ||
-|| PyMOTW: unittest || 初译ing || liz || vbarter ||
-|| PyMOTW: timeit || 初译done/初校done || vbarter || liz ||
-|| ... || ... || ... || ... ||
+|| PyMOTW: inspect || 初译ing || liz || - ||
+|| PyMOTW: zipimport || 初译ing || liz || - ||
+|| PyMOTW: mmap || 初译ing || liz || - ||
+|| PyMOTW: threading || 初译ing || liz || - ||
+|| PyMOTW: pkgutil || 初译ing || liz || - ||
+|| PyMOTW: imp || 初译ing || liz || - ||
+|| PyMOTW: EasyDialogs || 初译ing || liz || - ||
+|| PyMOTW: operator || 初译ing || liz || - ||
+|| PyMOTW: functools || 初译ing || liz || - ||
+|| PyMOTW: cmd || 初译ing || liz || - ||
+|| PyMOTW: contextlib || 初译ing || liz || - ||
+|| PyMOTW: traceback || 初译ing || liz || - ||
 || 标题  ||  状态 ||  翻译者   ||   校验者   ||
 
 附上状态说明
