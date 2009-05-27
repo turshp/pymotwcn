@@ -70,6 +70,7 @@
     documents/commands.rst
     documents/atexit.rst
     documents/collections.rst
+    documents/fileinput.rst
 
 索引表
 ==================
