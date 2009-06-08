@@ -71,6 +71,8 @@
     documents/atexit.rst
     documents/collections.rst
     documents/fileinput.rst
+    documents/getopt.rst
+    documents/hashlib.rst
 
 索引表
 ==================
