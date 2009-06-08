@@ -1,0 +1,258 @@
+\BOOKMARK [0][-]{chapter.1}{PyMOTW: ConfigParser}{}
+\BOOKMARK [1][-]{section.1.1}{描述}{chapter.1}
+\BOOKMARK [0][-]{chapter.2}{PyMOTW: Queue}{}
+\BOOKMARK [1][-]{section.2.1}{描述}{chapter.2}
+\BOOKMARK [1][-]{section.2.2}{示例}{chapter.2}
+\BOOKMARK [0][-]{chapter.3}{PyMOTW: StringIO and cStringIO}{}
+\BOOKMARK [1][-]{section.3.1}{描述}{chapter.3}
+\BOOKMARK [1][-]{section.3.2}{例子}{chapter.3}
+\BOOKMARK [1][-]{section.3.3}{参考}{chapter.3}
+\BOOKMARK [0][-]{chapter.4}{PyMOTW: textwrap}{}
+\BOOKMARK [1][-]{section.4.1}{描述}{chapter.4}
+\BOOKMARK [1][-]{section.4.2}{例子}{chapter.4}
+\BOOKMARK [1][-]{section.4.3}{参考}{chapter.4}
+\BOOKMARK [0][-]{chapter.5}{PyMOTW: linecache}{}
+\BOOKMARK [1][-]{section.5.1}{描述}{chapter.5}
+\BOOKMARK [1][-]{section.5.2}{示例}{chapter.5}
+\BOOKMARK [1][-]{section.5.3}{示例输出}{chapter.5}
+\BOOKMARK [1][-]{section.5.4}{参考}{chapter.5}
+\BOOKMARK [0][-]{chapter.6}{PyMOTW: bisect}{}
+\BOOKMARK [1][-]{section.6.1}{描述}{chapter.6}
+\BOOKMARK [1][-]{section.6.2}{示例}{chapter.6}
+\BOOKMARK [1][-]{section.6.3}{参考}{chapter.6}
+\BOOKMARK [0][-]{chapter.7}{PyMOTW: logging}{}
+\BOOKMARK [1][-]{section.7.1}{描述}{chapter.7}
+\BOOKMARK [1][-]{section.7.2}{例子}{chapter.7}
+\BOOKMARK [1][-]{section.7.3}{参考}{chapter.7}
+\BOOKMARK [0][-]{chapter.8}{PyMOTW: locale}{}
+\BOOKMARK [1][-]{section.8.1}{描述}{chapter.8}
+\BOOKMARK [1][-]{section.8.2}{例子}{chapter.8}
+\BOOKMARK [1][-]{section.8.3}{参考}{chapter.8}
+\BOOKMARK [0][-]{chapter.9}{PyMOTW: os}{}
+\BOOKMARK [1][-]{section.9.1}{描述}{chapter.9}
+\BOOKMARK [1][-]{section.9.2}{属主处理}{chapter.9}
+\BOOKMARK [1][-]{section.9.3}{环境处理}{chapter.9}
+\BOOKMARK [1][-]{section.9.4}{工作目录处理}{chapter.9}
+\BOOKMARK [1][-]{section.9.5}{后续...}{chapter.9}
+\BOOKMARK [1][-]{section.9.6}{参考}{chapter.9}
+\BOOKMARK [0][-]{chapter.10}{PyMOTW: os\(2\)}{}
+\BOOKMARK [1][-]{section.10.1}{描述}{chapter.10}
+\BOOKMARK [1][-]{section.10.2}{管道}{chapter.10}
+\BOOKMARK [1][-]{section.10.3}{后续}{chapter.10}
+\BOOKMARK [1][-]{section.10.4}{参考}{chapter.10}
+\BOOKMARK [0][-]{chapter.11}{PyMOTW: os\(3\)}{}
+\BOOKMARK [1][-]{section.11.1}{描述}{chapter.11}
+\BOOKMARK [1][-]{section.11.2}{文件描述符}{chapter.11}
+\BOOKMARK [1][-]{section.11.3}{文件系统权限}{chapter.11}
+\BOOKMARK [1][-]{section.11.4}{目录}{chapter.11}
+\BOOKMARK [1][-]{section.11.5}{符号链接}{chapter.11}
+\BOOKMARK [1][-]{section.11.6}{访问目录树}{chapter.11}
+\BOOKMARK [1][-]{section.11.7}{后续}{chapter.11}
+\BOOKMARK [1][-]{section.11.8}{参考}{chapter.11}
+\BOOKMARK [0][-]{chapter.12}{PyMOTW: os\(4\)}{}
+\BOOKMARK [1][-]{section.12.1}{描述}{chapter.12}
+\BOOKMARK [1][-]{section.12.2}{申明}{chapter.12}
+\BOOKMARK [1][-]{section.12.3}{运行外部命令}{chapter.12}
+\BOOKMARK [1][-]{section.12.4}{使用os.fork\(\)创建进程}{chapter.12}
+\BOOKMARK [1][-]{section.12.5}{等待一个子进程}{chapter.12}
+\BOOKMARK [1][-]{section.12.6}{Spawn（孵化）}{chapter.12}
+\BOOKMARK [1][-]{section.12.7}{结论}{chapter.12}
+\BOOKMARK [1][-]{section.12.8}{参考}{chapter.12}
+\BOOKMARK [0][-]{chapter.13}{PyMOTW: pickle \046 cPickle}{}
+\BOOKMARK [1][-]{section.13.1}{描述}{chapter.13}
+\BOOKMARK [1][-]{section.13.2}{例子}{chapter.13}
+\BOOKMARK [1][-]{section.13.3}{参考}{chapter.13}
+\BOOKMARK [0][-]{chapter.14}{PyMOTW: glob}{}
+\BOOKMARK [1][-]{section.14.1}{描述}{chapter.14}
+\BOOKMARK [1][-]{section.14.2}{示例数据}{chapter.14}
+\BOOKMARK [1][-]{section.14.3}{通配符}{chapter.14}
+\BOOKMARK [1][-]{section.14.4}{单一字符通配符}{chapter.14}
+\BOOKMARK [1][-]{section.14.5}{字符范围}{chapter.14}
+\BOOKMARK [1][-]{section.14.6}{参考}{chapter.14}
+\BOOKMARK [0][-]{chapter.15}{PyMOTW: shelve}{}
+\BOOKMARK [1][-]{section.15.1}{描述}{chapter.15}
+\BOOKMARK [1][-]{section.15.2}{创建一Shelf对象}{chapter.15}
+\BOOKMARK [1][-]{section.15.3}{写回}{chapter.15}
+\BOOKMARK [1][-]{section.15.4}{指定Shelf类型}{chapter.15}
+\BOOKMARK [1][-]{section.15.5}{参考}{chapter.15}
+\BOOKMARK [0][-]{chapter.16}{PyMOTW: optparse}{}
+\BOOKMARK [1][-]{section.16.1}{描述}{chapter.16}
+\BOOKMARK [1][-]{section.16.2}{创建一个OptionParser}{chapter.16}
+\BOOKMARK [1][-]{section.16.3}{定义选项}{chapter.16}
+\BOOKMARK [1][-]{section.16.4}{分析一个命令行}{chapter.16}
+\BOOKMARK [1][-]{section.16.5}{简单示例}{chapter.16}
+\BOOKMARK [1][-]{section.16.6}{与getopt的比较}{chapter.16}
+\BOOKMARK [1][-]{section.16.7}{Option Callbacks\(选项回调\)}{chapter.16}
+\BOOKMARK [1][-]{section.16.8}{帮助信息}{chapter.16}
+\BOOKMARK [0][-]{chapter.17}{PyMOTW: shutil}{}
+\BOOKMARK [1][-]{section.17.1}{描述:}{chapter.17}
+\BOOKMARK [1][-]{section.17.2}{复制文件:}{chapter.17}
+\BOOKMARK [1][-]{section.17.3}{复制文件元信息:}{chapter.17}
+\BOOKMARK [1][-]{section.17.4}{目录树:}{chapter.17}
+\BOOKMARK [1][-]{section.17.5}{参考}{chapter.17}
+\BOOKMARK [0][-]{chapter.18}{PyMOTW: urlparse}{}
+\BOOKMARK [1][-]{section.18.1}{描述}{chapter.18}
+\BOOKMARK [1][-]{section.18.2}{Parsing:分解}{chapter.18}
+\BOOKMARK [1][-]{section.18.3}{组装}{chapter.18}
+\BOOKMARK [1][-]{section.18.4}{连接}{chapter.18}
+\BOOKMARK [1][-]{section.18.5}{参考}{chapter.18}
+\BOOKMARK [0][-]{chapter.19}{PyMOTW: os.path}{}
+\BOOKMARK [1][-]{section.19.1}{描述}{chapter.19}
+\BOOKMARK [1][-]{section.19.2}{解析路径}{chapter.19}
+\BOOKMARK [1][-]{section.19.3}{创建路径}{chapter.19}
+\BOOKMARK [1][-]{section.19.4}{标准化路径}{chapter.19}
+\BOOKMARK [1][-]{section.19.5}{文件时间}{chapter.19}
+\BOOKMARK [1][-]{section.19.6}{测试文件}{chapter.19}
+\BOOKMARK [1][-]{section.19.7}{遍历目录树}{chapter.19}
+\BOOKMARK [0][-]{chapter.20}{PyMOTW: time}{}
+\BOOKMARK [1][-]{section.20.1}{描述}{chapter.20}
+\BOOKMARK [1][-]{section.20.2}{Wall Clock Time}{chapter.20}
+\BOOKMARK [1][-]{section.20.3}{处理器时钟}{chapter.20}
+\BOOKMARK [1][-]{section.20.4}{struct\137time}{chapter.20}
+\BOOKMARK [1][-]{section.20.5}{解析和格式化时间}{chapter.20}
+\BOOKMARK [1][-]{section.20.6}{使用Time Zone\(时区\)}{chapter.20}
+\BOOKMARK [1][-]{section.20.7}{参考}{chapter.20}
+\BOOKMARK [0][-]{chapter.21}{PyMOTW: datetime}{}
+\BOOKMARK [1][-]{section.21.1}{时间}{chapter.21}
+\BOOKMARK [1][-]{section.21.2}{日期}{chapter.21}
+\BOOKMARK [1][-]{section.21.3}{timedelta}{chapter.21}
+\BOOKMARK [1][-]{section.21.4}{比较}{chapter.21}
+\BOOKMARK [1][-]{section.21.5}{日期和时间组合}{chapter.21}
+\BOOKMARK [1][-]{section.21.6}{格式化和解析}{chapter.21}
+\BOOKMARK [1][-]{section.21.7}{时区}{chapter.21}
+\BOOKMARK [1][-]{section.21.8}{参考}{chapter.21}
+\BOOKMARK [0][-]{chapter.22}{PyMOTW: urllib}{}
+\BOOKMARK [1][-]{section.22.1}{HTTP GET:}{chapter.22}
+\BOOKMARK [1][-]{section.22.2}{编码参数：}{chapter.22}
+\BOOKMARK [1][-]{section.22.3}{HTTP POST:}{chapter.22}
+\BOOKMARK [1][-]{section.22.4}{Paths vs. URLs:}{chapter.22}
+\BOOKMARK [1][-]{section.22.5}{带Cache简单检索：}{chapter.22}
+\BOOKMARK [1][-]{section.22.6}{URLopener:}{chapter.22}
+\BOOKMARK [1][-]{section.22.7}{参考}{chapter.22}
+\BOOKMARK [0][-]{chapter.23}{PyMOTW: fnmatch}{}
+\BOOKMARK [1][-]{section.23.1}{描述}{chapter.23}
+\BOOKMARK [1][-]{section.23.2}{简单匹配}{chapter.23}
+\BOOKMARK [1][-]{section.23.3}{过滤}{chapter.23}
+\BOOKMARK [1][-]{section.23.4}{翻译模式}{chapter.23}
+\BOOKMARK [1][-]{section.23.5}{参考}{chapter.23}
+\BOOKMARK [0][-]{chapter.24}{PyMOTW: Cookie}{}
+\BOOKMARK [1][-]{section.24.1}{描述}{chapter.24}
+\BOOKMARK [1][-]{section.24.2}{创建和设置Cookie}{chapter.24}
+\BOOKMARK [1][-]{section.24.3}{Morsels}{chapter.24}
+\BOOKMARK [1][-]{section.24.4}{编码后的值}{chapter.24}
+\BOOKMARK [1][-]{section.24.5}{接收和解析Cookie头}{chapter.24}
+\BOOKMARK [1][-]{section.24.6}{选择输出格式}{chapter.24}
+\BOOKMARK [1][-]{section.24.7}{不推荐使用的类}{chapter.24}
+\BOOKMARK [1][-]{section.24.8}{参考}{chapter.24}
+\BOOKMARK [0][-]{chapter.25}{PyMOTW: base64}{}
+\BOOKMARK [1][-]{section.25.1}{描述}{chapter.25}
+\BOOKMARK [1][-]{section.25.2}{Base64 编码}{chapter.25}
+\BOOKMARK [1][-]{section.25.3}{Base64 解码}{chapter.25}
+\BOOKMARK [1][-]{section.25.4}{URL-Safe变化}{chapter.25}
+\BOOKMARK [1][-]{section.25.5}{其他编码}{chapter.25}
+\BOOKMARK [1][-]{section.25.6}{参考}{chapter.25}
+\BOOKMARK [0][-]{chapter.26}{PyMOTW: webbrowser}{}
+\BOOKMARK [1][-]{section.26.1}{描述}{chapter.26}
+\BOOKMARK [1][-]{section.26.2}{简单示例}{chapter.26}
+\BOOKMARK [1][-]{section.26.3}{窗口 Vs 标签}{chapter.26}
+\BOOKMARK [1][-]{section.26.4}{使用特定的浏览器}{chapter.26}
+\BOOKMARK [1][-]{section.26.5}{BROWSER 变量}{chapter.26}
+\BOOKMARK [1][-]{section.26.6}{命令行接口}{chapter.26}
+\BOOKMARK [0][-]{chapter.27}{PyMOTW: anydbm}{}
+\BOOKMARK [1][-]{section.27.1}{描述}{chapter.27}
+\BOOKMARK [1][-]{section.27.2}{创建一个新的数据库}{chapter.27}
+\BOOKMARK [1][-]{section.27.3}{打开一个存在的数据库}{chapter.27}
+\BOOKMARK [1][-]{section.27.4}{错误案例}{chapter.27}
+\BOOKMARK [1][-]{section.27.5}{参考}{chapter.27}
+\BOOKMARK [0][-]{chapter.28}{PyMOTW: smtplib}{}
+\BOOKMARK [1][-]{section.28.1}{发送一封邮件}{chapter.28}
+\BOOKMARK [1][-]{section.28.2}{认证和加密}{chapter.28}
+\BOOKMARK [1][-]{section.28.3}{验证一个邮件地址}{chapter.28}
+\BOOKMARK [1][-]{section.28.4}{参考}{chapter.28}
+\BOOKMARK [0][-]{chapter.29}{PyMOTW: Trace}{}
+\BOOKMARK [1][-]{section.29.1}{命令行接口}{chapter.29}
+\BOOKMARK [1][-]{section.29.2}{跟踪时的异常}{chapter.29}
+\BOOKMARK [1][-]{section.29.3}{代码报告}{chapter.29}
+\BOOKMARK [1][-]{section.29.4}{调用关系}{chapter.29}
+\BOOKMARK [1][-]{section.29.5}{编程接口}{chapter.29}
+\BOOKMARK [1][-]{section.29.6}{保存结果数据}{chapter.29}
+\BOOKMARK [1][-]{section.29.7}{Trace选项}{chapter.29}
+\BOOKMARK [1][-]{section.29.8}{参考}{chapter.29}
+\BOOKMARK [0][-]{chapter.30}{PyMOTW: Struct}{}
+\BOOKMARK [1][-]{section.30.1}{函数 vs Struct类}{chapter.30}
+\BOOKMARK [1][-]{section.30.2}{封装和解封}{chapter.30}
+\BOOKMARK [1][-]{section.30.3}{字节序}{chapter.30}
+\BOOKMARK [1][-]{section.30.4}{缓冲}{chapter.30}
+\BOOKMARK [1][-]{section.30.5}{参考}{chapter.30}
+\BOOKMARK [0][-]{chapter.31}{PyMOTW: array}{}
+\BOOKMARK [1][-]{section.31.1}{数组的初始化}{chapter.31}
+\BOOKMARK [1][-]{section.31.2}{处理数组}{chapter.31}
+\BOOKMARK [1][-]{section.31.3}{数组和文件}{chapter.31}
+\BOOKMARK [1][-]{section.31.4}{交替字节排序}{chapter.31}
+\BOOKMARK [1][-]{section.31.5}{参考}{chapter.31}
+\BOOKMARK [0][-]{chapter.32}{PyMOTW: getpass}{}
+\BOOKMARK [1][-]{section.32.1}{例子}{chapter.32}
+\BOOKMARK [1][-]{section.32.2}{在非终端中使用getpass}{chapter.32}
+\BOOKMARK [1][-]{section.32.3}{参考}{chapter.32}
+\BOOKMARK [0][-]{chapter.33}{PyMOTW: string}{}
+\BOOKMARK [1][-]{section.33.1}{常量}{chapter.33}
+\BOOKMARK [1][-]{section.33.2}{函数}{chapter.33}
+\BOOKMARK [1][-]{section.33.3}{模板}{chapter.33}
+\BOOKMARK [1][-]{section.33.4}{模板的高级应用}{chapter.33}
+\BOOKMARK [1][-]{section.33.5}{不推荐使用的函数}{chapter.33}
+\BOOKMARK [1][-]{section.33.6}{参考}{chapter.33}
+\BOOKMARK [0][-]{chapter.34}{PyMOTW: exceptions}{}
+\BOOKMARK [1][-]{section.34.1}{描述}{chapter.34}
+\BOOKMARK [1][-]{section.34.2}{基类}{chapter.34}
+\BOOKMARK [1][-]{section.34.3}{异常的引发}{chapter.34}
+\BOOKMARK [1][-]{section.34.4}{Warning列表}{chapter.34}
+\BOOKMARK [1][-]{section.34.5}{参考}{chapter.34}
+\BOOKMARK [0][-]{chapter.35}{PyMOTW: itertools}{}
+\BOOKMARK [1][-]{section.35.1}{描述}{chapter.35}
+\BOOKMARK [1][-]{section.35.2}{合并和切分迭代器}{chapter.35}
+\BOOKMARK [1][-]{section.35.3}{转换输入}{chapter.35}
+\BOOKMARK [1][-]{section.35.4}{产生新值}{chapter.35}
+\BOOKMARK [1][-]{section.35.5}{过滤}{chapter.35}
+\BOOKMARK [1][-]{section.35.6}{分组数据}{chapter.35}
+\BOOKMARK [1][-]{section.35.7}{参考}{chapter.35}
+\BOOKMARK [0][-]{chapter.36}{PyMOTW: zipfile}{}
+\BOOKMARK [1][-]{section.36.1}{局限}{chapter.36}
+\BOOKMARK [1][-]{section.36.2}{测试ZIP文件}{chapter.36}
+\BOOKMARK [1][-]{section.36.3}{从ZIP存档中读取元数据}{chapter.36}
+\BOOKMARK [1][-]{section.36.4}{从ZIP档案中提取文件}{chapter.36}
+\BOOKMARK [1][-]{section.36.5}{创建一个新的档案}{chapter.36}
+\BOOKMARK [1][-]{section.36.6}{使用备选的存档成员名}{chapter.36}
+\BOOKMARK [1][-]{section.36.7}{从源而非文件上写数据}{chapter.36}
+\BOOKMARK [1][-]{section.36.8}{通过ZipInfo实例写入}{chapter.36}
+\BOOKMARK [1][-]{section.36.9}{追加文件}{chapter.36}
+\BOOKMARK [1][-]{section.36.10}{Python ZIP档案}{chapter.36}
+\BOOKMARK [1][-]{section.36.11}{参考}{chapter.36}
+\BOOKMARK [0][-]{chapter.37}{PyMOTW: BaseHTTPServer}{}
+\BOOKMARK [1][-]{section.37.1}{描述}{chapter.37}
+\BOOKMARK [1][-]{section.37.2}{简单的GET请求例子}{chapter.37}
+\BOOKMARK [1][-]{section.37.3}{线程和进程}{chapter.37}
+\BOOKMARK [1][-]{section.37.4}{POST}{chapter.37}
+\BOOKMARK [1][-]{section.37.5}{Errors}{chapter.37}
+\BOOKMARK [0][-]{chapter.38}{PyMOTW: pprint}{}
+\BOOKMARK [1][-]{section.38.1}{描述}{chapter.38}
+\BOOKMARK [1][-]{section.38.2}{输出}{chapter.38}
+\BOOKMARK [1][-]{section.38.3}{格式化}{chapter.38}
+\BOOKMARK [1][-]{section.38.4}{其他类}{chapter.38}
+\BOOKMARK [1][-]{section.38.5}{递归}{chapter.38}
+\BOOKMARK [1][-]{section.38.6}{限制嵌套输出}{chapter.38}
+\BOOKMARK [1][-]{section.38.7}{控制输出宽度}{chapter.38}
+\BOOKMARK [0][-]{chapter.39}{PyMOTW: SocketServer}{}
+\BOOKMARK [1][-]{section.39.1}{描述}{chapter.39}
+\BOOKMARK [1][-]{section.39.2}{服务器类型}{chapter.39}
+\BOOKMARK [1][-]{section.39.3}{服务器对象}{chapter.39}
+\BOOKMARK [1][-]{section.39.4}{实现一个服务器}{chapter.39}
+\BOOKMARK [1][-]{section.39.5}{请求处理者}{chapter.39}
+\BOOKMARK [1][-]{section.39.6}{Echo例子}{chapter.39}
+\BOOKMARK [1][-]{section.39.7}{线程和进程}{chapter.39}
+\BOOKMARK [1][-]{section.39.8}{参考}{chapter.39}
+\BOOKMARK [0][-]{chapter.40}{PyMOTW: asyncore}{}
+\BOOKMARK [1][-]{section.40.1}{客户端}{chapter.40}
+\BOOKMARK [1][-]{section.40.2}{服务器}{chapter.40}
+\BOOKMARK [1][-]{section.40.3}{其他循环事件的处理}{chapter.40}
+\BOOKMARK [1][-]{section.40.4}{文件处理}{chapter.40}
+\BOOKMARK [1][-]{section.40.5}{参考}{chapter.40}

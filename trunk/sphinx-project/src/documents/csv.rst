@@ -7,22 +7,22 @@ PyMOTW: csv
 * 目的: 对以分号分隔的数值文件进行读写
 * Python 版本: 2.3+
 
-描述:
+描述
 ---------
 
 csv 模块在处理那些从电子数据表格或数据库中导入到文本文件的数据时, 是很有用的. 这里并没有很好的定义标准, 因此csv模块使用了"dialects", 通过使用不同的参数来解析csv文件. 对于一般的读和写, 这个模块也能处理Microsoft Excel格式数据.
 
-局限性:
+局限性
 ----------
 
 Python 2.5 版本的csv不支持unicode数据, 而对于ASCII的NUL字符处理也有点问题, 所以推荐使用UTF-8或可打印ASCII字符.
 
-读取:
+读取
 ----------
 
 从csv文件中读取数据, 可以使用reader()函数来创建一个读取对象. 这个读取对象顺序处理文件的每一行, 可以把它当成迭代器使用, 例如:
 
-.. code-block::python
+.. code-block:: python
 
     import csv
     import sys
@@ -32,7 +32,7 @@ Python 2.5 版本的csv不支持unicode数据, 而对于ASCII的NUL字符处理�
 
         reader = csv.reader(f)
         for row in reader:
-        print row
+            print row
 
     finally:
 
@@ -88,12 +88,12 @@ reader()的第一个参数指示源文本行, 在这个例子中, 是一个文�
     ['1', 'first line\nsecond line', '08/18/07'] ## 这是csv的一个row
 
 
-写入:
----------
+写入
+-----
 
 当你想把数据导入到其他应用程序中, 对CSV文件的写入也是非常方便的. 使用writer()函数来创建一个写入对象, 对于每一行, 使用writerow()来输出一行.
 
-.. code-block::python
+.. code-block:: python
 
     import csv
     import sys
@@ -104,7 +104,7 @@ reader()的第一个参数指示源文本行, 在这个例子中, 是一个文�
         writer = csv.writer(f)
         writer.writerow( ('Title 1', 'Title 2', 'Title 3') )
         for i in range(10):
-        writer.writerow( (i+1, chr(ord('a') + i), '08/%02d/07' % (i+1)) )
+            writer.writerow( (i+1, chr(ord('a') + i), '08/%02d/07' % (i+1)) )
 
     finally:
 
@@ -113,6 +113,7 @@ reader()的第一个参数指示源文本行, 在这个例子中, 是一个文�
 这个例子的输出和上述读取例子的导出数据看起来不怎么一样.
 
 ::
+
     $ python csv_writer.py testout.csv 
     $ cat testout.csv 
     Title 1,Title 2,Title 3
@@ -129,7 +130,7 @@ reader()的第一个参数指示源文本行, 在这个例子中, 是一个文�
 
 写入对象没有使用默认的引号, 所以每列字符串没有用引号引起来. 但如果增加额外的引用参数即可将非数值数据用引号引起来.
 
-.. code-block::python
+.. code-block:: python
 
     writer = csv.writer(f, quoting=csv.QUOTE_NONNUMERIC)
 
@@ -153,7 +154,7 @@ reader()的第一个参数指示源文本行, 在这个例子中, 是一个文�
     10,"j","08/10/07"
 
 
-引用:
+引用
 --------
 
 还有4种不同的引用选项, 它们作为常量定义在csv模块中.
@@ -171,12 +172,12 @@ QUOTE_NONE
     对所有的输出内容都不加引用, 当使用读取对象时, 引用字符看作是包含在每个域的值里(但在正常情况下, 他们被当成定界符而被去掉)
 
 
-Dialects:
+Dialects
 ------------
 
 有很多参数可以控制csv模块如何解析或读取数据. 但这不是通过各自传递给读取对象和写入对象相关参数, 而是统一起来, 使用一个"dialect"对象. Dialect类可以通过名字注册, 因此csv模块调用它时可以不必预先知道相关的参数设置. 标准库包含两种dialects: excel和excel-tabs. "excel" dialect是用于处理默认来自 Microsoft Excel格式的数据的, 同样, 也可以处理 OpenOffice 或 NeoOffice的数据. 更多详细的dialect参数及其使用在csv模块的 `节9.1.2 <http://docs.python.org/lib/csv-fmt-params.html>`_ 中有说明.      ## dialect就是一些参数(定界符, 换行符等等)设置, 预先设置好的, 但同样我们也可以自己设定,
 
-DictReader 和DictWriter:
+DictReader 和DictWriter
 ---------------------------
 
 另外, 在处理数据序列时, csv模块包含了一些将行作为字典进行处理的类. 类DictReader和类DictWriter将每一行转成字典对象, 可以传递字典键值, 或者从输入文件的第一行中推断出键值.
@@ -191,7 +192,7 @@ DictReader 和DictWriter:
 
         reader = csv.DictReader(f)
         for row in reader:
-        print row
+            print row
 
     finally:
          f.close()
@@ -257,7 +258,7 @@ DictWriter必须指定一个域名字的列表, 因为这样它才在输出时�
     10,j,08/10/07
 
 
-参考:
+参考
 -------
 * `Python Module of the Week Home <http://www.doughellmann.com/projects/PyMOTW/>`_
 * `Download Sample Code <http://www.doughellmann.com/downloads/PyMOTW-1.14.tar.gz>`_

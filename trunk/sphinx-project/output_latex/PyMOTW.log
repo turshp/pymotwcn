@@ -1,16 +1,22 @@
-This is pdfTeXk, Version 3.141592-1.40.3 (Web2C 7.5.6) (format=pdflatex 2009.1.1)  1 JAN 2009 12:45
+This is XeTeXk, Version 3.1415926-2.2-0.999.6 (Web2C 7.5.7) (format=xelatex 2009.6.4)  4 JUN 2009 23:49
 entering extended mode
  %&-line parsing enabled.
 **PyMOTW.tex
 (./PyMOTW.tex
 LaTeX2e <2005/12/01>
-Babel <v3.8h> and hyphenation patterns for english, usenglishmax, dumylang, noh
-yphenation, pinyin, loaded.
+Babel <v3.8l> and hyphenation patterns for english, usenglishmax, dumylang, noh
+yphenation, german-x-2008-06-18, ngerman-x-2008-06-18, ancientgreek, ibycus, ar
+abic, basque, bulgarian, catalan, pinyin, coptic, croatian, czech, danish, dutc
+h, esperanto, estonian, farsi, finnish, french, galician, german, ngerman, mono
+greek, greek, hungarian, icelandic, indonesian, interlingua, irish, italian, la
+tin, lithuanian, mongolian, mongolian2a, bokmal, nynorsk, polish, portuguese, r
+omanian, russian, sanskrit, serbian, slovak, slovenian, spanish, swedish, turki
+sh, ukenglish, ukrainian, uppersorbian, welsh, loaded.
 (./manual.cls
 Document Class: manual 2008/10/18 Document class (Sphinx manual)
-(/usr/share/texmf-texlive/tex/latex/base/report.cls
+(/usr/local/texlive/2008/texmf-dist/tex/latex/base/report.cls
 Document Class: report 2005/09/16 v1.4f Standard LaTeX document class
-(/usr/share/texmf-texlive/tex/latex/base/size10.clo
+(/usr/local/texlive/2008/texmf-dist/tex/latex/base/size10.clo
 File: size10.clo 2005/09/16 v1.4f Standard LaTeX file (size option)
 )
 \c@part=\count79
@@ -26,19 +32,19 @@ File: size10.clo 2005/09/16 v1.4f Standard LaTeX file (size option)
 \belowcaptionskip=\skip42
 \bibindent=\dimen102
 ))
-(/usr/share/texmf-texlive/tex/latex/base/inputenc.sty
+(/usr/local/texlive/2008/texmf-dist/tex/latex/base/inputenc.sty
 Package: inputenc 2006/05/05 v1.1b Input encoding file
 \inpenc@prehook=\toks14
 \inpenc@posthook=\toks15
 
-(/usr/share/texmf-texlive/tex/latex/base/utf8.def
+(/usr/local/texlive/2008/texmf-dist/tex/latex/base/utf8.def
 File: utf8.def 2006/03/30 v1.1i UTF-8 support for inputenc
 Now handling font encoding OML ...
 ... no UTF-8 mapping file for font encoding OML
 Now handling font encoding T1 ...
 ... processing UTF-8 mapping file for font encodingT1
 
-(/usr/share/texmf-texlive/tex/latex/base/t1enc.dfu
+(/usr/local/texlive/2008/texmf-dist/tex/latex/base/t1enc.dfu
 File: t1enc.dfu 2006/03/30 v1.1i UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -188,7 +194,7 @@ File: t1enc.dfu 2006/03/30 v1.1i UTF-8 support for inputenc
 Now handling font encoding OT1 ...
 ... processing UTF-8 mapping file for font encodingOT1
 
-(/usr/share/texmf-texlive/tex/latex/base/ot1enc.dfu
+(/usr/local/texlive/2008/texmf-dist/tex/latex/base/ot1enc.dfu
 File: ot1enc.dfu 2006/03/30 v1.1i UTF-8 support for inputenc
    defining Unicode char U+00A1 (decimal 161)
    defining Unicode char U+00A3 (decimal 163)
@@ -219,7 +225,7 @@ File: ot1enc.dfu 2006/03/30 v1.1i UTF-8 support for inputenc
 Now handling font encoding OMS ...
 ... processing UTF-8 mapping file for font encodingOMS
 
-(/usr/share/texmf-texlive/tex/latex/base/omsenc.dfu
+(/usr/local/texlive/2008/texmf-dist/tex/latex/base/omsenc.dfu
 File: omsenc.dfu 2006/03/30 v1.1i UTF-8 support for inputenc
    defining Unicode char U+00A7 (decimal 167)
    defining Unicode char U+00B6 (decimal 182)
@@ -243,117 +249,29 @@ Now handling font encoding U ...
    defining Unicode char U+2122 (decimal 8482)
    defining Unicode char U+2423 (decimal 9251)
 ))
-(/usr/share/texmf/tex/latex/CJK/CJKutf8.sty
-File: CJKutf8.sty 2006/10/17 4.7.0
-
-(/usr/share/texmf-texlive/tex/generic/oberdiek/ifpdf.sty
-Package: ifpdf 2006/02/20 v1.4 Provides the ifpdf switch (HO)
-Package ifpdf Info: pdfTeX in pdf mode detected.
-)
-(/usr/share/texmf/tex/latex/CJK/CJK.sty
-Package: CJK 2006/10/17 4.7.0
-
-(/usr/share/texmf/tex/latex/CJK/mule/MULEenc.sty
-File: MULEenc.sty 2006/10/17 4.7.0
-)
-(/usr/share/texmf/tex/latex/CJK/CJK.enc
-File: CJK.enc 2006/10/17 4.7.0
-Now handling font encoding C00 ...
-... no UTF-8 mapping file for font encoding C00
-Now handling font encoding C05 ...
-... no UTF-8 mapping file for font encoding C05
-Now handling font encoding C09 ...
-... no UTF-8 mapping file for font encoding C09
-Now handling font encoding C10 ...
-... no UTF-8 mapping file for font encoding C10
-Now handling font encoding C20 ...
-... no UTF-8 mapping file for font encoding C20
-Now handling font encoding C19 ...
-... no UTF-8 mapping file for font encoding C19
-Now handling font encoding C40 ...
-... no UTF-8 mapping file for font encoding C40
-Now handling font encoding C42 ...
-... no UTF-8 mapping file for font encoding C42
-Now handling font encoding C43 ...
-... no UTF-8 mapping file for font encoding C43
-Now handling font encoding C50 ...
-... no UTF-8 mapping file for font encoding C50
-Now handling font encoding C52 ...
-... no UTF-8 mapping file for font encoding C52
-Now handling font encoding C49 ...
-... no UTF-8 mapping file for font encoding C49
-Now handling font encoding C60 ...
-... no UTF-8 mapping file for font encoding C60
-Now handling font encoding C61 ...
-... no UTF-8 mapping file for font encoding C61
-Now handling font encoding C63 ...
-... no UTF-8 mapping file for font encoding C63
-Now handling font encoding C64 ...
-... no UTF-8 mapping file for font encoding C64
-Now handling font encoding C65 ...
-... no UTF-8 mapping file for font encoding C65
-Now handling font encoding C70 ...
-... no UTF-8 mapping file for font encoding C70
-Now handling font encoding C31 ...
-... no UTF-8 mapping file for font encoding C31
-Now handling font encoding C32 ...
-... no UTF-8 mapping file for font encoding C32
-Now handling font encoding C33 ...
-... no UTF-8 mapping file for font encoding C33
-Now handling font encoding C34 ...
-... no UTF-8 mapping file for font encoding C34
-Now handling font encoding C35 ...
-... no UTF-8 mapping file for font encoding C35
-Now handling font encoding C36 ...
-... no UTF-8 mapping file for font encoding C36
-Now handling font encoding C37 ...
-... no UTF-8 mapping file for font encoding C37
-Now handling font encoding C80 ...
-... no UTF-8 mapping file for font encoding C80
-Now handling font encoding C81 ...
-... no UTF-8 mapping file for font encoding C81
-Now handling font encoding C01 ...
-... no UTF-8 mapping file for font encoding C01
-Now handling font encoding C11 ...
-... no UTF-8 mapping file for font encoding C11
-Now handling font encoding C21 ...
-... no UTF-8 mapping file for font encoding C21
-Now handling font encoding C41 ...
-... no UTF-8 mapping file for font encoding C41
-Now handling font encoding C62 ...
-... no UTF-8 mapping file for font encoding C62
-)
-LaTeX Info: Redefining \selectfont on input line 741.
-\CJK@indent=\box26
-)
-(/usr/share/texmf-texlive/tex/latex/base/fontenc.sty
-Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
-))
-(/usr/share/texmf-texlive/tex/latex/base/fontenc.sty
+(/usr/local/texlive/2008/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 
-(/usr/share/texmf-texlive/tex/latex/base/t1enc.def
+(/usr/local/texlive/2008/texmf-dist/tex/latex/base/t1enc.def
 File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
 LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
 ))
-(/usr/share/texmf-texlive/tex/generic/babel/babel.sty
-Package: babel 2005/11/23 v3.8h The Babel package
+(/usr/local/texlive/2008/texmf-dist/tex/generic/babel/babel.sty
+Package: babel 2008/07/06 v3.8l The Babel package
 
-(/usr/share/texmf-texlive/tex/generic/babel/english.ldf
+(/usr/local/texlive/2008/texmf-dist/tex/generic/babel/english.ldf
 Language: english 2005/03/30 v3.3o English support from the babel system
 
-(/usr/share/texmf-texlive/tex/generic/babel/babel.def
-File: babel.def 2005/11/23 v3.8h Babel common definitions
+(/usr/local/texlive/2008/texmf-dist/tex/generic/babel/babel.def
+File: babel.def 2008/07/06 v3.8l Babel common definitions
 \babel@savecnt=\count88
 \U@D=\dimen103
 )
-\l@british = a dialect from \language\l@english 
-\l@UKenglish = a dialect from \language\l@english 
 \l@canadian = a dialect from \language\l@american 
 \l@australian = a dialect from \language\l@british 
 \l@newzealand = a dialect from \language\l@british 
 ))
-(/usr/share/texmf-texlive/tex/latex/psnfss/times.sty
+(/usr/local/texlive/2008/texmf-dist/tex/latex/psnfss/times.sty
 Package: times 2005/04/12 PSNFSS-v9.2a (SPQR) 
 ) (./fncychap.sty
 Package: fncychap 2007/07/30 v1.34 LaTeX package (Revised chapters)
@@ -366,10 +284,9 @@ Package: fncychap 2007/07/30 v1.34 LaTeX package (Revised chapters)
 \pxx=\skip49
 \c@AlphaCnt=\count89
 \c@AlphaDecCnt=\count90
-)
-(./sphinx.sty
+) (./sphinx.sty
 Package: sphinx 2008/05/01 LaTeX package (Sphinx markup)
- (/usr/share/texmf-texlive/tex/latex/base/textcomp.sty
+ (/usr/local/texlive/2008/texmf-dist/tex/latex/base/textcomp.sty
 Package: textcomp 2005/09/27 v1.99g Standard LaTeX package
 Package textcomp Info: Sub-encoding information:
 (textcomp)               5 = only ISO-Adobe without \textcurrency
@@ -383,13 +300,12 @@ Package textcomp Info: Sub-encoding information:
 (textcomp)             Family '?' is the default used for unknown fonts.
 (textcomp)             See the documentation for details.
 Package textcomp Info: Setting ? sub-encoding to TS1/1 on input line 71.
-
-(/usr/share/texmf-texlive/tex/latex/base/ts1enc.def
+(/usr/local/texlive/2008/texmf-dist/tex/latex/base/ts1enc.def
 File: ts1enc.def 2001/06/05 v3.0e (jk/car/fm) Standard LaTeX file
 Now handling font encoding TS1 ...
 ... processing UTF-8 mapping file for font encoding TS1
 
-(/usr/share/texmf-texlive/tex/latex/base/ts1enc.dfu
+(/usr/local/texlive/2008/texmf-dist/tex/latex/base/ts1enc.dfu
 File: ts1enc.dfu 2006/03/30 v1.1i UTF-8 support for inputenc
    defining Unicode char U+00A2 (decimal 162)
    defining Unicode char U+00A3 (decimal 163)
@@ -510,7 +426,7 @@ Package textcomp Info: Setting pplj sub-encoding to TS1/3 on input line 324.
 Package textcomp Info: Setting ptmx sub-encoding to TS1/4 on input line 325.
 Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 326.
 )
-(/usr/share/texmf-texlive/tex/latex/fancyhdr/fancyhdr.sty
+(/usr/local/texlive/2008/texmf-dist/tex/latex/fancyhdr/fancyhdr.sty
 \fancy@headwidth=\skip50
 \f@ncyO@elh=\skip51
 \f@ncyO@erh=\skip52
@@ -521,13 +437,13 @@ Package textcomp Info: Setting ptmj sub-encoding to TS1/4 on input line 326.
 \f@ncyO@olf=\skip57
 \f@ncyO@orf=\skip58
 )
-(/usr/share/texmf-texlive/tex/latex/fancybox/fancybox.sty
+(/usr/local/texlive/2008/texmf-dist/tex/latex/fancybox/fancybox.sty
 Package: fancybox 2000/09/19 1.3
 
 Style option: `fancybox' v1.3 <2000/09/19> (tvz)
-\@fancybox=\box27
+\@fancybox=\box26
 \shadowsize=\dimen104
-\@Sbox=\box28
+\@Sbox=\box27
 \do@VerbBox=\toks16
 \the@fancyput=\toks17
 \this@fancyput=\toks18
@@ -536,7 +452,7 @@ Style option: `fancybox' v1.3 <2000/09/19> (tvz)
 \Verbatim@Infile=\read1
 ) (./titlesec.sty
 Package: titlesec 2007/08/12 v2.8 Sectioning titles
-\ttl@box=\box29
+\ttl@box=\box28
 \beforetitleunit=\skip59
 \aftertitleunit=\skip60
 \ttl@plus=\dimen105
@@ -548,7 +464,7 @@ Package: titlesec 2007/08/12 v2.8 Sectioning titles
 ) (./tabulary.sty
 Package: tabulary 2007/10/02 v0.9 tabulary package (DPC)
 
-(/usr/share/texmf-texlive/tex/latex/tools/array.sty
+(/usr/local/texlive/2008/texmf-dist/tex/latex/tools/array.sty
 Package: array 2005/08/23 v2.4b Tabular extension package (FMi)
 \col@sep=\dimen110
 \extrarowheight=\dimen111
@@ -562,24 +478,24 @@ Package: array 2005/08/23 v2.4b Tabular extension package (FMi)
 \tymax=\dimen114
 \TY@tablewidth=\dimen115
 )
-(/usr/share/texmf-texlive/tex/latex/amsmath/amsmath.sty
+(/usr/local/texlive/2008/texmf-dist/tex/latex/amsmath/amsmath.sty
 Package: amsmath 2000/07/18 v2.13 AMS math features
 \@mathmargin=\skip63
 
 For additional information on amsmath, use the `?' option.
-(/usr/share/texmf-texlive/tex/latex/amsmath/amstext.sty
+(/usr/local/texlive/2008/texmf-dist/tex/latex/amsmath/amstext.sty
 Package: amstext 2000/06/29 v2.01
 
-(/usr/share/texmf-texlive/tex/latex/amsmath/amsgen.sty
+(/usr/local/texlive/2008/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks22
 \ex@=\dimen116
 ))
-(/usr/share/texmf-texlive/tex/latex/amsmath/amsbsy.sty
+(/usr/local/texlive/2008/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen117
 )
-(/usr/share/texmf-texlive/tex/latex/amsmath/amsopn.sty
+(/usr/local/texlive/2008/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count92
@@ -592,8 +508,8 @@ LaTeX Info: Redefining \overline on input line 307.
 LaTeX Info: Redefining \ldots on input line 379.
 LaTeX Info: Redefining \dots on input line 382.
 LaTeX Info: Redefining \cdots on input line 467.
-\Mathstrutbox@=\box30
-\strutbox@=\box31
+\Mathstrutbox@=\box29
+\strutbox@=\box30
 \big@size=\dimen118
 LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
 LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
@@ -620,308 +536,3073 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
 LaTeX Info: Redefining \[ on input line 2666.
 LaTeX Info: Redefining \] on input line 2667.
 )
-(/usr/share/texmf-texlive/tex/latex/base/makeidx.sty
+(/usr/local/texlive/2008/texmf-dist/tex/latex/base/makeidx.sty
 Package: makeidx 2000/03/29 v1.0m Standard LaTeX package
 )
-(/usr/share/texmf-texlive/tex/latex/ltxmisc/framed.sty
-Package: framed 2003/07/21 v 0.8a: framed or shaded text with page breaks
-\FrameRule=\dimen125
-\FrameSep=\dimen126
+(/usr/local/texlive/2008/texmf-dist/tex/latex/ltxmisc/framed.sty
+Package: framed 2007/10/04 v 0.95: framed or shaded text with page breaks
+\fb@frw=\dimen125
+\fb@frh=\dimen126
+\FrameRule=\dimen127
+\FrameSep=\dimen128
 )
-(/usr/share/texmf-texlive/tex/latex/graphics/color.sty
+(/usr/local/texlive/2008/texmf-dist/tex/latex/graphics/color.sty
 Package: color 2005/11/14 v1.0j Standard LaTeX Color (DPC)
 
-(/etc/texmf/tex/latex/config/color.cfg
+(/usr/local/texlive/2008/texmf/tex/latex/config/color.cfg
 File: color.cfg 2007/01/18 v1.5 color configuration of teTeX/TeXLive
 )
-Package color Info: Driver file: pdftex.def on input line 130.
+Package color Info: Driver file: xetex.def on input line 130.
 
-(/usr/share/texmf-texlive/tex/latex/pdftex-def/pdftex.def
-File: pdftex.def 2007/01/08 v0.04d Graphics/color for pdfTeX
-\Gread@gobject=\count104
+(/usr/local/texlive/2008/texmf-dist/tex/xelatex/xetex-def/xetex.def
+File: xetex.def 2006/08/10 v0.92 LaTeX color/graphics driver for XeTeX (RRM, mo
+d. JK)
 ))
-(/usr/share/texmf-texlive/tex/latex/fancyvrb/fancyvrb.sty
-Package: fancyvrb 1998/07/17
+(/usr/local/texlive/2008/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
+Package: fancyvrb 2008/02/07
 
-Style option: `fancyvrb' v2.6, with DG/SPQR fixes <1998/07/17> (tvz)
-(/usr/share/texmf-texlive/tex/latex/graphics/keyval.sty
+Style option: `fancyvrb' v2.7a, with DG/SPQR fixes, and firstline=lastline fix 
+<2008/02/07> (tvz)
+(/usr/local/texlive/2008/texmf-dist/tex/latex/graphics/keyval.sty
 Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
 \KV@toks@=\toks27
 )
-\FV@CodeLineNo=\count105
+\FV@CodeLineNo=\count104
 \FV@InFile=\read2
-\FV@TabBox=\box32
-\c@FancyVerbLine=\count106
-\FV@StepNumber=\count107
+\FV@TabBox=\box31
+\c@FancyVerbLine=\count105
+\FV@StepNumber=\count106
 \FV@OutFile=\write4
-
-No file fancyvrb.cfg.
-) (/usr/share/texmf-texlive/tex/latex/ltxmisc/threeparttable.sty
-Package: threeparttable 2003/06/13  v 3.0
-\@tempboxb=\box33
 )
-(/usr/share/texmf-texlive/tex/latex/graphics/graphicx.sty
+(/usr/local/texlive/2008/texmf-dist/tex/latex/ltxmisc/threeparttable.sty
+Package: threeparttable 2003/06/13  v 3.0
+\@tempboxb=\box32
+)
+(/usr/local/texlive/2008/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texmf-texlive/tex/latex/graphics/graphics.sty
+(/usr/local/texlive/2008/texmf-dist/tex/latex/graphics/graphics.sty
 Package: graphics 2006/02/20 v1.0o Standard LaTeX Graphics (DPC,SPQR)
 
-(/usr/share/texmf-texlive/tex/latex/graphics/trig.sty
+(/usr/local/texlive/2008/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-(/etc/texmf/tex/latex/config/graphics.cfg
+(/usr/local/texlive/2008/texmf/tex/latex/config/graphics.cfg
 File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
 )
-Package graphics Info: Driver file: pdftex.def on input line 90.
+Package graphics Info: Driver file: xetex.def on input line 90.
 )
-\Gin@req@height=\dimen127
-\Gin@req@width=\dimen128
+\Gin@req@height=\dimen129
+\Gin@req@width=\dimen130
 )
-(/usr/share/texmf-texlive/tex/plain/misc/pdfcolor.tex)
 \distancetoright=\skip66
 \leftsidespace=\skip67
 \py@argswidth=\skip68
 \py@noticelength=\skip69
 \lineblockindentation=\skip70
-\image@box=\box34
-\image@width=\dimen129
+\image@box=\box33
+\image@width=\dimen131
 )
-(/usr/share/texmf-texlive/tex/latex/hyperref/hyperref.sty
-Package: hyperref 2007/02/07 v6.75r Hypertext links for LaTeX
-\@linkdim=\dimen130
-\Hy@linkcounter=\count108
-\Hy@pagecounter=\count109
+(/usr/local/texlive/2008/texmf-dist/tex/latex/hyperref/hyperref.sty
+Package: hyperref 2009/02/22 v6.78p Hypertext links for LaTeX
 
-(/usr/share/texmf-texlive/tex/latex/hyperref/pd1enc.def
-File: pd1enc.def 2007/02/07 v6.75r Hyperref: PDFDocEncoding definition (HO)
+(/usr/local/texlive/2008/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2007/12/12 v1.6 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in pdf mode not detected.
+)
+(/usr/local/texlive/2008/texmf-dist/tex/generic/oberdiek/ifvtex.sty
+Package: ifvtex 2008/11/04 v1.4 Switches for detecting VTeX and its modes (HO)
+Package ifvtex Info: VTeX not detected.
+)
+(/usr/local/texlive/2008/texmf-dist/tex/generic/ifxetex/ifxetex.sty
+Package: ifxetex 2009/01/23 v0.5 Provides ifxetex conditional
+)
+(/usr/local/texlive/2008/texmf-dist/tex/latex/oberdiek/hycolor.sty
+Package: hycolor 2008/09/08 v1.4 Code for color options of hyperref/bookmark (H
+O)
+
+(/usr/local/texlive/2008/texmf-dist/tex/latex/oberdiek/xcolor-patch.sty
+Package: xcolor-patch 2008/09/08 xcolor patch
+))
+\@linkdim=\dimen132
+\Hy@linkcounter=\count107
+\Hy@pagecounter=\count108
+
+(/usr/local/texlive/2008/texmf-dist/tex/latex/hyperref/pd1enc.def
+File: pd1enc.def 2009/02/22 v6.78p Hyperref: PDFDocEncoding definition (HO)
 Now handling font encoding PD1 ...
 ... no UTF-8 mapping file for font encoding PD1
 )
-(/etc/texmf/tex/latex/config/hyperref.cfg
-File: hyperref.cfg 2002/06/06 v1.2 hyperref configuration of TeXLive
-)
-(/usr/share/texmf-texlive/tex/latex/oberdiek/kvoptions.sty
-Package: kvoptions 2006/08/22 v2.4 Connects package keyval with LaTeX options (
-HO)
-)
-Package hyperref Info: Option `colorlinks' set `true' on input line 2238.
-Package hyperref Info: Option `breaklinks' set `true' on input line 2238.
-Package hyperref Info: Hyper figures OFF on input line 2288.
-Package hyperref Info: Link nesting OFF on input line 2293.
-Package hyperref Info: Hyper index ON on input line 2296.
-Package hyperref Info: Plain pages OFF on input line 2303.
-Package hyperref Info: Backreferencing OFF on input line 2308.
+(/usr/local/texlive/2008/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2007/12/12 v1.2 Prefix for e-TeX command names (HO)
 
+(/usr/local/texlive/2008/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2007/09/09 v1.2 Providing info/warning/message (HO)
+)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)
+(/usr/local/texlive/2008/texmf-dist/tex/xelatex/xetexconfig/hyperref.cfg
+File: hyperref.cfg 2008/07/11 v1.2 hyperref configuration for XeLaTeX
+)
+(/usr/local/texlive/2008/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2007/10/18 v3.0 Keyval support for LaTeX options (HO)
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 2824.
+Package hyperref Info: Option `breaklinks' set `true' on input line 2824.
+
+
+Package hyperref Warning: Option `pagecolor' is not available anymore.
+
+Package hyperref Info: Hyper figures OFF on input line 2935.
+Package hyperref Info: Link nesting OFF on input line 2940.
+Package hyperref Info: Hyper index ON on input line 2943.
+Package hyperref Info: Plain pages OFF on input line 2950.
+Package hyperref Info: Backreferencing OFF on input line 2955.
 Implicit mode ON; LaTeX internals redefined
-Package hyperref Info: Bookmarks ON on input line 2444.
-(/usr/share/texmf-texlive/tex/latex/ltxmisc/url.sty
+Package hyperref Info: Bookmarks ON on input line 3145.
+(/usr/local/texlive/2008/texmf-dist/tex/latex/ltxmisc/url.sty
 \Urlmuskip=\muskip11
-Package: url 2005/06/27  ver 3.2  Verb mode for urls, etc.
+Package: url 2006/04/12  ver 3.3  Verb mode for urls, etc.
 )
-LaTeX Info: Redefining \url on input line 2599.
-\Fld@menulength=\count110
-\Field@Width=\dimen131
-\Fld@charsize=\dimen132
-\Choice@toks=\toks28
-\Field@toks=\toks29
-Package hyperref Info: Hyper figures OFF on input line 3102.
-Package hyperref Info: Link nesting OFF on input line 3107.
-Package hyperref Info: Hyper index ON on input line 3110.
-Package hyperref Info: backreferencing OFF on input line 3117.
-Package hyperref Info: Link coloring ON on input line 3120.
-\Hy@abspage=\count111
-\c@Item=\count112
-\c@Hfootnote=\count113
+LaTeX Info: Redefining \url on input line 3382.
+
+(/usr/local/texlive/2008/texmf-dist/tex/generic/oberdiek/bitset.sty
+Package: bitset 2007/09/28 v1.0 Data type bit set (HO)
+
+(/usr/local/texlive/2008/texmf-dist/tex/generic/oberdiek/intcalc.sty
+Package: intcalc 2007/09/27 v1.1 Expandable integer calculations (HO)
 )
-*hyperref using default driver hpdftex*
-(/usr/share/texmf-texlive/tex/latex/hyperref/hpdftex.def
-File: hpdftex.def 2007/02/07 v6.75r Hyperref driver for pdfTeX
+(/usr/local/texlive/2008/texmf-dist/tex/generic/oberdiek/bigintcalc.sty
+Package: bigintcalc 2007/11/11 v1.1 Expandable big integer calculations (HO)
+
+(/usr/local/texlive/2008/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2007/12/12 v0.3 LuaTeX support for pdfTeX utility functions
+ (HO)
+Package pdftexcmds Info: LuaTeX not detected on input line 139.
+Package pdftexcmds Info: pdfTeX >= 1.30 not detected.
+)))
+(/usr/local/texlive/2008/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2007/09/29 v1.3 Key value parser with default handler suppor
+t (HO)
+)
+\Fld@menulength=\count109
+\Field@Width=\dimen133
+\Fld@charsize=\dimen134
+\Field@toks=\toks28
+Package hyperref Info: Hyper figures OFF on input line 4299.
+Package hyperref Info: Link nesting OFF on input line 4304.
+Package hyperref Info: Hyper index ON on input line 4307.
+Package hyperref Info: backreferencing OFF on input line 4314.
+Package hyperref Info: Link coloring ON on input line 4317.
+Package hyperref Info: Link coloring with OCG OFF on input line 4324.
+Package hyperref Info: PDF/A mode OFF on input line 4329.
+
+(/usr/local/texlive/2008/texmf-dist/tex/generic/oberdiek/atbegshi.sty
+Package: atbegshi 2008/07/31 v1.9 At begin shipout hook (HO)
+)
+\Hy@abspage=\count110
+\c@Item=\count111
+\c@Hfootnote=\count112
+)
+*hyperref using default driver hdvipdfm*
+(/usr/local/texlive/2008/texmf-dist/tex/latex/hyperref/hdvipdfm.def
+File: hdvipdfm.def 2009/02/22 v6.78p Hyperref driver for dvipdfm
+\pdfm@box=\box34
+\HyField@AnnotCount=\count113
 \Fld@listcount=\count114
 )
+(/usr/local/texlive/2008/texmf-dist/tex/xelatex/fontspec/fontspec.sty
+Package: fontspec 2008/08/09 v1.18 Advanced font selection for XeLaTeX
+\c@zf@newff=\count115
+\c@zf@index=\count116
+\c@zf@script=\count117
+\c@zf@language=\count118
+
+(/usr/local/texlive/2008/texmf-dist/tex/latex/tools/calc.sty
+Package: calc 2005/08/06 v4.2 Infix arithmetic (KKT,FJ)
+\calc@Acount=\count119
+\calc@Bcount=\count120
+\calc@Adimen=\dimen135
+\calc@Bdimen=\dimen136
+\calc@Askip=\skip71
+\calc@Bskip=\skip72
+LaTeX Info: Redefining \setlength on input line 75.
+LaTeX Info: Redefining \addtolength on input line 76.
+\calc@Ccount=\count121
+\calc@Cskip=\skip73
+)
+(/usr/local/texlive/2008/texmf-dist/tex/latex/xkeyval/xkeyval.sty
+Package: xkeyval 2008/08/13 v2.6a package option processing (HA)
+
+(/usr/local/texlive/2008/texmf-dist/tex/generic/xkeyval/xkeyval.tex
+\XKV@toks=\toks29
+\XKV@tempa@toks=\toks30
+\XKV@depth=\count122
+File: xkeyval.tex 2008/08/13 v2.6a key=value parser (HA)
+))
+(/usr/local/texlive/2008/texmf-dist/tex/latex/base/fontenc.sty
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+
+(/usr/local/texlive/2008/texmf-dist/tex/xelatex/euenc/eu1enc.def
+File: eu1enc.def 2008/03/08 v0.1d Experimental unicode font encoding
+Now handling font encoding EU1 ...
+... no UTF-8 mapping file for font encoding EU1
+)
+LaTeX Font Info:    Try loading font information for EU1+lmr on input line 100.
+
+
+(/usr/local/texlive/2008/texmf-dist/tex/xelatex/euenc/eu1lmr.fd
+File: eu1lmr.fd 2007/01/14 v1.3 Font defs for Latin Modern
+))
+LaTeX Info: Redefining \itshape on input line 1163.
+LaTeX Info: Redefining \slshape on input line 1166.
+LaTeX Info: Redefining \scshape on input line 1169.
+LaTeX Info: Redefining \upshape on input line 1172.
+
+fontspec.cfg loaded.
+(/usr/local/texlive/2008/texmf-dist/tex/xelatex/fontspec/fontspec.cfg))
+(/usr/local/texlive/2008/texmf-dist/tex/xelatex/xunicode/xunicode.sty
+File: xunicode.sty 2008/02/08 v0.91 provides access to latin accents and many o
+ther characters in Unicode lower plane
+
+*** you should *not* be loading the inputenc package
+*** XeTeX expects the source to be in UTF8 encoding
+*** some features of other encodings may conflict, resulting in poor output.
+) (/usr/local/texlive/2008/texmf-dist/tex/xelatex/xltxtra/xltxtra.sty
+Package: xltxtra 2008/07/29 v0.4 Improvements for the "XeLaTeX" format
+LaTeX Info: Redefining \TeX on input line 42.
+LaTeX Info: Redefining \LaTeX on input line 48.
+
+(/usr/local/texlive/2008/texmf-dist/tex/latex/etex-pkg/etex.sty
+Package: etex 1998/03/26 v2.0 eTeX basic definition package (PEB)
+\et@xins=\count123
+)
+(/usr/local/texlive/2008/texmf-dist/tex/latex/base/fixltx2e.sty
+Package: fixltx2e 2006/03/24 v1.1n fixes to LaTeX
+LaTeX Info: Redefining \em on input line 420.
+LaTeX Info: The control sequence `\[' is already robust on input line 471.
+LaTeX Info: The control sequence `\]' is already robust on input line 472.
+)
+LaTeX Info: Redefining \em on input line 117.
+LaTeX Info: Redefining \emph on input line 126.
+LaTeX Info: Redefining \- on input line 131.
+LaTeX Info: Redefining \textsubscript on input line 150.
+LaTeX Info: Redefining \textsuperscript on input line 152.
+\xxt@tempbox=\box35
+)
+\c@zf@famc@STHeiti=\count124
+Package fontspec Info: Defining font family for 'STHeiti' with options [] on in
+put line 35.
+Package fontspec Info: Could not resolve font STHeiti/B (it might not exist) on
+ input line 35.
+Package fontspec Info: Could not resolve font STHeiti/I (it might not exist) on
+ input line 35.
+Package fontspec Info: Could not resolve font STHeiti/BI (it might not exist) o
+n input line 35.
+
+! Argument of \\setmonofont has an extra }.
+<inserted text> 
+                \par 
+l.36 \setmonofont[STHeiti}
+                          
+? 
+Runaway argument?
+STHeiti
+! Paragraph ended before \\setmonofont was complete.
+<to be read again> 
+                   \par 
+l.36 \setmonofont[STHeiti}
+                          
+? 
+! Too many }'s.
+<recently read> }
+                 
+l.36 \setmonofont[STHeiti}
+                          
+? 
 \@indexfile=\write5
 \openout5 = `PyMOTW.idx'.
-
 
 Writing index file PyMOTW.idx
 \modindexfile=\write6
 (./PyMOTW.aux)
 \openout1 = `PyMOTW.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C00/song/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C05/song/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C09/song/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C10/song/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C20/song/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C19/song/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C40/song/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C42/song/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C43/song/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C50/song/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C52/song/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C49/song/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C60/mj/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C61/mj/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C63/mj/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C64/mj/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C65/mj/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C70/song/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C31/song/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C32/song/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C33/song/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C34/song/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C35/song/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C36/song/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C37/song/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C80/song/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C81/song/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C01/song/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C11/song/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C21/song/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C41/song/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for C62/song/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 83.
-LaTeX Font Info:    Try loading font information for TS1+cmr on input line 83.
- (/usr/share/texmf-texlive/tex/latex/base/ts1cmr.fd
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 115.
+LaTeX Font Info:    Try loading font information for TS1+cmr on input line 115.
+
+ (/usr/local/texlive/2008/texmf-dist/tex/latex/base/ts1cmr.fd
 File: ts1cmr.fd 1999/05/25 v2.5h Standard LaTeX font definitions
 )
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 83.
-LaTeX Font Info:    ... okay on input line 83.
-LaTeX Font Info:    Try loading font information for T1+ptm on input line 83.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+LaTeX Font Info:    Checking defaults for EU1/lmr/m/n on input line 115.
+LaTeX Font Info:    ... okay on input line 115.
+Package hyperref Info: Link coloring ON on input line 115.
 
-(/usr/share/texmf-texlive/tex/latex/psnfss/t1ptm.fd
-File: t1ptm.fd 2001/06/04 font definitions for T1/ptm.
-)
-Package hyperref Info: Link coloring ON on input line 83.
+(/usr/local/texlive/2008/texmf-dist/tex/latex/hyperref/nameref.sty
+Package: nameref 2007/05/29 v2.31 Cross-referencing by name of section
 
-(/usr/share/texmf-texlive/tex/latex/hyperref/nameref.sty
-Package: nameref 2006/12/27 v2.28 Cross-referencing by name of section
+(/usr/local/texlive/2008/texmf-dist/tex/latex/oberdiek/refcount.sty
+Package: refcount 2008/08/11 v3.1 Data extraction from references (HO)
+)
+\c@section@level=\count125
+)
+LaTeX Info: Redefining \ref on input line 115.
+LaTeX Info: Redefining \pageref on input line 115.
 
-(/usr/share/texmf-texlive/tex/latex/oberdiek/refcount.sty
-Package: refcount 2006/02/20 v3.0 Data extraction from references (HO)
-)
-\c@section@level=\count115
-)
-LaTeX Info: Redefining \ref on input line 83.
-LaTeX Info: Redefining \pageref on input line 83.
- (./PyMOTW.out)
-(./PyMOTW.out)
+(./PyMOTW.out) (./PyMOTW.out)
 \@outlinefile=\write7
 \openout7 = `PyMOTW.out'.
 
- (/usr/share/texmf/tex/latex/CJK/UTF8/UTF8.bdg
-File: UTF8.bdg 2006/10/17 4.7.0
-)
-(/usr/share/texmf/tex/latex/CJK/UTF8/UTF8.enc
-File: UTF8.enc 2006/10/17 4.7.0
-)
-(/usr/share/texmf/tex/latex/CJK/UTF8/UTF8.chr
-File: UTF8.chr 2006/10/17 4.7.0
-)
-LaTeX Font Info:    Try loading font information for T1+phv on input line 86.
+\AtBeginShipoutBox=\box36
+Package fontspec Info: Adjusting the maths setup (use [no-math] to avoid this).
+ on input line 115.
+\symlegacymaths=\mathgroup4
+LaTeX Font Info:    Overwriting symbol font `legacymaths' in version `bold'
+(Font)                  OT1/cmr/m/n --> OT1/cmr/bx/n on input line 115.
+LaTeX Font Info:    Redeclaring math accent \acute on input line 115.
+LaTeX Font Info:    Redeclaring math accent \grave on input line 115.
+LaTeX Font Info:    Redeclaring math accent \ddot on input line 115.
+LaTeX Font Info:    Redeclaring math accent \tilde on input line 115.
+LaTeX Font Info:    Redeclaring math accent \bar on input line 115.
+LaTeX Font Info:    Redeclaring math accent \breve on input line 115.
+LaTeX Font Info:    Redeclaring math accent \check on input line 115.
+LaTeX Font Info:    Redeclaring math accent \hat on input line 115.
+LaTeX Font Info:    Redeclaring math accent \dot on input line 115.
+LaTeX Font Info:    Redeclaring math accent \mathring on input line 115.
+LaTeX Font Info:    Redeclaring math symbol \Gamma on input line 115.
+LaTeX Font Info:    Redeclaring math symbol \Delta on input line 115.
+LaTeX Font Info:    Redeclaring math symbol \Theta on input line 115.
+LaTeX Font Info:    Redeclaring math symbol \Lambda on input line 115.
+LaTeX Font Info:    Redeclaring math symbol \Xi on input line 115.
+LaTeX Font Info:    Redeclaring math symbol \Pi on input line 115.
+LaTeX Font Info:    Redeclaring math symbol \Sigma on input line 115.
+LaTeX Font Info:    Redeclaring math symbol \Upsilon on input line 115.
+LaTeX Font Info:    Redeclaring math symbol \Phi on input line 115.
+LaTeX Font Info:    Redeclaring math symbol \Psi on input line 115.
+LaTeX Font Info:    Redeclaring math symbol \Omega on input line 115.
+LaTeX Font Info:    Redeclaring math symbol \mathdollar on input line 115.
+LaTeX Font Info:    Redeclaring symbol font `operators' on input line 115.
+LaTeX Font Info:    Encoding `OT1' has changed to `EU1' for symbol font
+(Font)              `operators' in the math version `normal' on input line 115.
 
-(/usr/share/texmf-texlive/tex/latex/psnfss/t1phv.fd
-File: t1phv.fd 2001/06/04 scalable font definitions for T1/phv.
-)
-LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <24.88> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 86.
-LaTeX Font Info:    Font shape `T1/phv/m/it' in size <17.28> not available
-(Font)              Font shape `T1/phv/m/sl' tried instead on input line 86.
-LaTeX Font Info:    Font shape `T1/phv/bx/it' in size <17.28> not available
-(Font)              Font shape `T1/phv/b/it' tried instead on input line 86.
-LaTeX Font Info:    Font shape `T1/phv/b/it' in size <17.28> not available
-(Font)              Font shape `T1/phv/b/sl' tried instead on input line 86.
-LaTeX Font Info:    Font shape `T1/phv/bx/n' in size <17.28> not available
-(Font)              Font shape `T1/phv/b/n' tried instead on input line 86.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  OT1/cmr/m/n --> EU1/STHeiti(0)/m/n on input line 115.
+LaTeX Font Info:    Encoding `OT1' has changed to `EU1' for symbol font
+(Font)              `operators' in the math version `bold' on input line 115.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  OT1/cmr/bx/n --> EU1/STHeiti(0)/m/n on input line 115.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `normal'
+(Font)                  EU1/STHeiti(0)/m/n --> EU1/STHeiti(0)/m/n on input line
+ 115.
+LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `normal'
+(Font)                  EU1/STHeiti(0)/m/n --> EU1/STHeiti(0)/m/n on input line
+ 115.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `normal'
+(Font)                  OT1/cmr/m/it --> EU1/STHeiti(0)/m/it on input line 115.
 
-! Misplaced alignment tab character &.
-\@author ->vbarter &
-                     liz
-l.86 \tableofcontents
-                     
-? 
-[1
+LaTeX Font Info:    Overwriting math alphabet `\mathbf' in version `normal'
+(Font)                  OT1/cmr/bx/n --> EU1/STHeiti(0)/bx/n on input line 115.
+
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `normal'
+(Font)                  OT1/cmss/m/n --> EU1/lmss/m/n on input line 115.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `normal'
+(Font)                  OT1/cmtt/m/n --> EU1/lmtt/m/n on input line 115.
+LaTeX Font Info:    Overwriting symbol font `operators' in version `bold'
+(Font)                  EU1/STHeiti(0)/m/n --> EU1/STHeiti(0)/bx/n on input lin
+e 115.
+LaTeX Font Info:    Overwriting math alphabet `\mathrm' in version `bold'
+(Font)                  EU1/STHeiti(0)/m/n --> EU1/STHeiti(0)/bx/n on input lin
+e 115.
+LaTeX Font Info:    Overwriting math alphabet `\mathit' in version `bold'
+(Font)                  OT1/cmr/bx/it --> EU1/STHeiti(0)/bx/it on input line 11
+5.
+LaTeX Font Info:    Overwriting math alphabet `\mathsf' in version `bold'
+(Font)                  OT1/cmss/bx/n --> EU1/lmss/bx/n on input line 115.
+LaTeX Font Info:    Overwriting math alphabet `\mathtt' in version `bold'
+(Font)                  OT1/cmtt/m/n --> EU1/lmtt/bx/n on input line 115.
+
+*** you should *not* be loading the inputenc package
+*** XeTeX expects the source to be in UTF8 encoding
+*** some features of other encodings may conflict, resulting in poor output.
+LaTeX Font Info:    Try loading font information for EU1+lmss on input line 122
+.
+(/usr/local/texlive/2008/texmf-dist/tex/xelatex/euenc/eu1lmss.fd
+File: eu1lmss.fd 2007/01/14 v1.3 Font defs for Latin Modern
+)
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+LaTeX Font Info:    Font shape `EU1/STHeiti(0)/m/it' undefined
+(Font)              using `EU1/STHeiti(0)/m/n' instead on input line 122.
+LaTeX Font Info:    Font shape `EU1/lmss/m/it' in size <17.28> not available
+(Font)              Font shape `EU1/lmss/m/sl' tried instead on input line 122.
+
+LaTeX Font Info:    Font shape `EU1/lmss/bx/it' in size <17.28> not available
+(Font)              Font shape `EU1/lmss/bx/sl' tried instead on input line 122
+.
+Missing character: There is no 版 in font [lmsans10-boldoblique]:mapping=tex-t
+ext!
+Missing character: There is no 本 in font [lmsans10-boldoblique]:mapping=tex-t
+ext!
+Missing character: There is no 作 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 者 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 译 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 者 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 蔡 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 俊 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 杰 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 盛 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 艳 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 王 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 沐 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 雨 in font [lmsans10-bold]:mapping=tex-text!
+ [1
 
 \openout6 = `modPyMOTW.idx'.
 
-{/home/cjj/.texmf-var/fonts/map/pdftex/updmap/pdftex.map}] [2
+] [2
 
-] (./PyMOTW.toc
-LaTeX Font Info:    Try loading font information for C70+kai on input line 2.
+]
+(./PyMOTW.toc
+LaTeX Font Info:    Font shape `EU1/STHeiti(0)/bx/n' undefined
+(Font)              using `EU1/STHeiti(0)/m/n' instead on input line 2.
+ [1
 
-(/home/cjj/.texmf-var/tex/latex/CJK/UTF8/c70kai.fd
-File: c70kai.fd 
+] [2] [3]
+Overfull \hbox (1.11996pt too wide) detected at line 151
+ []\EU1/STHeiti(0)/bx/n/10 100
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 152
+ []\EU1/STHeiti(0)/bx/n/10 100
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 153
+ []\EU1/STHeiti(0)/bx/n/10 101
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 154
+ []\EU1/STHeiti(0)/bx/n/10 101
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 156
+ []\EU1/STHeiti(0)/bx/n/10 103
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 157
+ []\EU1/STHeiti(0)/bx/n/10 103
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 158
+ []\EU1/STHeiti(0)/bx/n/10 103
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 159
+ []\EU1/STHeiti(0)/bx/n/10 103
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 160
+ []\EU1/STHeiti(0)/bx/n/10 104
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 161
+ []\EU1/STHeiti(0)/bx/n/10 104
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 163
+ []\EU1/STHeiti(0)/bx/n/10 105
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 164
+ []\EU1/STHeiti(0)/bx/n/10 105
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 165
+ []\EU1/STHeiti(0)/bx/n/10 106
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 166
+ []\EU1/STHeiti(0)/bx/n/10 106
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 167
+ []\EU1/STHeiti(0)/bx/n/10 107
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 169
+ []\EU1/STHeiti(0)/bx/n/10 109
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 170
+ []\EU1/STHeiti(0)/bx/n/10 110
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 171
+ []\EU1/STHeiti(0)/bx/n/10 112
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 172
+ []\EU1/STHeiti(0)/bx/n/10 112
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 174
+ []\EU1/STHeiti(0)/bx/n/10 113
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 175
+ []\EU1/STHeiti(0)/bx/n/10 113
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 176
+ []\EU1/STHeiti(0)/bx/n/10 114
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 177
+ []\EU1/STHeiti(0)/bx/n/10 115
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 178
+ []\EU1/STHeiti(0)/bx/n/10 116
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 179
+ []\EU1/STHeiti(0)/bx/n/10 117
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 180
+ []\EU1/STHeiti(0)/bx/n/10 118
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 181
+ []\EU1/STHeiti(0)/bx/n/10 119
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 183
+ []\EU1/STHeiti(0)/bx/n/10 121
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 184
+ []\EU1/STHeiti(0)/bx/n/10 121
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 185
+ []\EU1/STHeiti(0)/bx/n/10 122
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 186
+ []\EU1/STHeiti(0)/bx/n/10 123
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 187
+ []\EU1/STHeiti(0)/bx/n/10 123
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 189
+ []\EU1/STHeiti(0)/bx/n/10 125
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 190
+ []\EU1/STHeiti(0)/bx/n/10 125
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 191
+ []\EU1/STHeiti(0)/bx/n/10 126
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 192
+ []\EU1/STHeiti(0)/bx/n/10 126
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 193
+ []\EU1/STHeiti(0)/bx/n/10 127
+ []
+
+[4]
+Overfull \hbox (1.11996pt too wide) detected at line 195
+ []\EU1/STHeiti(0)/bx/n/10 129
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 196
+ []\EU1/STHeiti(0)/bx/n/10 130
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 197
+ []\EU1/STHeiti(0)/bx/n/10 130
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 199
+ []\EU1/STHeiti(0)/bx/n/10 131
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 200
+ []\EU1/STHeiti(0)/bx/n/10 131
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 201
+ []\EU1/STHeiti(0)/bx/n/10 132
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 202
+ []\EU1/STHeiti(0)/bx/n/10 133
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 203
+ []\EU1/STHeiti(0)/bx/n/10 134
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 204
+ []\EU1/STHeiti(0)/bx/n/10 134
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 206
+ []\EU1/STHeiti(0)/bx/n/10 137
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 207
+ []\EU1/STHeiti(0)/bx/n/10 137
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 214
+ []\EU1/STHeiti(0)/bx/n/10 138
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 240
+ []\EU1/STHeiti(0)/bx/n/10 147
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 241
+ []\EU1/STHeiti(0)/bx/n/10 147
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 243
+ []\EU1/STHeiti(0)/bx/n/10 149
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 244
+ []\EU1/STHeiti(0)/bx/n/10 149
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 245
+ []\EU1/STHeiti(0)/bx/n/10 151
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 246
+ []\EU1/STHeiti(0)/bx/n/10 152
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 247
+ []\EU1/STHeiti(0)/bx/n/10 153
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 248
+ []\EU1/STHeiti(0)/bx/n/10 155
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 249
+ []\EU1/STHeiti(0)/bx/n/10 156
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 251
+ []\EU1/STHeiti(0)/bx/n/10 157
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 252
+ []\EU1/STHeiti(0)/bx/n/10 157
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 253
+ []\EU1/STHeiti(0)/bx/n/10 157
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 254
+ []\EU1/STHeiti(0)/bx/n/10 158
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 255
+ []\EU1/STHeiti(0)/bx/n/10 159
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 256
+ []\EU1/STHeiti(0)/bx/n/10 160
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 257
+ []\EU1/STHeiti(0)/bx/n/10 161
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 258
+ []\EU1/STHeiti(0)/bx/n/10 161
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 259
+ []\EU1/STHeiti(0)/bx/n/10 162
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 260
+ []\EU1/STHeiti(0)/bx/n/10 163
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 261
+ []\EU1/STHeiti(0)/bx/n/10 164
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 263
+ []\EU1/STHeiti(0)/bx/n/10 165
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 264
+ []\EU1/STHeiti(0)/bx/n/10 165
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 265
+ []\EU1/STHeiti(0)/bx/n/10 166
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 266
+ []\EU1/STHeiti(0)/bx/n/10 167
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 267
+ []\EU1/STHeiti(0)/bx/n/10 168
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 269
+ []\EU1/STHeiti(0)/bx/n/10 169
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 270
+ []\EU1/STHeiti(0)/bx/n/10 169
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 271
+ []\EU1/STHeiti(0)/bx/n/10 170
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 272
+ []\EU1/STHeiti(0)/bx/n/10 171
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 273
+ []\EU1/STHeiti(0)/bx/n/10 171
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 274
+ []\EU1/STHeiti(0)/bx/n/10 172
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 275
+ []\EU1/STHeiti(0)/bx/n/10 172
+ []
+
+[5]
+Overfull \hbox (1.11996pt too wide) detected at line 277
+ []\EU1/STHeiti(0)/bx/n/10 175
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 278
+ []\EU1/STHeiti(0)/bx/n/10 175
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 279
+ []\EU1/STHeiti(0)/bx/n/10 175
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 280
+ []\EU1/STHeiti(0)/bx/n/10 175
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 281
+ []\EU1/STHeiti(0)/bx/n/10 175
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 282
+ []\EU1/STHeiti(0)/bx/n/10 176
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 283
+ []\EU1/STHeiti(0)/bx/n/10 179
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 284
+ []\EU1/STHeiti(0)/bx/n/10 181
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 286
+ []\EU1/STHeiti(0)/bx/n/10 183
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 287
+ []\EU1/STHeiti(0)/bx/n/10 186
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 288
+ []\EU1/STHeiti(0)/bx/n/10 190
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 289
+ []\EU1/STHeiti(0)/bx/n/10 192
+ []
+
+
+Overfull \hbox (1.11996pt too wide) detected at line 290
+ []\EU1/STHeiti(0)/bx/n/10 192
+ []
+
 )
+\tf@toc=\write8
+\openout8 = `PyMOTW.toc'.
 
-! Package inputenc Error: Unicode char \u 8:关 not set up for use with LaTeX.
+ [6]
+Chapter 1.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+LaTeX Font Info:    Try loading font information for EU1+lmtt on input line 149
+.
+(/usr/local/texlive/2008/texmf-dist/tex/xelatex/euenc/eu1lmtt.fd
+File: eu1lmtt.fd 2007/01/14 v1.3 Font defs for Latin Modern
+)
+LaTeX Font Info:    Font shape `EU1/lmtt/bx/n' in size <9> not available
+(Font)              Font shape `EU1/lmtt/b/n' tried instead on input line 161.
+ [1
 
-See the inputenc package documentation for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.154 ...nue without it.} PyMOTW}{87}{section.0.3}
-                                                  
-? exit
- 
+
+]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [2]
+Chapter 2.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 示 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 例 in font [lmsans10-bold]:mapping=tex-text!
+[3
+
+]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [4]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 示 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 例 in font [lmsans10-bold]:mapping=tex-text!
+ [5]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [6
+
+]
+Chapter 3.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 例 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 子 in font [lmsans10-bold]:mapping=tex-text!
+[7]
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [8]
+Chapter 4.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 例 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 子 in font [lmsans10-bold]:mapping=tex-text!
+[9
+
+]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [10]
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+ [11]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [12
+
+]
+Chapter 5.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 示 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 例 in font [lmsans10-bold]:mapping=tex-text!
+[13]
+Missing character: There is no 示 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 例 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 输 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 出 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [14]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+ [15]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [16
+
+]
+Chapter 6.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 示 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 例 in font [lmsans10-bold]:mapping=tex-text!
+[17]
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [18]
+Chapter 7.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 例 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 子 in font [lmsans10-bold]:mapping=tex-text!
+[19
+
+]
+Missing character: There is no 生 in font [lmmono9-regular]!
+Missing character: There is no 成 in font [lmmono9-regular]!
+Missing character: There is no 个 in font [lmmono9-regular]!
+Missing character: There is no 备 in font [lmmono9-regular]!
+Missing character: There is no 份 in font [lmmono9-regular]!
+Missing character: There is no 是 in font [lmmono9-regular]!
+Missing character: There is no 由 in font [lmmono9-regular]!
+Missing character: There is no 于 in font [lmmono9-regular]!
+Missing character: There is no 之 in font [lmmono9-regular]!
+Missing character: There is no 前 in font [lmmono9-regular]!
+Missing character: There is no 设 in font [lmmono9-regular]!
+Missing character: There is no 置 in font [lmmono9-regular]!
+Missing character: There is no 了 in font [lmmono9-regular]!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [20]
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 例 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 子 in font [lmsans10-bold]:mapping=tex-text!
+ [21]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [22]
+Chapter 8.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 例 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 子 in font [lmsans10-bold]:mapping=tex-text!
+[23
+
+]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [24]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 例 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 子 in font [lmsans10-bold]:mapping=tex-text!
+ [25]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [26]
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+ [27]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [28
+
+]
+Chapter 9.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 属 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 主 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 处 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 理 in font [lmsans10-bold]:mapping=tex-text!
+[29]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [30]
+Missing character: There is no 环 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 境 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 处 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 理 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 工 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 作 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 目 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 录 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 处 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 理 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 环 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 境 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 处 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 理 in font [lmsans10-bold]:mapping=tex-text!
+ [31]
+Missing character: There is no 后 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 续 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [32]
+Chapter 10.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 管 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 道 in font [lmsans10-bold]:mapping=tex-text!
+[33
+
+]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [34]
+Missing character: There is no 后 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 续 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 后 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 续 in font [lmsans10-bold]:mapping=tex-text!
+ [35]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [36
+
+]
+Chapter 11.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 件 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 符 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 件 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 系 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 统 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 权 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 限 in font [lmsans10-bold]:mapping=tex-text!
+[37]
+Missing character: There is no 目 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 录 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [38]
+Missing character: There is no 符 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 号 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 链 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 接 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 符 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 号 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 链 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 接 in font [lmsans10-bold]:mapping=tex-text!
+ [39]
+Missing character: There is no 访 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 问 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 目 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 录 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 树 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 后 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 续 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [40]
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 后 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 续 in font [lmsans10-bold]:mapping=tex-text!
+ [41]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [42
+
+]
+Chapter 12.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 申 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 明 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 运 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 行 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 外 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 部 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 命 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 令 in font [lmsans10-bold]:mapping=tex-text!
+[43]
+Missing character: There is no 使 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 用 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 创 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 建 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 进 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 程 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [44]
+Missing character: There is no 这 in font [lmmono10-italic]!
+Missing character: There is no 个 in font [lmmono10-italic]!
+Missing character: There is no 是 in font [lmmono10-italic]!
+Missing character: There is no 父 in font [lmmono10-italic]!
+Missing character: There is no 进 in font [lmmono10-italic]!
+Missing character: There is no 程 in font [lmmono10-italic]!
+Missing character: There is no 执 in font [lmmono10-italic]!
+Missing character: There is no 行 in font [lmmono10-italic]!
+Missing character: There is no 的 in font [lmmono10-italic]!
+Missing character: There is no 代 in font [lmmono10-italic]!
+Missing character: There is no 码 in font [lmmono10-italic]!
+Missing character: There is no 执 in font [lmmono10-italic]!
+Missing character: There is no 行 in font [lmmono10-italic]!
+Missing character: There is no 多 in font [lmmono10-italic]!
+Missing character: There is no 个 in font [lmmono10-italic]!
+Missing character: There is no 子 in font [lmmono10-italic]!
+Missing character: There is no 进 in font [lmmono10-italic]!
+Missing character: There is no 程 in font [lmmono10-italic]!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 使 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 用 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 创 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 建 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 进 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 程 in font [lmsans10-bold]:mapping=tex-text!
+ [45]
+Missing character: There is no 等 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 待 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 一 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 个 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 子 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 进 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 程 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [46]
+Missing character: There is no （ in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 孵 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 化 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no ） in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no （ in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 孵 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 化 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no ） in font [lmsans10-bold]:mapping=tex-text!
+ [47]
+Missing character: There is no 结 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 论 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [48]
+Chapter 13.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 例 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 子 in font [lmsans10-bold]:mapping=tex-text!
+[49
+
+]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [50]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 例 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 子 in font [lmsans10-bold]:mapping=tex-text!
+ [51]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [52]
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+ [53]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [54
+
+]
+Chapter 14.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 示 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 例 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 数 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 据 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 通 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 配 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 符 in font [lmsans10-bold]:mapping=tex-text!
+[55]
+Missing character: There is no 单 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 一 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 字 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 符 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 通 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 配 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 符 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 字 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 符 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 范 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 围 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [56]
+Chapter 15.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 创 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 建 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 一 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 对 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 象 in font [lmsans10-bold]:mapping=tex-text!
+[57
+
+]
+Missing character: There is no 写 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 回 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [58]
+Missing character: There is no 指 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 定 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 类 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 型 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 指 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 定 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 类 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 型 in font [lmsans10-bold]:mapping=tex-text!
+ [59]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [60
+
+]
+Chapter 16.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 创 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 建 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 一 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 个 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 定 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 义 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 选 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 项 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 分 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 析 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 一 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 个 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 命 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 令 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 行 in font [lmsans10-bold]:mapping=tex-text!
+[61]
+Missing character: There is no 简 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 单 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 示 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 例 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 与 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 的 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 比 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 较 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [62]
+Missing character: There is no 选 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 项 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 回 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 调 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 选 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 项 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 回 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 调 in font [lmsans10-bold]:mapping=tex-text!
+ [63]
+Missing character: There is no 帮 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 助 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 信 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 息 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [64]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 帮 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 助 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 信 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 息 in font [lmsans10-bold]:mapping=tex-text!
+ [65]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [66
+
+]
+Chapter 17.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 复 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 制 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 件 in font [lmsans10-bold]:mapping=tex-text!
+[67]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [68]
+Missing character: There is no 复 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 制 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 件 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 元 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 信 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 息 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 复 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 制 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 件 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 元 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 信 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 息 in font [lmsans10-bold]:mapping=tex-text!
+ [69]
+Missing character: There is no 目 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 录 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 树 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [70]
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+ [71]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [72
+
+]
+Chapter 18.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 分 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 解 in font [lmsans10-bold]:mapping=tex-text!
+[73]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [74]
+Missing character: There is no 组 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 装 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 组 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 装 in font [lmsans10-bold]:mapping=tex-text!
+ [75]
+Missing character: There is no 连 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 接 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [76]
+Chapter 19.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 解 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 析 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 路 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 径 in font [lmsans10-bold]:mapping=tex-text!
+[77
+
+]
+Missing character: There is no 创 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 建 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 路 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 径 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [78]
+Missing character: There is no 标 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 准 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 化 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 路 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 径 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 创 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 建 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 路 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 径 in font [lmsans10-bold]:mapping=tex-text!
+ [79]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 件 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 时 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 间 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 测 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 试 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 件 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [80]
+Missing character: There is no 遍 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 历 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 目 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 录 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 树 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 遍 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 历 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 目 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 录 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 树 in font [lmsans10-bold]:mapping=tex-text!
+ [81]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [82]
+Chapter 20.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 处 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 理 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 器 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 时 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 钟 in font [lmsans10-bold]:mapping=tex-text!
+[83
+
+]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [84]
+Missing character: There is no 解 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 析 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 和 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 格 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 式 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 化 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 时 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 间 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 使 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 用 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 时 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 区 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [85]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [86]
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+ [87]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [88
+
+]
+Chapter 21.
+Missing character: There is no 时 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 间 in font [lmsans10-bold]:mapping=tex-text!
+[89]
+Missing character: There is no 日 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 期 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [90]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [91]
+Missing character: There is no 比 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 较 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 日 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 期 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 和 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 时 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 间 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 组 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 合 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [92]
+Missing character: There is no 格 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 式 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 化 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 和 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 解 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 析 in font [lmsans10-bold]:mapping=tex-text!
+
+Underfull \hbox (badness 10000) in paragraph at lines 4534--4535
+\EU1/STHeiti(0)/bx/n/10 datetime 对 象 的 字 符 串 表 示 方 法 默 �
+� 使 用 的 是 ISO 8601 格 式 （YYYY-MM-
+ []
+
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 格 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 式 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 化 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 和 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 解 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 析 in font [lmsans10-bold]:mapping=tex-text!
+[93]
+Missing character: There is no 时 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 区 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [94]
+Chapter 22.
+[95
+
+]
+Missing character: There is no 编 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 码 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 数 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no ： in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 这 in font [lmmono10-italic]!
+Missing character: There is no 个 in font [lmmono10-italic]!
+Missing character: There is no 编 in font [lmmono10-italic]!
+Missing character: There is no 码 in font [lmmono10-italic]!
+Missing character: There is no 是 in font [lmmono10-italic]!
+Missing character: There is no 将 in font [lmmono10-italic]!
+Missing character: There is no 其 in font [lmmono10-italic]!
+Missing character: There is no 转 in font [lmmono10-italic]!
+Missing character: There is no 换 in font [lmmono10-italic]!
+Missing character: There is no 为 in font [lmmono10-italic]!
+Missing character: There is no 的 in font [lmmono10-italic]!
+Missing character: There is no 形 in font [lmmono10-italic]!
+Missing character: There is no 式 in font [lmmono10-italic]!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [96]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 编 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 码 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 数 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no ： in font [lmsans10-bold]:mapping=tex-text!
+ [97]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [98]
+Missing character: There is no 带 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 简 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 单 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 检 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 索 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no ： in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 未 in font [lmmono9-regular]!
+Missing character: There is no 知 in font [lmmono9-regular]!
+Missing character: There is no 大 in font [lmmono9-regular]!
+Missing character: There is no 小 in font [lmmono9-regular]!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 带 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 简 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 单 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 检 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 索 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no ： in font [lmsans10-bold]:mapping=tex-text!
+ [99]
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [100]
+Chapter 23.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 简 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 单 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 匹 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 配 in font [lmsans10-bold]:mapping=tex-text!
+[101
+
+]
+Missing character: There is no 过 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 滤 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 翻 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 译 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 模 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 式 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [102]
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+ [103]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [104
+
+]
+Chapter 24.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 创 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 建 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 和 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 设 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 置 in font [lmsans10-bold]:mapping=tex-text!
+[105]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [106]
+Missing character: There is no 编 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 码 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 后 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 的 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 值 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 接 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 收 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 和 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 解 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 析 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 头 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 编 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 码 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 后 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 的 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 值 in font [lmsans10-bold]:mapping=tex-text!
+ [107]
+Missing character: There is no 选 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 择 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 输 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 出 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 格 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 式 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 不 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 推 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 荐 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 使 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 用 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 的 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 类 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [108]
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 不 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 推 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 荐 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 使 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 用 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 的 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 类 in font [lmsans10-bold]:mapping=tex-text!
+ [109]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [110
+
+]
+Chapter 25.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 编 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 码 in font [lmsans10-bold]:mapping=tex-text!
+[111]
+Missing character: There is no 解 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 码 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 变 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 化 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [112]
+Missing character: There is no 其 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 他 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 编 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 码 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 其 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 他 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 编 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 码 in font [lmsans10-bold]:mapping=tex-text!
+ [113]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [114
+
+]
+Chapter 26.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 简 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 单 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 示 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 例 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 窗 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 口 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 标 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 签 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 使 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 用 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 特 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 定 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 的 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 浏 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 览 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 器 in font [lmsans10-bold]:mapping=tex-text!
+[115]
+Missing character: There is no 变 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 量 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 命 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 令 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 行 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 接 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 口 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [116]
+Chapter 27.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 创 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 建 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 一 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 个 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 新 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 的 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 数 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 据 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 库 in font [lmsans10-bold]:mapping=tex-text!
+[117
+
+]
+Missing character: There is no 打 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 开 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 一 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 个 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 存 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 在 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 的 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 数 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 据 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 库 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 错 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 误 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 案 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 例 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [118]
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+ [119]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [120
+
+]
+Chapter 28.
+Missing character: There is no 发 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 送 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 一 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 封 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 邮 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 件 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 显 in font [lmmono10-italic]!
+Missing character: There is no 示 in font [lmmono10-italic]!
+Missing character: There is no 与 in font [lmmono10-italic]!
+Missing character: There is no 服 in font [lmmono10-italic]!
+Missing character: There is no 务 in font [lmmono10-italic]!
+Missing character: There is no 器 in font [lmmono10-italic]!
+Missing character: There is no 的 in font [lmmono10-italic]!
+Missing character: There is no 通 in font [lmmono10-italic]!
+Missing character: There is no 信 in font [lmmono10-italic]!
+Missing character: There is no 情 in font [lmmono10-italic]!
+Missing character: There is no 况 in font [lmmono10-italic]!
+[121]
+Missing character: There is no 认 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 证 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 和 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 加 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 密 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [122]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 认 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 证 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 和 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 加 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 密 in font [lmsans10-bold]:mapping=tex-text!
+ [123]
+Missing character: There is no 验 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 证 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 一 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 个 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 邮 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 件 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 地 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 址 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [124]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+ [125]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [126
+
+]
+Chapter 29.
+Missing character: There is no 命 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 令 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 行 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 接 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 口 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 跟 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 踪 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 时 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 的 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 异 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 常 in font [lmsans10-bold]:mapping=tex-text!
+[127]
+Missing character: There is no 代 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 码 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 报 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 告 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [128]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 代 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 码 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 报 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 告 in font [lmsans10-bold]:mapping=tex-text!
+ [129]
+Missing character: There is no 调 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 用 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 关 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 系 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 编 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 程 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 接 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 口 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [130]
+Missing character: There is no 保 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 存 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 结 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 果 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 数 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 据 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 编 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 程 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 接 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 口 in font [lmsans10-bold]:mapping=tex-text!
+ [131]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [132]
+Missing character: There is no 选 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 项 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 选 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 项 in font [lmsans10-bold]:mapping=tex-text!
+ [133]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [134
+
+]
+Chapter 30.
+Missing character: There is no 函 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 数 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 类 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 封 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 装 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 和 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 解 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 封 in font [lmsans10-bold]:mapping=tex-text!
+[135]
+Missing character: There is no 字 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 节 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 序 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [136]
+Missing character: There is no 缓 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 冲 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 缓 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 冲 in font [lmsans10-bold]:mapping=tex-text!
+ [137]
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [138]
+Chapter 31.
+Missing character: There is no 数 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 组 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 的 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 初 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 始 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 化 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 处 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 理 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 数 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 组 in font [lmsans10-bold]:mapping=tex-text!
+[139
+
+]
+Missing character: There is no 数 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 组 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 和 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 件 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 交 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 替 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 字 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 节 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 排 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 序 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [140]
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+ [141]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [142
+
+]
+Chapter 32.
+Missing character: There is no 例 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 子 in font [lmsans10-bold]:mapping=tex-text!
+[143]
+Missing character: There is no 在 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 非 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 终 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 端 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 中 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 使 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 用 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [144]
+Chapter 33.
+Missing character: There is no 常 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 量 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 函 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 数 in font [lmsans10-bold]:mapping=tex-text!
+[145
+
+]
+Missing character: There is no 模 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 板 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [146]
+Missing character: There is no 模 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 板 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 的 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 高 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 级 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 应 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 用 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 模 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 板 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 的 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 高 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 级 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 应 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 用 in font [lmsans10-bold]:mapping=tex-text!
+ [147]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [148]
+Missing character: There is no 不 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 推 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 荐 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 使 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 用 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 的 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 函 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 数 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 不 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 推 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 荐 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 使 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 用 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 的 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 函 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 数 in font [lmsans10-bold]:mapping=tex-text!
+ [149]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [150
+
+]
+Chapter 34.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 基 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 类 in font [lmsans10-bold]:mapping=tex-text!
+[151]
+Missing character: There is no 异 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 常 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 的 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 引 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 发 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [152]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 异 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 常 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 的 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 引 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 发 in font [lmsans10-bold]:mapping=tex-text!
+ [153]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [154]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 异 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 常 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 的 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 引 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 发 in font [lmsans10-bold]:mapping=tex-text!
+ [155]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [156]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 异 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 常 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 的 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 引 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 发 in font [lmsans10-bold]:mapping=tex-text!
+ [157]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [158]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 异 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 常 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 的 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 引 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 发 in font [lmsans10-bold]:mapping=tex-text!
+ [159]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [160]
+Missing character: There is no 列 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 表 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 列 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 表 in font [lmsans10-bold]:mapping=tex-text!
+ [161]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [162]
+Chapter 35.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 合 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 并 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 和 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 切 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 分 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 迭 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 代 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 器 in font [lmsans10-bold]:mapping=tex-text!
+[163
+
+]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [164]
+Missing character: There is no 转 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 换 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 输 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 入 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 转 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 换 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 输 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 入 in font [lmsans10-bold]:mapping=tex-text!
+ [165]
+Missing character: There is no 产 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 生 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 新 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 值 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [166]
+Missing character: There is no 过 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 滤 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 过 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 滤 in font [lmsans10-bold]:mapping=tex-text!
+ [167]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [168]
+Missing character: There is no 分 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 组 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 数 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 据 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 比 in font [lmmono10-italic]!
+Missing character: There is no 较 in font [lmmono10-italic]!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 分 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 组 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 数 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 据 in font [lmsans10-bold]:mapping=tex-text!
+ [169]
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [170]
+Chapter 36.
+Missing character: There is no 局 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 限 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 测 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 试 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 件 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 从 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 存 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 中 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 读 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 取 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 元 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 数 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 据 in font [lmsans10-bold]:mapping=tex-text!
+[171
+
+]
+Missing character: There is no 从 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 案 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 中 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 提 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 取 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 件 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [172]
+Missing character: There is no 创 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 建 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 一 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 个 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 新 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 的 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 案 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 从 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 案 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 中 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 提 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 取 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 件 in font [lmsans10-bold]:mapping=tex-text!
+ [173]
+Missing character: There is no 使 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 用 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 备 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 选 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 的 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 存 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 成 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 员 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 名 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [174]
+Missing character: There is no 从 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 源 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 而 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 非 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 件 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 上 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 写 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 数 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 据 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 通 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 过 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 实 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 例 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 写 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 入 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 从 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 源 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 而 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 非 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 件 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 上 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 写 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 数 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 据 in font [lmsans10-bold]:mapping=tex-text!
+ [175]
+Missing character: There is no 追 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 加 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 件 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [176]
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 案 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 这 in font [lmmono10-italic]!
+Missing character: There is no 段 in font [lmmono10-italic]!
+Missing character: There is no 代 in font [lmmono10-italic]!
+Missing character: There is no 码 in font [lmmono10-italic]!
+Missing character: There is no 就 in font [lmmono10-italic]!
+Missing character: There is no 可 in font [lmmono10-italic]!
+Missing character: There is no 以 in font [lmmono10-italic]!
+Missing character: There is no 直 in font [lmmono10-italic]!
+Missing character: There is no 接 in font [lmmono10-italic]!
+Missing character: There is no 将 in font [lmmono10-italic]!
+Missing character: There is no 当 in font [lmmono10-italic]!
+Missing character: There is no 前 in font [lmmono10-italic]!
+Missing character: There is no 目 in font [lmmono10-italic]!
+Missing character: There is no 录 in font [lmmono10-italic]!
+Missing character: There is no 压 in font [lmmono10-italic]!
+Missing character: There is no 缩 in font [lmmono10-italic]!
+Missing character: There is no 打 in font [lmmono10-italic]!
+Missing character: There is no 包 in font [lmmono10-italic]!
+Missing character: There is no ， in font [lmmono10-italic]!
+Missing character: There is no 还 in font [lmmono10-italic]!
+Missing character: There is no 能 in font [lmmono10-italic]!
+Missing character: There is no 编 in font [lmmono10-italic]!
+Missing character: There is no 译 in font [lmmono10-italic]!
+Missing character: There is no 脚 in font [lmmono10-italic]!
+Missing character: There is no 本 in font [lmmono10-italic]!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 案 in font [lmsans10-bold]:mapping=tex-text!
+ [177]
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [178]
+Chapter 37.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 简 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 单 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 的 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 请 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 求 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 例 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 子 in font [lmsans10-bold]:mapping=tex-text!
+[179
+
+]
+Missing character: There is no 线 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 程 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 和 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 进 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 程 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 这 in font [lmmono10-italic]!
+Missing character: There is no 里 in font [lmmono10-italic]!
+Missing character: There is no 就 in font [lmmono10-italic]!
+Missing character: There is no 可 in font [lmmono10-italic]!
+Missing character: There is no 以 in font [lmmono10-italic]!
+Missing character: There is no 自 in font [lmmono10-italic]!
+Missing character: There is no 己 in font [lmmono10-italic]!
+Missing character: There is no 处 in font [lmmono10-italic]!
+Missing character: There is no 理 in font [lmmono10-italic]!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [180]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [181]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [182]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [183]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [184
+
+]
+Chapter 38.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 输 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 出 in font [lmsans10-bold]:mapping=tex-text!
+[185]
+Missing character: There is no 格 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 式 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 化 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [186]
+Missing character: There is no 其 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 他 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 类 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 递 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 归 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 其 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 他 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 类 in font [lmsans10-bold]:mapping=tex-text!
+ [187]
+Missing character: There is no 限 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 制 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 嵌 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 套 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 输 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 出 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 控 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 制 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 输 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 出 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 宽 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 度 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [188]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 控 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 制 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 输 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 出 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 宽 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 度 in font [lmsans10-bold]:mapping=tex-text!
+ [189]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [190
+
+]
+Chapter 39.
+Missing character: There is no 描 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 述 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 服 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 务 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 器 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 类 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 型 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 服 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 务 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 器 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 对 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 象 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 实 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 现 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 一 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 个 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 服 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 务 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 器 in font [lmsans10-bold]:mapping=tex-text!
+[191]
+Missing character: There is no 请 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 求 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 处 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 理 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 者 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 例 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 子 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [192]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 例 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 子 in font [lmsans10-bold]:mapping=tex-text!
+ [193]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [194]
+Missing character: There is no 线 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 程 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 和 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 进 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 程 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 线 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 程 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 和 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 进 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 程 in font [lmsans10-bold]:mapping=tex-text!
+ [195]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [196]
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+ [197]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [198
+
+]
+Chapter 40.
+Missing character: There is no 客 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 户 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 端 in font [lmsans10-bold]:mapping=tex-text!
+[199]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [200]
+Underfull \vbox (badness 10000) detected at line 10088
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 10088
+ []
+
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 客 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 户 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 端 in font [lmsans10-bold]:mapping=tex-text!
+[201]
+Missing character: There is no 服 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 务 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 器 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [202]
+Underfull \vbox (badness 10000) detected at line 10230
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 10230
+ []
+
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 服 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 务 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 器 in font [lmsans10-bold]:mapping=tex-text!
+[203]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [204]
+Underfull \vbox (badness 10000) detected at line 10318
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 10318
+ []
+
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 服 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 务 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 器 in font [lmsans10-bold]:mapping=tex-text!
+[205]
+Missing character: There is no 其 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 他 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 循 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 环 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 事 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 件 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 的 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 处 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 理 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [206]
+Underfull \vbox (badness 10000) detected at line 10456
+ []
+
+
+Underfull \vbox (badness 10000) detected at line 10456
+ []
+
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 其 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 他 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 循 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 环 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 事 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 件 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 的 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 处 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 理 in font [lmsans10-bold]:mapping=tex-text!
+[207]
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 件 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 处 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 理 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+ [208]
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 文 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 档 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 版 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 本 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 参 in font [lmsans10-bold]:mapping=tex-text!
+Missing character: There is no 考 in font [lmsans10-bold]:mapping=tex-text!
+ [209] (./PyMOTW.aux)
+LaTeX Font Info:    Some font shapes were not available, defaults substituted.
+ ) 
 Here is how much of TeX's memory you used:
- 6954 strings out of 95080
- 87128 string characters out of 1183098
- 157556 words of memory out of 1500000
- 9948 multiletter control sequences out of 10000+50000
- 31237 words of font info for 39 fonts, out of 1200000 for 2000
- 29 hyphenation exceptions out of 8191
- 34i,5n,45p,742b,976s stack positions out of 5000i,500n,6000p,200000b,5000s
-{/usr/share/texmf-texlive/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-texlive
-/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/
-helvetic/uhvbo8a.pfb></usr/share/texmf-texlive/fonts/type1/urw/times/utmr8a.pfb
->
-Output written on PyMOTW.pdf (2 pages, 27148 bytes).
-PDF statistics:
- 41 PDF objects out of 1000 (max. 8388607)
- 3 named destinations out of 1000 (max. 131072)
- 41 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 11152 strings out of 494701
+ 169280 string characters out of 1164830
+ 306804 words of memory out of 3000000
+ 14149 multiletter control sequences out of 10000+50000
+ 9623 words of font info for 60 fonts, out of 3000000 for 5000
+ 670 hyphenation exceptions out of 8191
+ 41i,12n,49p,453b,445s stack positions out of 5000i,500n,10000p,200000b,50000s
 
+Output written on PyMOTW.pdf (217 pages).

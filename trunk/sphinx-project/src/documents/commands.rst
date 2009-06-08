@@ -9,19 +9,21 @@ commands模块包含一些用于处理Unix下shell命令及其输出的函数.
 * 目的: 运行外部shell命令并能捕获退出状态码和输出结果.
 * Python版本: 1.4+
 
-描述:
+描述
 -------
 
-注意: 这个模块相对于 `subprocess <http://blog.doughellmann.com/2007/07/pymotw-subprocess.html>`_ 来说是已经过时了.
+.. note::
+
+    这个模块相对于 `subprocess <http://blog.doughellmann.com/2007/07/pymotw-subprocess.html>`_ 来说是已经过时了.
 
 commands模块主要有3个用于处理外部命令的函数.这些函数具有shell感知并且能返回被执行命令的输出和状态码.
 
-getstatusoutput():
+getstatusoutput()
 ---------------------
 
 getstatusoutput() 函数通过shell运行一个命令, 之后返回退出状态码和文本输出(包含stdout和stderr的信息). 退出状态码是和C函数的wait()或os.wait()一样的, 是一个16位整数. 低字节包含杀死该进程的信号标识符. 当信号标识符为0时, 高字节表示了程序的退出状态. 如果产生了一个核心文件, 低字节的最高比特位会被设置1.
 
-.. code-block::python
+.. code-block:: python
 
     from commands import *
 
@@ -78,12 +80,12 @@ getstatusoutput() 函数通过shell运行一个命令, 之后返回退出状态�
 
 我使用了"kill -HUP $PID"来杀死这个读进程.
 
-getoutput():
--------------------
+getoutput()
+-------------
 
 如果退出状态码对于你的应用来说是没有用的, 你使用getoutput()可以仅仅获得文本输出.
 
-.. code-block::python
+.. code-block:: python
 
     from commands import *
 
@@ -111,12 +113,12 @@ getoutput():
 
 
 
-getstatus():
-----------------
+getstatus()
+------------
 
 和你期望的可能不一样, getstatus()函数在运行一个命令之后不是返回状态码. 而是, 传递一个参数给它, 这个参数是一个文件名, 被合并到"ls -ld"中, 运行该命令之后返回相应文本输出, 即获得该文件的相关信息.
 
-.. code-block::python
+.. code-block:: python
 
     from commands import *
 
@@ -131,6 +133,7 @@ getstatus():
 从输出可以看到, 参数中的字符$不会被转义, 所以相关环境变量也不会被扩展.
 
 ::
+
     $ python commands_getstatus.py
     commands_getstatus.py: -rw-r--r-- 1 dhellman dhellman 1387 Oct 21 10:19 commands_getstatus.py
     notthere.py: ls: notthere.py: No such file or directory
@@ -138,7 +141,7 @@ getstatus():
 
 
 
-参考:
+参考
 --------
 
 * `Python Module of the Week Home <http://www.doughellmann.com/projects/PyMOTW/>`_
