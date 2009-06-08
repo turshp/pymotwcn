@@ -6,7 +6,7 @@ PyMOTW: fileinput
 * 目的: 创建命令行过滤程序.
 * Python 版本: ?
 
-描述:
+描述
 ---------
 
 让我们从 fileinput 模块开始这个系列的学习吧. 这是一个非常有用的模块, 用于创建处理文本文件中过滤信息的命令行程序. 例如, 最近为我的朋友 `Patrick <http://events.mediumloud.com/>`_ 写了个应用 m3utorss , 用于将一些小demo转成podcastable格式便于记录.
@@ -22,7 +22,7 @@ PyMOTW: fileinput
 
 我本应该手工写所有文件的处理代码. 但没有非常复杂, 在一些测试之后, 我确信, 连错误处理都可以正确处理. 但是使用fileinput模块, 我可以不用这么麻烦的考虑很多东西, 主需要写如下:
 
-.. code-block::python
+.. code-block:: python
 
     import fileinput
     import sys
@@ -45,7 +45,7 @@ PyMOTW: fileinput
 
 在这个例子中, 我不需要关心正在处理哪个文件和具体的哪个行. 可能还是其他工具(例如, 类grep搜索工具). fileinput模块也包含了访问这些信息的函数(filename(), filelineno(), lineno(), 等等). 具体使用可参考fileinput的标准库文档.
 
-参考:
+参考
 -------
 
 * `fileinput <http://docs.python.org/library/fileinput.html>`_ 该模块的标准库文档.

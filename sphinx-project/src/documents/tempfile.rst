@@ -9,12 +9,12 @@ PyMOTW: tempfile
 * 目的: 创建临时的文件系统资源.
 * Python 版本: 1.4 + (主安全修订版本2.3)
 
-描述:
+描述
 ------
 
 许多程序需要将产生的中间数据保存在文件中. 安全地创建一些具有唯一名字的文件,  使得想要中断应用的人无法猜测到这些文件的名字，这是具有挑战性的.  tempfile模块提供一些用于安全处理文件系统资源的函数. TemporaryFile()打开并返回一个未命名文件. NamedTemporaryFile() 打开并返回一个已命名文件, mktemp()可以创建一个临时目录并返回它的名字.
 
-临时文件:
+临时文件
 --------------------
 
 如果你的应用需要用一临时文件来存储数据, 但不想和其他程序共享数据的话, 创建文件的最好方式是使用TemporaryFile()函数. 它在任意一个可能的平台上创建文件，并且能够随时断开链接. 这让其他程序不可能找到或访问这个文件,因为在文件系统表中没有它的引用.这个由TemporaryFile()创建的文件在关闭的时候自动删除.
@@ -102,11 +102,12 @@ PyMOTW: tempfile
 这个文件把数据看成是文本字符串:
 
 ::
+
     $ python tempfile_TemporaryFile_text.py
     first
     second
 
-命名临时文件:
+命名临时文件
 --------------
 
 在一些情况下, 也需要命名临时文件. 如果你的程序跨越多个进程, 或者甚至是主机, 命名文件是一种最简单的在程序各部分间传递数据的方式. NamedTemporaryFile()函数创建了一个有名字的, 即可以按名访问的文件.
@@ -128,13 +129,14 @@ PyMOTW: tempfile
 即使文件被命名了, 他仍然可以在处理结束后删除.
 
 ::
+
     $ python tempfile_NamedTemporaryFile.py
     temp: <open file '<fdopen>', mode 'w+b' at 0x5c338>
     temp.name: /var/folders/9R/9R1t+tR02Raxzk+F71Q50U+++Uw/-Tmp-/tmplBKZMv
     Exists after close: False
 
 
-mkdtemp:
+mkdtemp
 ----------
 
 如果你需要多个临时文件, 可以创建一个临时目录然后把所有文件放在这个目录中. 使用mkdtemp()函数来创建一个临时目录.
@@ -153,16 +155,18 @@ mkdtemp:
 由于目录不是"opened", 你需要手动将它删除.
 
 :: 
+
     $ python tempfile_mkdtemp.py
     /var/folders/9R/9R1t+tR02Raxzk+F71Q50U+++Uw/-Tmp-/tmp0OsHPg
 
 
-预测文件名:
+预测文件名
 --------------
 
 为了便于调试, 需要将原始临时文件的一些信息保留. 当然这样明显地比匿名临时文件不安全很多, 包括名字中的一部分信息能够让你检测这个文件是否正在被你的程序使用. 到目前为止描述的所有函数需要3个参数来在一定程度上控制你的文件名. 命名规则如下:
 
 ::
+
     dir + prefix + random + suffix
 
 
@@ -186,13 +190,14 @@ mkdtemp:
 prefix 和suffix参数再联合一个随机字符串生成一个文件名, dir参数指定新文件所在的位置.
 
 ::
+
     $ python tempfile_NamedTemporaryFile_args.py
     temp: <open file '<fdopen>', mode 'w+b' at 0x5c338>
     temp.name: /tmp/prefix_zy-7H3_suffix
 
 
 
-临时文件的位置:
+临时文件的位置
 --------------------
 
 如果你没有使用dir参数来指定一个目标目录, 那么, 临时文件所在的真实路径会根据你平台和设置来确定. tempfile模块包含2个用于查询运行时间相关设置的函数:
@@ -208,30 +213,30 @@ prefix 和suffix参数再联合一个随机字符串生成一个文件名, dir�
 gettempdir()返回放所有临时文件的默认目录. gettempprefix()返回新文件和目录名字的字符串前缀.
 
 ::
+
     $ python tempfile_settings.py
     gettempdir(): /var/folders/9R/9R1t+tR02Raxzk+F71Q50U+++Uw/-Tmp-
     gettempprefix(): tmp
 
 gettempdir() 返回值的确定是基于一个直接查找算法, 它从一个位置列表中找到第一个可以创建文件的目录. 库文档中说明:
 
-::
-    Python查找一个标准目录列表, 将第一个用户有权限在其中创建文件的目录来设置tempdir . 这个列表是:
+Python查找一个标准目录列表, 将第一个用户有权限在其中创建文件的目录来设置tempdir . 这个列表是:
 
-    1. 环境变量TMPDIR中的目录名.
+1. 环境变量TMPDIR中的目录名.
 
-    2. 环境变量TEMP中的目录.
+2. 环境变量TEMP中的目录.
 
-    3. 环境变量TMP中的目录.
+3. 环境变量TMP中的目录.
 
-    4. 平台指定的位置:
+4. 平台指定的位置:
 
-        * 在RiscOS上, 由Wimp$ScrapDir指定目录名字.
+    * 在RiscOS上, 由Wimp$ScrapDir指定目录名字.
 
-        * 在Windows上, 以C:$\backslash$TEMP, C:$\backslash$TMP, $\backslash$TEMP, 和 $\backslash$TMP按序查找目录.
+    * 在Windows上, 以C:$\backslash$TEMP, C:$\backslash$TMP, $\backslash$TEMP, 和 $\backslash$TMP按序查找目录.
 
-        * 在其他平台上, 以/tmp, /var/tmp, 和/usr/tmp按序查找目录.
+    * 在其他平台上, 以/tmp, /var/tmp, 和/usr/tmp按序查找目录.
 
-    5. 最后一个是当前工作目录.
+5. 最后一个是当前工作目录.
 
 
 
@@ -245,17 +250,13 @@ gettempdir() 返回值的确定是基于一个直接查找算法, 它从一个�
     print 'gettempdir():', tempfile.gettempdir()
 
 ::
+
     $ python tempfile_tempdir.py
     gettempdir(): /I/changed/this/path
 
 
-参考:
+参考
 -------
 
 * `Python Module of the Week Home <http://www.doughellmann.com/projects/PyMOTW/>`_
 * `Download Sample Code <http://www.doughellmann.com/downloads/PyMOTW-1.40.tar.gz>`_
-
-
-
-
-

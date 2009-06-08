@@ -9,7 +9,7 @@ collections模块包含了一些除了内置类型, 如列表, 字典外的容�
 * 目的: 数据类型的包含容器.
 * Python 版本: 2.4 +
 
-双端队列:
+双端队列
 ------------
 
 一个双头队列, 或者"双端队列", 支持从每一端上增加和删除元素. 更常用的像栈和队列, 它们可看成是双端队列的特殊情况, 即被限制为输入和输出只能从一端进行.
@@ -64,9 +64,9 @@ collections模块包含了一些除了内置类型, 如列表, 字典外的容�
     d.appendleft('h')
     print 'appendleft:', d
 
-
-
-注意: extendleft()将对所有的输入进行, 其执行效果等价于对每一个元素进行appendleft(). 最终的结果是这个双端队列包含了一个逆序的输入元素序列.
+.. note::
+    
+    extendleft()将对所有的输入进行, 其执行效果等价于对每一个元素进行appendleft(). 最终的结果是这个双端队列包含了一个逆序的输入元素序列.
 
 ::
 
@@ -86,8 +86,8 @@ collections模块包含了一些除了内置类型, 如列表, 字典外的容�
 
     print 'From the right:'
     d = collections.deque('abcdefg')
+    
     while True:
-
         try:
             print d.pop() ## 从右
         except IndexError:
@@ -96,8 +96,8 @@ collections模块包含了一些除了内置类型, 如列表, 字典外的容�
 
     print 'From the left:'
     d = collections.deque('abcdefg')
-    while True:
 
+    while True:
         try:
             print d.popleft() ## 从左
         except IndexError:
@@ -124,8 +124,6 @@ collections模块包含了一些除了内置类型, 如列表, 字典外的容�
     f
     g
 
-
-
 因为双端队列是线程安全的, 所以你甚至可以在独立线程中从它的两端同时获取元素.
 
 .. code-block:: python
@@ -137,15 +135,14 @@ collections模块包含了一些除了内置类型, 如列表, 字典外的容�
     candle = collections.deque(xrange(11))
 
     def burn(direction, nextSource):
-
         while True:
             try:
                 next = nextSource()
             except IndexError:
                 break
             else:
-        print '%8s: %s' % (direction, next)
-        time.sleep(0.1)
+        	print '%8s: %s' % (direction, next)
+        	time.sleep(0.1)
         print '%8s done' % direction
         return
 
@@ -161,24 +158,24 @@ collections模块包含了一些除了内置类型, 如列表, 字典外的容�
 
 ::
 
-$ python collections_deque_both_ends.py
-     Left: 0
-     Right: 10
-     Left: 1
-     Right: 9
-     Left: 2
-     Right: 8
-     Left: 3
-     Right: 7
-     Left: 4
-     Right: 6
-     Left: 5
-     Right done
-     Left done
+    $ python collections_deque_both_ends.py
+    Left: 0
+    Right: 10
+    Left: 1
+    Right: 9
+    Left: 2
+    Right: 8
+    Left: 3
+    Right: 7
+    Left: 4
+    Right: 6
+    Left: 5
+    Right done
+    Left done
 
 
 
-另外一个双端队列有用的功能是在每一个方向上转动一些项, 以跳过某些项 .
+另外一个双端队列有用的功能是在每一个方向上转动一些项, 以跳过某些项.
 
 .. code-block:: python
 
@@ -208,7 +205,7 @@ $ python collections_deque_both_ends.py
 
 
 
-defaultdict:
+defaultdict
 ---------------
 
 
@@ -219,7 +216,6 @@ defaultdict:
     import collections
 
     def default_factory():
-
         return 'default value'
 
 
@@ -257,7 +253,6 @@ defaultdict的第一个参数default_factory, 提供了初始值, 默认为None,
     [('blue', [2, 4]), ('red', [1]), ('yellow', [1, 3])]
 
 例子2: 和上同样的效果, 只是使用了dict
-
 
 ::
 
@@ -305,7 +300,7 @@ defaultdict的第一个参数default_factory, 提供了初始值, 默认为None,
     [('blue', set([2, 4])), ('red', set([1, 3]))]
 
 
-参考:
+参考
 --------
 
 * `Wikipedia: Deque <http://en.wikipedia.org/wiki/Deque>`_

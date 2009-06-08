@@ -7,17 +7,17 @@ PyMOTW: calendar
 * 目的: 模块实现了面向年/月/星期的日期操作类
 * Python 版本: 1.4+ 但在2.5中有更新
 
-描述:
+描述
 ------
 
 calendar模块定义了一个Calendar类, 封装了一些日期值(比如指定某月或某年的某星期的日期值)的计算. 另外, TextCalendar和HTMLCalendar类提供预先格式化好的输出.
 
-格式化的例子:
+格式化的例子
 ---------------
 
 下面是一个非常简单的利用TextCalendar类及使用其prmonth()方法产生特定月份的格式化文本输出的例子.
 
-.. code-block::python
+.. code-block:: python
 
     import calendar
 
@@ -44,7 +44,7 @@ calendar模块定义了一个Calendar类, 封装了一些日期值(比如指定�
 
 同样时间的HTML输出稍有不同, 但她没有prmonth()函数:
 
-.. code-block::python
+.. code-block:: python
 
     import calendar
 
@@ -86,7 +86,7 @@ calendar模块定义了一个Calendar类, 封装了一些日期值(比如指定�
 
 调用yeardays2calendar()可以产生一个"月份 行"列表. 每个列表包含的月份可作为其他的星期列表. 星期是由日期数字(1-31)和星期数字(0-6)组成的元组列表. 如果某天落在月份之外, 那么它的天数字为0.
 
-.. code-block::python
+.. code-block:: python
 
     pprint.pprint(calendar.Calendar(calendar.SUNDAY).yeardays2calendar(2007, 2))
 
@@ -162,10 +162,9 @@ calendar模块定义了一个Calendar类, 封装了一些日期值(比如指定�
 
 这等价于使用formatyear()函数获得的数据
 
-.. code-block::python
+.. code-block:: python
 
     print calendar.TextCalendar(calendar.SUNDAY).formatyear(2007, 2, 1, 1, 2)
-
 
 
 以相同的参数值传入, 其输出结果:
@@ -228,12 +227,12 @@ calendar模块定义了一个Calendar类, 封装了一些日期值(比如指定�
 
 如果你由于某些原因(如想在HTML输出中包含一些链接)需要自己组织输出格式, 你可以使用day_name, day_abbr, month_name, 和month_abbr这些模块属性. 它们可以为当前环境自动配置正确.
 
-计算例子:
+计算例子
 ---------
 
 虽然calendar模块大部分关注日历的不同格式的输出, 但它也提供了一些使用其他方式处理日期的函数, 如计算用于循环事件中的日期. 例如, `Python Atlanta User's Group <http://pyatl.org/>`_ 在每个月的第一个星期四会面. 为了计算一年的所有会面日期, 你可以使用monthcalendar().
 
-.. code-block::python
+.. code-block:: python
 
     pprint.pprint(calendar.monthcalendar(2007, 7))
 
@@ -255,7 +254,7 @@ calendar模块定义了一个Calendar类, 封装了一些日期值(比如指定�
 
 为了计算PyATL在2007年的会面日期, 假设是每个月的第二个星期四, 我们可以使用0值来表明第一个星期的星期二是否被包含在某月中(如果某个月是以星期五开始的, 那么对应的这周中的星期四的值为0).
 
-.. code-block::python
+.. code-block:: python
 
     import calendar
 
@@ -299,7 +298,7 @@ calendar模块定义了一个Calendar类, 封装了一些日期值(比如指定�
 
 
 
-参考:
+参考
 ---------
 
 * `Python Module of the Week Home <http://www.doughellmann.com/projects/PyMOTW/>`_
