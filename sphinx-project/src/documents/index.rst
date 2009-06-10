@@ -68,3 +68,16 @@
     SocketServer.rst
 
     asyncore.rst
+    
+    tempfile.rst
+    sched.rst
+    csv.rst
+    calendar.rst
+    commands.rst
+    atexit.rst
+    collections.rst
+    fileinput.rst
+    getopt.rst
+    hashlib.rst
+    unittest.rst
+    heapq.rst

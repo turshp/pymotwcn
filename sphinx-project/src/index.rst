@@ -73,6 +73,8 @@
     documents/fileinput.rst
     documents/getopt.rst
     documents/hashlib.rst
+    documents/unittest.rst
+    documents/heapq.rst
 
 索引表
 ==================
