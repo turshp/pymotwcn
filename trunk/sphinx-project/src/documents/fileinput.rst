@@ -1,5 +1,5 @@
 PyMOTW: fileinput
-================
+======================
 .. currentmodule:: fileinput
 
 * 模块: fileinput
