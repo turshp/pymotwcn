@@ -1,8 +1,6 @@
 #labels Phase-Support,Featured
 # 这里记录翻译PyMOTW各个章节的详细情况
 
-# 我们的目标是每月至少翻译8篇文章，发布一个新版本
-
 = 所有章节 =
 组织结构和[http://www.doughellmann.com/PyMOTW/contents.html Doug Hellmann章节]一致.
 *粗体*表示未处理的章节; _斜体_表示正在处理中; 有链接的表示已经完成并发布出来
