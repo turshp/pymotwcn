@@ -10,7 +10,7 @@
     * Subscribe
     * Translations and Other Versions
     * Other Contributors
-    * Copyright and Licensing
+    * right and Licensing
   * Builtin Objects
     * [http://vbarter.cn/pymotw/documents/exceptions.html exceptions]
   * String Services
@@ -29,7 +29,7 @@
     * _sched_ 
     * [http://www.vbarter.cn/pymotw/documents/queue.html Queue] ~ 100% by vbarter/liz
     * _weakref_
-    * *copy* 
+    * _copy_ 
     * [http://vbarter.cn/pymotw/documents/pprint.html pprint] 
   * Numeric and Mathematical Modules
     * [http://vbarter.cn/pymotw/documents/itertools.html itertools] 
@@ -171,6 +171,7 @@
 || PyMOTW: cmd || 初译ing || liz || - ||
 || PyMOTW: contextlib || 初译ing || liz || - ||
 || PyMOTW: traceback || 初译ing || liz || - ||
+|| PyMOTW: copy || 初译ing || wwwjfy || - ||
 || 标题  ||  状态 ||  翻译者   ||   校验者   ||
 
 附上状态说明
