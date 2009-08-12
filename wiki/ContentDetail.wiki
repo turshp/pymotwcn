@@ -80,7 +80,7 @@
     * _getopt_
     * [http://www.vbarter.cn/pymotw/documents/logging.html logging] ~ 100% by vbarter/liz
     * [http://vbarter.cn/pymotw/documents/getpass.html getpass] 
-    * *platform* 
+    * _platform_
   * Optional Operating System Services
     * _threading_
     * _mmap_ 
@@ -156,6 +156,7 @@
 || PyMOTW: commands || 初译done || liz || vbarter ||
 || PyMOTW: unittest || 初译done || liz || vbarter ||
 || PyMOTW: timeit || 初译done/初校done || vbarter || liz ||
+|| PyMOTW: platform || 初译ing || - || - ||
 || - || - || - || - ||
 || PyMOTW: fileinput || 初译ing || liz || - ||
 || PyMOTW: heapq || 初译ing || liz || - ||
