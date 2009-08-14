@@ -156,7 +156,7 @@
 || PyMOTW: commands || 初译done || liz || vbarter ||
 || PyMOTW: unittest || 初译done || liz || vbarter ||
 || PyMOTW: timeit || 初译done/初校done || vbarter || liz ||
-|| PyMOTW: platform || 初译ing || - || - ||
+|| PyMOTW: platform || 初译done || Mafiacyj || - ||
 || - || - || - || - ||
 || PyMOTW: fileinput || 初译ing || liz || - ||
 || PyMOTW: heapq || 初译ing || liz || - ||
