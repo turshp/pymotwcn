@@ -84,7 +84,7 @@
   * Optional Operating System Services
     * _threading_
     * _mmap_ 
-    * *readline* 
+    * _readline_ 
     * *rlcompleter* 
   * Unix-specific Services
     * _commands_ 
@@ -173,6 +173,7 @@
 || PyMOTW: contextlib || 初译ing || liz || - ||
 || PyMOTW: traceback || 初译ing || liz || - ||
 || PyMOTW: copy || 初译ing || wwwjfy || - ||
+|| PyMOTW: readline || 初译ing || Mafiacyj || - ||
 || 标题  ||  状态 ||  翻译者   ||   校验者   ||
 
 附上状态说明
