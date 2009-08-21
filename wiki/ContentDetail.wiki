@@ -22,11 +22,11 @@
   * Data Types
     * [http://www.vbarter.cn/pymotw/documents/array.html array] ~ 100% by vbarter/liz
     * [http://www.vbarter.cn/pymotw/documents/datetime.html datetime] ~ 100% by vbarter/liz
-    * _calendar_ 
-    * _collections_
-    * _heapq_ 
+    * calendar: 已完成, 待url  
+    * collections: 已完成, 待url 
+    * heapq: 已完成, 待url 
     * [http://www.vbarter.cn/pymotw/documents/bisect.html bisect] ~ 100% by vbarter/liz
-    * _sched_ 
+    * sched: 已完成, 待url 
     * [http://www.vbarter.cn/pymotw/documents/queue.html Queue] ~ 100% by vbarter/liz
     * _weakref_
     * _copy_ 
@@ -40,16 +40,16 @@
     * *mailbox*
     * *mhlib* 
   * File Formats
-    * _csv_
+    * csv: 已完成, 待url 
     * [http://www.vbarter.cn/pymotw/documents/configparser.html ConfigParser] ~ 100% by vbarter/liz
   * Cryptographic Services
-    * _hashlib_ 
+    * hashlib: 已完成, 待url  
     * _hmac_
   * File and Directory Access
     * [http://www.vbarter.cn/pymotw/documents/os.path.html os.path] ~ 100% by vbarter/liz
-    * _fileinput_
+    * fileinput: 已完成, 待url 
     * _filecmp_
-    * _tempfile_ 
+    * tempfile: 已完成, 待url 
     * [http://www.vbarter.cn/pymotw/documents/glob.html glob] ~ 100% by vbarter/liz
     * [http://www.vbarter.cn/pymotw/documents/fnmatch.html fnmatch] ~ 100% by vbarter/liz
     * [http://www.vbarter.cn/pymotw/documents/linecache.html linecache] ~ 100% by vbarter/liz 
@@ -77,7 +77,7 @@
     * [http://www.vbarter.cn/pymotw/documents/os4.html os4] ~ 100% by vbarter/liz
     * [http://www.vbarter.cn/pymotw/documents/time.html time] ~ 100% by vbarter/liz
     * [http://www.vbarter.cn/pymotw/documents/optparse.html optparse] ~ 100% by vbarter/liz
-    * _getopt_
+    * getopt: 已完成, 待url 
     * [http://www.vbarter.cn/pymotw/documents/logging.html logging] ~ 100% by vbarter/liz
     * [http://vbarter.cn/pymotw/documents/getpass.html getpass] 
     * _platform_
@@ -87,7 +87,7 @@
     * _readline_ 
     * *rlcompleter* 
   * Unix-specific Services
-    * _commands_ 
+    * commands: 已完成, 待url 
     * *grp*
     * _pipes_
     * *pwd*
@@ -115,13 +115,13 @@
     * _cmd_ 
     * _shlex_  
   * Development Tools
-    * _unittest_
+    * unittest: 已完成, 待url
   * Debugging and Profiling
     * *profile, cProfile, and pstats* 
     * _timeit_  
     * [http://www.vbarter.cn/pymotw/documents/trace.html trace] ~ 100% by vbarter/liz
   * Python Runtime Services
-    * _atexit_ 
+    * atexit: 已完成, 待url  
     * _contextlib_ 
     * _inspect_  
     * _traceback_
@@ -138,28 +138,16 @@
 = 处理中的章节 =
 || 标题  ||  状态s ||  翻译者s   ||   校验者s   ||
 || PyMOTW: difflib || 初译ing || walker || vbarter ||
-|| PyMOTW: hashlib || 初译done || liz || vbarter ||
 || PyMOTW: filecmp || 初译done || liz || vbarter ||
 || PyMOTW: pipes || 初译done || liz || - ||
 || PyMOTW: hmac || 初译done || liz || - ||
 || PyMOTW: shlex || 初译done || liz || - ||
-|| PyMOTW: sched || 初译done || liz || - ||
 || PyMOTW: subprocess || 初译done || liz || - ||
 || PyMOTW: weakref || 初译done || liz || - ||
-|| PyMOTW: collections || 初译done || liz || - ||
-|| PyMOTW: csv || 初译done || liz || - ||
-|| PyMOTW: atexit || 初译done || liz || - ||
-|| PyMOTW: tempfile || 初译done/初校done || liz || ws ||
-|| PyMOTW: calendar|| 初译done || liz || vbarter ||
-|| PyMOTW: getopt || 初译done || liz || vbarter ||
 || PyMOTW: signal || 初译done || liz || vbarter ||
-|| PyMOTW: commands || 初译done || liz || vbarter ||
-|| PyMOTW: unittest || 初译done || liz || vbarter ||
 || PyMOTW: timeit || 初译done/初校done || vbarter || liz ||
 || PyMOTW: platform || 初译done || Mafiacyj || - ||
 || - || - || - || - ||
-|| PyMOTW: fileinput || 初译ing || liz || - ||
-|| PyMOTW: heapq || 初译ing || liz || - ||
 || PyMOTW: inspect || 初译ing || liz || - ||
 || PyMOTW: zipimport || 初译ing || liz || - ||
 || PyMOTW: mmap || 初译ing || liz || - ||
