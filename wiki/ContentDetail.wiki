@@ -147,6 +147,7 @@
 || PyMOTW: signal || 初译done || liz || vbarter ||
 || PyMOTW: timeit || 初译done/初校done || vbarter || liz ||
 || PyMOTW: platform || 初译done || Mafiacyj || - ||
+|| PyMOTW: readline || 初译done || Mafiacyj || - ||
 || - || - || - || - ||
 || PyMOTW: inspect || 初译ing || liz || - ||
 || PyMOTW: zipimport || 初译ing || liz || - ||
@@ -161,7 +162,6 @@
 || PyMOTW: contextlib || 初译ing || liz || - ||
 || PyMOTW: traceback || 初译ing || liz || - ||
 || PyMOTW: copy || 初译ing || wwwjfy || - ||
-|| PyMOTW: readline || 初译ing || Mafiacyj || - ||
 || 标题  ||  状态 ||  翻译者   ||   校验者   ||
 
 附上状态说明
