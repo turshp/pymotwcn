@@ -57,7 +57,7 @@
     * *dircache* 
   * Data Compression and Archiving
     * *bz2* 
-    * *gzip* 
+    * _gzip_ 
     * *tarfile*
     * [http://vbarter.cn/pymotw/documents/zipfile.html zipfile]
     * *zlib* 
@@ -162,6 +162,7 @@
 || PyMOTW: contextlib || 初译ing || liz || - ||
 || PyMOTW: traceback || 初译ing || liz || - ||
 || PyMOTW: copy || 初译ing || wwwjfy || - ||
+|| PyMOTW: gzip || 初译ing || Mafiacyj || - ||
 || 标题  ||  状态 ||  翻译者   ||   校验者   ||
 
 附上状态说明
