@@ -54,7 +54,7 @@
     * [http://www.vbarter.cn/pymotw/documents/fnmatch.html fnmatch] ~ 100% by vbarter/liz
     * [http://www.vbarter.cn/pymotw/documents/linecache.html linecache] ~ 100% by vbarter/liz 
     * [http://www.vbarter.cn/pymotw/documents/shutil.html shutil] ~ 100% by vbarter/liz
-    * *dircache* 
+    * _dircache_ 
   * Data Compression and Archiving
     * *bz2* 
     * _gzip_ 
@@ -163,6 +163,7 @@
 || PyMOTW: traceback || 初译ing || liz || - ||
 || PyMOTW: copy || 初译ing || wwwjfy || - ||
 || PyMOTW: gzip || 初译ing || Mafiacyj || - ||
+|| PyMOTW: dircache || 初译ing || Mafiacyj || - ||
 || 标题  ||  状态 ||  翻译者   ||   校验者   ||
 
 附上状态说明
