@@ -144,25 +144,14 @@
 || PyMOTW: shlex || 初译done || liz || - ||
 || PyMOTW: subprocess || 初译done || liz || - ||
 || PyMOTW: weakref || 初译done || liz || - ||
-|| PyMOTW: signal || 初译done || liz || vbarter ||
+|| PyMOTW: signal || 初译done/初校done || liz || vbarter ||
 || PyMOTW: timeit || 初译done/初校done || vbarter || liz ||
-|| PyMOTW: platform || 初译done || Mafiacyj || - ||
+|| PyMOTW: platform || 初译done/初校done || Mafiacyj || liz ||
 || PyMOTW: readline || 初译done || Mafiacyj || - ||
+|| PyMOTW: gzip || 初译ing/初校done || Mafiacyj || liz ||
 || - || - || - || - ||
-|| PyMOTW: inspect || 初译ing || liz || - ||
-|| PyMOTW: zipimport || 初译ing || liz || - ||
-|| PyMOTW: mmap || 初译ing || liz || - ||
-|| PyMOTW: threading || 初译ing || liz || - ||
-|| PyMOTW: pkgutil || 初译ing || liz || - ||
-|| PyMOTW: imp || 初译ing || liz || - ||
-|| PyMOTW: EasyDialogs || 初译ing || liz || - ||
-|| PyMOTW: operator || 初译ing || liz || - ||
 || PyMOTW: functools || 初译ing || liz || - ||
-|| PyMOTW: cmd || 初译ing || liz || - ||
-|| PyMOTW: contextlib || 初译ing || liz || - ||
-|| PyMOTW: traceback || 初译ing || liz || - ||
 || PyMOTW: copy || 初译ing || wwwjfy || - ||
-|| PyMOTW: gzip || 初译ing || Mafiacyj || - ||
 || PyMOTW: dircache || 初译ing || Mafiacyj || - ||
 || 标题  ||  状态 ||  翻译者   ||   校验者   ||
 
