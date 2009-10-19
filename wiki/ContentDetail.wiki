@@ -37,6 +37,7 @@
     * _operator_
   * Internet Data Handling
     * [http://www.vbarter.cn/pymotw/documents/base64.html base64] ~ 100% by vbarter/liz
+    * _json_
     * *mailbox*
     * *mhlib* 
   * File Formats
@@ -92,7 +93,7 @@
     * _pipes_
     * *pwd*
   * Interprocess Communication and Networking
-    * *asynchat*
+    * _asynchat_
     * [http://vbarter.cn/pymotw/documents/asyncore.html asyncore]
     * _signal_ 
     * _subprocess_
@@ -149,8 +150,10 @@
 || PyMOTW: platform || 初译done/初校done || Mafiacyj || liz ||
 || PyMOTW: readline || 初译done || Mafiacyj || - ||
 || PyMOTW: gzip || 初译ing/初校done || Mafiacyj || liz ||
+|| PyMOTW: functools || 初译done || liz || - ||
 || - || - || - || - ||
-|| PyMOTW: functools || 初译ing || liz || - ||
+|| PyMOTW: json || 初译ing || liz || - ||
+|| PyMOTW: asynchat || 初译ing || liz || - ||
 || PyMOTW: copy || 初译ing || wwwjfy || - ||
 || PyMOTW: dircache || 初译ing || Mafiacyj || - ||
 || 标题  ||  状态 ||  翻译者   ||   校验者   ||
