@@ -151,8 +151,12 @@
 || PyMOTW: readline || 初译done || Mafiacyj || - ||
 || PyMOTW: gzip || 初译ing/初校done || Mafiacyj || liz ||
 || PyMOTW: functools || 初译done || liz || - ||
+|| PyMOTW: json || 初译done || liz || - ||
+|| PyMOTW: pydoc || 初译done || liz || - ||
+|| PyMOTW: in-memorys data structure || 初译done || liz || - ||
 || - || - || - || - ||
-|| PyMOTW: json || 初译ing || liz || - ||
+
+|| PyMOTW: Text Processing Tools || 初译ing || liz || - ||
 || PyMOTW: asynchat || 初译ing || liz || - ||
 || PyMOTW: copy || 初译ing || wwwjfy || - ||
 || PyMOTW: dircache || 初译ing || Mafiacyj || - ||
