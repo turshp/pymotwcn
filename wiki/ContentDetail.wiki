@@ -142,8 +142,8 @@
 || PyMOTW: filecmp || 初译done || liz || vbarter ||
 || PyMOTW: pipes || 初译done || liz || - ||
 || PyMOTW: hmac || 初译done || liz || - ||
-|| PyMOTW: shlex || 初译done || liz || - ||
-|| PyMOTW: subprocess || 初译done || liz || - ||
+|| PyMOTW: shlex || 初译done || liz || pprivulet ||
+|| PyMOTW: subprocess || 初译done || liz || pprivulet ||
 || PyMOTW: weakref || 初译done || liz || - ||
 || PyMOTW: signal || 初译done/初校done || liz || vbarter ||
 || PyMOTW: timeit || 初译done/初校done || vbarter || liz ||
@@ -154,9 +154,9 @@
 || PyMOTW: json || 初译done || liz || - ||
 || PyMOTW: pydoc || 初译done || liz || - ||
 || PyMOTW: in-memorys data structure || 初译done || liz || - ||
+|| PyMOTW: Text Processing Tools || 初译done || liz || - ||
 || - || - || - || - ||
 
-|| PyMOTW: Text Processing Tools || 初译ing || liz || - ||
 || PyMOTW: asynchat || 初译ing || liz || - ||
 || PyMOTW: copy || 初译ing || wwwjfy || - ||
 || PyMOTW: dircache || 初译ing || Mafiacyj || - ||
