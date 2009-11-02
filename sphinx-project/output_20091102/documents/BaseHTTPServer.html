@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: BaseHTTPServer &mdash; PyMOTW Document v1.6 documentation</title>
+    <link rel="stylesheet" href="../_static/mytest.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.6',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW Document v1.6 documentation" href="../index.html" />
+    <link rel="next" title="PyMOTW: pprint" href="pprint.html" />
+    <link rel="prev" title="PyMOTW: zipfile" href="zipfile.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="pprint.html" title="PyMOTW: pprint"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="zipfile.html" title="PyMOTW: zipfile"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">PyMOTW: BaseHTTPServer</a><ul>
+<li><a class="reference external" href="#id1">描述</a></li>
+<li><a class="reference external" href="#get">简单的GET请求例子</a></li>
+<li><a class="reference external" href="#id2">线程和进程</a></li>
+<li><a class="reference external" href="#post">POST</a></li>
+<li><a class="reference external" href="#errors">Errors</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="zipfile.html"
+                                  title="previous chapter">PyMOTW: zipfile</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="pprint.html"
+                                  title="next chapter">PyMOTW: pprint</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/BaseHTTPServer.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pymotw-basehttpserver">
+<h1>PyMOTW: BaseHTTPServer<a class="headerlink" href="#pymotw-basehttpserver" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>模块： BaseHTTPServer</li>
+<li>目的： 提供实现web服务的基础类.</li>
+<li>python版本： 1.4+</li>
+</ul>
+<p>BaseHTTPServer模块包括了能够构成基本的web服务器的类.</p>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>BaseHTTPServer使用 <a class="reference external" href="http://docs.python.org/lib/module-SocketServer.html">SocketServer</a> 中的类来创建HTTP服务基本类, HTTPServer可以被直接使用, 但是其中的BaseHTTPRequestHandler需要被扩展去处理各种协议方法(如GET, POST等).</p>
+</div>
+<div class="section" id="get">
+<h2>简单的GET请求例子<a class="headerlink" href="#get" title="Permalink to this headline">¶</a></h2>
+<p>实现 <tt class="docutils literal"><span class="pre">do_METHOD()</span></tt> 方法可以让你的请求类支持HTTP方法, 这里的METHOD用具体的HTTP方法名字代替. 例如, <tt class="docutils literal"><span class="pre">do_GET()</span></tt>, <tt class="docutils literal"><span class="pre">do_POST()</span></tt> 等. 为了保持一致, 这些方法不含参数. 用于请求的所有的参数被BaseHTTPRequestHandler解析, 然后被存储在一个实例属性集合中, 这样你可以很方便地检索它们.</p>
+<p>下面的例子中, 请求处理对象说明了如何返回一个响应对象给客户端, 一些本地属性在构造响应对象中很有用的.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">BaseHTTPServer</span> <span class="kn">import</span> <span class="n">BaseHTTPRequestHandler</span>
+<span class="kn">import</span> <span class="nn">urlparse</span>
+
+<span class="k">class</span> <span class="nc">GetHandler</span><span class="p">(</span><span class="n">BaseHTTPRequestHandler</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">do_GET</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">parsed_path</span> <span class="o">=</span> <span class="n">urlparse</span><span class="o">.</span><span class="n">urlparse</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span>
+          <span class="s">&#39;CLIENT VALUES:&#39;</span><span class="p">,</span>
+          <span class="s">&#39;client_address=</span><span class="si">%s</span><span class="s"> (</span><span class="si">%s</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">client_address</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">address_string</span><span class="p">()),</span>
+          <span class="s">&#39;command=</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">command</span><span class="p">,</span>
+          <span class="s">&#39;path=</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
+          <span class="s">&#39;real path=</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">parsed_path</span><span class="o">.</span><span class="n">path</span><span class="p">,</span>
+          <span class="s">&#39;query=</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">parsed_path</span><span class="o">.</span><span class="n">query</span><span class="p">,</span>
+          <span class="s">&#39;request_version=</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">request_version</span><span class="p">,</span>
+          <span class="s">&#39;&#39;</span><span class="p">,</span>
+          <span class="s">&#39;SERVER VALUES:&#39;</span><span class="p">,</span>
+          <span class="s">&#39;server_version=</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">server_version</span><span class="p">,</span>
+          <span class="s">&#39;sys_version=</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">sys_version</span><span class="p">,</span>
+          <span class="s">&#39;protocol_version=</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">protocol_version</span><span class="p">,</span>
+          <span class="s">&#39;&#39;</span><span class="p">,</span>
+        <span class="p">])</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">send_response</span><span class="p">(</span><span class="mf">200</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_headers</span><span class="p">()</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">wfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+        <span class="k">return</span>
+</pre></div>
+</div>
+<p>消息正文被组装好后就写入到self.wfile中, 这个文件处理对象封装了整个响应socket. 每个响应对象需要一个响应代码, 它可以通过self.send_response()来设置. 如果使用了一个错误代码(如404, 501等), 那么对应的默认错误信息会被包含在消息头中, 或者, 你能使用错误码来传递信息.</p>
+<p>在服务器中运行请求处理对象, 将这个请求处理对象传递给HTTPServer构造器.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">BaseHTTPServer</span> <span class="kn">import</span> <span class="n">HTTPServer</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="n">HTTPServer</span><span class="p">((</span><span class="s">&#39;localhost&#39;</span><span class="p">,</span> <span class="mf">8080</span><span class="p">),</span> <span class="n">GetHandler</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;Starting server, use &lt;Ctrl-C&gt; to stop&#39;</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>接下来启动服务器:</p>
+<div class="highlight-python"><pre>$ python BaseHTTPServer_GET.py
+Starting server, use &lt;Ctrl-C&gt; to stop</pre>
+</div>
+<p>在另外一终端中, 使用curl访问:</p>
+<div class="highlight-python"><pre>$ curl -i http://localhost:8080/?foo=barHTTP/1.0 200 OK
+Server: BaseHTTP/0.3 Python/2.5.1
+Date: Sun, 09 Dec 2007 16:00:34 GMT
+
+CLIENT VALUES:
+client_address=('127.0.0.1', 51275) (localhost)
+command=GET
+path=/?foo=bar
+real path=/
+query=foo=bar
+request_version=HTTP/1.1
+
+SERVER VALUES:
+server_version=BaseHTTP/0.3
+sys_version=Python/2.5.1
+protocol_version=HTTP/1.0</pre>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>线程和进程<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>HTTPServer是SocketServer.TCPServer的一个简单子类. 它不使用多线程或多进程来处理请求. 要增加多线程和多进程, 可以使用SocketServer中的合适的混用类来创建一个新的类.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">BaseHTTPServer</span> <span class="kn">import</span> <span class="n">HTTPServer</span><span class="p">,</span> <span class="n">BaseHTTPRequestHandler</span>
+<span class="kn">from</span> <span class="nn">SocketServer</span> <span class="kn">import</span> <span class="n">ThreadingMixIn</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+
+<span class="k">class</span> <span class="nc">Handler</span><span class="p">(</span><span class="n">BaseHTTPRequestHandler</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">do_GET</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">send_response</span><span class="p">(</span><span class="mf">200</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_headers</span><span class="p">()</span>
+        <span class="n">message</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">currentThread</span><span class="p">()</span><span class="o">.</span><span class="n">getName</span><span class="p">()</span> <span class="c">## 这里threading就可以自己处理</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+        <span class="k">return</span>
+
+<span class="k">class</span> <span class="nc">ThreadedHTTPServer</span><span class="p">(</span><span class="n">ThreadingMixIn</span><span class="p">,</span> <span class="n">HTTPServer</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Handle requests in a separate thread.&quot;&quot;&quot;</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="n">ThreadedHTTPServer</span><span class="p">((</span><span class="s">&#39;localhost&#39;</span><span class="p">,</span> <span class="mf">8080</span><span class="p">),</span> <span class="n">Handler</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;Starting server, use &lt;Ctrl-C&gt; to stop&#39;</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>每次当一个请求过来的时候, 一个新的线程或进程会被创建来处理它:</p>
+<div class="highlight-python"><pre>$ curl http://localhost:8080/
+Thread-1
+$ curl http://localhost:8080/
+Thread-2
+$ curl http://localhost:8080/
+Thread-3</pre>
+</div>
+<p>如果把上面的ThreadingMixIn换成ForkingMixIn, 也可以获得类似的结果, 但是后者是使用了独立的进程而不是线程.</p>
+</div>
+<div class="section" id="post">
+<h2>POST<a class="headerlink" href="#post" title="Permalink to this headline">¶</a></h2>
+<p>支持POST请求需要多一点的工作, 因为基本类不会为我们解析表单数据. <a class="reference external" href="http://docs.python.org/lib/module-cgi.html">cgi</a> 模块提供了用于解析表单的FieldStorage类,只要我们提供正确的输入格式.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">BaseHTTPServer</span> <span class="kn">import</span> <span class="n">BaseHTTPRequestHandler</span>
+<span class="kn">import</span> <span class="nn">cgi</span>
+
+<span class="k">class</span> <span class="nc">PostHandler</span><span class="p">(</span><span class="n">BaseHTTPRequestHandler</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">do_POST</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c"># Parse the form data posted</span>
+        <span class="n">form</span> <span class="o">=</span> <span class="n">cgi</span><span class="o">.</span><span class="n">FieldStorage</span><span class="p">(</span>
+        <span class="n">fp</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">rfile</span><span class="p">,</span>
+        <span class="n">headers</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">,</span>
+        <span class="n">environ</span><span class="o">=</span><span class="p">{</span><span class="s">&#39;REQUEST_METHOD&#39;</span><span class="p">:</span><span class="s">&#39;POST&#39;</span><span class="p">,</span>
+          <span class="s">&#39;CONTENT_TYPE&#39;</span><span class="p">:</span><span class="bp">self</span><span class="o">.</span><span class="n">headers</span><span class="p">[</span><span class="s">&#39;Content-Type&#39;</span><span class="p">],</span>
+        <span class="p">})</span>
+
+        <span class="c"># Begin the response</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">send_response</span><span class="p">(</span><span class="mf">200</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">end_headers</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;Client: </span><span class="si">%s</span><span class="se">\n</span><span class="s">&#39;</span> <span class="o">%</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">client_address</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;Path: </span><span class="si">%s</span><span class="se">\n</span><span class="s">&#39;</span> <span class="o">%</span> <span class="bp">self</span><span class="o">.</span><span class="n">path</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">wfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;Form data:</span><span class="se">\n</span><span class="s">&#39;</span><span class="p">)</span>
+
+
+        <span class="c"># Echo back information about what was posted in the form</span>
+        <span class="k">for</span> <span class="n">field</span> <span class="ow">in</span> <span class="n">form</span><span class="o">.</span><span class="n">keys</span><span class="p">():</span>
+            <span class="n">field_item</span> <span class="o">=</span> <span class="n">form</span><span class="p">[</span><span class="n">field</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">field_item</span><span class="o">.</span><span class="n">filename</span><span class="p">:</span>
+                <span class="c"># The field contains an uploaded file</span>
+                <span class="n">file_data</span> <span class="o">=</span> <span class="n">field_item</span><span class="o">.</span><span class="n">file</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+                <span class="n">file_len</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">file_data</span><span class="p">)</span>
+                <span class="k">del</span> <span class="n">file_data</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">wfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\t</span><span class="s">Uploaded </span><span class="si">%s</span><span class="s"> (</span><span class="si">%d</span><span class="s"> bytes)</span><span class="se">\n</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">file_len</span><span class="p">))</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c"># Regular form value</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">wfile</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;</span><span class="se">\t</span><span class="si">%s</span><span class="s">=</span><span class="si">%s</span><span class="se">\n</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">field</span><span class="p">,</span> <span class="n">form</span><span class="p">[</span><span class="n">field</span><span class="p">]</span><span class="o">.</span><span class="n">value</span><span class="p">))</span>
+        <span class="k">return</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">BaseHTTPServer</span> <span class="kn">import</span> <span class="n">HTTPServer</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="n">HTTPServer</span><span class="p">((</span><span class="s">&#39;localhost&#39;</span><span class="p">,</span> <span class="mf">8080</span><span class="p">),</span> <span class="n">PostHandler</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;Starting server, use &lt;Ctrl-C&gt; to stop&#39;</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>再次使用curl, 我们可以包含表单数据, 它自动以POST方式发送. 最后的参数, -F <a class="reference external" href="mailto:datafile=&#37;&#52;&#48;BaseHTTPServer_GET&#46;py">datafile=<span>&#64;</span>BaseHTTPServer_GET<span>&#46;</span>py</a>, 将文件BaseHTTPServer_GET.py的内容发送, 从而表示已从表单中读取了文件数据.</p>
+<div class="highlight-python"><pre>$ curl http://localhost:8080/ -F name=dhellmann -F foo=bar -F datafile=@BaseHTTPServer_GET.py
+Client: ('127.0.0.1', 51128)
+Path: /
+Form data:
+         name=dhellmann
+         foo=bar
+         Uploaded datafile (2222 bytes)</pre>
+</div>
+</div>
+<div class="section" id="errors">
+<h2>Errors<a class="headerlink" href="#errors" title="Permalink to this headline">¶</a></h2>
+<p>错误处理可以使用 <tt class="docutils literal"><span class="pre">send_error()</span></tt> 方法. 简单的传递给它合适的错误代码以及一个可选的错误信息, 那么就会为你生成整个响应对象(包括头, 状态码, 消息体).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">BaseHTTPServer</span> <span class="kn">import</span> <span class="n">BaseHTTPRequestHandler</span>
+
+<span class="k">class</span> <span class="nc">ErrorHandler</span><span class="p">(</span><span class="n">BaseHTTPRequestHandler</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">do_GET</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">send_error</span><span class="p">(</span><span class="mf">404</span><span class="p">)</span>
+        <span class="k">return</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">BaseHTTPServer</span> <span class="kn">import</span> <span class="n">HTTPServer</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="n">HTTPServer</span><span class="p">((</span><span class="s">&#39;localhost&#39;</span><span class="p">,</span> <span class="mf">8080</span><span class="p">),</span> <span class="n">ErrorHandler</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;Starting server, use &lt;Ctrl-C&gt; to stop&#39;</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>在这种情况下, 一直返回404错误.</p>
+<div class="highlight-python"><pre>$ curl -i http://localhost:8080/
+HTTP/1.0 404 Not Found
+Server: BaseHTTP/0.3 Python/2.5.1
+Date: Sun, 09 Dec 2007 15:49:44 GMT
+Content-Type: text/html
+Connection: close
+
+&lt;head&gt;
+&lt;title&gt;Error response&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;h1&gt;Error response&lt;/h1&gt;
+&lt;p&gt;Error code 404.
+&lt;p&gt;Message: Not Found.
+&lt;p&gt;Error code explanation: 404 = Nothing matches the given URI.
+&lt;/body&gt;</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="pprint.html" title="PyMOTW: pprint"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="zipfile.html" title="PyMOTW: zipfile"
+             >previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, vbarter &amp; liz.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

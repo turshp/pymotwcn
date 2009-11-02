@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: sched &mdash; PyMOTW Document v1.6 documentation</title>
+    <link rel="stylesheet" href="../_static/mytest.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.6',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW Document v1.6 documentation" href="../index.html" />
+    <link rel="next" title="PyMOTW: csv" href="csv.html" />
+    <link rel="prev" title="PyMOTW: tempfile" href="tempfile.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="csv.html" title="PyMOTW: csv"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="tempfile.html" title="PyMOTW: tempfile"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">PyMOTW: sched</a><ul>
+<li><a class="reference external" href="#id1">描述</a></li>
+<li><a class="reference external" href="#id2">延迟后运行事件</a></li>
+<li><a class="reference external" href="#id3">事件重叠</a></li>
+<li><a class="reference external" href="#id4">事件优先级</a></li>
+<li><a class="reference external" href="#id5">取消事件</a></li>
+<li><a class="reference external" href="#id6">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="tempfile.html"
+                                  title="previous chapter">PyMOTW: tempfile</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="csv.html"
+                                  title="next chapter">PyMOTW: csv</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/sched.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pymotw-sched">
+<h1>PyMOTW: sched<a class="headerlink" href="#pymotw-sched" title="Permalink to this headline">¶</a></h1>
+<p>sched模块实现了一般事件调度功能, 能在指定时间执行某个任务.</p>
+<ul class="simple">
+<li>模块: sched</li>
+<li>目的: 一般事件调度.</li>
+<li>Python 版本: 1.4 +</li>
+</ul>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>scheduler类使用一般的事件调度接口. 它使用time函数来获得当前时间, delay函数用于等待一段特定时间. 这里, 真正使用什么样的时间单位不是很重要, 因为这能让接口更具灵活性, 可用于多种用途.</p>
+<p>time函数调用时不需要给定任何参数, 应返回当前时间的字符串表示. 而delay函数需要一个整型参数, 和time函数使用相同的时间刻度, 该函数在返回前需要等待特定个时间单元. 例如, time.time()和time.sleep()这两个函数符合这些要求.</p>
+<p>为了支持多线程应用, 在生成每个线程之后, 调用参数为0的delay函数, 这样来保证其他线程有机会运行.</p>
+</div>
+<div class="section" id="id2">
+<h2>延迟后运行事件<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>事件可以在延迟一段时间后, 或在指定时间点上调度执行.  enter()方法使这些事件在延迟一段时间后被调度, 它需要4个参数:</p>
+<blockquote>
+<ul class="simple">
+<li>A number representing the delay 代表延迟多长时间的数字</li>
+<li>A priority value 优先级值</li>
+<li>The function to call 需要被调用的函数</li>
+<li>A tuple of arguments for the function 函数的参数元组</li>
+</ul>
+</blockquote>
+<p>下面这个例子中, 分别在2和3秒之后调度2个不同的事件. 当到达某事件的调度时刻, print_event()被调用, 显示出目前时间和传递给事件的参数名字.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sched</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">scheduler</span> <span class="o">=</span> <span class="n">sched</span><span class="o">.</span><span class="n">scheduler</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">print_event</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">&#39;EVENT:&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">(),</span> <span class="n">name</span>
+
+<span class="k">print</span> <span class="s">&#39;START:&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">scheduler</span><span class="o">.</span><span class="n">enter</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span> <span class="n">print_event</span><span class="p">,</span> <span class="p">(</span><span class="s">&#39;first&#39;</span><span class="p">,))</span>
+<span class="n">scheduler</span><span class="o">.</span><span class="n">enter</span><span class="p">(</span><span class="mf">3</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span> <span class="n">print_event</span><span class="p">,</span> <span class="p">(</span><span class="s">&#39;second&#39;</span><span class="p">,))</span>
+
+<span class="n">scheduler</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>输出如下:</p>
+<div class="highlight-python"><pre>$ python sched_basic.py
+START: 1190727943.36
+EVENT: 1190727945.36 first
+EVENT: 1190727946.36 second</pre>
+</div>
+<p>第一个事件的时间信息是调度开始2秒后, 第二个事件的时间信息是调度开始3秒后.</p>
+</div>
+<div class="section" id="id3">
+<h2>事件重叠<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>run()一直被阻塞, 直到所有事件被全部执行完. 每个事件在同一线程中运行, 所以如果一个事件的执行时间大于其他事件的延迟时间, 那么, 就会产生重叠. 重叠的解决方法是推迟后来事件的执行时间. 这样保证没有丢失任何事件, 但这些事件的调用时刻会比原先设定的迟. 在下面的例子中, long_event()中通过睡眠2秒钟来延迟调度, 同样延迟调度很容易通过运行长时间计算或阻塞I/O来实现.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sched</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">scheduler</span> <span class="o">=</span> <span class="n">sched</span><span class="o">.</span><span class="n">scheduler</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">long_event</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">&#39;BEGIN EVENT :&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">(),</span> <span class="n">name</span>
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="mf">2</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;FINISH EVENT:&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">(),</span> <span class="n">name</span>
+
+<span class="k">print</span> <span class="s">&#39;START:&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">scheduler</span><span class="o">.</span><span class="n">enter</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span> <span class="n">long_event</span><span class="p">,</span> <span class="p">(</span><span class="s">&#39;first&#39;</span><span class="p">,))</span>
+<span class="n">scheduler</span><span class="o">.</span><span class="n">enter</span><span class="p">(</span><span class="mf">3</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span> <span class="n">long_event</span><span class="p">,</span> <span class="p">(</span><span class="s">&#39;second&#39;</span><span class="p">,))</span>
+
+<span class="n">scheduler</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>第二个事件在第一个事件运行结束后立即运行, 因为第一个事件的执行时间足够长, 已经超过第二个事件的预期开始时刻.</p>
+<div class="highlight-python"><pre>$ python sched_overlap.py
+START: 1190728573.16
+BEGIN EVENT : 1190728575.16 first
+FINISH EVENT: 1190728577.16 first
+BEGIN EVENT : 1190728577.16 second
+FINISH EVENT: 1190728579.16 second</pre>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>事件优先级<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>如果在相同的时刻点上有多个事件需要被执行, 那么它们的优先级参数决定他们的执行顺序.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">now</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&#39;START:&#39;</span><span class="p">,</span> <span class="n">now</span>
+<span class="n">scheduler</span><span class="o">.</span><span class="n">enterabs</span><span class="p">(</span><span class="n">now</span><span class="o">+</span><span class="mf">2</span><span class="p">,</span> <span class="mf">2</span><span class="p">,</span> <span class="n">print_event</span><span class="p">,</span> <span class="p">(</span><span class="s">&#39;first&#39;</span><span class="p">,))</span>
+<span class="n">scheduler</span><span class="o">.</span><span class="n">enterabs</span><span class="p">(</span><span class="n">now</span><span class="o">+</span><span class="mf">2</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span> <span class="n">print_event</span><span class="p">,</span> <span class="p">(</span><span class="s">&#39;second&#39;</span><span class="p">,))</span>
+<span class="n">scheduler</span><span class="o">.</span><span class="n">run</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>为了保证事件准确的在同一时刻执行, 使用了enterabs()方法而不是enter()方法. enterabs()的第一个参数是运行事件的确切时间, 而不是延迟时间量.</p>
+<div class="highlight-python"><pre>$ python sched_priority.py
+START: 1190728789.4
+EVENT: 1190728791.4 second
+EVENT: 1190728791.4 first</pre>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>取消事件<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>enter()和enterabs()返回一事件的引用, 该引用可被用于事件的取消. 由于run()阻塞, 所以事件的取消操作需要在另外一个线程中进行. 如下例子, 在一个子线程开始执行调度, 而主处理线程用于取消某个事件.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sched</span>
+<span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">import</span> <span class="nn">time</span>
+
+<span class="n">scheduler</span> <span class="o">=</span> <span class="n">sched</span><span class="o">.</span><span class="n">scheduler</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">)</span>
+
+<span class="c"># Set up a global to be modified by the threads</span>
+<span class="n">counter</span> <span class="o">=</span> <span class="mf">0</span>
+
+<span class="k">def</span> <span class="nf">increment_counter</span><span class="p">(</span><span class="n">name</span><span class="p">):</span>
+
+    <span class="k">global</span> <span class="n">counter</span>
+    <span class="k">print</span> <span class="s">&#39;EVENT:&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">(),</span> <span class="n">name</span>
+    <span class="n">counter</span> <span class="o">+=</span> <span class="mf">1</span>
+    <span class="k">print</span> <span class="s">&#39;NOW:&#39;</span><span class="p">,</span> <span class="n">counter</span>
+
+
+<span class="k">print</span> <span class="s">&#39;START:&#39;</span><span class="p">,</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+<span class="n">e1</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">enter</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span> <span class="n">increment_counter</span><span class="p">,</span> <span class="p">(</span><span class="s">&#39;E1&#39;</span><span class="p">,))</span>
+<span class="n">e2</span> <span class="o">=</span> <span class="n">scheduler</span><span class="o">.</span><span class="n">enter</span><span class="p">(</span><span class="mf">3</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span> <span class="n">increment_counter</span><span class="p">,</span> <span class="p">(</span><span class="s">&#39;E2&#39;</span><span class="p">,))</span>
+
+<span class="c"># Start a thread to run the events</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">scheduler</span><span class="o">.</span><span class="n">run</span><span class="p">)</span>
+<span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+<span class="c"># Back in the main thread, cancel the first scheduled event.</span>
+<span class="n">scheduler</span><span class="o">.</span><span class="n">cancel</span><span class="p">(</span><span class="n">e1</span><span class="p">)</span>
+
+<span class="c"># Wait for the scheduler to finish running in the thread</span>
+<span class="n">t</span><span class="o">.</span><span class="n">join</span><span class="p">()</span>
+
+<span class="k">print</span> <span class="s">&#39;FINAL:&#39;</span><span class="p">,</span> <span class="n">counter</span>
+</pre></div>
+</div>
+<p>两个事件被安排调度, 但之后取消了第一个事件. 只有第二个事件执行了, 所以我们看到计数器仅累加了一次.</p>
+<div class="highlight-python"><pre>$ python sched_cancel.py
+START: 1190729094.13
+EVENT: 1190729097.13 E2
+NOW: 1
+FINAL: 1</pre>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>参考<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://www.doughellmann.com/projects/PyMOTW/">Python Module of the Week Home</a></li>
+<li><a class="reference external" href="http://www.doughellmann.com/downloads/PyMOTW-1.19.tar.gz">Download Sample Code</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="csv.html" title="PyMOTW: csv"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="tempfile.html" title="PyMOTW: tempfile"
+             >previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, vbarter &amp; liz.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

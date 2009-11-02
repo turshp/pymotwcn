@@ -1,0 +1,329 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: string &mdash; PyMOTW Document v1.6 documentation</title>
+    <link rel="stylesheet" href="../_static/mytest.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.6',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW Document v1.6 documentation" href="../index.html" />
+    <link rel="next" title="PyMOTW: exceptions" href="exceptions.html" />
+    <link rel="prev" title="PyMOTW: getpass" href="getpass.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="exceptions.html" title="PyMOTW: exceptions"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="getpass.html" title="PyMOTW: getpass"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">PyMOTW: string</a><ul>
+<li><a class="reference external" href="#id1">常量</a></li>
+<li><a class="reference external" href="#id2">函数</a></li>
+<li><a class="reference external" href="#id3">模板</a></li>
+<li><a class="reference external" href="#id4">模板的高级应用</a></li>
+<li><a class="reference external" href="#id5">不推荐使用的函数</a></li>
+<li><a class="reference external" href="#id6">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="getpass.html"
+                                  title="previous chapter">PyMOTW: getpass</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="exceptions.html"
+                                  title="next chapter">PyMOTW: exceptions</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/string.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pymotw-string">
+<h1>PyMOTW: string<a class="headerlink" href="#pymotw-string" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>模块：string</li>
+<li>目的：包括文本处理中的常量和类.</li>
+<li>python版本：2.5</li>
+</ul>
+<p>string模块始于Python的最早版本. 2.0版本中, 许多之前只在模块中实现的函数被转移为string对象的方法. 之后的版本中, 虽然这些函数仍然可用, 但是不推荐使用, 并且在Python 3.0中将被去掉. string模块也包含了一些有用的常量和类来处理字符串和unicode对象, 后面的讨论会集中在这个方面.</p>
+<div class="section" id="id1">
+<h2>常量<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>string模块中的常量, 例如ascii_letters和digits等, 用来指定字符的种类. 有些常量是依赖于系统的, 比如lowercase, 因此会受用户语言设置的影响而改变. 而其它的常量, 如hexdigits, 不会因本地设置(区域选项)的改变而改变.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">string</span>
+
+<span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="nb">dir</span><span class="p">(</span><span class="n">string</span><span class="p">):</span>
+    <span class="k">if</span> <span class="n">n</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;_&#39;</span><span class="p">):</span>
+        <span class="k">continue</span>
+    <span class="n">v</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">string</span><span class="p">,</span> <span class="n">n</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="nb">basestring</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">=</span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="nb">repr</span><span class="p">(</span><span class="n">v</span><span class="p">))</span>
+        <span class="k">print</span>
+</pre></div>
+</div>
+<p>大部分常量的名字是很直观的.</p>
+<div class="highlight-python"><pre>$ python string_constants.py
+ascii_letters='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+ascii_lowercase='abcdefghijklmnopqrstuvwxyz'
+ascii_uppercase='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+digits='0123456789'
+hexdigits='0123456789abcdefABCDEF'
+letters='abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
+lowercase='abcdefghijklmnopqrstuvwxyz'
+octdigits='01234567'
+printable='0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ!"#$%&amp;\'()*+,-./:;&lt;=&gt;?@[\\]^_`{|}~ \t\n\r\x0b\x0c'
+punctuation='!"#$%&amp;\'()*+,-./:;&lt;=&gt;?@[\\]^_`{|}~'
+uppercase='ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+whitespace='\t\n\x0b\x0c\r '</pre>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>函数<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>有两个函数没有从string模块中移除. capwords()将一个字符串所有单词首字母大写.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">string</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="s">&#39;The quick brown fox jumped over the lazy dog.&#39;</span>
+
+<span class="k">print</span> <span class="n">s</span>
+<span class="k">print</span> <span class="n">string</span><span class="o">.</span><span class="n">capwords</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>得到的结果和调用split(), 将结果列表中的每个单词首字母大写, 然后调用join()连接这些单词这一系列动作的结果相同.</p>
+<div class="highlight-python"><pre>$ python string_capwords.py
+The quick brown fox jumped over the lazy dog.
+The Quick Brown Fox Jumped Over The Lazy Dog.</pre>
+</div>
+<p>另一个函数创建了一个翻译表. 这个翻译表作为translate()方法的参数, 用来将某一集合中的字符改成另一个集合中的字符.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">string</span>
+
+<span class="n">leet</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">maketrans</span><span class="p">(</span><span class="s">&#39;abegiloprstz&#39;</span><span class="p">,</span> <span class="s">&#39;463611092572&#39;</span><span class="p">)</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="s">&#39;The quick brown fox jumped over the lazy dog.&#39;</span>
+
+<span class="k">print</span> <span class="n">s</span>
+<span class="k">print</span> <span class="n">s</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">leet</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>在这个例子中, 一些字符被替换为其 <a class="reference external" href="http://en.wikipedia.org/wiki/Leet">133t</a> 数字.</p>
+<div class="highlight-python"><pre>$ python string_maketrans.py
+The quick brown fox jumped over the lazy dog.
+Th3 qu1ck 620wn f0x jum93d 0v32 7h3 142y d06.</pre>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>模板<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>字符串模板是在Python 2.4中增加的, 作为 <a class="reference external" href="http://www.python.org/peps/pep-0292.html">PEP 292</a> 的一部分, 以及用作内置的占位符表达式的另一种实现形式. 若使用了 <tt class="docutils literal"><span class="pre">string.Template</span></tt> 的占位符, 前缀为$的单词就被认为是变量(如$var), 如果需要将其在上下文中区别出来的话, 也可以将变量名包括在大括号中(如${var}).</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">string</span>
+
+<span class="n">values</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;var&#39;</span><span class="p">:</span><span class="s">&#39;foo&#39;</span> <span class="p">}</span>
+<span class="n">t</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">Template</span><span class="p">(</span><span class="s">&quot;&quot;&quot;</span>
+<span class="s">$var</span>
+<span class="s">$$</span>
+<span class="s">${var}iable</span>
+<span class="s">&quot;&quot;&quot;</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">&#39;TEMPLATE:&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">substitute</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="s">&quot;&quot;&quot;</span>
+<span class="si">%(var)s</span><span class="s"></span>
+<span class="si">%%</span><span class="s"></span>
+<span class="si">%(var)s</span><span class="s">iable</span>
+<span class="s">&quot;&quot;&quot;</span>
+
+<span class="k">print</span> <span class="s">&#39;INTERPLOATION:&#39;</span><span class="p">,</span> <span class="n">s</span> <span class="o">%</span> <span class="n">values</span>
+</pre></div>
+</div>
+<p>如您所见, 两种形式中, 触发字符($或%)若重复两次则被转义为普通字符.</p>
+<div class="highlight-python"><pre>$ python string_template.py
+TEMPLATE:
+foo
+$
+fooiable
+
+INTERPLOATION:
+foo
+%
+fooiable</pre>
+</div>
+<p>模板和标准字符串占位符的一个关键区别就是模板不会考虑参数类型. 参数的值将被转为字符串并插入到模板中. 模板中没有格式选项. 比如, 模板中无法控制显示一个浮点数时数字的个数.</p>
+<p>而使用模板的一个好处是调用 <tt class="docutils literal"><span class="pre">safe_substitute()</span></tt> 方法, 当模板需要的参数值没有全部提供时, 可以避免了异常的产生.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">string</span>
+
+<span class="n">values</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;var&#39;</span><span class="p">:</span><span class="s">&#39;foo&#39;</span> <span class="p">}</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">Template</span><span class="p">(</span><span class="s">&quot;$var is here but $missing is not provided&quot;</span><span class="p">)</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;TEMPLATE:&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">substitute</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">KeyError</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;ERROR:&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="n">err</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">&#39;TEMPLATE:&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">safe_substitute</span><span class="p">(</span><span class="n">values</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>因为missing这个变量的值没有出现在参数字典里, 所以 <tt class="docutils literal"><span class="pre">substitue()</span></tt> 会引发一个KeyError异常. 而 <tt class="docutils literal"><span class="pre">safe_substitute()</span></tt> 则捕获了这个异常并将这个变量表达式保留在文本中.</p>
+<div class="highlight-python"><pre>$ python string_template_missing.py
+TEMPLATE: ERROR: 'missing'
+TEMPLATE: foo is here but $missing is not provided</pre>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>模板的高级应用<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>如果string.Template的默认表达式无法满足你的要求, 你可以通过调整用于匹配模板正文中变量名的正则表达式来达到你的目的. 一种简单的方法就是改变delimiter和idpattern这两个类属性.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">string</span>
+
+<span class="k">class</span> <span class="nc">MyTemplate</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">Template</span><span class="p">):</span>
+    <span class="n">delimiter</span> <span class="o">=</span> <span class="s">&#39;%&#39;</span>
+    <span class="n">idpattern</span> <span class="o">=</span> <span class="s">&#39;[a-z]+_[a-z]+&#39;</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">MyTemplate</span><span class="p">(</span><span class="s">&#39;</span><span class="si">%%</span><span class="s"> %with_underscore %notunderscored&#39;</span><span class="p">)</span>
+<span class="n">d</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;with_underscore&#39;</span><span class="p">:</span><span class="s">&#39;replaced&#39;</span><span class="p">,</span>
+          <span class="s">&#39;notunderscored&#39;</span><span class="p">:</span><span class="s">&#39;not replaced&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">print</span> <span class="n">t</span><span class="o">.</span><span class="n">safe_substitute</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>在这个例子中, 变量名必须在中间的某个位置包含一个下划线, 因此%notunderscored不会被替换为任何东西.</p>
+<div class="highlight-python"><pre>$ python string_template_advanced.py
+% replaced %notunderscored</pre>
+</div>
+<p>如果需要更复杂的变化, 你可以重载pattern属性, 定义一个全新的正则表达式. 新的pattern属性必须包含4个命名的组来分别匹配定界符, 已命名的变量, 区分变量的括号类型, 和无效界定符模式.</p>
+<p>让我们看一下默认的模式:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">string</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">string</span><span class="o">.</span><span class="n">Template</span><span class="p">(</span><span class="s">&#39;$var&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">t</span><span class="o">.</span><span class="n">pattern</span><span class="o">.</span><span class="n">pattern</span>
+</pre></div>
+</div>
+<p>因为t.pattern是已经被编译的正则表达式, 我们只能通过它的pattern属性来看真实的字符串.</p>
+<div class="highlight-python"><pre>$ python string_template_defaultpattern.py
+
+\$(?:
+(?P&lt;escaped&gt;\$) | # Escape sequence of two delimiters
+(?P&lt;named&gt;[_a-z][_a-z0-9]*) | # delimiter and a Python identifier
+{(?P&lt;braced&gt;[_a-z][_a-z0-9]*)} | # delimiter and a braced identifier
+(?P&lt;invalid&gt;) # Other ill-formed delimiter exprs
+)</pre>
+</div>
+<p>如果希望创建一个新的模板, 如, 以{{var}}作为变量表达式, 可以使用这样的一个pattern:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">string</span>
+
+<span class="k">class</span> <span class="nc">MyTemplate</span><span class="p">(</span><span class="n">string</span><span class="o">.</span><span class="n">Template</span><span class="p">):</span>
+    <span class="n">delimiter</span> <span class="o">=</span> <span class="s">&#39;{{&#39;</span>
+    <span class="n">pattern</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">compile</span><span class="p">(</span><span class="s">r&#39;&#39;&#39;</span>
+<span class="s">              \{\{(?:</span>
+<span class="s">              (?P&lt;escaped&gt;\{\{)|</span>
+<span class="s">              (?P&lt;named&gt;[_a-z][_a-z0-9]*)\}\}|</span>
+<span class="s">              (?P&lt;braced&gt;[_a-z][_a-z0-9]*)\}\}|</span>
+<span class="s">              (?P&lt;invalid&gt;)</span>
+<span class="s">              )</span>
+<span class="s">    &#39;&#39;&#39;</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">VERBOSE</span> <span class="o">|</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
+
+<span class="n">t</span> <span class="o">=</span> <span class="n">MyTemplate</span><span class="p">(</span><span class="s">&#39;&#39;&#39;</span>
+<span class="s">    {{{{</span>
+<span class="s">    {{var}}</span>
+<span class="s">&#39;&#39;&#39;</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">&#39;MATCHES:&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">pattern</span><span class="o">.</span><span class="n">findall</span><span class="p">(</span><span class="n">t</span><span class="o">.</span><span class="n">template</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;SUBSTITUTED:&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">safe_substitute</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s">&#39;replacement&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>即使named和braced是一样的, 仍然需要将它们都描述出来. 下面是输出:</p>
+<div class="highlight-python"><pre>$ python string_template_newsyntax.py
+MATCHES: [('{{', '', '', ''), ('', 'var', '', '')]
+SUBSTITUTED:
+{{
+replacement</pre>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>不推荐使用的函数<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>那些不推荐使用的函数已经被转移到string和unicode类中, 可参考手册中的 <a class="reference external" href="http://docs.python.org/library/stdtypes.html#string-methods">String Methods</a>.</p>
+</div>
+<div class="section" id="id6">
+<h2>参考<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://docs.python.org/library/string.html">string</a></li>
+<li><a class="reference external" href="http://www.python.org/peps/pep-0292.html">PEP 292</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="exceptions.html" title="PyMOTW: exceptions"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="getpass.html" title="PyMOTW: getpass"
+             >previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, vbarter &amp; liz.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

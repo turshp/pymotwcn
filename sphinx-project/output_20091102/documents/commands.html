@@ -1,0 +1,240 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: commands &mdash; PyMOTW Document v1.6 documentation</title>
+    <link rel="stylesheet" href="../_static/mytest.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.6',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW Document v1.6 documentation" href="../index.html" />
+    <link rel="next" title="PyMOTW: atexit" href="atexit.html" />
+    <link rel="prev" title="PyMOTW: calendar" href="calendar.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="atexit.html" title="PyMOTW: atexit"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="calendar.html" title="PyMOTW: calendar"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">PyMOTW: commands</a><ul>
+<li><a class="reference external" href="#id1">描述</a></li>
+<li><a class="reference external" href="#getstatusoutput">getstatusoutput()</a></li>
+<li><a class="reference external" href="#getoutput">getoutput()</a></li>
+<li><a class="reference external" href="#getstatus">getstatus()</a></li>
+<li><a class="reference external" href="#id2">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="calendar.html"
+                                  title="previous chapter">PyMOTW: calendar</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="atexit.html"
+                                  title="next chapter">PyMOTW: atexit</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/commands.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pymotw-commands">
+<h1>PyMOTW: commands<a class="headerlink" href="#pymotw-commands" title="Permalink to this headline">¶</a></h1>
+<p>commands模块包含一些用于处理Unix下shell命令及其输出的函数.</p>
+<ul class="simple">
+<li>模块: commands</li>
+<li>目的: 运行外部shell命令并能捕获退出状态码和输出结果.</li>
+<li>Python版本: 1.4+</li>
+</ul>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">这个模块相对于 <a class="reference external" href="http://blog.doughellmann.com/2007/07/pymotw-subprocess.html">subprocess</a> 来说是已经过时了.</p>
+</div>
+<p>commands模块主要有3个用于处理外部命令的函数.这些函数具有shell感知并且能返回被执行命令的输出和状态码.</p>
+</div>
+<div class="section" id="getstatusoutput">
+<h2>getstatusoutput()<a class="headerlink" href="#getstatusoutput" title="Permalink to this headline">¶</a></h2>
+<p>getstatusoutput() 函数通过shell运行一个命令, 之后返回退出状态码和文本输出(包含stdout和stderr的信息). 退出状态码是和C函数的wait()或os.wait()一样的, 是一个16位整数. 低字节包含杀死该进程的信号标识符. 当信号标识符为0时, 高字节表示了程序的退出状态. 如果产生了一个核心文件, 低字节的最高比特位会被设置1.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">commands</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="k">def</span> <span class="nf">run_command</span><span class="p">(</span><span class="n">cmd</span><span class="p">):</span>
+
+    <span class="k">print</span> <span class="s">&#39;Running: &quot;</span><span class="si">%s</span><span class="s">&quot;&#39;</span> <span class="o">%</span> <span class="n">cmd</span>
+    <span class="n">status</span><span class="p">,</span> <span class="n">text</span> <span class="o">=</span> <span class="n">getstatusoutput</span><span class="p">(</span><span class="n">cmd</span><span class="p">)</span>
+    <span class="n">exit_code</span> <span class="o">=</span> <span class="n">status</span> <span class="o">&gt;&gt;</span> <span class="mf">8</span>
+    <span class="n">signal_num</span> <span class="o">=</span> <span class="n">status</span> <span class="o">%</span> <span class="mf">256</span>
+    <span class="k">print</span> <span class="s">&#39;Signal: </span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">signal_num</span>
+    <span class="k">print</span> <span class="s">&#39;Exit : </span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">exit_code</span>
+    <span class="k">print</span> <span class="s">&#39;Core? : </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="nb">bool</span><span class="p">(</span><span class="n">exit_code</span> <span class="o">/</span> <span class="mf">256</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;Output:&#39;</span>
+    <span class="k">print</span> <span class="n">text</span>
+    <span class="k">print</span>
+
+
+<span class="n">run_command</span><span class="p">(</span><span class="s">&#39;ls -l *.py&#39;</span><span class="p">)</span>
+<span class="n">run_command</span><span class="p">(</span><span class="s">&#39;ls -l *.notthere&#39;</span><span class="p">)</span>
+<span class="n">run_command</span><span class="p">(</span><span class="s">&#39;echo &quot;WAITING TO BE KILLED&quot;; read input&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>这个例子中, 运行的前2个命令正常退出, 而第三个会一直阻塞(等待输入)直到从另一个shell中将它杀死. 不要简单的使用Ctrl-C来中断程序, 而是在另一终端中, 使用ps和grep获得相关进程的标识, 并使用kill发送信号给它.</p>
+<div class="highlight-python"><pre>$ python commands_getstatusoutput.py
+Running: "ls -l *.py"
+Signal: 0
+Exit : 0
+Core? : False
+Output:
+-rw-r--r-- 1 dhellman dhellman 1191 Oct 21 09:41 __init__.py
+-rw-r--r-- 1 dhellman dhellman 1321 Oct 21 09:48 commands_getoutput.py
+-rw-r--r-- 1 dhellman dhellman 1265 Oct 21 09:50 commands_getstatus.py
+-rw-r--r-- 1 dhellman dhellman 1626 Oct 21 10:10 commands_getstatusoutput.py
+
+Running: "ls -l *.notthere"
+Signal: 0
+Exit : 1
+Core? : False
+Output:
+ls: *.notthere: No such file or directory
+
+Running: "echo "WAITING TO BE KILLED"; read input"
+Signal: 1
+Exit : 0
+Core? : False
+Output:
+WAITING TO BE KILLED</pre>
+</div>
+<p>我使用了&#8221;kill -HUP $PID&#8221;来杀死这个读进程.</p>
+</div>
+<div class="section" id="getoutput">
+<h2>getoutput()<a class="headerlink" href="#getoutput" title="Permalink to this headline">¶</a></h2>
+<p>如果退出状态码对于你的应用来说是没有用的, 你使用getoutput()可以仅仅获得文本输出.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">commands</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">text</span> <span class="o">=</span> <span class="n">getoutput</span><span class="p">(</span><span class="s">&#39;ls -l *.py&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;ls -l *.py:&#39;</span>
+<span class="k">print</span> <span class="n">text</span>
+
+<span class="k">print</span>
+
+<span class="n">text</span> <span class="o">=</span> <span class="n">getoutput</span><span class="p">(</span><span class="s">&#39;ls -l *.notthere&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;ls -l *.py:&#39;</span>
+<span class="k">print</span> <span class="n">text</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python commands_getoutput.py
+ls -l *.py:
+-rw-r--r-- 1 dhellman dhellman 1191 Oct 21 09:41 __init__.py
+-rw-r--r-- 1 dhellman dhellman 1321 Oct 21 09:48 commands_getoutput.py
+-rw-r--r-- 1 dhellman dhellman 1265 Oct 21 09:50 commands_getstatus.py
+-rw-r--r-- 1 dhellman dhellman 1626 Oct 21 10:10 commands_getstatusoutput.py
+
+ls -l *.py:
+ls: *.notthere: No such file or directory</pre>
+</div>
+</div>
+<div class="section" id="getstatus">
+<h2>getstatus()<a class="headerlink" href="#getstatus" title="Permalink to this headline">¶</a></h2>
+<p>和你期望的可能不一样, getstatus()函数在运行一个命令之后不是返回状态码. 而是, 传递一个参数给它, 这个参数是一个文件名, 被合并到&#8221;ls -ld&#8221;中, 运行该命令之后返回相应文本输出, 即获得该文件的相关信息.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">commands</span> <span class="kn">import</span> <span class="o">*</span>
+
+<span class="n">status</span> <span class="o">=</span> <span class="n">getstatus</span><span class="p">(</span><span class="s">&#39;commands_getstatus.py&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;commands_getstatus.py:&#39;</span><span class="p">,</span> <span class="n">status</span>
+<span class="n">status</span> <span class="o">=</span> <span class="n">getstatus</span><span class="p">(</span><span class="s">&#39;notthere.py&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;notthere.py:&#39;</span><span class="p">,</span> <span class="n">status</span>
+<span class="n">status</span> <span class="o">=</span> <span class="n">getstatus</span><span class="p">(</span><span class="s">&#39;$filename&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="s">&#39;$filename:&#39;</span><span class="p">,</span> <span class="n">status</span>
+</pre></div>
+</div>
+<p>从输出可以看到, 参数中的字符$不会被转义, 所以相关环境变量也不会被扩展.</p>
+<div class="highlight-python"><pre>$ python commands_getstatus.py
+commands_getstatus.py: -rw-r--r-- 1 dhellman dhellman 1387 Oct 21 10:19 commands_getstatus.py
+notthere.py: ls: notthere.py: No such file or directory
+$filename: ls: $filename: No such file or directory</pre>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>参考<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://www.doughellmann.com/projects/PyMOTW/">Python Module of the Week Home</a></li>
+<li><a class="reference external" href="http://www.doughellmann.com/downloads/PyMOTW-1.25.tar.gz">Download Sample Code</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="atexit.html" title="PyMOTW: atexit"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="calendar.html" title="PyMOTW: calendar"
+             >previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, vbarter &amp; liz.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

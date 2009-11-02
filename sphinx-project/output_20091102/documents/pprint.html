@@ -1,0 +1,346 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: pprint &mdash; PyMOTW Document v1.6 documentation</title>
+    <link rel="stylesheet" href="../_static/mytest.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.6',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW Document v1.6 documentation" href="../index.html" />
+    <link rel="next" title="PyMOTW: SocketServer" href="SocketServer.html" />
+    <link rel="prev" title="PyMOTW: BaseHTTPServer" href="BaseHTTPServer.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="SocketServer.html" title="PyMOTW: SocketServer"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="BaseHTTPServer.html" title="PyMOTW: BaseHTTPServer"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">PyMOTW: pprint</a><ul>
+<li><a class="reference external" href="#id1">描述</a></li>
+<li><a class="reference external" href="#id2">输出</a></li>
+<li><a class="reference external" href="#id3">格式化</a></li>
+<li><a class="reference external" href="#id4">其他类</a></li>
+<li><a class="reference external" href="#id5">递归</a></li>
+<li><a class="reference external" href="#id6">限制嵌套输出</a></li>
+<li><a class="reference external" href="#id7">控制输出宽度</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="BaseHTTPServer.html"
+                                  title="previous chapter">PyMOTW: BaseHTTPServer</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="SocketServer.html"
+                                  title="next chapter">PyMOTW: SocketServer</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/pprint.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pymotw-pprint">
+<h1>PyMOTW: pprint<a class="headerlink" href="#pymotw-pprint" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>模块： pprint</li>
+<li>目的： 用于更加好看的显示数据</li>
+<li>python版本： 1.4+</li>
+</ul>
+<p>pprint模块让你的数据的显示结构更加美观.</p>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>pprint模块中使用的格式化可以按照一种格式正确的显示数据, 这种格式即可被解析器解析, 又很易读. 输出保存在一个单行内, 但如果有必要, 在分割多行数据时也可使用缩进表示.</p>
+<p>这里的例子全部依赖于pprint_data.py这个脚本, 它包含:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">data</span> <span class="o">=</span> <span class="p">[</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="p">{</span> <span class="s">&#39;a&#39;</span><span class="p">:</span><span class="s">&#39;A&#39;</span><span class="p">,</span>
+ <span class="s">&#39;b&#39;</span><span class="p">:</span><span class="s">&#39;B&#39;</span><span class="p">,</span>
+ <span class="s">&#39;c&#39;</span><span class="p">:</span><span class="s">&#39;C&#39;</span><span class="p">,</span>
+ <span class="s">&#39;d&#39;</span><span class="p">:</span><span class="s">&#39;D&#39;</span><span class="p">,</span>
+ <span class="s">&#39;e&#39;</span><span class="p">:</span><span class="s">&#39;E&#39;</span><span class="p">,</span>
+ <span class="s">&#39;f&#39;</span><span class="p">:</span><span class="s">&#39;F&#39;</span><span class="p">,</span>
+ <span class="s">&#39;g&#39;</span><span class="p">:</span><span class="s">&#39;G&#39;</span><span class="p">,</span>
+ <span class="s">&#39;h&#39;</span><span class="p">:</span><span class="s">&#39;H&#39;</span><span class="p">,</span>
+ <span class="p">})</span>
+ <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="mf">3</span><span class="p">)</span>
+ <span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>输出<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>使用这个模块的最简单方式是使用 <tt class="docutils literal"><span class="pre">pprint()</span></tt> 函数. 它格式化你的对象并作为参数写入到数据流中(默认为sys.stdout)中.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">pprint_data</span> <span class="kn">import</span> <span class="n">data</span>
+
+<span class="k">print</span> <span class="s">&#39;PRINT:&#39;</span>
+<span class="k">print</span> <span class="n">data</span>
+<span class="k">print</span>
+<span class="k">print</span> <span class="s">&#39;PPRINT:&#39;</span>
+<span class="n">pprint</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python pprint_pprint.py
+PRINT:
+[(0, {'a': 'A', 'c': 'C', 'b': 'B', 'e': 'E', 'd': 'D', 'g': 'G', 'f': 'F', 'h': 'H'}), (1, {'a': 'A', 'c': 'C', 'b': 'B', 'e': 'E', 'd': 'D', 'g': 'G', 'f': 'F', 'h': 'H'}), (2, {'a': 'A', 'c': 'C', 'b': 'B', 'e': 'E', 'd': 'D', 'g': 'G', 'f': 'F', 'h': 'H'})]
+
+
+PPRINT:
+[(0,
+ {'a': 'A',
+ 'b': 'B',
+ 'c': 'C',
+ 'd': 'D',
+ 'e': 'E',
+ 'f': 'F',
+ 'g': 'G',
+ 'h': 'H'}),
+ (1,
+ {'a': 'A',
+ 'b': 'B',
+ 'c': 'C',
+ 'd': 'D',
+ 'e': 'E',
+ 'f': 'F',
+ 'g': 'G',
+ 'h': 'H'}),
+ (2,
+ {'a': 'A',
+ 'b': 'B',
+ 'c': 'C',
+ 'd': 'D',
+ 'e': 'E',
+ 'f': 'F',
+ 'g': 'G',
+ 'h': 'H'})]</pre>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>格式化<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>如果你需要格式化一个数据结构, 但不想直接写入到流中(比如, 为了记录日志), 你可以使用 <tt class="docutils literal"><span class="pre">pformat()</span></tt> 来构建一个字符串传递给其他函数.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pformat</span>
+<span class="kn">from</span> <span class="nn">pprint_data</span> <span class="kn">import</span> <span class="n">data</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span>
+ <span class="n">format</span><span class="o">=</span><span class="s">&#39;</span><span class="si">%(asctime)s</span><span class="s"> </span><span class="si">%(levelname)-8s</span><span class="s"> </span><span class="si">%(message)s</span><span class="s">&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;Logging pformatted data&#39;</span><span class="p">)</span>
+<span class="n">logging</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="n">pformat</span><span class="p">(</span><span class="n">data</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python pprint_pformat.py
+2007-10-21 18:10:32,881 DEBUG Logging pformatted data
+2007-10-21 18:10:32,884 DEBUG [(0,
+{'a': 'A',
+ 'b': 'B',
+ 'c': 'C',
+ 'd': 'D',
+ 'e': 'E',
+ 'f': 'F',
+ 'g': 'G',
+ 'h': 'H'}),
+ (1,
+ {'a': 'A',
+ 'b': 'B',
+ 'c': 'C',
+ 'd': 'D',
+ 'e': 'E',
+ 'f': 'F',
+ 'g': 'G',
+ 'h': 'H'}),
+ (2,
+ {'a': 'A',
+ 'b': 'B',
+ 'c': 'C',
+ 'd': 'D',
+ 'e': 'E',
+ 'f': 'F',
+ 'g': 'G',
+ 'h': 'H'})]</pre>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>其他类<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">pprint()</span></tt> 中使用到的PrettyPrinter类也支持自定义类, 前提是在自定义类中, 定义了 <tt class="docutils literal"><span class="pre">__repr__</span></tt> 方法.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+
+<span class="k">class</span> <span class="nc">node</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">contents</span><span class="o">=</span><span class="p">[]):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">contents</span> <span class="o">=</span> <span class="n">contents</span><span class="p">[:]</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&#39;node(&#39;</span> <span class="o">+</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">name</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;, &#39;</span> <span class="o">+</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">contents</span><span class="p">)</span> <span class="o">+</span> <span class="s">&#39;)&#39;</span>
+
+<span class="n">trees</span> <span class="o">=</span> <span class="p">[</span> <span class="n">node</span><span class="p">(</span><span class="s">&#39;node-1&#39;</span><span class="p">),</span>
+    <span class="n">node</span><span class="p">(</span><span class="s">&#39;node-2&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="n">node</span><span class="p">(</span><span class="s">&#39;node-2-1&#39;</span><span class="p">)]),</span>
+    <span class="n">node</span><span class="p">(</span><span class="s">&#39;node-3&#39;</span><span class="p">,</span> <span class="p">[</span> <span class="n">node</span><span class="p">(</span><span class="s">&#39;node-3-1&#39;</span><span class="p">)]),</span>
+<span class="p">]</span>
+<span class="n">pprint</span><span class="p">(</span><span class="n">trees</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python pprint_arbitrary_object.py
+[node('node-1', []),
+ node('node-2', [node('node-2-1', [])]),
+ node('node-3', [node('node-3-1', [])])]</pre>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>递归<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>递归的数据可用一个指向原始数据的引用来表示, 具体的形式为 <em>&lt;Recursion on typename with id=number&gt;</em>. 例如:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">local_data</span> <span class="o">=</span> <span class="p">[</span> <span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span> <span class="mf">2</span> <span class="p">]</span>
+<span class="n">local_data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">local_data</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">&#39;id(local_data) =&gt;&#39;</span><span class="p">,</span> <span class="nb">id</span><span class="p">(</span><span class="n">local_data</span><span class="p">)</span>
+<span class="n">pprint</span><span class="p">(</span><span class="n">local_data</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python pprint_recursion.py
+id(local_data) =&gt; 486936
+['a', 'b', 1, 2, &lt;Recursion on list with id=486936&gt;]</pre>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>限制嵌套输出<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>对于每一个深层次的数据结构, 你可能不想输出所有的细节. 也可能无法适当的格式化数据, 或者要格式化的文本很大而难控制, 或者你可能需要全部使用. 在这种情况下, 指定depth参数可控制嵌套数据结构显示的深度.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">pprint_data</span> <span class="kn">import</span> <span class="n">data</span>
+
+<span class="n">pprint</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">depth</span><span class="o">=</span><span class="mf">1</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python pprint_depth.py
+[(0, {...}), (1, {...}), (2, {...})]</pre>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>控制输出宽度<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>默认的格式化文本输出宽度是80列. 指定 <tt class="docutils literal"><span class="pre">pprint()</span></tt> 中的width参数可以调整文本输出宽度.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">pprint</span> <span class="kn">import</span> <span class="n">pprint</span>
+<span class="kn">from</span> <span class="nn">pprint_data</span> <span class="kn">import</span> <span class="n">data</span>
+
+<span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
+    <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="s">&#39;defgh&#39;</span><span class="p">:</span>
+        <span class="k">del</span> <span class="n">d</span><span class="p">[</span><span class="mf">1</span><span class="p">][</span><span class="n">c</span><span class="p">]</span>
+
+<span class="k">for</span> <span class="n">width</span> <span class="ow">in</span> <span class="p">[</span> <span class="mf">80</span><span class="p">,</span> <span class="mf">20</span><span class="p">,</span> <span class="mf">5</span> <span class="p">]:</span>
+    <span class="k">print</span> <span class="s">&#39;WIDTH =&#39;</span><span class="p">,</span> <span class="n">width</span>
+    <span class="n">pprint</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="n">width</span><span class="p">)</span>
+    <span class="k">print</span>
+</pre></div>
+</div>
+<p>注意: 当width被定义的太小而不能容纳所有的格式化数据时, 行是不会被截断. 如果有出现无效的语法时, 也不会被包裹起来.</p>
+<div class="highlight-python"><pre>$ python pprint_width.py
+WIDTH = 80
+[(0, {'a': 'A', 'b': 'B', 'c': 'C'}),
+ (1, {'a': 'A', 'b': 'B', 'c': 'C'}),
+ (2, {'a': 'A', 'b': 'B', 'c': 'C'})]
+
+WIDTH = 20
+[(0,
+ {'a': 'A',
+ 'b': 'B',
+ 'c': 'C'}),
+ (1,
+ {'a': 'A',
+ 'b': 'B',
+ 'c': 'C'}),
+ (2,
+ {'a': 'A',
+ 'b': 'B',
+ 'c': 'C'})]
+
+WIDTH = 5
+[(0,
+ {'a': 'A',
+ 'b': 'B',
+ 'c': 'C'}),
+ (1,
+ {'a': 'A',
+ 'b': 'B',
+ 'c': 'C'}),
+ (2,
+ {'a': 'A',
+ 'b': 'B',
+ 'c': 'C'})]</pre>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="SocketServer.html" title="PyMOTW: SocketServer"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="BaseHTTPServer.html" title="PyMOTW: BaseHTTPServer"
+             >previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, vbarter &amp; liz.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

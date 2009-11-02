@@ -1,0 +1,251 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: array &mdash; PyMOTW Document v1.6 documentation</title>
+    <link rel="stylesheet" href="../_static/mytest.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.6',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW Document v1.6 documentation" href="../index.html" />
+    <link rel="next" title="PyMOTW: getpass" href="getpass.html" />
+    <link rel="prev" title="PyMOTW: Struct" href="struct.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="getpass.html" title="PyMOTW: getpass"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="struct.html" title="PyMOTW: Struct"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">PyMOTW: array</a><ul>
+<li><a class="reference external" href="#id2">数组的初始化</a></li>
+<li><a class="reference external" href="#id3">处理数组</a></li>
+<li><a class="reference external" href="#id4">数组和文件</a></li>
+<li><a class="reference external" href="#id5">交替字节排序</a></li>
+<li><a class="reference external" href="#id6">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="struct.html"
+                                  title="previous chapter">PyMOTW: Struct</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="getpass.html"
+                                  title="next chapter">PyMOTW: getpass</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/array.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pymotw-array">
+<h1>PyMOTW: array<a class="headerlink" href="#pymotw-array" title="Permalink to this headline">¶</a></h1>
+<p>time模块提供了操作日期和时间的函数</p>
+<ul class="simple">
+<li>模块： array</li>
+<li>目的： 有效管理固定数值序列。</li>
+<li>python版本：1.4+</li>
+</ul>
+<p>数组模块定义了一个序列型的数据结构, 非常像一个列表, 只是其中元素的类型是相同的. 支持的数据类型在 <a class="reference external" href="http://docs.python.org/library/array.html">标准库文档</a> 中列出了. 他们是所有数值型或其他固定大小的基本数据类型, 如bytes.</p>
+<div class="section" id="id2">
+<h2>数组的初始化<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>一个数组实例化时需要一个描述数据类型的参数, 还可能需要一个初始化序列.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">array</span>
+<span class="kn">import</span> <span class="nn">binascii</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="s">&#39;This is the array.&#39;</span>
+<span class="n">a</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s">&#39;c&#39;</span><span class="p">,</span> <span class="n">s</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">&#39;As string:&#39;</span><span class="p">,</span> <span class="n">s</span>
+<span class="k">print</span> <span class="s">&#39;As array :&#39;</span><span class="p">,</span> <span class="n">a</span>
+<span class="k">print</span> <span class="s">&#39;As hex :&#39;</span><span class="p">,</span> <span class="n">binascii</span><span class="o">.</span><span class="n">hexlify</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>在这个例子中, 数组保存的是一字节序列并且用一个简单的字符串来初始化.</p>
+<div class="highlight-python"><pre>$ python array_string.py
+As string: This is the array.
+As array : array('c', [84, 104, 105, 115, 32, 105, 115,
+32, 116, 104, 101, 32, 97, 114, 114, 97, 121, 46])
+As hex : 54686973206973207468652061727261792e</pre>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>处理数组<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>一个数组可以被扩展, 否则也可以与其他Python序列的相同的方式处理.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">array</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="nb">xrange</span><span class="p">(</span><span class="mf">5</span><span class="p">))</span>
+<span class="k">print</span> <span class="s">&#39;Initial :&#39;</span><span class="p">,</span> <span class="n">a</span>
+
+<span class="n">a</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="nb">xrange</span><span class="p">(</span><span class="mf">5</span><span class="p">))</span>
+<span class="k">print</span> <span class="s">&#39;Extended:&#39;</span><span class="p">,</span> <span class="n">a</span>
+
+<span class="k">print</span> <span class="s">&#39;Slice :&#39;</span><span class="p">,</span> <span class="n">a</span><span class="p">[</span><span class="mf">3</span><span class="p">:</span><span class="mf">6</span><span class="p">]</span>
+
+<span class="k">print</span> <span class="s">&#39;Iterator:&#39;</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="nb">enumerate</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python array_sequence.py
+Initial : array('i', [0, 1, 2, 3, 4])
+Extended: array('i', [0, 1, 2, 3, 4, 0, 1, 2, 3, 4])
+Slice : array('i', [3, 4, 0])
+Iterator: [(0, 0), (1, 1), (2, 2), (3, 3), (4, 4),
+(5, 0), (6, 1), (7, 2), (8, 3), (9, 4)]</pre>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>数组和文件<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>使用一些编码高效的内置方法可以从文件中读入一个数组的内容, 或者将数组内容写入文件中.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">array</span>
+<span class="kn">import</span> <span class="nn">binascii</span>
+<span class="kn">import</span> <span class="nn">tempfile</span>
+
+<span class="n">a</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="nb">xrange</span><span class="p">(</span><span class="mf">5</span><span class="p">))</span>
+<span class="k">print</span> <span class="s">&#39;A1:&#39;</span><span class="p">,</span> <span class="n">a</span>
+
+<span class="c"># Write the array of numbers to the file</span>
+<span class="n">output</span> <span class="o">=</span> <span class="n">tempfile</span><span class="o">.</span><span class="n">NamedTemporaryFile</span><span class="p">()</span>
+<span class="n">a</span><span class="o">.</span><span class="n">tofile</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">file</span><span class="p">)</span> <span class="c"># must pass an *actual* file</span>
+<span class="n">output</span><span class="o">.</span><span class="n">flush</span><span class="p">()</span>
+
+<span class="c"># Read the raw data</span>
+<span class="nb">input</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">output</span><span class="o">.</span><span class="n">name</span><span class="p">,</span> <span class="s">&#39;rb&#39;</span><span class="p">)</span>
+<span class="n">raw_data</span> <span class="o">=</span> <span class="nb">input</span><span class="o">.</span><span class="n">read</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&#39;Raw Contents:&#39;</span><span class="p">,</span> <span class="n">binascii</span><span class="o">.</span><span class="n">hexlify</span><span class="p">(</span><span class="n">raw_data</span><span class="p">)</span>
+
+<span class="c"># Read the data into an array</span>
+<span class="nb">input</span><span class="o">.</span><span class="n">seek</span><span class="p">(</span><span class="mf">0</span><span class="p">)</span>
+<span class="n">a2</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s">&#39;i&#39;</span><span class="p">)</span>
+<span class="n">a2</span><span class="o">.</span><span class="n">fromfile</span><span class="p">(</span><span class="nb">input</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="n">a</span><span class="p">))</span>
+<span class="k">print</span> <span class="s">&#39;A2:&#39;</span><span class="p">,</span> <span class="n">a2</span>
+</pre></div>
+</div>
+<p>这个例子中, 直接从二进制文件中读取原数据, 并将它读入一个新的数组并将其转换为合适的类型.</p>
+<div class="highlight-python"><pre>$ python array_file.py
+A1: array('i', [0, 1, 2, 3, 4])
+Raw Contents: 0000000001000000020000000300000004000000 ## ?
+A2: array('i', [0, 1, 2, 3, 4])</pre>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>交替字节排序<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>如果数组中的数据不是按照本地字节序排列, 或者在写入到文件之前需要进行交换来适合不同系统的不同字节序, 很容易对整个数组进行这种转换.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">array</span>
+
+<span class="kn">import</span> <span class="nn">binascii</span>
+
+<span class="k">def</span> <span class="nf">to_hex</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>
+    <span class="n">chars_per_item</span> <span class="o">=</span> <span class="n">a</span><span class="o">.</span><span class="n">itemsize</span> <span class="o">*</span> <span class="mf">2</span> <span class="c"># 2 hex digits</span>
+    <span class="n">hex_version</span> <span class="o">=</span> <span class="n">binascii</span><span class="o">.</span><span class="n">hexlify</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="n">num_chunks</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">hex_version</span><span class="p">)</span> <span class="o">/</span> <span class="n">chars_per_item</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">xrange</span><span class="p">(</span><span class="n">num_chunks</span><span class="p">):</span>
+        <span class="n">start</span> <span class="o">=</span> <span class="n">i</span><span class="o">*</span><span class="n">chars_per_item</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="n">start</span> <span class="o">+</span> <span class="n">chars_per_item</span>
+        <span class="k">yield</span> <span class="n">hex_version</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">end</span><span class="p">]</span>
+
+<span class="n">a1</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="nb">xrange</span><span class="p">(</span><span class="mf">5</span><span class="p">))</span>
+<span class="n">a2</span> <span class="o">=</span> <span class="n">array</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="s">&#39;i&#39;</span><span class="p">,</span> <span class="nb">xrange</span><span class="p">(</span><span class="mf">5</span><span class="p">))</span>
+<span class="n">a2</span><span class="o">.</span><span class="n">byteswap</span><span class="p">()</span>
+
+<span class="n">fmt</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%10s</span><span class="s"> </span><span class="si">%10s</span><span class="s"> </span><span class="si">%10s</span><span class="s"> </span><span class="si">%10s</span><span class="s">&#39;</span>
+<span class="k">print</span> <span class="n">fmt</span> <span class="o">%</span> <span class="p">(</span><span class="s">&#39;A1 hex&#39;</span><span class="p">,</span> <span class="s">&#39;A1&#39;</span><span class="p">,</span> <span class="s">&#39;A2 hex&#39;</span><span class="p">,</span> <span class="s">&#39;A2&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">fmt</span> <span class="o">%</span> <span class="p">((</span><span class="s">&#39;-&#39;</span> <span class="o">*</span> <span class="mf">10</span><span class="p">,)</span> <span class="o">*</span> <span class="mf">4</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">values</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">to_hex</span><span class="p">(</span><span class="n">a1</span><span class="p">),</span> <span class="n">a1</span><span class="p">,</span> <span class="n">to_hex</span><span class="p">(</span><span class="n">a2</span><span class="p">),</span> <span class="n">a2</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">fmt</span> <span class="o">%</span> <span class="n">values</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python array_byteswap.py
+   A1 hex      A1        A2 hex       A2
+ ---------- ---------- ---------- ----------
+  00000000     0        00000000       0
+  01000000     1        00000001    16777216
+  02000000     2        00000002    33554432
+  03000000     3        00000003    50331648
+  04000000     4        00000004    67108864</pre>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>参考<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://docs.python.org/library/array.html">array</a></li>
+<li><a class="reference external" href="http://www.scipy.org/">Numerical Python</a> NumPy是Python针对大数据集的有效处理模块.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="getpass.html" title="PyMOTW: getpass"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="struct.html" title="PyMOTW: Struct"
+             >previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, vbarter &amp; liz.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

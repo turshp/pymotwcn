@@ -1,0 +1,530 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: itertools &mdash; PyMOTW Document v1.6 documentation</title>
+    <link rel="stylesheet" href="../_static/mytest.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.6',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW Document v1.6 documentation" href="../index.html" />
+    <link rel="next" title="PyMOTW: zipfile" href="zipfile.html" />
+    <link rel="prev" title="PyMOTW: exceptions" href="exceptions.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="zipfile.html" title="PyMOTW: zipfile"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="exceptions.html" title="PyMOTW: exceptions"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">PyMOTW: itertools</a><ul>
+<li><a class="reference external" href="#id1">描述</a></li>
+<li><a class="reference external" href="#id2">合并和切分迭代器</a></li>
+<li><a class="reference external" href="#id3">转换输入</a></li>
+<li><a class="reference external" href="#id6">产生新值</a></li>
+<li><a class="reference external" href="#id7">过滤</a></li>
+<li><a class="reference external" href="#id8">分组数据</a></li>
+<li><a class="reference external" href="#id9">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="exceptions.html"
+                                  title="previous chapter">PyMOTW: exceptions</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="zipfile.html"
+                                  title="next chapter">PyMOTW: zipfile</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/itertools.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pymotw-itertools">
+<h1>PyMOTW: itertools<a class="headerlink" href="#pymotw-itertools" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>模块： itertools</li>
+<li>目的： 用于高效循环的迭代函数</li>
+<li>python版本： 2.3+</li>
+</ul>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>这个模块中提供的函数具有和&#8221;lazy functional programming language&#8221; <a class="reference external" href="http://www.haskell.org/">Haskell</a> 和 <a class="reference external" href="http://en.wikipedia.org/wiki/Standard_ML">SML</a> 相似的特点. 他们都是为了跑得更快和更有效的使用内存. 但他们也被牵扯在一起以表示更为复杂的迭代算法.</p>
+<p>由于某些原因, 基于迭代的代码可能更优于使用列表的代码. 由于数据只有在需要它的时候才产生, 所以所有的数据不会同时被存储在内存中.节省内存使用可以减少数据的交换次数和其他大数据集操作的副作用, 从而提高性能.</p>
+<p>以下所有的例子都是使用from itertools import * 来导入itertools的.</p>
+</div>
+<div class="section" id="id2">
+<h2>合并和切分迭代器<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">chain()</span></tt> 函数将多个迭代器作为参数, 但只返回单个迭代器, 它产生所有参数迭代器的内容, 就好像他们是来自于一个单一的序列.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">chain</span><span class="p">([</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">]):</span>
+    <span class="k">print</span> <span class="n">i</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python itertools_chain.py
+1
+2
+3
+a
+b
+c</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">izip()</span></tt> 函数返回一个合并了多个迭代器为一个元组的迭代器. 它类似于内置函数zip(), 只是它返回的是一个迭代器而不是一个列表.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">izip</span><span class="p">([</span><span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="p">],</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">]):</span>
+    <span class="k">print</span> <span class="n">i</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python itertools_izip.py
+(1, 'a')
+(2, 'b')
+(3, 'c')</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">islice()</span></tt> 函数返回的迭代器是返回了输入迭代器根据索引来选取的项.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="s">&#39;Stop at 5:&#39;</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">islice</span><span class="p">(</span><span class="n">count</span><span class="p">(),</span> <span class="mf">5</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">i</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>class count(__builtin__.object)
+  |  count([firstval]) --&gt; count object
+  |
+  |  Return a count object whose .next() method returns consecutive
+  |  integers starting from zero or, if specified, from firstval.</pre>
+</div>
+<div class="highlight-python"><pre>Stop at 5:
+0
+1
+2
+3
+4</pre>
+</div>
+<p>它可以使用和列表的slice操作相同的参数: start, stop和step. start和step参数是可选的.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="s">&#39;Start at 5, Stop at 10:&#39;</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">islice</span><span class="p">(</span><span class="n">count</span><span class="p">(),</span> <span class="mf">5</span><span class="p">,</span> <span class="mf">10</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">i</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>Start at 5, Stop at 10:
+5
+6
+7
+8
+9</pre>
+</div>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="s">&#39;By tens to 100:&#39;</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">islice</span><span class="p">(</span><span class="n">count</span><span class="p">(),</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">100</span><span class="p">,</span> <span class="mf">10</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">i</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>By tens to 100:
+0
+10
+20
+30
+40
+50
+60
+70
+80
+90</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">tee()</span></tt> 函数返回一些基于单个原始输入的独立迭代器(默认为2). 它和Unix上的tee工具有点语义相似, 也就是说它们都重复读取输入设备中的值并将值写入到一个命名文件和标准输出中.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">r</span> <span class="o">=</span> <span class="n">islice</span><span class="p">(</span><span class="n">count</span><span class="p">(),</span> <span class="mf">5</span><span class="p">)</span>
+<span class="n">i1</span><span class="p">,</span> <span class="n">i2</span> <span class="o">=</span> <span class="n">tee</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">i1</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;i1:&#39;</span><span class="p">,</span> <span class="n">i</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">i2</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;i2:&#39;</span><span class="p">,</span> <span class="n">i</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python itertools_tee.py
+i1: 0
+i1: 1
+i1: 2
+i1: 3
+i1: 4
+i2: 0
+i2: 1
+i2: 2
+i2: 3
+i2: 4</pre>
+</div>
+<p>因为 <tt class="docutils literal"><span class="pre">tee()</span></tt> 新建的迭代器共享了输入, 所以你就不需要使用原始的迭代器. 如果你使用了原始输入中的值, 新的迭代器就不会产生对应的值:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">r</span> <span class="o">=</span> <span class="n">islice</span><span class="p">(</span><span class="n">count</span><span class="p">(),</span> <span class="mf">5</span><span class="p">)</span>
+<span class="n">i1</span><span class="p">,</span> <span class="n">i2</span> <span class="o">=</span> <span class="n">tee</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">r</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;r:&#39;</span><span class="p">,</span> <span class="n">i</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">&gt;</span> <span class="mf">1</span><span class="p">:</span>
+        <span class="k">break</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">i1</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;i1:&#39;</span><span class="p">,</span> <span class="n">i</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">i2</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;i2:&#39;</span><span class="p">,</span> <span class="n">i</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python itertools_tee_error.py
+r: 0
+r: 1
+r: 2
+i1: 3
+i1: 4
+i2: 3
+i2: 4</pre>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>转换输入<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">imap()</span></tt> 函数返回一个迭代器, 它是调用了一个其值在输入迭代器上的函数, 返回结果. 它类似于内置函数 <tt class="docutils literal"><span class="pre">map()</span></tt> , 只是前者在任意输入迭代器结束后就停止(而不是插入None值来补全所有的输入).</p>
+<p>在下面的第一个例子中, lambda函数将输入的值乘上2:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="s">&#39;Doubles:&#39;</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">imap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span><span class="mf">2</span><span class="o">*</span><span class="n">x</span><span class="p">,</span> <span class="nb">xrange</span><span class="p">(</span><span class="mf">5</span><span class="p">)):</span>
+    <span class="k">print</span> <span class="n">i</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python itertools_imap.py
+Doubles:
+0
+2
+4
+6
+8</pre>
+</div>
+<p>在第二个例子中, lambda函数将2个参数相乘, 这两个参数各自取自两个独立的迭代器并返回一个原始参数和计算结果的元组.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="s">&#39;Multiples:&#39;</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">imap</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">:(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">x</span><span class="o">*</span><span class="n">y</span><span class="p">),</span> <span class="nb">xrange</span><span class="p">(</span><span class="mf">5</span><span class="p">),</span> <span class="nb">xrange</span><span class="p">(</span><span class="mf">5</span><span class="p">,</span><span class="mf">10</span><span class="p">)):</span>
+    <span class="k">print</span> <span class="s">&#39;</span><span class="si">%d</span><span class="s"> * </span><span class="si">%d</span><span class="s"> = </span><span class="si">%d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">i</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>Multiples:
+0 * 5 = 0
+1 * 6 = 6
+2 * 7 = 14
+3 * 8 = 24
+4 * 9 = 36</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">starmap()</span></tt> 函数类似于 <tt class="docutils literal"><span class="pre">imap()</span></tt> , 但是在从多个迭代器中构造元组时, 它先将各个项切分成单个迭代器并将它作为参数以*语法传递给映射函数. <tt class="docutils literal"><span class="pre">imap()</span></tt> 的映射函数被称为f(i1, i2), <tt class="docutils literal"><span class="pre">startmap()</span></tt> 的映射函数被称为f(<a href="#id4"><span class="problematic" id="id5">*</span></a>i).</p>
+<div class="highlight-python"><pre>$ python itertools_starmap.py
+0 * 5 = 0
+1 * 6 = 6
+2 * 7 = 14
+3 * 8 = 24
+4 * 9 = 36</pre>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>产生新值<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">count()</span></tt> 函数返回一个不断产生连续整数的迭代器. 第一个数可以由参数指定, 默认为0. 它没有上届参数(可参见内置函数 <tt class="docutils literal"><span class="pre">xrange()</span></tt> , 它更好的控制结果集). 在下面的例子中, 迭代器由于参数列表结束而停止.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">izip</span><span class="p">(</span><span class="n">count</span><span class="p">(</span><span class="mf">1</span><span class="p">),</span> <span class="p">[</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">]):</span>
+     <span class="k">print</span> <span class="n">i</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python itertools_count.py
+(1, 'a')
+(2, 'b')
+(3, 'c')</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">cycle()</span></tt> 函数返回一个不断重复参数内容的迭代器. 由于它必须记住整个输入迭代器的内容, 所以如果输入迭代器很长的话, 它可能会消耗大量的内存. 在下面的例子中, 一个计数变量用于在一定数量的循环后, 跳出循环.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">i</span> <span class="o">=</span> <span class="mf">0</span>
+<span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">cycle</span><span class="p">([</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">,</span> <span class="s">&#39;c&#39;</span><span class="p">]):</span>
+    <span class="n">i</span> <span class="o">+=</span> <span class="mf">1</span>
+    <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mf">10</span><span class="p">:</span>
+        <span class="k">break</span>
+    <span class="k">print</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python itertools_cycle.py
+(1, 'a')
+(2, 'b')
+(3, 'c')
+(4, 'a')
+(5, 'b')
+(6, 'c')
+(7, 'a')
+(8, 'b')
+(9, 'c')</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">repeat()</span></tt> 函数返回一个每次都产生相同值的迭代器. 它也是永远继续的, 除非你设置了times参数来限制.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">repeat</span><span class="p">(</span><span class="s">&#39;over-and-over&#39;</span><span class="p">,</span> <span class="mf">5</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">i</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python itertools_repeat.py
+over-and-over
+over-and-over
+over-and-over
+over-and-over
+over-and-over</pre>
+</div>
+<p>当其他迭代器使用的是一个固定值时, 将 <tt class="docutils literal"><span class="pre">repeat()</span></tt> 和 <tt class="docutils literal"><span class="pre">izip()</span></tt> 或 <tt class="docutils literal"><span class="pre">imap()</span></tt> 联合起来使用是非常有用的.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">izip</span><span class="p">(</span><span class="n">count</span><span class="p">(),</span> <span class="n">repeat</span><span class="p">(</span><span class="s">&#39;over-and-over&#39;</span><span class="p">,</span> <span class="mf">5</span><span class="p">)):</span>
+     <span class="k">print</span> <span class="n">i</span><span class="p">,</span> <span class="n">s</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python itertools_repeat_izip.py
+0 over-and-over
+1 over-and-over
+2 over-and-over
+3 over-and-over
+4 over-and-over</pre>
+</div>
+<div class="highlight-python"><pre>$ python itertools_repeat_imap.py
+2 * 0 = 0
+2 * 1 = 2
+2 * 2 = 4
+2 * 3 = 6
+2 * 4 = 8</pre>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>过滤<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">dropwhile()</span></tt> 函数返回一个当条件为false之后的输入迭代器中剩余元素的迭代器. 它不过滤输入迭代器中的每一个项; 在条件为false之后的第一次, 返回迭代器中剩下来的项.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">should_drop</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">&#39;Testing:&#39;</span><span class="p">,</span> <span class="n">x</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="o">&lt;</span><span class="mf">1</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">dropwhile</span><span class="p">(</span><span class="n">should_drop</span><span class="p">,</span> <span class="p">[</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="p">,</span> <span class="mf">4</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">2</span> <span class="p">]):</span>
+    <span class="k">print</span> <span class="s">&#39;Yielding:&#39;</span><span class="p">,</span> <span class="n">i</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python itertools_dropwhile.py
+Testing: -1
+Testing: 0
+Testing: 1
+Yielding: 1
+Yielding: 2
+Yielding: 3
+Yielding: 4
+Yielding: 1
+Yielding: -2</pre>
+</div>
+<p>和 <tt class="docutils literal"><span class="pre">dropwhile()</span></tt> 相反的是, <tt class="docutils literal"><span class="pre">takewhile()</span></tt> , 它返回的是一个产生输入迭代器中只要测试函数返回true的项的迭代器.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">should_take</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">&#39;Testing:&#39;</span><span class="p">,</span> <span class="n">x</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="o">&lt;</span><span class="mf">2</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">takewhile</span><span class="p">(</span><span class="n">should_take</span><span class="p">,</span> <span class="p">[</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="p">,</span> <span class="mf">4</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">2</span> <span class="p">]):</span>
+    <span class="k">print</span> <span class="s">&#39;Yielding:&#39;</span><span class="p">,</span> <span class="n">i</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python itertools_takewhile.py
+Testing: -1
+Yielding: -1
+Testing: 0
+Yielding: 0
+Testing: 1
+Yielding: 1
+Testing: 2</pre>
+</div>
+<p><tt class="docutils literal"><span class="pre">ifilter()</span></tt> 返回的是迭代器类似于针对列表的内置函数 <tt class="docutils literal"><span class="pre">filter()</span></tt> , 它只包括当测试函数返回true时的项. 它不同于 <tt class="docutils literal"><span class="pre">dropwhile()</span></tt> 的是每个项是在被返回之前进行测试的.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">check_item</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">&#39;Testing:&#39;</span><span class="p">,</span> <span class="n">x</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="o">&lt;</span><span class="mf">1</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ifilter</span><span class="p">(</span><span class="n">check_item</span><span class="p">,</span> <span class="p">[</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="p">,</span> <span class="mf">4</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">2</span> <span class="p">]):</span>
+    <span class="k">print</span> <span class="s">&#39;Yielding:&#39;</span><span class="p">,</span> <span class="n">i</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python itertools_ifilter.py
+Testing: -1
+Yielding: -1
+Testing: 0
+Yielding: 0
+Testing: 1
+Testing: 2
+Testing: 3
+Testing: 4
+Testing: 1
+Testing: -2
+Yielding: -2</pre>
+</div>
+<p>和 <tt class="docutils literal"><span class="pre">ifilter()</span></tt> 函数相反的是, <tt class="docutils literal"><span class="pre">ifilterfalse()</span></tt> 返回一个包含那些测试函数返回false的项的迭代器.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">check_item</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">&#39;Testing:&#39;</span><span class="p">,</span> <span class="n">x</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">x</span><span class="o">&lt;</span><span class="mf">1</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">ifilterfalse</span><span class="p">(</span><span class="n">check_item</span><span class="p">,</span> <span class="p">[</span> <span class="o">-</span><span class="mf">1</span><span class="p">,</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span> <span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="p">,</span> <span class="mf">4</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span> <span class="o">-</span><span class="mf">2</span> <span class="p">]):</span>
+    <span class="k">print</span> <span class="s">&#39;Yielding:&#39;</span><span class="p">,</span> <span class="n">i</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python itertools_ifilterfalse.py Testing: -1
+Testing: 0
+Testing: 1
+Yielding: 1
+Testing: 2
+Yielding: 2
+Testing: 3
+Yielding: 3
+Testing: 4
+Yielding: 4
+Testing: 1
+Yielding: 1
+Testing: -2</pre>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>分组数据<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">groupby()</span></tt> 函数返回一个产生按照key进行分组后的值集合的迭代器.</p>
+<p>下面的例子来自于标准库文档, 它表明怎样将一个字典根据值将关键字分组.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">itertools</span> <span class="kn">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">operator</span> <span class="kn">import</span> <span class="n">itemgetter</span>
+
+<span class="n">d</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mf">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mf">2</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mf">1</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mf">2</span><span class="p">,</span> <span class="n">e</span><span class="o">=</span><span class="mf">1</span><span class="p">,</span> <span class="n">f</span><span class="o">=</span><span class="mf">2</span><span class="p">,</span> <span class="n">g</span><span class="o">=</span><span class="mf">3</span><span class="p">)</span>
+<span class="n">di</span> <span class="o">=</span> <span class="n">sorted</span><span class="p">(</span><span class="n">d</span><span class="o">.</span><span class="n">iteritems</span><span class="p">(),</span> <span class="n">key</span><span class="o">=</span><span class="n">itemgetter</span><span class="p">(</span><span class="mf">1</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">groupby</span><span class="p">(</span><span class="n">di</span><span class="p">,</span> <span class="n">key</span><span class="o">=</span><span class="n">itemgetter</span><span class="p">(</span><span class="mf">1</span><span class="p">)):</span>
+    <span class="k">print</span> <span class="n">k</span><span class="p">,</span> <span class="nb">map</span><span class="p">(</span><span class="n">itemgetter</span><span class="p">(</span><span class="mf">0</span><span class="p">),</span> <span class="n">g</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python itertools_groupby.py
+1 ['a', 'c', 'e']
+2 ['b', 'd', 'f']
+3 ['g']</pre>
+</div>
+<p>下面一个更复杂的例子说明了如何基于一些属性来对值进行分组的. 注意了, 输入的序列需要按照关键字进行排序, 这样就可以得到预期的分组结果了:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">Point</span><span class="p">:</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&#39;Point(</span><span class="si">%s</span><span class="s">, </span><span class="si">%s</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">__cmp__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">cmp</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="p">),</span> <span class="p">(</span><span class="n">other</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">other</span><span class="o">.</span><span class="n">y</span><span class="p">))</span> <span class="c">## 比较</span>
+
+<span class="c"># Create a dataset of Point instances</span>
+<span class="n">data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">imap</span><span class="p">(</span><span class="n">Point</span><span class="p">,</span> <span class="n">cycle</span><span class="p">(</span><span class="n">islice</span><span class="p">(</span><span class="n">count</span><span class="p">(),</span> <span class="mf">3</span><span class="p">)),</span> <span class="n">islice</span><span class="p">(</span><span class="n">count</span><span class="p">(),</span> <span class="mf">10</span><span class="p">),))</span>
+<span class="k">print</span> <span class="s">&#39;Data:&#39;</span><span class="p">,</span> <span class="n">data</span>
+<span class="k">print</span>
+
+<span class="c"># Try to group the unsorted data based on X values</span>
+<span class="k">print</span> <span class="s">&#39;Grouped, unsorted:&#39;</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">groupby</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">o</span><span class="p">:</span><span class="n">o</span><span class="o">.</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">k</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="k">print</span>
+
+<span class="c"># Sort the data</span>
+<span class="n">data</span><span class="o">.</span><span class="n">sort</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&#39;Sorted:&#39;</span><span class="p">,</span> <span class="n">data</span>
+<span class="k">print</span>
+
+<span class="c"># Group the sorted data based on X values</span>
+<span class="k">print</span> <span class="s">&#39;Grouped, sorted:&#39;</span>
+<span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">g</span> <span class="ow">in</span> <span class="n">groupby</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="k">lambda</span> <span class="n">o</span><span class="p">:</span><span class="n">o</span><span class="o">.</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">k</span><span class="p">,</span> <span class="nb">list</span><span class="p">(</span><span class="n">g</span><span class="p">)</span>
+<span class="k">print</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python itertools_groupby_seq.py
+Data: [Point(0, 0), Point(1, 1), Point(2, 2), Point(0, 3),
+  Point(1, 4), Point(2, 5), Point(0, 6), Point(1, 7),
+  Point(2, 8), Point(0, 9)]
+
+Grouped, unsorted:
+0 [Point(0, 0)]
+1 [Point(1, 1)]
+2 [Point(2, 2)]
+0 [Point(0, 3)]
+1 [Point(1, 4)]
+2 [Point(2, 5)]
+0 [Point(0, 6)]
+1 [Point(1, 7)]
+2 [Point(2, 8)]
+0 [Point(0, 9)]
+
+Sorted: [Point(0, 0), Point(0, 3), Point(0, 6), Point(0, 9),
+  Point(1, 1), Point(1, 4), Point(1, 7), Point(2, 2),
+  Point(2, 5), Point(2, 8)]
+
+Grouped, sorted:
+0 [Point(0, 0), Point(0, 3), Point(0, 6), Point(0, 9)]
+1 [Point(1, 1), Point(1, 4), Point(1, 7)]
+2 [Point(2, 2), Point(2, 5), Point(2, 8)]</pre>
+</div>
+</div>
+<div class="section" id="id9">
+<h2>参考<a class="headerlink" href="#id9" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://www.standardml.org/Basis/">The Standard ML Basis Library</a></li>
+<li><a class="reference external" href="http://www.haskell.org/definition/">Definition of Haskell and the Standard Libraries</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="zipfile.html" title="PyMOTW: zipfile"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="exceptions.html" title="PyMOTW: exceptions"
+             >previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, vbarter &amp; liz.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

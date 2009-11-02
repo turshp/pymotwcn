@@ -38,7 +38,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'PyMOTW Document'
-copyright = u'2009, liz'
+copyright = u'2009, vbarter & liz'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -64,7 +64,7 @@ release = '1.6'
 
 # List of directories, relative to source directory, that shouldn't be searched
 # for source files.
-exclude_trees = ['_build']
+exclude_trees = ['_build', 'documents/imp', 'documents/filecmp', 'documents/multiprocessing', 'documents/gzip', 'documents/subprocess', 'documents/platform', 'documents/timeit', 'documents/json', 'documents/shlex', 'documents/difflib', 'documents/signal']
 
 # The reST default role (used for this markup: `text`) to use for all documents.
 #default_role = None
