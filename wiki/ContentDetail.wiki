@@ -157,7 +157,7 @@
 || PyMOTW: Text Processing Tools || 初译done || liz || - ||
 || - || - || - || - ||
 
-|| PyMOTW: asynchat || 初译ing || liz || - ||
+|| PyMOTW: multiprocessing(basics, communication, mapreduce) || 初译ing || liz || - ||
 || PyMOTW: copy || 初译ing || wwwjfy || - ||
 || PyMOTW: dircache || 初译ing || Mafiacyj || - ||
 || 标题  ||  状态 ||  翻译者   ||   校验者   ||
