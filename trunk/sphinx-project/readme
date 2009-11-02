@@ -41,8 +41,6 @@ sphinx/environment.py中line291~293修改为
 5, conf.py中修改项目名称为中文, 其中想自定义html_title为<project> v<release> 文档, 直接将html_title = u"<project> v<release> documentation"修改中文无法在页面上正确显示, 所以修改sphinx/config.py中line54为
         html_title = (lambda self: u'%s v%s 文档' %  (self.project, self.release), False),
 
-到这,,,除了copyright没有翻译外, 其他都中文化, to vbarter: 看看这样汉化是否可以, 如果里面哪个地方翻译的不好, 告诉liz
-
 ###为了解决latex转pdf中的一些问题,需要注意以下事项##########
 （1）cony.py中不可以有中文，如果带有中文，那么编译出来的tex文件中不会带有\chapter标签。
 （2）编译生成tex文件时需要注意如下问题：
