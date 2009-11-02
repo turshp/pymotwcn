@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: hashlib &mdash; PyMOTW Document v1.6 documentation</title>
+    <link rel="stylesheet" href="../_static/mytest.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.6',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW Document v1.6 documentation" href="../index.html" />
+    <link rel="next" title="PyMOTW: unittest" href="unittest.html" />
+    <link rel="prev" title="PyMOTW: getopt" href="getopt.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="unittest.html" title="PyMOTW: unittest"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="getopt.html" title="PyMOTW: getopt"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">PyMOTW: hashlib</a><ul>
+<li><a class="reference external" href="#id1">描述</a></li>
+<li><a class="reference external" href="#md5">MD5例子</a></li>
+<li><a class="reference external" href="#sha1">SHA1例子</a></li>
+<li><a class="reference external" href="#new">new()</a></li>
+<li><a class="reference external" href="#update">调用update()多次</a></li>
+<li><a class="reference external" href="#id2">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="getopt.html"
+                                  title="previous chapter">PyMOTW: getopt</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="unittest.html"
+                                  title="next chapter">PyMOTW: unittest</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/hashlib.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pymotw-hashlib">
+<h1>PyMOTW: hashlib<a class="headerlink" href="#pymotw-hashlib" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>模块： hashlib</li>
+<li>目的： 加密哈希和消息摘要</li>
+<li>python版本： 2.5</li>
+</ul>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>hashlib模块封装了md5和sha模块, 形成一致的API. 想使用特定的哈希算法, 可以使用合适的构造函数来创建一个哈希对象. 不管具体使用了什么样的哈希算法, 都可以使用相同的API来操作.</p>
+<p>hashlib是基于OpenSSL的, 库中提供的所有算法应该是可用的, 包括:</p>
+<ul class="simple">
+<li>md5()</li>
+<li>sha1()</li>
+<li>sha224()</li>
+<li>sha256()</li>
+<li>sha384()</li>
+<li>sha512()</li>
+</ul>
+</div>
+<div class="section" id="md5">
+<h2>MD5例子<a class="headerlink" href="#md5" title="Permalink to this headline">¶</a></h2>
+<p>计算一块数据(这里是一个ASCII字符串)的MD5摘要, 创建哈希, 增加数据, 然后计算摘要.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">hashlib</span>
+
+<span class="kn">from</span> <span class="nn">hashlib_data</span> <span class="kn">import</span> <span class="n">lorem</span>
+
+<span class="n">h</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">()</span>
+<span class="n">h</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">lorem</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">h</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>这个例子使用了hexdigest()方法而不是digest()方法, 这样可让输出结果可打印出来. 如果想获得二进制的摘要值, 你可以使用digest().</p>
+<div class="highlight-python"><pre>$ python hashlib_md5.py
+c3abe541f361b1bfbbcfecbf53aad1fb</pre>
+</div>
+</div>
+<div class="section" id="sha1">
+<h2>SHA1例子<a class="headerlink" href="#sha1" title="Permalink to this headline">¶</a></h2>
+<p>对刚才相同的数据产生一个SHA1摘要, 其计算过程是类似的:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">hashlib</span>
+
+<span class="kn">from</span> <span class="nn">hashlib_data</span> <span class="kn">import</span> <span class="n">lorem</span>
+
+<span class="n">h</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">sha1</span><span class="p">()</span>
+<span class="n">h</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">lorem</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">h</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>当然, 产生的摘要值由于使用了不同的算法而不同.</p>
+<div class="highlight-python"><pre>$ python hashlib_sha1.py
+ac2a96a4237886637d5352d606d7a7b6d7ad2f29</pre>
+</div>
+</div>
+<div class="section" id="new">
+<h2>new()<a class="headerlink" href="#new" title="Permalink to this headline">¶</a></h2>
+<p>有时候, 通过一个字符串形式的名字来引用算法, 而不是直接使用构造函数, 这可能在使用时更加方便. 例如, 可以在一个配置文件中存储哈希类型. 在这些情况下, 我们可以直接使用new()函数来创建一个新的哈希计算器.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">hashlib</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">hash_name</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mf">1</span><span class="p">]</span>
+<span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;Specify the hash name as the first argument.&#39;</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mf">2</span><span class="p">]</span>
+    <span class="k">except</span> <span class="ne">IndexError</span><span class="p">:</span>
+        <span class="kn">from</span> <span class="nn">hashlib_data</span> <span class="kn">import</span> <span class="n">lorem</span> <span class="k">as</span> <span class="n">data</span>
+
+    <span class="n">h</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">new</span><span class="p">(</span><span class="n">hash_name</span><span class="p">)</span>
+    <span class="n">h</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">h</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>当使用不同的参数运行时:</p>
+<div class="highlight-python"><pre>$ python hashlib_new.py sha1
+ac2a96a4237886637d5352d606d7a7b6d7ad2f29
+$ python hashlib_new.py sha256
+88b7404fc192fcdb9bb1dba1ad118aa1ccd580e9faa110d12b4d63988cf20332
+$ python hashlib_new.py sha512
+f58c6935ef9d5a94d296207ee4a7d9bba411539d8677482b7e9d60e4b7137f68d25f9747cab62fe752ec5ed1e5b2fa4cdbc8c9203267f995a5d17e4408dccdb4
+$ python hashlib_new.py md5
+c3abe541f361b1bfbbcfecbf53aad1fb</pre>
+</div>
+</div>
+<div class="section" id="update">
+<h2>调用update()多次<a class="headerlink" href="#update" title="Permalink to this headline">¶</a></h2>
+<p>哈希计算器的update()函数可以重复被调用. 每次会根据新增加的文本更新摘要值. 例如: 当文件非常大, 而不能一次性读入内存时, 使用不断update()会很有效果.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">hashlib</span>
+
+<span class="kn">from</span> <span class="nn">hashlib_data</span> <span class="kn">import</span> <span class="n">lorem</span>
+
+<span class="n">h</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">()</span>
+<span class="n">h</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">lorem</span><span class="p">)</span>
+<span class="n">all_at_once</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">chunkize</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="n">text</span><span class="p">):</span>
+    <span class="s">&quot;Return parts of the text in size-based increments.&quot;</span>
+    <span class="n">start</span> <span class="o">=</span> <span class="mf">0</span>
+    <span class="k">while</span> <span class="n">start</span> <span class="o">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
+        <span class="n">chunk</span> <span class="o">=</span> <span class="n">text</span><span class="p">[</span><span class="n">start</span><span class="p">:</span><span class="n">start</span><span class="o">+</span><span class="n">size</span><span class="p">]</span>
+        <span class="k">yield</span> <span class="n">chunk</span>
+        <span class="n">start</span> <span class="o">+=</span> <span class="n">size</span>
+    <span class="k">return</span>
+
+<span class="n">h</span> <span class="o">=</span> <span class="n">hashlib</span><span class="o">.</span><span class="n">md5</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">chunk</span> <span class="ow">in</span> <span class="n">chunkize</span><span class="p">(</span><span class="mf">64</span><span class="p">,</span> <span class="n">lorem</span><span class="p">):</span>
+    <span class="n">h</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">chunk</span><span class="p">)</span>
+<span class="n">line_by_line</span> <span class="o">=</span> <span class="n">h</span><span class="o">.</span><span class="n">hexdigest</span><span class="p">()</span>
+
+<span class="k">print</span> <span class="s">&#39;All at once :&#39;</span><span class="p">,</span> <span class="n">all_at_once</span>
+<span class="k">print</span> <span class="s">&#39;Line by line:&#39;</span><span class="p">,</span> <span class="n">line_by_line</span>
+<span class="k">print</span> <span class="s">&#39;Same :&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">all_at_once</span> <span class="o">==</span> <span class="n">line_by_line</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>这个例子中有一点点小花招, 因为他也可以处理小文件, 但她说明了在不断读取数据时如何递增的使用update()来产生新的摘要.</p>
+<div class="highlight-python"><pre>$ python hashlib_update.py
+All at once : c3abe541f361b1bfbbcfecbf53aad1fb
+Line by line: c3abe541f361b1bfbbcfecbf53aad1fb
+Same : True</pre>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>参考<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://www.voidspace.org.uk/python/weblog/arch_d7_2006_10_07.shtml#e497">Voidspace: IronPython and Hashlib</a></li>
+<li><a class="reference external" href="http://docs.python.org/lib/module-hmac.html">hmac module</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="unittest.html" title="PyMOTW: unittest"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="getopt.html" title="PyMOTW: getopt"
+             >previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, vbarter &amp; liz.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

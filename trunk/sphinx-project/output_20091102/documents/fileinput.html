@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: fileinput &mdash; PyMOTW Document v1.6 documentation</title>
+    <link rel="stylesheet" href="../_static/mytest.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.6',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW Document v1.6 documentation" href="../index.html" />
+    <link rel="next" title="PyMOTW: getopt" href="getopt.html" />
+    <link rel="prev" title="PyMOTW: collections" href="collections.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="getopt.html" title="PyMOTW: getopt"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="collections.html" title="PyMOTW: collections"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">PyMOTW: fileinput</a><ul>
+<li><a class="reference external" href="#id1">描述</a></li>
+<li><a class="reference external" href="#id2">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="collections.html"
+                                  title="previous chapter">PyMOTW: collections</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="getopt.html"
+                                  title="next chapter">PyMOTW: getopt</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/fileinput.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pymotw-fileinput">
+<h1>PyMOTW: fileinput<a class="headerlink" href="#pymotw-fileinput" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>模块: fileinput</li>
+<li>目的: 创建命令行过滤程序.</li>
+<li>Python 版本: ?</li>
+</ul>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>让我们从 fileinput 模块开始这个系列的学习吧. 这是一个非常有用的模块, 用于创建处理文本文件中过滤信息的命令行程序. 例如, 最近为我的朋友 <a class="reference external" href="http://events.mediumloud.com/">Patrick</a> 写了个应用 m3utorss , 用于将一些小demo转成podcastable格式便于记录.</p>
+<p>程序的输入是一个或多个m3u文件, 列出了所有的mp3文件. 输出是一个XML文件, 看起来有点像RSS feed(简单起见, 输出到stdout). 为了处理输入, 我需要对一个文件名列表一次处理:</p>
+<ul class="simple">
+<li>打开每个文件.</li>
+<li>读取一个文件的每一行.</li>
+<li>标记出指向一个mp3文件的行.</li>
+<li>如果有, 提出取mp3文件的信息用于生成RSS feed.</li>
+<li>输出.</li>
+</ul>
+<p>我本应该手工写所有文件的处理代码. 但没有非常复杂, 在一些测试之后, 我确信, 连错误处理都可以正确处理. 但是使用fileinput模块, 我可以不用这么麻烦的考虑很多东西, 主需要写如下:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">fileinput</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+
+<span class="k">def</span> <span class="nf">generate_item</span><span class="p">(</span><span class="n">filename</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Process the named file go generate an RSS item.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">print</span> <span class="n">filename</span>
+
+<span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">fileinput</span><span class="o">.</span><span class="n">input</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mf">1</span><span class="p">:]):</span>
+    <span class="n">mp3filename</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span>
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">mp3filename</span> <span class="ow">or</span> <span class="n">mp3filename</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s">&#39;#&#39;</span><span class="p">):</span>
+            <span class="k">continue</span>
+    <span class="n">generate_item</span><span class="p">(</span><span class="n">mp3filename</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>这段代码中相关的代码是for循环中的. fileinput.input()函数将参数看成是要检测是文件名列表. 如果这个列表是空的, 那么模块会从标准输入中获取. 它返回的是一个迭代器, 依次返回正在处理的文本文件中的每一行. 因此, 我所要做的就是循环处理每行, 跳过空白和注释, 寻找mp3文件.</p>
+<p>在这个例子中, 我不需要关心正在处理哪个文件和具体的哪个行. 可能还是其他工具(例如, 类grep搜索工具). fileinput模块也包含了访问这些信息的函数(filename(), filelineno(), lineno(), 等等). 具体使用可参考fileinput的标准库文档.</p>
+</div>
+<div class="section" id="id2">
+<h2>参考<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://docs.python.org/library/fileinput.html">fileinput</a> 该模块的标准库文档.</li>
+<li><a class="reference external" href="http://events.mediumloud.com/">Patrick Bryant</a>  一位歌曲/歌词作家.</li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="getopt.html" title="PyMOTW: getopt"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="collections.html" title="PyMOTW: collections"
+             >previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, vbarter &amp; liz.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

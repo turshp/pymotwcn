@@ -1,0 +1,740 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: exceptions &mdash; PyMOTW Document v1.6 documentation</title>
+    <link rel="stylesheet" href="../_static/mytest.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.6',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW Document v1.6 documentation" href="../index.html" />
+    <link rel="next" title="PyMOTW: itertools" href="itertools.html" />
+    <link rel="prev" title="PyMOTW: string" href="string.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="itertools.html" title="PyMOTW: itertools"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="string.html" title="PyMOTW: string"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">PyMOTW: exceptions</a><ul>
+<li><a class="reference external" href="#id1">描述</a></li>
+<li><a class="reference external" href="#id2">基类</a><ul>
+<li><a class="reference external" href="#baseexception">BaseException</a></li>
+<li><a class="reference external" href="#exception">Exception</a></li>
+<li><a class="reference external" href="#standarderror">StandardError</a></li>
+<li><a class="reference external" href="#arithmeticerror">ArithmeticError</a></li>
+<li><a class="reference external" href="#lookuperror">LookupError</a></li>
+<li><a class="reference external" href="#environmenterror">EnvironmentError</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#id3">异常的引发</a><ul>
+<li><a class="reference external" href="#assertionerror">AssertionError</a></li>
+<li><a class="reference external" href="#attributeerror">AttributeError</a></li>
+<li><a class="reference external" href="#eoferror">EOFError</a></li>
+<li><a class="reference external" href="#floatingpointerror">FloatingPointError</a></li>
+<li><a class="reference external" href="#generatorexit">GeneratorExit</a></li>
+<li><a class="reference external" href="#ioerror">IOError</a></li>
+<li><a class="reference external" href="#importerror">ImportError</a></li>
+<li><a class="reference external" href="#indexerror">IndexError</a></li>
+<li><a class="reference external" href="#keyerror">KeyError</a></li>
+<li><a class="reference external" href="#memoryerror">MemoryError</a></li>
+<li><a class="reference external" href="#nameerror">NameError</a></li>
+<li><a class="reference external" href="#notimplementederror">NotImplementedError</a></li>
+<li><a class="reference external" href="#oserror">OSError</a></li>
+<li><a class="reference external" href="#overflowerror">OverflowError</a></li>
+<li><a class="reference external" href="#referenceerror">ReferenceError</a></li>
+<li><a class="reference external" href="#runtimeerror">RuntimeError</a></li>
+<li><a class="reference external" href="#stopiteration">StopIteration</a></li>
+<li><a class="reference external" href="#syntaxerror">SyntaxError</a></li>
+<li><a class="reference external" href="#systemerror">SystemError</a></li>
+<li><a class="reference external" href="#systemexit">SystemExit</a></li>
+<li><a class="reference external" href="#typeerror">TypeError</a></li>
+<li><a class="reference external" href="#unboundlocalerror">UnboundLocalError</a></li>
+<li><a class="reference external" href="#unicodeerror">UnicodeError</a></li>
+<li><a class="reference external" href="#valueerror">ValueError</a></li>
+<li><a class="reference external" href="#zerodivisionerror">ZeroDivisionError</a></li>
+</ul>
+</li>
+<li><a class="reference external" href="#warning">Warning列表</a></li>
+<li><a class="reference external" href="#id4">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="string.html"
+                                  title="previous chapter">PyMOTW: string</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="itertools.html"
+                                  title="next chapter">PyMOTW: itertools</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/exceptions.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pymotw-exceptions">
+<h1>PyMOTW: exceptions<a class="headerlink" href="#pymotw-exceptions" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>模块： exceptions</li>
+<li>目的： excpetions模块定义了在整个标准库和解释器中使用的内置错误.</li>
+<li>python版本： 1.5+</li>
+</ul>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Python之前就支持将简单的字符串信息和类一样作为异常. 从Python 1.5开始, 所有的标准库模块使用类作为异常. 而从Python 2.5开始, 字符串的异常会导致一个DeprecationWarning, 而对于字符串异常的支持会在未来的版本中去掉.</p>
+</div>
+<div class="section" id="id2">
+<h2>基类<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>在标准库文档的描述中, 异常类以分层结构定义. 这样做除了结构清晰之外, 异常的继承关系也很有用, 可以通过捕获基类的异常来捕获相关的异常. 大部分情况下, 这些基类异常不会直接被引发.</p>
+<div class="section" id="baseexception">
+<h3>BaseException<a class="headerlink" href="#baseexception" title="Permalink to this headline">¶</a></h3>
+<p>所有异常的基类. 实现逻辑为使用 <tt class="docutils literal"><span class="pre">str()</span></tt> 将传给构造函数的参数创建为一个异常的字符串表达式.</p>
+</div>
+<div class="section" id="exception">
+<h3>Exception<a class="headerlink" href="#exception" title="Permalink to this headline">¶</a></h3>
+<p>不会导致运行的应用程序退出的异常的基类.
+所有用户自定义的异常应该使用Exception作为基类.</p>
+</div>
+<div class="section" id="standarderror">
+<h3>StandardError<a class="headerlink" href="#standarderror" title="Permalink to this headline">¶</a></h3>
+<p>在标准库中使用的内置异常的基类.</p>
+</div>
+<div class="section" id="arithmeticerror">
+<h3>ArithmeticError<a class="headerlink" href="#arithmeticerror" title="Permalink to this headline">¶</a></h3>
+<p>数学相关错误的基类.</p>
+</div>
+<div class="section" id="lookuperror">
+<h3>LookupError<a class="headerlink" href="#lookuperror" title="Permalink to this headline">¶</a></h3>
+<p>因无法找到某些东西产生的错误的基类.</p>
+</div>
+<div class="section" id="environmenterror">
+<h3>EnvironmentError<a class="headerlink" href="#environmenterror" title="Permalink to this headline">¶</a></h3>
+<p>因Python之外的原因(操作系统, 文件系统, 等等)产生的错误的基类.</p>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>异常的引发<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="assertionerror">
+<h3>AssertionError<a class="headerlink" href="#assertionerror" title="Permalink to this headline">¶</a></h3>
+<p>一个AssertionError由一个失败的 <tt class="docutils literal"><span class="pre">assert</span></tt> 语句引发.</p>
+<div class="highlight-python"><pre>assert False, 'The assertion failed'
+
+$ python exceptions_AssertionError_assert.py
+Traceback (most recent call last):
+File "/Users/dhellmann/Documents/PyMOTW/in_progress/exceptions/PyMOTW/exceptions/exceptions_AssertionError_assert.py", line 12, in &lt;module&gt;
+assert False, 'The assertion failed'
+AssertionError: The assertion failed</pre>
+</div>
+<p>也可以在 <a title="(in Python v2.6)" class="reference external" href="http://docs.python.org/library/unittest.html#module-unittest"><tt class="xref docutils literal"><span class="pre">unittest</span></tt></a> 模块中像 <tt class="docutils literal"><span class="pre">failIf()</span></tt> 一样使用.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">unittest</span>
+
+<span class="k">class</span> <span class="nc">AssertionExample</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">failUnless</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+
+<span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python exceptions_AssertionError_unittest.py
+F
+======================================================================
+FAIL: test (__main__.AssertionExample)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in_progress/exceptions/PyMOTW/exceptions/exceptions_AssertionError_unittest.py", line 17, in test
+  self.failUnless(False)
+AssertionError
+
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+FAILED (failures=1)</pre>
+</div>
+</div>
+<div class="section" id="attributeerror">
+<h3>AttributeError<a class="headerlink" href="#attributeerror" title="Permalink to this headline">¶</a></h3>
+<p>若引用一个属性或对一个属性赋值时发生错误, 则会引发AttributeError.</p>
+<p>例如, 当引用一个不存在的属性时:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">NoAttributes</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="n">o</span> <span class="o">=</span> <span class="n">NoAttributes</span><span class="p">()</span>
+<span class="k">print</span> <span class="n">o</span><span class="o">.</span><span class="n">attribute</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python exceptions_AttributeError.py
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in_progress/exceptions/PyMOTW/exceptions/exceptions_AttributeError.py", line 16, in &lt;module&gt;
+  print o.attribute
+AttributeError: 'NoAttributes' object has no attribute 'attribute'</pre>
+</div>
+<p>或者尝试修改一个只读属性:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MyClass</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">attribute</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="s">&#39;This is the attribute value&#39;</span>
+
+<span class="n">o</span> <span class="o">=</span> <span class="n">MyClass</span><span class="p">()</span>
+<span class="k">print</span> <span class="n">o</span><span class="o">.</span><span class="n">attribute</span>
+<span class="n">o</span><span class="o">.</span><span class="n">attribute</span> <span class="o">=</span> <span class="s">&#39;New value&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python exceptions_AttributeError_assignment.py
+This is the attribute value
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in_progress/exceptions/PyMOTW/exceptions/exceptions_AttributeError_assignment.py", line 20, in &lt;module&gt;
+  o.attribute = 'New value'
+AttributeError: can't set attribute</pre>
+</div>
+</div>
+<div class="section" id="eoferror">
+<h3>EOFError<a class="headerlink" href="#eoferror" title="Permalink to this headline">¶</a></h3>
+<p>当一个内置函数, 如 <tt class="docutils literal"><span class="pre">input()</span></tt> 或 <tt class="docutils literal"><span class="pre">raw_input()</span></tt>, 直到输入流的结尾也没有读到任何数据时, 会引发EOFError异常. 而对于文件的方法, 如 <tt class="docutils literal"><span class="pre">read()</span></tt>, 如果文件为空, 则会在文件末尾处返回一个空字符串.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">data</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">(</span><span class="s">&#39;prompt:&#39;</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;READ:&#39;</span><span class="p">,</span> <span class="n">data</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ echo hello | python PyMOTW/exceptions/exceptions_EOFError.py
+prompt:READ: hello
+prompt:Traceback (most recent call last):
+  File "PyMOTW/exceptions/exceptions_EOFError.py", line 13, in &lt;module&gt;
+  data = raw_input('prompt:')
+EOFError: EOF when reading a line</pre>
+</div>
+</div>
+<div class="section" id="floatingpointerror">
+<h3>FloatingPointError<a class="headerlink" href="#floatingpointerror" title="Permalink to this headline">¶</a></h3>
+<p>若浮点异常控制(fpectl)启用, 则会在浮点运算出错时引发FloatingPointError. 启用:mod:<cite>fpectl</cite> 需要有 <tt class="docutils literal"><span class="pre">--with-fpectl</span></tt> 选项编译的解释器. <a title="(in Python v2.6)" class="reference external" href="http://docs.python.org/library/fpectl.html#module-fpectl"><tt class="xref docutils literal"><span class="pre">fpectl</span></tt></a>  <cite>在stdlib文档 &lt;http://docs.python.org/lib/module-fpectl.html&gt;中不推荐使用。</cite></p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">import</span> <span class="nn">fpectl</span>
+
+<span class="k">print</span> <span class="s">&#39;Control off:&#39;</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">1000</span><span class="p">)</span>
+<span class="n">fpectl</span><span class="o">.</span><span class="n">turnon_sigfpe</span><span class="p">()</span>
+<span class="k">print</span> <span class="s">&#39;Control on:&#39;</span><span class="p">,</span> <span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="mf">1000</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="generatorexit">
+<h3>GeneratorExit<a class="headerlink" href="#generatorexit" title="Permalink to this headline">¶</a></h3>
+<p>若调用generator的 <tt class="docutils literal"><span class="pre">close()</span></tt> 方法, 则在generator内引发GeneratorExit异常.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">my_generator</span><span class="p">():</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mf">5</span><span class="p">):</span>
+            <span class="k">print</span> <span class="s">&#39;Yielding&#39;</span><span class="p">,</span> <span class="n">i</span>
+            <span class="k">yield</span> <span class="n">i</span>
+    <span class="k">except</span> <span class="ne">GeneratorExit</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&#39;Exiting early&#39;</span>
+
+<span class="n">g</span> <span class="o">=</span> <span class="n">my_generator</span><span class="p">()</span>
+<span class="k">print</span> <span class="n">g</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="n">g</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python exceptions_GeneratorExit.py
+Yielding 0
+0
+Exiting early</pre>
+</div>
+</div>
+<div class="section" id="ioerror">
+<h3>IOError<a class="headerlink" href="#ioerror" title="Permalink to this headline">¶</a></h3>
+<p>输入或输出失败时引发IOError. 例如, 磁盘已满或输入文件不存在.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">f</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s">&#39;/does/not/exist&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python exceptions_IOError.py
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in_progress/exceptions/PyMOTW/exceptions/exceptions_IOError.py", line 12, in &lt;module&gt;
+  f = open('/does/not/exist', 'r')
+IOError: [Errno 2] No such file or directory: '/does/not/exist'</pre>
+</div>
+</div>
+<div class="section" id="importerror">
+<h3>ImportError<a class="headerlink" href="#importerror" title="Permalink to this headline">¶</a></h3>
+<p>当一个模块, 或者模块的成员, 不能被引入时引发ImportError. 以下是几种可能引发ImportError的情况.</p>
+<ol class="arabic simple">
+<li>若一个模块不存在.</li>
+</ol>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">module_does_not_exist</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python exceptions_ImportError_nomodule.py
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in_progress/exceptions/PyMOTW/exceptions/exceptions_ImportError_nomodule.py", line 12, in &lt;module&gt;
+  import module_does_not_exist
+ImportError: No module named module_does_not_exist</pre>
+</div>
+<ol class="arabic simple" start="2">
+<li>若执行了 <tt class="docutils literal"><span class="pre">from</span> <span class="pre">X</span> <span class="pre">import</span> <span class="pre">Y</span></tt>, 而X模块中不存在Y, 则引发ImportError.</li>
+</ol>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">exceptions</span> <span class="kn">import</span> <span class="n">MadeUpName</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python exceptions_ImportError_missingname.py
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in_progress/exceptions/PyMOTW/exceptions/exceptions_ImportError_missingname.py", line 12, in &lt;module&gt;
+  from exceptions import MadeUpName
+ImportError: cannot import name MadeUpName</pre>
+</div>
+</div>
+<div class="section" id="indexerror">
+<h3>IndexError<a class="headerlink" href="#indexerror" title="Permalink to this headline">¶</a></h3>
+<p>当引用的序列下标越界时引发IndexError.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">my_seq</span> <span class="o">=</span> <span class="p">[</span> <span class="mf">0</span><span class="p">,</span> <span class="mf">1</span><span class="p">,</span> <span class="mf">2</span> <span class="p">]</span>
+<span class="k">print</span> <span class="n">my_seq</span><span class="p">[</span><span class="mf">3</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python exceptions_IndexError.py
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in_progress/exceptions/PyMOTW/exceptions/exceptions_IndexError.py", line 13, in &lt;module&gt;
+  print my_seq[3]
+IndexError: list index out of range</pre>
+</div>
+</div>
+<div class="section" id="keyerror">
+<h3>KeyError<a class="headerlink" href="#keyerror" title="Permalink to this headline">¶</a></h3>
+<p>类似地, 当一个字典中的键无法找到时引发KeyError.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">d</span> <span class="o">=</span> <span class="p">{</span> <span class="s">&#39;a&#39;</span><span class="p">:</span><span class="mf">1</span><span class="p">,</span> <span class="s">&#39;b&#39;</span><span class="p">:</span><span class="mf">2</span> <span class="p">}</span>
+<span class="k">print</span> <span class="n">d</span><span class="p">[</span><span class="s">&#39;c&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python exceptions_KeyError.py
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in_progress/exceptions/PyMOTW/exceptions/exceptions_KeyError.py", line 13, in &lt;module&gt;
+  print d['c']
+KeyError: 'c'</pre>
+</div>
+<p>KeyboardInterrupt
+~~~~~~~~~~~~~~~~~~`</p>
+<p>KeyboardInterrupt发生在用户按下Ctrl-C(或Delete)使一个正在运行的程序停止时. 和大部分别的异常不同, KeyboardInterrupt直接继承了BaseException, 以防止其被用来捕获Exception的全局异常处理器捕获.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">try</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;Press Return or Ctrl-C:&#39;</span><span class="p">,</span>
+    <span class="n">ignored</span> <span class="o">=</span> <span class="nb">raw_input</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">Exception</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;Caught exception:&#39;</span><span class="p">,</span> <span class="n">err</span>
+<span class="k">except</span> <span class="ne">KeyboardInterrupt</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;Caught KeyboardInterrupt&#39;</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;No exception&#39;</span>
+</pre></div>
+</div>
+<p>在提示符下按下Ctrl-C导致KeyboardInterrupt异常.</p>
+<div class="highlight-python"><pre>$ python PyMOTW/exceptions/exceptions_KeyboardInterrupt.py
+Press Return or Ctrl-C: ^CCaught KeyboardInterrupt</pre>
+</div>
+</div>
+<div class="section" id="memoryerror">
+<h3>MemoryError<a class="headerlink" href="#memoryerror" title="Permalink to this headline">¶</a></h3>
+<p>如果程序用完了内存并且有可能恢复(例如, 通过删除某些对象)时, 引发MemoryError.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">itertools</span>
+
+<span class="c"># Try to create a MemoryError by allocating a lot of memory</span>
+<span class="n">l</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mf">3</span><span class="p">):</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">count</span><span class="p">(</span><span class="mf">1</span><span class="p">):</span>
+            <span class="k">print</span> <span class="n">i</span><span class="p">,</span> <span class="n">j</span>
+            <span class="n">l</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="s">&#39;*&#39;</span> <span class="o">*</span> <span class="p">(</span><span class="mf">2</span><span class="o">**</span><span class="mf">30</span><span class="p">))</span>
+    <span class="k">except</span> <span class="ne">MemoryError</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&#39;(error, discarding existing list)&#39;</span>
+        <span class="n">l</span> <span class="o">=</span> <span class="p">[]</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python PyMOTW/exceptions/exceptions_MemoryError.py
+0 1
+0 2
+0 3
+python(13482) malloc: *** mmap(size=1073745920) failed (error code=12)
+*** error: can't allocate region
+*** set a breakpoint in malloc_error_break to debug
+(error, discarding existing list)
+1 1
+1 2
+1 3
+python(13482) malloc: *** mmap(size=1073745920) failed (error code=12)
+*** error: can't allocate region
+*** set a breakpoint in malloc_error_break to debug
+(error, discarding existing list)
+2 1
+2 2
+2 3
+python(13482) malloc: *** mmap(size=1073745920) failed (error code=12)
+*** error: can't allocate region
+*** set a breakpoint in malloc_error_break to debug
+(error, discarding existing list)</pre>
+</div>
+</div>
+<div class="section" id="nameerror">
+<h3>NameError<a class="headerlink" href="#nameerror" title="Permalink to this headline">¶</a></h3>
+<p>若代码引用当前作用域下不存在的名字, 则引发NameError. 例如, 一个不存在的变量名.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">func</span><span class="p">():</span>
+    <span class="k">print</span> <span class="n">unknown_name</span>
+
+<span class="n">func</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python exceptions_NameError.py
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in_progress/exceptions/PyMOTW/exceptions/exceptions_NameError.py", line 15, in &lt;module&gt;
+    func()
+  File "/Users/dhellmann/Documents/PyMOTW/in_progress/exceptions/PyMOTW/exceptions/exceptions_NameError.py", line 13, in func
+    print unknown_name
+NameError: global name 'unknown_name' is not defined</pre>
+</div>
+</div>
+<div class="section" id="notimplementederror">
+<h3>NotImplementedError<a class="headerlink" href="#notimplementederror" title="Permalink to this headline">¶</a></h3>
+<p>用户自定义基类可以引发NotImplementedError来模拟 <em>接口</em> , 意思是一个方法或行为需要在子类中定义.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">BaseClass</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Defines the interface&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">BaseClass</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">__init__</span><span class="p">()</span>
+    <span class="k">def</span> <span class="nf">do_something</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;The interface, not implemented&quot;&quot;&quot;</span>
+        <span class="k">raise</span> <span class="ne">NotImplementedError</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&#39;.do_something&#39;</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">SubClass</span><span class="p">(</span><span class="n">BaseClass</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Implementes the interface&quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">do_something</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;really does something&quot;&quot;&quot;</span>
+        <span class="k">print</span> <span class="bp">self</span><span class="o">.</span><span class="n">__class__</span><span class="o">.</span><span class="n">__name__</span> <span class="o">+</span> <span class="s">&#39; doing something!&#39;</span>
+
+
+<span class="n">SubClass</span><span class="p">()</span><span class="o">.</span><span class="n">do_something</span><span class="p">()</span>
+<span class="n">BaseClass</span><span class="p">()</span><span class="o">.</span><span class="n">do_something</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python exceptions_NotImplementedError.py
+SubClass doing something!
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in_progress/exceptions/PyMOTW/exceptions/exceptions_NotImplementedError.py", line 27, in &lt;module&gt;
+    BaseClass().do_something()
+  File "/Users/dhellmann/Documents/PyMOTW/in_progress/exceptions/PyMOTW/exceptions/exceptions_NotImplementedError.py", line 18, in do_something
+    raise NotImplementedError(self.__class__.__name__ + '.do_something')
+NotImplementedError: BaseClass.do_something</pre>
+</div>
+</div>
+<div class="section" id="oserror">
+<h3>OSError<a class="headerlink" href="#oserror" title="Permalink to this headline">¶</a></h3>
+<p>OSError是为 <a title="(in Python v2.6)" class="reference external" href="http://docs.python.org/library/os.html#module-os"><tt class="xref docutils literal"><span class="pre">os</span></tt></a> 模块服务的错误类, 当一个系统相关的函数返回错误时引发.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">os</span>
+
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mf">10</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">i</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">ttyname</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python exceptions_OSError.py
+0
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in_progress/exceptions/PyMOTW/exceptions/exceptions_OSError.py", line 15, in &lt;module&gt;
+    print i, os.ttyname(i)
+OSError: [Errno 25] Inappropriate ioctl for device</pre>
+</div>
+</div>
+<div class="section" id="overflowerror">
+<h3>OverflowError<a class="headerlink" href="#overflowerror" title="Permalink to this headline">¶</a></h3>
+<p>当一个算术操作超过了变量类型的限制时, 引发OverflowError. 长整型会在其值增加时分配更多的空间, 因此会最终引发MemoryError. 浮点数的异常处理不是标准化的, 所以不会检查浮点数. 普通的整数在需要时会被转化为长整型.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="k">print</span> <span class="s">&#39;Regular integer: (maxint=</span><span class="si">%s</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxint</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">i</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">maxint</span> <span class="o">*</span> <span class="mf">3</span>
+    <span class="k">print</span> <span class="s">&#39;No overflow for &#39;</span><span class="p">,</span> <span class="nb">type</span><span class="p">(</span><span class="n">i</span><span class="p">),</span> <span class="s">&#39;i =&#39;</span><span class="p">,</span> <span class="n">i</span>
+<span class="k">except</span> <span class="ne">OverflowError</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;Overflowed at &#39;</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="n">err</span>
+
+<span class="k">print</span>
+<span class="k">print</span> <span class="s">&#39;Long integer:&#39;</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="mf">100</span><span class="p">,</span> <span class="mf">10</span><span class="p">):</span>
+    <span class="k">print</span> <span class="s">&#39;</span><span class="si">%2d</span><span class="s">&#39;</span> <span class="o">%</span> <span class="n">i</span><span class="p">,</span> <span class="mf">2</span><span class="n">L</span> <span class="o">**</span> <span class="n">i</span>
+
+<span class="k">print</span>
+<span class="k">print</span> <span class="s">&#39;Floating point values:&#39;</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">f</span> <span class="o">=</span> <span class="mf">2.0</span><span class="o">**</span><span class="n">i</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mf">100</span><span class="p">):</span>
+        <span class="k">print</span> <span class="n">i</span><span class="p">,</span> <span class="n">f</span>
+        <span class="n">f</span> <span class="o">=</span> <span class="n">f</span> <span class="o">**</span> <span class="mf">2</span>
+<span class="k">except</span> <span class="ne">OverflowError</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;Overflowed after &#39;</span><span class="p">,</span> <span class="n">f</span><span class="p">,</span> <span class="n">err</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python exceptions_OverflowError.py
+Regular integer: (maxint=2147483647)
+No overflow for  &lt;type 'long'&gt; i = 6442450941
+
+Long integer:
+0 1
+10 1024
+20 1048576
+30 1073741824
+40 1099511627776
+50 1125899906842624
+60 1152921504606846976
+70 1180591620717411303424
+80 1208925819614629174706176
+90 1237940039285380274899124224
+
+Floating point values:
+0 1.23794003929e+27
+1 1.53249554087e+54
+2 2.34854258277e+108
+3 5.5156522631e+216
+Overflowed after  5.5156522631e+216 (34, 'Result too large')</pre>
+</div>
+</div>
+<div class="section" id="referenceerror">
+<h3>ReferenceError<a class="headerlink" href="#referenceerror" title="Permalink to this headline">¶</a></h3>
+<p>当使用:mod:<cite>weakref</cite> 代理访问已经被作为垃圾回收的对象时, 引发ReferenceError.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">gc</span>
+<span class="kn">import</span> <span class="nn">weakref</span>
+
+<span class="k">class</span> <span class="nc">ExpensiveObject</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+    <span class="k">def</span> <span class="nf">__del__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">&#39;(Deleting </span><span class="si">%s</span><span class="s">)&#39;</span> <span class="o">%</span> <span class="bp">self</span>
+
+<span class="n">obj</span> <span class="o">=</span> <span class="n">ExpensiveObject</span><span class="p">(</span><span class="s">&#39;obj&#39;</span><span class="p">)</span>
+<span class="n">p</span> <span class="o">=</span> <span class="n">weakref</span><span class="o">.</span><span class="n">proxy</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">&#39;BEFORE:&#39;</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span>
+<span class="n">obj</span> <span class="o">=</span> <span class="bp">None</span>
+<span class="k">print</span> <span class="s">&#39;AFTER:&#39;</span><span class="p">,</span> <span class="n">p</span><span class="o">.</span><span class="n">name</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python exceptions_ReferenceError.py
+BEFORE: obj
+(Deleting &lt;__main__.ExpensiveObject object at 0x844f0&gt;)
+AFTER:
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in_progress/exceptions/PyMOTW/exceptions/exceptions_ReferenceError.py", line 26, in &lt;module&gt;
+    print 'AFTER:', p.name
+ReferenceError: weakly-referenced object no longer exists</pre>
+</div>
+</div>
+<div class="section" id="runtimeerror">
+<h3>RuntimeError<a class="headerlink" href="#runtimeerror" title="Permalink to this headline">¶</a></h3>
+<p>RuntimeError在没有其它具体的异常可用时被引发. 解释器本身并不会经常引发这个异常, 但是一些用户代码可能会.</p>
+</div>
+<div class="section" id="stopiteration">
+<h3>StopIteration<a class="headerlink" href="#stopiteration" title="Permalink to this headline">¶</a></h3>
+<p>当一个迭代器完成后, 它的 <tt class="docutils literal"><span class="pre">next()</span></tt> 方法引发StopIteration. 这个异常不被认为是错误.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">l</span><span class="o">=</span><span class="p">[</span><span class="mf">0</span><span class="p">,</span><span class="mf">1</span><span class="p">,</span><span class="mf">2</span><span class="p">]</span>
+<span class="n">i</span><span class="o">=</span><span class="nb">iter</span><span class="p">(</span><span class="n">l</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="n">i</span>
+<span class="k">print</span> <span class="n">i</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="k">print</span> <span class="n">i</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="k">print</span> <span class="n">i</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+<span class="k">print</span> <span class="n">i</span><span class="o">.</span><span class="n">next</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python exceptions_StopIteration.py
+&lt;listiterator object at 0x808b0&gt;
+0
+1
+2
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in_progress/exceptions/PyMOTW/exceptions/exceptions_StopIteration.py", line 19, in &lt;module&gt;
+    print i.next()
+StopIteration</pre>
+</div>
+</div>
+<div class="section" id="syntaxerror">
+<h3>SyntaxError<a class="headerlink" href="#syntaxerror" title="Permalink to this headline">¶</a></h3>
+<p>分析器发现无法理解的源码时引发SyntaxError. 可能是在引入一个模块, 调用exec, 或 <tt class="docutils literal"><span class="pre">eval()</span></tt> 时发生. 异常的属性确切找到输入的哪一部分导致了异常.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">try</span><span class="p">:</span>
+    <span class="k">print</span> <span class="nb">eval</span><span class="p">(</span><span class="s">&#39;five times three&#39;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">SyntaxError</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;Syntax error </span><span class="si">%s</span><span class="s"> (</span><span class="si">%s</span><span class="s">-</span><span class="si">%s</span><span class="s">): </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> \
+           <span class="p">(</span><span class="n">err</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="n">err</span><span class="o">.</span><span class="n">lineno</span><span class="p">,</span> <span class="n">err</span><span class="o">.</span><span class="n">offset</span><span class="p">,</span> <span class="n">err</span><span class="o">.</span><span class="n">text</span><span class="p">)</span>
+    <span class="k">print</span> <span class="n">err</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python exceptions_SyntaxError.py
+Syntax error &lt;string&gt; (1-10): five times three
+invalid syntax (&lt;string&gt;, line 1)</pre>
+</div>
+</div>
+<div class="section" id="systemerror">
+<h3>SystemError<a class="headerlink" href="#systemerror" title="Permalink to this headline">¶</a></h3>
+<p>解释器本身发生错误, 并且有可能继续正常运行时, 引发SystemError. SystemError可能表示解释器本身的bug, 并且需要报告给维护者.</p>
+</div>
+<div class="section" id="systemexit">
+<h3>SystemExit<a class="headerlink" href="#systemexit" title="Permalink to this headline">¶</a></h3>
+<p>当调用sys.exit()时, 引发SystemExit, 而不是立即退出. 这样允许 <tt class="docutils literal"><span class="pre">try:finally</span></tt> 代码块的完成清理工作, 以及调用者(比如调试器和测试框架)捕获异常, 从而避免退出.</p>
+</div>
+<div class="section" id="typeerror">
+<h3>TypeError<a class="headerlink" href="#typeerror" title="Permalink to this headline">¶</a></h3>
+<p>连接类型不正确的对象, 或使用类型不正确的对象调用函数时, 引发TypeError.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;tuple&#39;</span><span class="p">,)</span> <span class="o">+</span> <span class="s">&#39;string&#39;</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python exceptions_TypeError.py
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in_progress/exceptions/PyMOTW/exceptions/exceptions_TypeError.py", line 12, in &lt;module&gt;
+    result = ('tuple',) + 'string'
+TypeError: can only concatenate tuple (not "str") to tuple</pre>
+</div>
+</div>
+<div class="section" id="unboundlocalerror">
+<h3>UnboundLocalError<a class="headerlink" href="#unboundlocalerror" title="Permalink to this headline">¶</a></h3>
+<p>UnboundLocalError是NameError的一种, 针对本地变量名.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">throws_global_name_error</span><span class="p">():</span>
+    <span class="k">print</span> <span class="n">unknown_global_name</span>
+
+<span class="k">def</span> <span class="nf">throws_unbound_local</span><span class="p">():</span>
+    <span class="n">local_val</span> <span class="o">=</span> <span class="n">local_val</span> <span class="o">+</span> <span class="mf">1</span>
+    <span class="k">print</span> <span class="n">local_val</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">throws_global_name_error</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">NameError</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;Global name error:&#39;</span><span class="p">,</span> <span class="n">err</span>
+
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">throws_unbound_local</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">UnboundLocalError</span><span class="p">,</span> <span class="n">err</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;Local name error:&#39;</span><span class="p">,</span> <span class="n">err</span>
+</pre></div>
+</div>
+<p>全局NameError和UnboundLocal的区别是使用变量名的方式. 因为变量名&#8221;local_val&#8221;出现在表达式的左边, 所以被解释为一个本地变量名.</p>
+<div class="highlight-python"><pre>$ python exceptions_UnboundLocalError.py
+Global name error: global name 'unknown_global_name' is not defined
+Local name error: local variable 'local_val' referenced before assignment</pre>
+</div>
+</div>
+<div class="section" id="unicodeerror">
+<h3>UnicodeError<a class="headerlink" href="#unicodeerror" title="Permalink to this headline">¶</a></h3>
+<p>UnicodeError是ValueError的子类, 当出现Unicode问题时引发. UnicodeError有不同的子类: UnicodeEncodeError, UnicodeDecodeError和UnicodeTranslateError.</p>
+</div>
+<div class="section" id="valueerror">
+<h3>ValueError<a class="headerlink" href="#valueerror" title="Permalink to this headline">¶</a></h3>
+<p>当一个函数得到一个类型正确但是非有效值时, 引发ValueError.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="nb">chr</span><span class="p">(</span><span class="mf">1024</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python exceptions_ValueError.py
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in_progress/exceptions/PyMOTW/exceptions/exceptions_ValueError.py", line 12, in &lt;module&gt;
+    print chr(1024)
+ValueError: chr() arg not in range(256)</pre>
+</div>
+</div>
+<div class="section" id="zerodivisionerror">
+<h3>ZeroDivisionError<a class="headerlink" href="#zerodivisionerror" title="Permalink to this headline">¶</a></h3>
+<p>当0作为一个除法操作的分母时, 引发ZeroDivisionError.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="mf">1</span><span class="o">/</span><span class="mf">0</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python exceptions_ZeroDivisionError.py
+Traceback (most recent call last):
+  File "/Users/dhellmann/Documents/PyMOTW/in_progress/exceptions/PyMOTW/exceptions/exceptions_ZeroDivisionError.py", line 12, in &lt;module&gt;
+    print 1/0
+ZeroDivisionError: integer division or modulo by zero</pre>
+</div>
+</div>
+</div>
+<div class="section" id="warning">
+<h2>Warning列表<a class="headerlink" href="#warning" title="Permalink to this headline">¶</a></h2>
+<p>还有一些异常用来在:mod:<cite>warnings</cite> 模块中使用.</p>
+<ul class="simple">
+<li>Warning: 所有警告的基类.</li>
+<li>UserWarning: 所有来自用户代码的警告的基类.</li>
+<li>DeprecationWarning: 用在不再被维护的特性上.</li>
+<li>PendingDeprecationWarning: 用在很快就会不推荐使用的特性上.</li>
+<li>SyntaxWarning: 用在值得商榷的表达式上.</li>
+<li>RuntimeWarning: 运行时可能发生问题的事件的警告.</li>
+<li>FutureWarning: 对于语言或库的改变会在之后实现时警告.</li>
+<li>ImportWarning: 导入一个模块的问题的警告.</li>
+<li>UnicodeWarning: 关于unicode文本的问题的警告.</li>
+</ul>
+</div>
+<div class="section" id="id4">
+<h2>参考<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://docs.python.org/library/exceptions.html">exceptions</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="itertools.html" title="PyMOTW: itertools"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="string.html" title="PyMOTW: string"
+             >previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, vbarter &amp; liz.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,339 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: getopt &mdash; PyMOTW Document v1.6 documentation</title>
+    <link rel="stylesheet" href="../_static/mytest.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.6',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW Document v1.6 documentation" href="../index.html" />
+    <link rel="next" title="PyMOTW: hashlib" href="hashlib.html" />
+    <link rel="prev" title="PyMOTW: fileinput" href="fileinput.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="hashlib.html" title="PyMOTW: hashlib"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="fileinput.html" title="PyMOTW: fileinput"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">PyMOTW: getopt</a><ul>
+<li><a class="reference external" href="#id1">描述</a></li>
+<li><a class="reference external" href="#id2">函数参数</a></li>
+<li><a class="reference external" href="#id3">短形式选项</a></li>
+<li><a class="reference external" href="#id4">长形式选项</a></li>
+<li><a class="reference external" href="#id5">长形式选项的缩写</a></li>
+<li><a class="reference external" href="#gnu">GNU风格的选项解析</a></li>
+<li><a class="reference external" href="#id6">特殊的例子: &#8211;</a></li>
+<li><a class="reference external" href="#id7">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="fileinput.html"
+                                  title="previous chapter">PyMOTW: fileinput</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="hashlib.html"
+                                  title="next chapter">PyMOTW: hashlib</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/getopt.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pymotw-getopt">
+<h1>PyMOTW: getopt<a class="headerlink" href="#pymotw-getopt" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>模块： getopt</li>
+<li>目的： 命令行选项解析</li>
+<li>python版本： 1.4+</li>
+</ul>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>getopt模块是老派的命令行选项解析器, 兼容Unix函数getopt(). 它解析一个参数序列, 如sys.argv, 返回(option, argument)对和其他非选项的参数序列.</p>
+<p>支持的选项语法包括:</p>
+<ul class="simple">
+<li>-a</li>
+<li>-bval</li>
+<li>-b val</li>
+<li>&#8211;noarg</li>
+<li>&#8211;witharg=val</li>
+<li>&#8211;witharg val</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h2>函数参数<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>getopt函数可带三个参数:</p>
+<p>第一个参数是待解析的参数序列, 它通常来自sys.argv[1:](忽略sys.arg[0], 因为它是程序名字).</p>
+<p>第二个参数是选项定义字符串用于指示单个字符选项. 如果一个选项需要一个参数, 那么选项字符之后会跟着个冒号. ## 这个冒号代表该选项的值.</p>
+<p>第三个参数, 如果使用的话, 应该是一个长类型选项名字序列. 长类型选项包含多个字符, 如&#8211;noarg或&#8211;witharg. 序列中的选项名字不应该包含前缀符&#8217;-&#8216;. 如果任何一个长选项需要一个参数, 那么它需要后缀符&#8221;=&#8221;.</p>
+<p>短形式和长形式选项可以在一个调用中结合起来定义.</p>
+</div>
+<div class="section" id="id3">
+<h2>短形式选项<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>如果一个程序需要带2个选项, -a和-b, b选项需要一个参数, 那么值应为&#8221;ab:&#8221;.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="n">getopt</span><span class="o">.</span><span class="n">getopt</span><span class="p">([</span><span class="s">&#39;-a&#39;</span><span class="p">,</span> <span class="s">&#39;-bval&#39;</span><span class="p">,</span> <span class="s">&#39;-c&#39;</span><span class="p">,</span> <span class="s">&#39;val&#39;</span><span class="p">],</span> <span class="s">&#39;ab:c:&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python getopt_short.py
+([('-a', ''), ('-b', 'val'), ('-c', 'val')], [])</pre>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>长形式选项<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>如果程序带2个选项, -noarg和-witharg, 其参数序列应为[ &#8216;noarg&#8217;, &#8216;witharg=&#8217; ].</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">print</span> <span class="n">getopt</span><span class="o">.</span><span class="n">getopt</span><span class="p">([</span> <span class="s">&#39;--noarg&#39;</span><span class="p">,</span> <span class="s">&#39;--witharg&#39;</span><span class="p">,</span> <span class="s">&#39;val&#39;</span><span class="p">,</span> <span class="s">&#39;--witharg2=another&#39;</span> <span class="p">],</span><span class="s">&#39;&#39;</span><span class="p">,[</span> <span class="s">&#39;noarg&#39;</span><span class="p">,</span> <span class="s">&#39;witharg=&#39;</span><span class="p">,</span> <span class="s">&#39;witharg2=&#39;</span> <span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python getopt_long.py
+([('--noarg', ''), ('--witharg', 'val'), ('--witharg2', 'another')], [])</pre>
+</div>
+<p>例子:</p>
+<p>接下来一个复杂点的例子, 它带5个选项: -o, -v, &#8211;output, &#8211;verbose, 和 &#8211;version. 选项-o, &#8211;output和&#8211;version需要携带参数.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">getopt</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">version</span> <span class="o">=</span> <span class="s">&#39;1.0&#39;</span>
+<span class="n">verbose</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="n">output_filename</span> <span class="o">=</span> <span class="s">&#39;default.out&#39;</span>
+
+<span class="k">print</span> <span class="s">&#39;ARGV :&#39;</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mf">1</span><span class="p">:]</span>
+
+<span class="n">options</span><span class="p">,</span> <span class="n">remainder</span> <span class="o">=</span> <span class="n">getopt</span><span class="o">.</span><span class="n">getopt</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mf">1</span><span class="p">:],</span> <span class="s">&#39;o:v&#39;</span><span class="p">,</span> <span class="p">[</span><span class="s">&#39;output=&#39;</span><span class="p">,</span>
+                                     <span class="s">&#39;verbose&#39;</span><span class="p">,</span>
+                                     <span class="s">&#39;version=&#39;</span><span class="p">,</span>
+                     <span class="p">])</span>
+<span class="k">print</span> <span class="s">&#39;OPTIONS :&#39;</span><span class="p">,</span> <span class="n">options</span>
+
+<span class="k">for</span> <span class="n">opt</span><span class="p">,</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">options</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">opt</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&#39;-o&#39;</span><span class="p">,</span> <span class="s">&#39;--output&#39;</span><span class="p">):</span>
+        <span class="n">output_filename</span> <span class="o">=</span> <span class="n">arg</span>
+    <span class="k">elif</span> <span class="n">opt</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&#39;-v&#39;</span><span class="p">,</span> <span class="s">&#39;--verbose&#39;</span><span class="p">):</span>
+        <span class="n">verbose</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="k">elif</span> <span class="n">opt</span> <span class="o">==</span> <span class="s">&#39;--version&#39;</span><span class="p">:</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="n">arg</span>
+
+<span class="k">print</span> <span class="s">&#39;VERSION :&#39;</span><span class="p">,</span> <span class="n">version</span>
+<span class="k">print</span> <span class="s">&#39;VERBOSE :&#39;</span><span class="p">,</span> <span class="n">verbose</span>
+<span class="k">print</span> <span class="s">&#39;OUTPUT :&#39;</span><span class="p">,</span> <span class="n">output_filename</span>
+<span class="k">print</span> <span class="s">&#39;REMAINING :&#39;</span><span class="p">,</span> <span class="n">remainder</span>
+</pre></div>
+</div>
+<p>程序可以多种方式调用.</p>
+<div class="highlight-python"><pre>$ python ./getopt_example.py
+ARGV : []
+OPTIONS : []
+VERSION : 1.0
+VERBOSE : False
+OUTPUT : default.out
+REMAINING : []</pre>
+</div>
+<p>可以将单个字符选项和参数分隔开:</p>
+<div class="highlight-python"><pre>$ python ./getopt_example.py -o foo
+ARGV : ['-o', 'foo']
+OPTIONS : [('-o', 'foo')]
+VERSION : 1.0
+VERBOSE : False
+OUTPUT : foo
+REMAINING : []</pre>
+</div>
+<p>或者结合起来:</p>
+<div class="highlight-python"><pre>$ python ./getopt_example.py -ofoo
+ARGV : ['-ofoo']
+OPTIONS : [('-o', 'foo')]
+VERSION : 1.0
+VERBOSE : False
+OUTPUT : foo
+REMAINING : []</pre>
+</div>
+<p>长形式选项可以被简单的分离:</p>
+<div class="highlight-python"><pre>$ python ./getopt_example.py --output foo
+ARGV : ['--output', 'foo']
+OPTIONS : [('--output', 'foo')]
+VERSION : 1.0
+VERBOSE : False
+OUTPUT : foo
+REMAINING : []</pre>
+</div>
+<p>或者使用&#8217;=&#8217;结合:</p>
+<div class="highlight-python"><pre>$ python ./getopt_example.py --output=foo
+ARGV : ['--output=foo']
+OPTIONS : [('--output', 'foo')]
+VERSION : 1.0
+VERBOSE : False
+OUTPUT : foo
+REMAINING : []</pre>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>长形式选项的缩写<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>对于长形式的选项, 我们可以不必全部拼写出来, 而只要提供一个唯一的前缀以确定到底是哪个选项即可:</p>
+<div class="highlight-python"><pre>$ python ./getopt_example.py --o foo
+ARGV : ['--o', 'foo']
+OPTIONS : [('--output', 'foo')]
+VERSION : 1.0
+VERBOSE : False
+OUTPUT : foo
+REMAINING : []</pre>
+</div>
+<p>如果唯一前缀不存在, 则会有抛出异常.</p>
+<div class="highlight-python"><pre>$ python ./getopt_example.py --ver 2.0
+ARGV : ['--ver', '2.0']
+Traceback (most recent call last):
+  File "./getopt_example.py", line 43, in 'version=',
+  File "/Library/Frameworks/Python.framework/Versions/2.5/lib/python2.5/getopt.py", line 89, in getopt opts, args = do_longs(opts, args[0][2:], longopts, args[1:])
+  File "/Library/Frameworks/Python.framework/Versions/2.5/lib/python2.5/getopt.py", line 153, in do_longs has_arg, opt = long_has_args(opt, longopts)
+  File "/Library/Frameworks/Python.framework/Versions/2.5/lib/python2.5/getopt.py", line 180, in long_has_args
+raise GetoptError('option --%s not a unique prefix' % opt, opt)
+getopt.GetoptError: option --ver not a unique prefix</pre>
+</div>
+<p>选项解析过程会在遇到第一个非选项参数之后马上停止.</p>
+<div class="highlight-python"><pre>$ python ./getopt_example.py -v not_an_option --output foo
+ARGV : ['-v', 'not_an_option', '--output', 'foo']
+OPTIONS : [('-v', '')]
+VERSION : 1.0
+VERBOSE : True
+OUTPUT : default.out
+REMAINING : ['not_an_option', '--output', 'foo']</pre>
+</div>
+</div>
+<div class="section" id="gnu">
+<h2>GNU风格的选项解析<a class="headerlink" href="#gnu" title="Permalink to this headline">¶</a></h2>
+<p>这是Python 2.3中的新特性, 它提供了一个函数, 叫做gnu_getopt(). 该函数允许选项和非选项参数以任意顺序混合在命令行中. 我们改变了先前的那个例子, 可以很明显的看出差别所在:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">getopt</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<span class="n">version</span> <span class="o">=</span> <span class="s">&#39;1.0&#39;</span>
+<span class="n">verbose</span> <span class="o">=</span> <span class="bp">False</span>
+<span class="n">output_filename</span> <span class="o">=</span> <span class="s">&#39;default.out&#39;</span>
+
+<span class="k">print</span> <span class="s">&#39;ARGV      :&#39;</span><span class="p">,</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mf">1</span><span class="p">:]</span>
+
+<span class="n">options</span><span class="p">,</span> <span class="n">remainder</span> <span class="o">=</span> <span class="n">getopt</span><span class="o">.</span><span class="n">gnu_getopt</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mf">1</span><span class="p">:],</span> <span class="s">&#39;o:v&#39;</span><span class="p">,</span>
+               <span class="p">[</span><span class="s">&#39;output=&#39;</span><span class="p">,</span>
+                <span class="s">&#39;verbose&#39;</span><span class="p">,</span>
+                <span class="s">&#39;version=&#39;</span><span class="p">,</span>
+                <span class="p">])</span>
+
+<span class="k">print</span> <span class="s">&#39;OPTIONS   :&#39;</span><span class="p">,</span> <span class="n">options</span>
+
+<span class="k">for</span> <span class="n">opt</span><span class="p">,</span> <span class="n">arg</span> <span class="ow">in</span> <span class="n">options</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">opt</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&#39;-o&#39;</span><span class="p">,</span> <span class="s">&#39;--output&#39;</span><span class="p">):</span>
+        <span class="n">output_filename</span> <span class="o">=</span> <span class="n">arg</span>
+    <span class="k">elif</span> <span class="n">opt</span> <span class="ow">in</span> <span class="p">(</span><span class="s">&#39;-v&#39;</span><span class="p">,</span> <span class="s">&#39;--verbose&#39;</span><span class="p">):</span>
+        <span class="n">verbose</span> <span class="o">=</span> <span class="bp">True</span>
+    <span class="k">elif</span> <span class="n">opt</span> <span class="o">==</span> <span class="s">&#39;--version&#39;</span><span class="p">:</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="n">arg</span>
+
+<span class="k">print</span> <span class="s">&#39;VERSION   :&#39;</span><span class="p">,</span> <span class="n">version</span>
+<span class="k">print</span> <span class="s">&#39;VERBOSE   :&#39;</span><span class="p">,</span> <span class="n">verbose</span>
+<span class="k">print</span> <span class="s">&#39;OUTPUT    :&#39;</span><span class="p">,</span> <span class="n">output_filename</span>
+<span class="k">print</span> <span class="s">&#39;REMAINING :&#39;</span><span class="p">,</span> <span class="n">remainder</span>
+</pre></div>
+</div>
+<p>输出结果如下:</p>
+<div class="highlight-python"><pre>$ python ./getopt_gnu.py -v not_an_option --output foo
+ARGV : ['-v', 'not_an_option', '--output', 'foo']
+OPTIONS : [('-v', ''), ('--output', 'foo')]
+VERSION : 1.0
+VERBOSE : True
+OUTPUT : foo
+REMAINING : ['not_an_option']</pre>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>特殊的例子: &#8211;<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>如果getopt在输入参数序列中遇到&#8211;, 它就会马上停止剩余参数的解析.</p>
+<div class="highlight-python"><pre>$ python ./getopt_example.py -v -- --output foo
+ARGV : ['-v', '--', '--output', 'foo']
+OPTIONS : [('-v', '')]
+VERSION : 1.0
+VERBOSE : True
+OUTPUT : default.out
+REMAINING : ['--output', 'foo']</pre>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>参考<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://linux.about.com/library/cmd/blcmdl3_getopt.htm">getopt - Linux Command - Unix Command</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="hashlib.html" title="PyMOTW: hashlib"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="fileinput.html" title="PyMOTW: fileinput"
+             >previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, vbarter &amp; liz.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

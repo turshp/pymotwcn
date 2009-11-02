@@ -1,0 +1,390 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: unittest &mdash; PyMOTW Document v1.6 documentation</title>
+    <link rel="stylesheet" href="../_static/mytest.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.6',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW Document v1.6 documentation" href="../index.html" />
+    <link rel="next" title="PyMOTW: heapq" href="heapq.html" />
+    <link rel="prev" title="PyMOTW: hashlib" href="hashlib.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="heapq.html" title="PyMOTW: heapq"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="hashlib.html" title="PyMOTW: hashlib"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">PyMOTW: unittest</a><ul>
+<li><a class="reference external" href="#id1">描述</a></li>
+<li><a class="reference external" href="#id2">基本测试结构</a></li>
+<li><a class="reference external" href="#id3">测试运行</a></li>
+<li><a class="reference external" href="#id4">测试结果输出</a></li>
+<li><a class="reference external" href="#id5">断言的本质</a></li>
+<li><a class="reference external" href="#id6">等价测试</a></li>
+<li><a class="reference external" href="#id7">近似相等?</a></li>
+<li><a class="reference external" href="#id8">测试中的异常</a></li>
+<li><a class="reference external" href="#test-fixtures">Test Fixtures</a></li>
+<li><a class="reference external" href="#test-suites">Test Suites(测试整合)</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="hashlib.html"
+                                  title="previous chapter">PyMOTW: hashlib</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="heapq.html"
+                                  title="next chapter">PyMOTW: heapq</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/unittest.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pymotw-unittest">
+<h1>PyMOTW: unittest<a class="headerlink" href="#pymotw-unittest" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>模块： unittest</li>
+<li>目的： 自动测试框架</li>
+<li>python版本： 2.1+</li>
+</ul>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>Python的unittest模块, 有时被称为PyUnit, 它是基于由Kent Beck 和Erich Gamma设计的XUnit框架的. 这种模型被重复使用在其他很多语言(如C, perl, Java和Smalltalk)中. 这个由unittest实现的框架支持fixtures, test suites, 和a test runner, 以便能自动测试你的代码.</p>
+</div>
+<div class="section" id="id2">
+<h2>基本测试结构<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>unittest模块中定义的测试包含两个部分: 管理测试“fixtures”的代码, 和本身的测试代码. 每个测试继承unittest.TestCase并被创建, 并且它可以被重载或增加相关方法. 例如:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">unittest</span>
+
+<span class="k">class</span> <span class="nc">SimplisticTest</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">failUnless</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>在这个例子中, SimplisticTest仅包含一个test()方法, 如果不是True而是false时即会失败.</p>
+</div>
+<div class="section" id="id3">
+<h2>测试运行<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>最简单的运行unitest测试的方式是在每个测试文件的底部包含下面的语句:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">unittest</span><span class="o">.</span><span class="n">main</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>然后, 直接从命令行中运行这个脚本:</p>
+<div class="highlight-python"><pre>$ python unittest_simple.py
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.000s
+
+OK</pre>
+</div>
+<p>简短的输出中包含了测试所需的时间信息, 也包含每项测试的状态指标(第一行的&#8221;.&#8221;表示通过一个测试项). 使用-v选项可以在测试结果中显示更详细的信息.</p>
+<div class="highlight-python"><pre>$ python unittest_simple.py -v
+test (__main__.SimplisticTest) ... ok
+
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK</pre>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>测试结果输出<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>测试包含3个可能的结果输出:</p>
+<p>ok: 测试通过.
+FAIL: 测试没有通过, 并且引发一个AssertionError异常.
+ERROR: 测试过程中引发一个不是AssertionError的异常.</p>
+<p>这里不能直接让一个测试&#8221;pass&#8221;, 所以测试的状态由是否存在某个异常决定.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">OutcomesTest</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">testPass</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">testFail</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">failIf</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">testError</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s">&#39;Test error!&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>当测试失败或产生一个错误, 那么在输出中会包含相关回溯信息.</p>
+<div class="highlight-python"><pre>$ python unittest_outcomes.py
+EF.
+======================================================================
+ERROR: testError (__main__.OutcomesTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "unittest_outcomes.py", line 43, in testError
+  raise RuntimeError('Test error!')
+RuntimeError: Test error!
+
+======================================================================
+FAIL: testFail (__main__.OutcomesTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "unittest_outcomes.py", line 40, in testFail
+  self.failIf(True)
+AssertionError
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.002s
+
+FAILED (failures=1, errors=1)</pre>
+</div>
+<p>在上面的例子中, testFail()失败, 回溯信息显示了引起失败的代码行. 大部分人可以阅读代码的测试输出来找出引起测试失败的语义. 为了能更容易的理解测试失败的本质原因, 可以使用 fail*() 和 assert*()方法, 并让它们接收msg参数, 指示在输出中显示更详细的错误信息.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">FailureMessageTest</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">testFail</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">failIf</span><span class="p">(</span><span class="bp">True</span><span class="p">,</span> <span class="s">&#39;failure message goes here&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-python"><pre>$ python unittest_failwithmessage.py -vtestFail (__main__.FailureMessageTest) ... FAIL
+
+======================================================================
+FAIL: testFail (__main__.FailureMessageTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "unittest_failwithmessage.py", line 37, in testFail
+  self.failIf(True, 'failure message goes here')
+AssertionError: failure message goes here
+
+----------------------------------------------------------------------
+Ran 1 test in 0.002s
+
+FAILED (failures=1)</pre>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>断言的本质<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>大多数的测试在特定条件下进行断言测试. 编写truth-checking测试的方法也有很多, 采用哪个方法主要由测试者的个人习惯和想获得什么样的测试结果来决定. 如果由代码产生的值可视为真, 那么可以使用 failUnless() 和 assertTrue()方法, 如果该值可被评价为假, 那么, 使用failIf() 和 assertFalse()方法会更有意义.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">TruthTest</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">testFailUnless</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">failUnless</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">testAssertTrue</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertTrue</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">testFailIf</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">failIf</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">testAssertFalse</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">assertFalse</span><span class="p">(</span><span class="bp">False</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>等价测试<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>这是一个特殊的测试类型, unittest包含了测试俩个值是否相等的方法.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">EqualityTest</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">testEqual</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">failUnlessEqual</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span> <span class="mf">3</span><span class="o">-</span><span class="mf">2</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">testNotEqual</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">failIfEqual</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="o">-</span><span class="mf">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>这些特殊的测试使用比较方便, 因为当测试失败时, 被比较的两个值会显示在失败信息中.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">InequalityTest</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">testEqual</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">failIfEqual</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span> <span class="mf">3</span><span class="o">-</span><span class="mf">2</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">testNotEqual</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">failUnlessEqual</span><span class="p">(</span><span class="mf">2</span><span class="p">,</span> <span class="mf">3</span><span class="o">-</span><span class="mf">2</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>当运行这些测试, 可以看到:</p>
+<div class="highlight-python"><pre>$ python unittest_notequal.py -v
+testEqual (__main__.EqualityTest) ... FAIL
+testNotEqual (__main__.EqualityTest) ... FAIL
+
+======================================================================
+FAIL: testEqual (__main__.EqualityTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "unittest_notequal.py", line 37, in testEqual
+  self.failIfEqual(1, 3-2)
+AssertionError: 1 == 1
+
+======================================================================
+FAIL: testNotEqual (__main__.EqualityTest)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "unittest_notequal.py", line 40, in testNotEqual
+  self.failUnlessEqual(2, 3-2)
+AssertionError: 2 != 1
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.002s
+
+FAILED (failures=2)</pre>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>近似相等?<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>除了严格的相等外, 对于浮点数来说, 可以测试两个数是否近似相等, 这种情况下, 可以使用failIfAlmostEqual() 和 failUnlessAlmostEqual().</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">AlmostEqualTest</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">testNotAlmostEqual</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">failIfAlmostEqual</span><span class="p">(</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">3.3</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">places</span><span class="o">=</span><span class="mf">1</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">testAlmostEqual</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">failUnlessAlmostEqual</span><span class="p">(</span><span class="mf">1.1</span><span class="p">,</span> <span class="mf">3.3</span><span class="o">-</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">places</span><span class="o">=</span><span class="mf">0</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>它们的参数为2个待比较的数值, places表示小数位数, 指示测试时要考虑的小数位数.</p>
+<div class="highlight-python"><pre>$ python unittest_almostequal.py
+..
+----------------------------------------------------------------------
+Ran 2 tests in 0.001s
+
+OK</pre>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>测试中的异常<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<p>之前也提到过, 如果一个测试引发了一个异常, 这会在测试过程中会被看成是一个错误. 这有利于显示在你修改了现有的测试代码后会出现的错误. 然而有时, 当你想在测试时确认是哪些代码产生了异常, 如一个对象的某个属性被赋于一无效值, 这些情况下, 使用TestCase.fallUnlessRaises()比直接捕获异常更容易简洁代码. 比较下面的两个测试:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">def</span> <span class="nf">raises_error</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwds</span><span class="p">):</span>
+    <span class="k">print</span> <span class="n">args</span><span class="p">,</span> <span class="n">kwds</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s">&#39;Invalid value: &#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">args</span><span class="p">)</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">kwds</span><span class="p">))</span>
+
+<span class="k">class</span> <span class="nc">ExceptionTest</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">testTrapLocally</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">raises_error</span><span class="p">(</span><span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="s">&#39;c&#39;</span><span class="p">)</span>
+        <span class="k">except</span> <span class="ne">ValueError</span><span class="p">:</span>
+            <span class="k">pass</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">fail</span><span class="p">(</span><span class="s">&#39;Did not see ValueError&#39;</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">testFailUnlessRaises</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">failUnlessRaises</span><span class="p">(</span><span class="ne">ValueError</span><span class="p">,</span> <span class="n">raises_error</span><span class="p">,</span> <span class="s">&#39;a&#39;</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="s">&#39;c&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>两个测试的结果是一样的, 但第二个测试使用了failUnlessRaises(), 显得更加简洁.</p>
+<div class="highlight-python"><pre>$ python unittest_exception.py -v
+testFailUnlessRaises (__main__.ExceptionTest) ... ('a',) {'b': 'c'}
+ok
+testTrapLocally (__main__.ExceptionTest) ... ('a',) {'b': 'c'}
+ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.001s
+
+OK</pre>
+</div>
+</div>
+<div class="section" id="test-fixtures">
+<h2>Test Fixtures<a class="headerlink" href="#test-fixtures" title="Permalink to this headline">¶</a></h2>
+<p>Fixtures是一个测试过程中所有需要的资源. 例如, 如果你正在写多个针对同一个类的测试用例, 这些测试用例都需要这个类的一个实例来作测试, 其他测试要用到的fixtures包括数据库连接和临时文件(许多人争论使用外部资源来让这些测试不像是&#8221;单元&#8221;测试, 但是他们仍然使用它们来测试, 结果也仍然是可用的). TestCase包括一些特殊的钩子用于配置和清理这些fixtures. 重载setUp()用于配置fixtures. 重载tearDown()用于清理fixtures.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">class</span> <span class="nc">FixturesTest</span><span class="p">(</span><span class="n">unittest</span><span class="o">.</span><span class="n">TestCase</span><span class="p">):</span>
+    <span class="k">def</span> <span class="nf">setUp</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">&#39;In setUp()&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">fixture</span> <span class="o">=</span> <span class="nb">range</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span> <span class="mf">10</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">tearDown</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">&#39;In tearDown()&#39;</span>
+        <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">fixture</span>
+
+    <span class="k">def</span> <span class="nf">test</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">print</span> <span class="s">&#39;in test()&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">failUnlessEqual</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">fixture</span><span class="p">,</span> <span class="nb">range</span><span class="p">(</span><span class="mf">1</span><span class="p">,</span> <span class="mf">10</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>上面的测试运行之后, 你可以看到fixtures和测试方法的执行顺序:</p>
+<div class="highlight-python"><pre>$ python unittest_fixtures.py
+In setUp()
+in test()
+In tearDown()
+.
+----------------------------------------------------------------------
+Ran 1 test in 0.001s
+
+OK</pre>
+</div>
+</div>
+<div class="section" id="test-suites">
+<h2>Test Suites(测试整合)<a class="headerlink" href="#test-suites" title="Permalink to this headline">¶</a></h2>
+<p>标准库文档讲述了怎样去手工组织test suites, 我一般也不直接使用test suites, 因为我更喜欢自动建立suites(它们是自动生成的测试集). 自动构建test suites对于大型工程来说尤其有用, 因为相关的测试不是全部都在一个地方. 使用像nose 和 Proctor 的这些工具, 对于遍布多个文件和目录的测试来说, 更加容易操作.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="heapq.html" title="PyMOTW: heapq"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="hashlib.html" title="PyMOTW: hashlib"
+             >previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, vbarter &amp; liz.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,543 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: zipfile &mdash; PyMOTW Document v1.6 documentation</title>
+    <link rel="stylesheet" href="../_static/mytest.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.6',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW Document v1.6 documentation" href="../index.html" />
+    <link rel="next" title="PyMOTW: BaseHTTPServer" href="BaseHTTPServer.html" />
+    <link rel="prev" title="PyMOTW: itertools" href="itertools.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="BaseHTTPServer.html" title="PyMOTW: BaseHTTPServer"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="itertools.html" title="PyMOTW: itertools"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">PyMOTW: zipfile</a><ul>
+<li><a class="reference external" href="#id1">局限</a></li>
+<li><a class="reference external" href="#zip">测试ZIP文件</a></li>
+<li><a class="reference external" href="#id2">从ZIP存档中读取元数据</a></li>
+<li><a class="reference external" href="#id3">从ZIP档案中提取文件</a></li>
+<li><a class="reference external" href="#id4">创建一个新的档案</a></li>
+<li><a class="reference external" href="#id5">使用备选的存档成员名</a></li>
+<li><a class="reference external" href="#id6">从源而非文件上写数据</a></li>
+<li><a class="reference external" href="#zipinfo">通过ZipInfo实例写入</a></li>
+<li><a class="reference external" href="#id7">追加文件</a></li>
+<li><a class="reference external" href="#python-zip">Python ZIP档案</a></li>
+<li><a class="reference external" href="#id8">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="itertools.html"
+                                  title="previous chapter">PyMOTW: itertools</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="BaseHTTPServer.html"
+                                  title="next chapter">PyMOTW: BaseHTTPServer</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/zipfile.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pymotw-zipfile">
+<h1>PyMOTW: zipfile<a class="headerlink" href="#pymotw-zipfile" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>模块： zipfile</li>
+<li>目的： 读写ZIP档案文件.</li>
+<li>python版本： 1.6+</li>
+</ul>
+<p>zipfile模块能用来处理ZIP档案文件.</p>
+<div class="section" id="id1">
+<h2>局限<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>zipfile模块不支持附加评论的或者多磁盘ZIP文件, 支持大于4GB使用ZIP64扩展的ZIP文件.</p>
+</div>
+<div class="section" id="zip">
+<h2>测试ZIP文件<a class="headerlink" href="#zip" title="Permalink to this headline">¶</a></h2>
+<p><tt class="docutils literal"><span class="pre">is_zipfile()</span></tt> 函数返回一个布尔值, 判断给定的文件是否是一个有效的ZIP文件.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">zipfile</span>
+
+<span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="p">[</span> <span class="s">&#39;README.txt&#39;</span><span class="p">,</span> <span class="s">&#39;example.zip&#39;</span><span class="p">,</span> <span class="s">&#39;bad_example.zip&#39;</span><span class="p">,</span> <span class="s">&#39;notthere.zip&#39;</span> <span class="p">]:</span>
+    <span class="k">print</span> <span class="s">&#39;</span><span class="si">%20s</span><span class="s"> </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">filename</span><span class="p">,</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">is_zipfile</span><span class="p">(</span><span class="n">filename</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>注意：如果文件不存在, <tt class="docutils literal"><span class="pre">is_zipfile()</span></tt> 返回False.</p>
+<div class="highlight-python"><pre>$ python zipfile_is_zipfile.py
+README.txt False
+example.zip True
+bad_example.zip False
+notthere.zip False</pre>
+</div>
+</div>
+<div class="section" id="id2">
+<h2>从ZIP存档中读取元数据<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>使用ZipFile类直接处理ZIP存档, 它支持从现有存档中读取数据也支持向存档中加入其它文件更改存档.</p>
+<p>使用 <tt class="docutils literal"><span class="pre">namelist()</span></tt> 函数读取现有存档中所有文件的名字.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">zipfile</span>
+
+<span class="n">zf</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s">&#39;example.zip&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">zf</span><span class="o">.</span><span class="n">namelist</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>返回的是存档内容名字的字符串列表.</p>
+<div class="highlight-python"><pre>$ python zipfile_namelist.py
+['README.txt']</pre>
+</div>
+<p>然而，名字列表只是存档中可用信息的一小部分, 使用 <tt class="docutils literal"><span class="pre">infolist()</span></tt> 或者 <tt class="docutils literal"><span class="pre">getinfo()</span></tt> 方法来访问存档内容的所有元数据.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">datetime</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
+
+<span class="k">def</span> <span class="nf">print_info</span><span class="p">(</span><span class="n">archive_name</span><span class="p">):</span>
+    <span class="n">zf</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">archive_name</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">info</span> <span class="ow">in</span> <span class="n">zf</span><span class="o">.</span><span class="n">infolist</span><span class="p">():</span>
+        <span class="k">print</span> <span class="n">info</span><span class="o">.</span><span class="n">filename</span>
+        <span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">Comment:</span><span class="se">\t</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">comment</span>
+        <span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">Modified:</span><span class="se">\t</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">datetime</span><span class="o">.</span><span class="n">datetime</span><span class="p">(</span><span class="o">*</span><span class="n">info</span><span class="o">.</span><span class="n">date_time</span><span class="p">)</span>
+        <span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">System:</span><span class="se">\t\t</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">create_system</span><span class="p">,</span> <span class="s">&#39;(0 = Windows, 3 = Unix)&#39;</span>
+        <span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">ZIP version:</span><span class="se">\t</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">create_version</span>
+        <span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">Compressed:</span><span class="se">\t</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">compress_size</span><span class="p">,</span> <span class="s">&#39;bytes&#39;</span>
+        <span class="k">print</span> <span class="s">&#39;</span><span class="se">\t</span><span class="s">Uncompressed:</span><span class="se">\t</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">file_size</span><span class="p">,</span> <span class="s">&#39;bytes&#39;</span>
+        <span class="k">print</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">print_info</span><span class="p">(</span><span class="s">&#39;example.zip&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>除了这儿输出的一些信息外, 还有别的东西, 但是需要仔细阅读ZIP文件说明书上的 <a class="reference external" href="http://www.pkware.com/business_and_developers/developer/appnote/">PKZIP应用注释</a> 才能将其解密成有用的东西.</p>
+<div class="highlight-python"><pre>$ python zipfile_infolist.py
+README.txt
+  Comment:
+  Modified: 2007-12-16 10:08:52
+  System: 3 (0 = Windows, 3 = Unix)
+  ZIP version: 23
+  Compressed: 63 bytes
+  Uncompressed: 75 bytes</pre>
+</div>
+<p>如果你已经知道了存档中各文件的名字, 你也可以通过 <tt class="docutils literal"><span class="pre">getinfo()</span></tt> 方法获得它的ZipInfo对象.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">zipfile</span>
+
+<span class="n">zf</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s">&#39;example.zip&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="p">[</span> <span class="s">&#39;README.txt&#39;</span><span class="p">,</span> <span class="s">&#39;notthere.txt&#39;</span> <span class="p">]:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">info</span> <span class="o">=</span> <span class="n">zf</span><span class="o">.</span><span class="n">getinfo</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&#39;ERROR: Did not find </span><span class="si">%s</span><span class="s"> in zip file&#39;</span> <span class="o">%</span> <span class="n">filename</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s"> is </span><span class="si">%d</span><span class="s"> bytes&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">info</span><span class="o">.</span><span class="n">filename</span><span class="p">,</span> <span class="n">info</span><span class="o">.</span><span class="n">file_size</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>如果存档中的某个文件不存在, <tt class="docutils literal"><span class="pre">getinfo()</span></tt> 方法会产生一个KeyError.</p>
+<div class="highlight-python"><pre>$ python zipfile_getinfo.py
+README.txt is 75 bytes
+ERROR: Did not find notthere.txt in zip file</pre>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>从ZIP档案中提取文件<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>为了访问存档文件的数据, 使用 <tt class="docutils literal"><span class="pre">read()</span></tt> 方法，并将该成员的名字传递给它.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">zipfile</span>
+
+<span class="n">zf</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s">&#39;example.zip&#39;</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">filename</span> <span class="ow">in</span> <span class="p">[</span> <span class="s">&#39;README.txt&#39;</span><span class="p">,</span> <span class="s">&#39;notthere.txt&#39;</span> <span class="p">]:</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="n">zf</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="k">print</span> <span class="s">&#39;ERROR: Did not find </span><span class="si">%s</span><span class="s"> in zip file&#39;</span> <span class="o">%</span> <span class="n">filename</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="k">print</span> <span class="n">filename</span><span class="p">,</span> <span class="s">&#39;:&#39;</span>
+        <span class="k">print</span> <span class="nb">repr</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">print</span>
+</pre></div>
+</div>
+<p>必要时, 数据会自动解压缩.</p>
+<div class="highlight-python"><pre>$ python zipfile_read.py
+README.txt :
+'The examples for the zipfile module use this file and example.zip as data.\n'
+
+ERROR: Did not find notthere.txt in zip file</pre>
+</div>
+</div>
+<div class="section" id="id4">
+<h2>创建一个新的档案<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>为了创建一个新的档案, 以‘w’模式简单实例化ZipFile对象. 档案中任何现有文件会被清空, 开始新档案. 使用 <tt class="docutils literal"><span class="pre">write()</span></tt> 方法可以在档案中增加文件.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">zipfile_infolist</span> <span class="kn">import</span> <span class="n">print_info</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
+
+<span class="k">print</span> <span class="s">&#39;creating archive&#39;</span>
+<span class="n">zf</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s">&#39;zipfile_write.zip&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;w&#39;</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;adding README.txt&#39;</span>
+    <span class="n">zf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;README.txt&#39;</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;closing&#39;</span>
+    <span class="n">zf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">print</span>
+<span class="n">print_info</span><span class="p">(</span><span class="s">&#39;zipfile_write.zip&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>默认情况下, 档案的文件不会被压缩:</p>
+<div class="highlight-python"><pre>$ python zipfile_write.py
+creating archive
+adding README.txt
+closing
+
+README.txt
+  Comment:
+  Modified: 2007-12-16 10:08:50
+  System: 3 (0 = Windows, 3 = Unix)
+  ZIP version: 20
+  Compressed: 75 bytes
+  Uncompressed: 75 bytes</pre>
+</div>
+<p>zlib模块提供压缩功能. 如果zlib是可用的, 你能使用zipfile.ZIP_DEFLATED对个人文件或者整个档案设置压缩模式. 默认压缩模式为zipfile.ZIP_STORED.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">zipfile_infolist</span> <span class="kn">import</span> <span class="n">print_info</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">zlib</span>
+    <span class="n">compression</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZIP_DEFLATED</span>
+<span class="k">except</span><span class="p">:</span>
+    <span class="n">compression</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZIP_STORED</span>
+
+<span class="n">modes</span> <span class="o">=</span> <span class="p">{</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZIP_DEFLATED</span><span class="p">:</span> <span class="s">&#39;deflated&#39;</span><span class="p">,</span>
+    <span class="n">zipfile</span><span class="o">.</span><span class="n">ZIP_STORED</span><span class="p">:</span> <span class="s">&#39;stored&#39;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="k">print</span> <span class="s">&#39;creating archive&#39;</span>
+<span class="n">zf</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s">&#39;zipfile_write_compression.zip&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;w&#39;</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;adding README.txt with compression mode&#39;</span><span class="p">,</span> <span class="n">modes</span><span class="p">[</span><span class="n">compression</span><span class="p">]</span>
+    <span class="n">zf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;README.txt&#39;</span><span class="p">,</span> <span class="n">compress_type</span><span class="o">=</span><span class="n">compression</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="k">print</span> <span class="s">&#39;closing&#39;</span>
+    <span class="n">zf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">print</span>
+<span class="n">print_info</span><span class="p">(</span><span class="s">&#39;zipfile_write_compression.zip&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>这次, 归档中的文件被压缩了:</p>
+<div class="highlight-python"><pre>$ python zipfile_write_compression.py creating archive
+adding README.txt with compression mode deflated
+closing
+
+README.txt
+  Comment:
+  Modified: 2007-12-16 10:08:50
+  System: 3 (0 = Windows, 3 = Unix)
+  ZIP version: 20
+  Compressed: 63 bytes
+  Uncompressed: 75 bytes</pre>
+</div>
+</div>
+<div class="section" id="id5">
+<h2>使用备选的存档成员名<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>传递arcname参数给 <tt class="docutils literal"><span class="pre">wirte()</span></tt> 可以很容易将一个文件添加到存档中, 但命名不能是原始文件名.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">zipfile_infolist</span> <span class="kn">import</span> <span class="n">print_info</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
+
+<span class="n">zf</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s">&#39;zipfile_write_arcname.zip&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;w&#39;</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">zf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;README.txt&#39;</span><span class="p">,</span> <span class="n">arcname</span><span class="o">=</span><span class="s">&#39;NOT_README.txt&#39;</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">zf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<span class="n">print_info</span><span class="p">(</span><span class="s">&#39;zipfile_write_arcname.zip&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>在档案中, 新的文件没有使用原来的文件名.</p>
+<div class="highlight-python"><pre>$ python zipfile_write_arcname.py
+NOT_README.txt
+  Comment:
+  Modified: 2007-12-16 10:08:50
+  System: 3 (0 = Windows, 3 = Unix)
+  ZIP version: 20
+  Compressed: 75 bytes
+  Uncompressed: 75 bytes</pre>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>从源而非文件上写数据<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>有时候, 将那些不是来自现有文件的数据直接写入到ZIP档案中也是有必要的, 而不是通过先把这些数据写入到一个文件中, 再把这个文件添加到ZIP档案中, 你可以使用writestr()函数将字符串字节流直接写入到档案中.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">zipfile_infolist</span> <span class="kn">import</span> <span class="n">print_info</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
+
+<span class="n">msg</span> <span class="o">=</span> <span class="s">&#39;This data did not exist in a file before being added to the ZIP file&#39;</span>
+<span class="n">zf</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s">&#39;zipfile_writestr.zip&#39;</span><span class="p">,</span>
+ <span class="n">mode</span><span class="o">=</span><span class="s">&#39;w&#39;</span><span class="p">,</span>
+ <span class="n">compression</span><span class="o">=</span><span class="n">zipfile</span><span class="o">.</span><span class="n">ZIP_DEFLATED</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">zf</span><span class="o">.</span><span class="n">writestr</span><span class="p">(</span><span class="s">&#39;from_string.txt&#39;</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">zf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="n">print_info</span><span class="p">(</span><span class="s">&#39;zipfile_writestr.zip&#39;</span><span class="p">)</span>
+
+<span class="n">zf</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s">&#39;zipfile_writestr.zip&#39;</span><span class="p">,</span> <span class="s">&#39;r&#39;</span><span class="p">)</span>
+<span class="k">print</span> <span class="n">zf</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="s">&#39;from_string.txt&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>上述实例中, 我在ZipFile中使用compress参数来压缩数据, 但 <tt class="docutils literal"><span class="pre">writestr()</span></tt> 方法中不支持该参数.</p>
+<div class="highlight-python"><pre>$ python zipfile_writestr.py
+from_string.txt
+  Comment:
+  Modified: 2007-12-16 11:38:14
+  System: 3 (0 = Windows, 3 = Unix)
+  ZIP version: 20
+  Compressed: 62 bytes
+  Uncompressed: 68 bytes
+
+This data did not exist in a file before being added to the ZIP file</pre>
+</div>
+</div>
+<div class="section" id="zipinfo">
+<h2>通过ZipInfo实例写入<a class="headerlink" href="#zipinfo" title="Permalink to this headline">¶</a></h2>
+<p>默认情况下, 当你在档案中加入文件或者字符串时, 需要计算修改日期. 当使用 <tt class="docutils literal"><span class="pre">writestr()</span></tt> 方法时, 也需要传递一个ZipInfo实例给它, 该实例包含了修改日期和别的自定义元数据.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
+<span class="kn">from</span> <span class="nn">zipfile_infolist</span> <span class="kn">import</span> <span class="n">print_info</span>
+
+<span class="n">msg</span> <span class="o">=</span> <span class="s">&#39;This data did not exist in a file before being added to the ZIP file&#39;</span>
+<span class="n">zf</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s">&#39;zipfile_writestr_zipinfo.zip&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;w&#39;</span><span class="p">,)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">info</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipInfo</span><span class="p">(</span><span class="s">&#39;from_string.txt&#39;</span><span class="p">,</span> <span class="n">date_time</span><span class="o">=</span><span class="n">time</span><span class="o">.</span><span class="n">localtime</span><span class="p">(</span><span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()),)</span>
+    <span class="n">info</span><span class="o">.</span><span class="n">compress_type</span><span class="o">=</span><span class="n">zipfile</span><span class="o">.</span><span class="n">ZIP_DEFLATED</span>
+    <span class="n">info</span><span class="o">.</span><span class="n">comment</span><span class="o">=</span><span class="s">&#39;Remarks go here&#39;</span>
+    <span class="n">info</span><span class="o">.</span><span class="n">create_system</span><span class="o">=</span><span class="mf">0</span>
+    <span class="n">zf</span><span class="o">.</span><span class="n">writestr</span><span class="p">(</span><span class="n">info</span><span class="p">,</span> <span class="n">msg</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">zf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="n">print_info</span><span class="p">(</span><span class="s">&#39;zipfile_writestr_zipinfo.zip&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>在这个例子中, 我修改时间为当前时间. 压缩数据, 赋create_system值为0. 还增添了评论.</p>
+<div class="highlight-python"><pre>$ python zipfile_writestr_zipinfo.pyfrom_string.txt
+  Comment: Remarks go here
+  Modified: 2007-12-16 11:44:14
+  System: 0 (0 = Windows, 3 = Unix)
+  ZIP version: 20
+  Compressed: 62 bytes
+      Uncompressed: 68 bytes</pre>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>追加文件<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<p>除了创建一个新档案之外, 还可以在现有档案上追加一个文件或在一个现有文件(如a.exe, 自解压档案文件)的末尾增加一个档案文件. 使用模式‘a‘打开文件以便追加.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">from</span> <span class="nn">zipfile_infolist</span> <span class="kn">import</span> <span class="n">print_info</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
+
+<span class="k">print</span> <span class="s">&#39;creating archive&#39;</span>
+<span class="n">zf</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s">&#39;zipfile_append.zip&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;w&#39;</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">zf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;README.txt&#39;</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">zf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">print</span>
+<span class="n">print_info</span><span class="p">(</span><span class="s">&#39;zipfile_append.zip&#39;</span><span class="p">)</span>
+
+<span class="k">print</span> <span class="s">&#39;appending to the archive&#39;</span>
+<span class="n">zf</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="s">&#39;zipfile_append.zip&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;a&#39;</span><span class="p">)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="n">zf</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s">&#39;README.txt&#39;</span><span class="p">,</span> <span class="n">arcname</span><span class="o">=</span><span class="s">&#39;README2.txt&#39;</span><span class="p">)</span>
+<span class="k">finally</span><span class="p">:</span>
+    <span class="n">zf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+<span class="k">print</span>
+<span class="n">print_info</span><span class="p">(</span><span class="s">&#39;zipfile_append.zip&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>结果档案有2个文件：</p>
+<div class="highlight-python"><pre>$ python zipfile_append.py
+creating archive
+
+README.txt
+  Comment:
+  Modified: 2007-12-16 10:08:50
+  System: 3 (0 = Windows, 3 = Unix)
+  ZIP version: 20
+  Compressed: 75 bytes
+  Uncompressed: 75 bytes
+
+appending to the archive
+
+README.txt
+  Comment:
+  Modified: 2007-12-16 10:08:50
+  System: 3 (0 = Windows, 3 = Unix)
+  ZIP version: 20
+  Compressed: 75 bytes
+  Uncompressed: 75 bytes
+
+README2.txt
+  Comment:
+  Modified: 2007-12-16 10:08:50
+  System: 3 (0 = Windows, 3 = Unix)
+  ZIP version: 20
+  Compressed: 75 bytes
+  Uncompressed: 75 bytes</pre>
+</div>
+</div>
+<div class="section" id="python-zip">
+<h2>Python ZIP档案<a class="headerlink" href="#python-zip" title="Permalink to this headline">¶</a></h2>
+<p>如果存档出现在sys.path中, Python 2.3及以后版本都有能力从ZIP档案内部引入模块. 使用类zpfile.PyZipFile可以构造一个模块来适合这种用法. 当你使用其他方法 <tt class="docutils literal"><span class="pre">writepy()</span></tt> 时,PyZipFile浏览目录寻找.py文件, 并且将关联文件 <tt class="docutils literal"><span class="pre">.pyo</span></tt> 或 <tt class="docutils literal"><span class="pre">.pyc</span></tt> 加入到档案中. 如果两者都不存在, 则生成一个.pyc文件, 并将其加入到档案中.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">zf</span> <span class="o">=</span> <span class="n">zipfile</span><span class="o">.</span><span class="n">PyZipFile</span><span class="p">(</span><span class="s">&#39;zipfile_pyzipfile.zip&#39;</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s">&#39;w&#39;</span><span class="p">)</span> <span class="c">## 这段代码就可以直接将当前目录压缩打包，还能编译py脚本</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">zf</span><span class="o">.</span><span class="n">debug</span> <span class="o">=</span> <span class="mf">3</span>
+        <span class="k">print</span> <span class="s">&#39;Adding python files&#39;</span>
+        <span class="n">zf</span><span class="o">.</span><span class="n">writepy</span><span class="p">(</span><span class="s">&#39;.&#39;</span><span class="p">)</span>
+    <span class="k">finally</span><span class="p">:</span>
+        <span class="n">zf</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">name</span> <span class="ow">in</span> <span class="n">zf</span><span class="o">.</span><span class="n">namelist</span><span class="p">():</span>
+            <span class="k">print</span> <span class="n">name</span>
+
+    <span class="k">print</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mf">0</span><span class="p">,</span> <span class="s">&#39;zipfile_pyzipfile.zip&#39;</span><span class="p">)</span>
+    <span class="kn">import</span> <span class="nn">zipfile_pyzipfile</span>
+    <span class="k">print</span> <span class="s">&#39;Imported from:&#39;</span><span class="p">,</span> <span class="n">zipfile_pyzipfile</span><span class="o">.</span><span class="n">__file__</span>
+</pre></div>
+</div>
+<p>当我设置PyZipFile的属性debug=3, 就激活了verbose debugging, 这在编译每一个.py文件时可以看到.</p>
+<div class="highlight-python"><pre>$ python zipfile_pyzipfile.py
+Adding python files
+Adding package in . as .
+Compiling ./__init__.py
+Adding ./__init__.pyc
+Compiling ./zipfile_append.py
+Adding ./zipfile_append.pyc
+Compiling ./zipfile_getinfo.py
+Adding ./zipfile_getinfo.pyc
+Compiling ./zipfile_infolist.py
+Adding ./zipfile_infolist.pyc
+Compiling ./zipfile_is_zipfile.py
+Adding ./zipfile_is_zipfile.pyc
+Compiling ./zipfile_namelist.py
+Adding ./zipfile_namelist.pyc
+Compiling ./zipfile_printdir.py
+Adding ./zipfile_printdir.pyc
+Compiling ./zipfile_pyzipfile.py
+Adding ./zipfile_pyzipfile.pyc
+Compiling ./zipfile_read.py
+Adding ./zipfile_read.pyc
+Compiling ./zipfile_write.py
+Adding ./zipfile_write.pyc
+Compiling ./zipfile_write_arcname.py
+Adding ./zipfile_write_arcname.pyc
+Compiling ./zipfile_write_compression.py
+Adding ./zipfile_write_compression.pyc
+Compiling ./zipfile_writestr.py
+Adding ./zipfile_writestr.pyc
+Compiling ./zipfile_writestr_zipinfo.py
+Adding ./zipfile_writestr_zipinfo.pyc
+__init__.pyc
+zipfile_append.pyc
+zipfile_getinfo.pyc
+zipfile_infolist.pyc
+zipfile_is_zipfile.pyc
+zipfile_namelist.pyc
+zipfile_printdir.pyc
+zipfile_pyzipfile.pyc
+zipfile_read.pyc
+zipfile_write.pyc
+zipfile_write_arcname.pyc
+zipfile_write_compression.pyc
+zipfile_writestr.pyc
+zipfile_writestr_zipinfo.pyc
+
+Imported from: zipfile_pyzipfile.zip/zipfile_pyzipfile.pyc</pre>
+</div>
+</div>
+<div class="section" id="id8">
+<h2>参考<a class="headerlink" href="#id8" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://www.pkware.com/business_and_developers/developer/appnote/">PKZIP Application Note</a></li>
+<li><a class="reference external" href="http://docs.python.org/lib/module-zipimport.html">zipimport module</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="BaseHTTPServer.html" title="PyMOTW: BaseHTTPServer"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="itertools.html" title="PyMOTW: itertools"
+             >previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, vbarter &amp; liz.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>

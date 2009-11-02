@@ -1,0 +1,473 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>PyMOTW: SocketServer &mdash; PyMOTW Document v1.6 documentation</title>
+    <link rel="stylesheet" href="../_static/mytest.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '1.6',
+        COLLAPSE_MODINDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="author" title="About these documents" href="../about.html" />
+    <link rel="copyright" title="Copyright" href="../copyright.html" />
+    <link rel="top" title="PyMOTW Document v1.6 documentation" href="../index.html" />
+    <link rel="next" title="PyMOTW: asyncore" href="asyncore.html" />
+    <link rel="prev" title="PyMOTW: pprint" href="pprint.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="asyncore.html" title="PyMOTW: asyncore"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="pprint.html" title="PyMOTW: pprint"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+            <h3><a href="../index.html">Table Of Contents</a></h3>
+            <ul>
+<li><a class="reference external" href="">PyMOTW: SocketServer</a><ul>
+<li><a class="reference external" href="#id1">描述</a></li>
+<li><a class="reference external" href="#id2">服务器类型</a></li>
+<li><a class="reference external" href="#id3">服务器对象</a></li>
+<li><a class="reference external" href="#id4">实现一个服务器</a></li>
+<li><a class="reference external" href="#id5">请求处理者</a></li>
+<li><a class="reference external" href="#echo">Echo例子</a></li>
+<li><a class="reference external" href="#id6">线程和进程</a></li>
+<li><a class="reference external" href="#id7">参考</a></li>
+</ul>
+</li>
+</ul>
+
+            <h4>Previous topic</h4>
+            <p class="topless"><a href="pprint.html"
+                                  title="previous chapter">PyMOTW: pprint</a></p>
+            <h4>Next topic</h4>
+            <p class="topless"><a href="asyncore.html"
+                                  title="next chapter">PyMOTW: asyncore</a></p>
+            <h3>This Page</h3>
+            <ul class="this-page-menu">
+              <li><a href="../_sources/documents/SocketServer.txt"
+                     rel="nofollow">Show Source</a></li>
+            </ul>
+          <div id="searchbox" style="display: none">
+            <h3>Quick search</h3>
+              <form class="search" action="../search.html" method="get">
+                <input type="text" name="q" size="18" />
+                <input type="submit" value="Go" />
+                <input type="hidden" name="check_keywords" value="yes" />
+                <input type="hidden" name="area" value="default" />
+              </form>
+              <p class="searchtip" style="font-size: 90%">
+              Enter search terms or a module, class or function name.
+              </p>
+          </div>
+          <script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="pymotw-socketserver">
+<h1>PyMOTW: SocketServer<a class="headerlink" href="#pymotw-socketserver" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>模块： SocketServer</li>
+<li>目的： 创建网络服务器.</li>
+<li>python版本： 1.4+</li>
+</ul>
+<p>SocketServer模块是一个用于创建网络服务器的框架. 他提供了处理TCP, UDP, Unix流和Unix数据报的基本类和支持线程和进程服务器, 这依赖于具体的应用情况.</p>
+<div class="section" id="id1">
+<h2>描述<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h2>
+<p>SocketServer模块定义了处理同步网络请求(服务器请求处理时会阻塞直到请求完成)的类. 它也提供了一个接口类, 可以方便地将服务器转换使其对于每个请求使用独立线程或进程.</p>
+<p>处理一个请求需要先将server(服务器)类和request handler(请求处理)类分开来. 服务器处理通信事宜(如列出一个socket, 接受连接等等), 而请求处理类处理&#8221;协议&#8221;事宜(解释来到的数据并处理他, 返回数据给客户端). 这种任务的划分意味着，在许多情况下，你可以简单地并且可以不加修改的使用一个现有的服务器类，并为之提供一个符合用户特定需要的请求处理类.</p>
+</div>
+<div class="section" id="id2">
+<h2>服务器类型<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h2>
+<p>在SocketServer模块中定义了5种不同的服务器类. BaseServer仅定义了API, 但没有实例化很多方法所以不能直接使用. TCPServer使用TCP/IP sockets来通信. UDPServer使用数据报sockets. UnixStreamServer和UnixDatagramServer使用Unix-domain sockets，这仅在Unix平台上可用.</p>
+</div>
+<div class="section" id="id3">
+<h2>服务器对象<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>构造一个服务器对象，需要传递给它一个监听请求的地址和一个请求处理类(不是实例). 地址格式根据服务器的类型和所使用的socket族. 细节可以参考 <a class="reference external" href="http://docs.python.org/lib/module-socket.html">socket模块文档</a>.</p>
+<p>一旦一个服务器对象被实例化, 使用 <tt class="docutils literal"><span class="pre">handle_request()</span></tt> 或者 <tt class="docutils literal"><span class="pre">serve_forever()</span></tt> 来处理请求. <tt class="docutils literal"><span class="pre">serve_forever()</span></tt> 方法简单的在一个无穷循环中调用 <tt class="docutils literal"><span class="pre">handle_request()</span></tt>, 所以如果你需要在服务器中集成其他事件循环, 或者使用 <tt class="docutils literal"><span class="pre">select()</span></tt> 监视多个不同服务器的sockets, 你可以独立调用 <tt class="docutils literal"><span class="pre">handle_request()</span></tt>. 可以看下面的例子.</p>
+</div>
+<div class="section" id="id4">
+<h2>实现一个服务器<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h2>
+<p>如果你要创建一个服务器, 它通常是复用现有的类并简单提供自定义的请求处理类. 如果这不能满足你的需求, 还可以使用BaseServer并在其子类中重载一些方法:</p>
+<p>verify_request(request, client_address) - 返回True来处理请求, 或者False表示忽略这个请求. 比如, 你也可以拒绝从一个IP范围来的请求, 假如你想要阻断某些客户端访问服务器.</p>
+<p>process_request(request, client_address) - 它通常是调用finish_request()来完成实际工作. 但它也看创建一个独立的线程或进程, 作为混合类来使用(如下).</p>
+<p>finish_request(request, client_address) - 使用在服务器构造时指定的类来创建一个请求处理实例. 她调用请求处理类的 <tt class="docutils literal"><span class="pre">handle()</span></tt> 来处理请求.</p>
+</div>
+<div class="section" id="id5">
+<h2>请求处理者<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h2>
+<p>请求处理者做了大部分的接受到达的请求和决定如何处理. 处理者应该实现socket层面的 <em>protocol</em> (例如, HTTP或XML-RPC). 请求处理者从到达的数据通道中读取请求, 处理它, 并写回一个response. 有下面的3个方法可以被重载.</p>
+<p>setup() - 准备一个请求处理者. 在StreamRequestHandler中, 例如, <tt class="docutils literal"><span class="pre">setup()</span></tt> 方法创建一个类文件对象用于读取和写入socket.</p>
+<p>handle() - 做实际处理请求的工作. 解析到来的请求, 处理数据并发送一个response.</p>
+<p>finish() - 清除在setup()中创建的所有东西.</p>
+<p>在很多情况下, 你可以简单提供handle()方法就可.</p>
+</div>
+<div class="section" id="echo">
+<h2>Echo例子<a class="headerlink" href="#echo" title="Permalink to this headline">¶</a></h2>
+<p>在这个例子中, 让我们看下一对简单的server/request处理对象, 它们接受TCP连接, 并将接收的数据返回给客户端. 例子代码中, 唯一实际需要的方法是 <tt class="docutils literal"><span class="pre">EchoRequestHandler.handle()</span></tt>, 但我已经重载上述描述的所有方法并插入了日志功能调用以便输出示例程序调用时的执行顺序.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">logging</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">SocketServer</span>
+
+<span class="n">logging</span><span class="o">.</span><span class="n">basicConfig</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="n">logging</span><span class="o">.</span><span class="n">DEBUG</span><span class="p">,</span>
+  <span class="n">format</span><span class="o">=</span><span class="s">&#39;</span><span class="si">%(name)s</span><span class="s">: </span><span class="si">%(message)s</span><span class="s">&#39;</span><span class="p">,</span>
+<span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">EchoRequestHandler</span><span class="p">(</span><span class="n">SocketServer</span><span class="o">.</span><span class="n">BaseRequestHandler</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">,</span> <span class="n">server</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s">&#39;EchoRequestHandler&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;__init__&#39;</span><span class="p">)</span>
+        <span class="n">SocketServer</span><span class="o">.</span><span class="n">BaseRequestHandler</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">,</span> <span class="n">server</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;setup&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">SocketServer</span><span class="o">.</span><span class="n">BaseRequestHandler</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;handle&#39;</span><span class="p">)</span>
+
+        <span class="c"># Echo the back to the client</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mf">1024</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;recv()-&gt;&quot;</span><span class="si">%s</span><span class="s">&quot;&#39;</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">finish</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;finish&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">SocketServer</span><span class="o">.</span><span class="n">BaseRequestHandler</span><span class="o">.</span><span class="n">finish</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+<span class="k">class</span> <span class="nc">EchoServer</span><span class="p">(</span><span class="n">SocketServer</span><span class="o">.</span><span class="n">TCPServer</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server_address</span><span class="p">,</span> <span class="n">handler_class</span><span class="o">=</span><span class="n">EchoRequestHandler</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s">&#39;EchoServer&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;__init__&#39;</span><span class="p">)</span>
+        <span class="n">SocketServer</span><span class="o">.</span><span class="n">TCPServer</span><span class="o">.</span><span class="n">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">server_address</span><span class="p">,</span> <span class="n">handler_class</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">server_activate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;server_activate&#39;</span><span class="p">)</span>
+        <span class="n">SocketServer</span><span class="o">.</span><span class="n">TCPServer</span><span class="o">.</span><span class="n">server_activate</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">serve_forever</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;waiting for request&#39;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Handling requests, press &lt;Ctrl-C&gt; to quit&#39;</span><span class="p">)</span>
+        <span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">handle_request</span><span class="p">()</span>
+        <span class="k">return</span>
+
+    <span class="k">def</span> <span class="nf">handle_request</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;handle_request&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">SocketServer</span><span class="o">.</span><span class="n">TCPServer</span><span class="o">.</span><span class="n">handle_request</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">verify_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;verify_request(</span><span class="si">%s</span><span class="s">, </span><span class="si">%s</span><span class="s">)&#39;</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">SocketServer</span><span class="o">.</span><span class="n">TCPServer</span><span class="o">.</span><span class="n">verify_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">process_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;process_request(</span><span class="si">%s</span><span class="s">, </span><span class="si">%s</span><span class="s">)&#39;</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">SocketServer</span><span class="o">.</span><span class="n">TCPServer</span><span class="o">.</span><span class="n">process_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">server_close</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;server_close&#39;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">SocketServer</span><span class="o">.</span><span class="n">TCPServer</span><span class="o">.</span><span class="n">server_close</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">finish_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;finish_request(</span><span class="si">%s</span><span class="s">, </span><span class="si">%s</span><span class="s">)&#39;</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">SocketServer</span><span class="o">.</span><span class="n">TCPServer</span><span class="o">.</span><span class="n">finish_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request</span><span class="p">,</span> <span class="n">client_address</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">close_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request_address</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;close_request(</span><span class="si">%s</span><span class="s">)&#39;</span><span class="p">,</span> <span class="n">request_address</span><span class="p">)</span>
+        <span class="k">return</span> <span class="n">SocketServer</span><span class="o">.</span><span class="n">TCPServer</span><span class="o">.</span><span class="n">close_request</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">request_address</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>这是一个简单的程序, 他创建了服务器, 在一个线程中运行, 连接它能返回哪些方法被调用的信息.</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">socket</span>
+    <span class="kn">import</span> <span class="nn">threading</span>
+
+    <span class="n">address</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;localhost&#39;</span><span class="p">,</span> <span class="mf">0</span><span class="p">)</span> <span class="c"># let the kernel give us a port</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="n">EchoServer</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">EchoRequestHandler</span><span class="p">)</span>
+    <span class="n">ip</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">server_address</span> <span class="c"># find out what port we were given</span>
+
+    <span class="n">t</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">server</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">)</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">setDaemon</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span> <span class="c"># don&#39;t hang on exit</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+    <span class="n">logger</span> <span class="o">=</span> <span class="n">logging</span><span class="o">.</span><span class="n">getLogger</span><span class="p">(</span><span class="s">&#39;client&#39;</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="s">&#39;Server on </span><span class="si">%s</span><span class="s">:</span><span class="si">%s</span><span class="s">&#39;</span><span class="p">,</span> <span class="n">ip</span><span class="p">,</span> <span class="n">port</span><span class="p">)</span>
+
+    <span class="c"># Connect to the server</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;creating socket&#39;</span><span class="p">)</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;connecting to server&#39;</span><span class="p">)</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">ip</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
+
+    <span class="c"># Send the data</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="s">&#39;Hello, world&#39;</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;sending data: &quot;</span><span class="si">%s</span><span class="s">&quot;&#39;</span><span class="p">,</span> <span class="n">message</span><span class="p">)</span>
+    <span class="n">len_sent</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+    <span class="c"># Receive a response</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;waiting for response&#39;</span><span class="p">)</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">len_sent</span><span class="p">)</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;response from server: &quot;</span><span class="si">%s</span><span class="s">&quot;&#39;</span><span class="p">,</span> <span class="n">response</span><span class="p">)</span>
+
+    <span class="c"># Clean up</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;closing socket&#39;</span><span class="p">)</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">logger</span><span class="o">.</span><span class="n">debug</span><span class="p">(</span><span class="s">&#39;done&#39;</span><span class="p">)</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">socket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>程序输出的结果如下:</p>
+<div class="highlight-python"><pre>$ python SocketServer_echo.py
+EchoServer: __init__
+EchoServer: server_activate
+EchoServer: waiting for request
+EchoServer: Handling requests, press to quit
+EchoServer: handle_request
+client: Server on 127.0.0.1:53477
+client: creating socket
+client: connecting to server
+EchoServer: verify_request(, ('127.0.0.1', 53478))
+EchoServer: process_request(, ('127.0.0.1', 53478))
+EchoServer: finish_request(, ('127.0.0.1', 53478))
+EchoRequestHandler: __init__
+EchoRequestHandler: setup
+EchoRequestHandler: handle
+client: sending data: "Hello, world"
+EchoRequestHandler: recv()-&gt;"Hello, world"
+EchoRequestHandler: finish
+EchoServer: close_request()
+EchoServer: handle_request
+client: waiting for response
+client: response from server: "Hello, world"
+client: closing socket
+client: done</pre>
+</div>
+<p>程序使用的端口号会在你每次运行时改变, 因为内核自动分配给他可用的端口. 如果你想让服务器每次运行时都监听固定的端口, 可以为地址元组提供一个数字而不是0.</p>
+<p>上述例子的简单版本, 没有日志记录, 如下:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">SocketServer</span>
+
+<span class="k">class</span> <span class="nc">EchoRequestHandler</span><span class="p">(</span><span class="n">SocketServer</span><span class="o">.</span><span class="n">BaseRequestHandler</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c"># Echo the back to the client</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mf">1024</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+        <span class="k">return</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">socket</span>
+    <span class="kn">import</span> <span class="nn">threading</span>
+    <span class="n">address</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;localhost&#39;</span><span class="p">,</span> <span class="mf">0</span><span class="p">)</span> <span class="c"># let the kernel give us a port</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="n">SocketServer</span><span class="o">.</span><span class="n">TCPServer</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">EchoRequestHandler</span><span class="p">)</span>
+    <span class="n">ip</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">server_address</span> <span class="c"># find out what port we were given</span>
+
+    <span class="n">t</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">server</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">)</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">setDaemon</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span> <span class="c"># don&#39;t hang on exit</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+    <span class="c"># Connect to the server</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">ip</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
+
+    <span class="c"># Send the data</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="s">&#39;Hello, world&#39;</span>
+    <span class="k">print</span> <span class="s">&#39;Sending : &quot;</span><span class="si">%s</span><span class="s">&quot;&#39;</span> <span class="o">%</span> <span class="n">message</span>
+    <span class="n">len_sent</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+    <span class="c"># Receive a response</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="n">len_sent</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;Received: &quot;</span><span class="si">%s</span><span class="s">&quot;&#39;</span> <span class="o">%</span> <span class="n">response</span>
+
+    <span class="c"># Clean up</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">socket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">这种情况下, 不需要特殊的服务器类, 因为TCPServer已经符合我们的需要了.</p>
+</div>
+<div class="highlight-python"><pre>$ python SocketServer_echo_simple.py
+Sending : "Hello, world"
+Received: "Hello, world"</pre>
+</div>
+</div>
+<div class="section" id="id6">
+<h2>线程和进程<a class="headerlink" href="#id6" title="Permalink to this headline">¶</a></h2>
+<p>为服务器增加线程或forking支持, 只需要简单的在类层次结构中增加包含合适的混合类. 这个混合类重载 <tt class="docutils literal"><span class="pre">process_request()</span></tt>, 当要处理一个请求时开始一个新的线程或进程, 并且会在一个新的孩子线程或进程中完成工作.</p>
+<p>对于线程, 使用ThreadingMixIn:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">threading</span>
+<span class="kn">import</span> <span class="nn">SocketServer</span>
+
+<span class="k">class</span> <span class="nc">ThreadedEchoRequestHandler</span><span class="p">(</span><span class="n">SocketServer</span><span class="o">.</span><span class="n">BaseRequestHandler</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c"># Echo the back to the client</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mf">1024</span><span class="p">)</span>
+        <span class="n">cur_thread</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">currentThread</span><span class="p">()</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">cur_thread</span><span class="o">.</span><span class="n">getName</span><span class="p">(),</span> <span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+        <span class="k">return</span>
+
+<span class="k">class</span> <span class="nc">ThreadedEchoServer</span><span class="p">(</span><span class="n">SocketServer</span><span class="o">.</span><span class="n">ThreadingMixIn</span><span class="p">,</span> <span class="n">SocketServer</span><span class="o">.</span><span class="n">TCPServer</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">socket</span>
+    <span class="kn">import</span> <span class="nn">threading</span>
+
+    <span class="n">address</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;localhost&#39;</span><span class="p">,</span> <span class="mf">0</span><span class="p">)</span> <span class="c"># let the kernel give us a port</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="n">ThreadedEchoServer</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">ThreadedEchoRequestHandler</span><span class="p">)</span>
+    <span class="n">ip</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">server_address</span> <span class="c"># find out what port we were given</span>
+
+    <span class="n">t</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">server</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">)</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">setDaemon</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span> <span class="c"># don&#39;t hang on exit</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+    <span class="k">print</span> <span class="s">&#39;Server loop running in thread:&#39;</span><span class="p">,</span> <span class="n">t</span><span class="o">.</span><span class="n">getName</span><span class="p">()</span>
+
+    <span class="c"># Connect to the server</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">ip</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
+
+    <span class="c"># Send the data</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="s">&#39;Hello, world&#39;</span>
+    <span class="k">print</span> <span class="s">&#39;Sending : &quot;</span><span class="si">%s</span><span class="s">&quot;&#39;</span> <span class="o">%</span> <span class="n">message</span>
+    <span class="n">len_sent</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+    <span class="c"># Receive a response</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mf">1024</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;Received: &quot;</span><span class="si">%s</span><span class="s">&quot;&#39;</span> <span class="o">%</span> <span class="n">response</span>
+
+    <span class="c"># Clean up</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+    <span class="n">server</span><span class="o">.</span><span class="n">socket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>从服务器返回的response包括了处理请求的线程id:</p>
+<div class="highlight-python"><pre>$ python SocketServer_threaded.py
+Server loop running in thread: Thread-1
+Sending : "Hello, world"
+Received: "Thread-2: Hello, world"</pre>
+</div>
+<p>使用独立的进程, 可以使用ForkingMixIn:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">SocketServer</span>
+
+<span class="k">class</span> <span class="nc">ForkingEchoRequestHandler</span><span class="p">(</span><span class="n">SocketServer</span><span class="o">.</span><span class="n">BaseRequestHandler</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">handle</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="c"># Echo the back to the client</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mf">1024</span><span class="p">)</span>
+        <span class="n">cur_pid</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">()</span>
+        <span class="n">response</span> <span class="o">=</span> <span class="s">&#39;</span><span class="si">%s</span><span class="s">: </span><span class="si">%s</span><span class="s">&#39;</span> <span class="o">%</span> <span class="p">(</span><span class="n">cur_pid</span><span class="p">,</span> <span class="n">data</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">request</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+        <span class="k">return</span>
+
+<span class="k">class</span> <span class="nc">ForkingEchoServer</span><span class="p">(</span><span class="n">SocketServer</span><span class="o">.</span><span class="n">ForkingMixIn</span><span class="p">,</span> <span class="n">SocketServer</span><span class="o">.</span><span class="n">TCPServer</span><span class="p">):</span>
+    <span class="k">pass</span>
+
+<span class="k">if</span> <span class="n">__name__</span> <span class="o">==</span> <span class="s">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="kn">import</span> <span class="nn">socket</span>
+    <span class="kn">import</span> <span class="nn">threading</span>
+
+    <span class="n">address</span> <span class="o">=</span> <span class="p">(</span><span class="s">&#39;localhost&#39;</span><span class="p">,</span> <span class="mf">0</span><span class="p">)</span> <span class="c"># let the kernel give us a port</span>
+    <span class="n">server</span> <span class="o">=</span> <span class="n">ForkingEchoServer</span><span class="p">(</span><span class="n">address</span><span class="p">,</span> <span class="n">ForkingEchoRequestHandler</span><span class="p">)</span>
+    <span class="n">ip</span><span class="p">,</span> <span class="n">port</span> <span class="o">=</span> <span class="n">server</span><span class="o">.</span><span class="n">server_address</span> <span class="c"># find out what port we were given</span>
+
+    <span class="n">t</span> <span class="o">=</span> <span class="n">threading</span><span class="o">.</span><span class="n">Thread</span><span class="p">(</span><span class="n">target</span><span class="o">=</span><span class="n">server</span><span class="o">.</span><span class="n">serve_forever</span><span class="p">)</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">setDaemon</span><span class="p">(</span><span class="bp">True</span><span class="p">)</span> <span class="c"># don&#39;t hang on exit</span>
+    <span class="n">t</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
+
+    <span class="k">print</span> <span class="s">&#39;Server loop running in process:&#39;</span><span class="p">,</span> <span class="n">os</span><span class="o">.</span><span class="n">getpid</span><span class="p">()</span>
+    <span class="c"># Connect to the server</span>
+    <span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="o">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="o">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="o">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">connect</span><span class="p">((</span><span class="n">ip</span><span class="p">,</span> <span class="n">port</span><span class="p">))</span>
+
+    <span class="c"># Send the data</span>
+    <span class="n">message</span> <span class="o">=</span> <span class="s">&#39;Hello, world&#39;</span>
+    <span class="k">print</span> <span class="s">&#39;Sending : &quot;</span><span class="si">%s</span><span class="s">&quot;&#39;</span> <span class="o">%</span> <span class="n">message</span>
+    <span class="n">len_sent</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">message</span><span class="p">)</span>
+
+    <span class="c"># Receive a response</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">recv</span><span class="p">(</span><span class="mf">1024</span><span class="p">)</span>
+    <span class="k">print</span> <span class="s">&#39;Received: &quot;</span><span class="si">%s</span><span class="s">&quot;&#39;</span> <span class="o">%</span> <span class="n">response</span>
+
+    <span class="c"># Clean up</span>
+    <span class="n">s</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+
+    <span class="n">server</span><span class="o">.</span><span class="n">socket</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>在这种情况下, 从服务器返回的response包含了一个子进程的id:</p>
+<div class="highlight-python"><pre>$ python SocketServer_forking.py
+Server loop running in process: 20173
+Sending : "Hello, world"
+Received: "20175: Hello, world"</pre>
+</div>
+</div>
+<div class="section" id="id7">
+<h2>参考<a class="headerlink" href="#id7" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="http://effbot.org/zone/socket-intro.htm">effbot.org: Sockets</a></li>
+</ul>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="asyncore.html" title="PyMOTW: asyncore"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="pprint.html" title="PyMOTW: pprint"
+             >previous</a> |</li>
+        <li><a href="../index.html">PyMOTW Document v1.6 documentation</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+      &copy; <a href="../copyright.html">Copyright</a> 2009, vbarter &amp; liz.
+      Created using <a href="http://sphinx.pocoo.org/">Sphinx</a> 0.6.3.
+    </div>
+  </body>
+</html>
