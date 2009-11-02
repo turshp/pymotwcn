@@ -339,7 +339,7 @@ PyMOTW: itertools
    Yielding: 1
    Yielding: -2
 
-和 ``dropwhile()`` 相反的是, ``tabkewhile()`` , 它返回的是一个产生输入迭代器中只要测试函数返回true的项的迭代器.
+和 ``dropwhile()`` 相反的是, ``takewhile()`` , 它返回的是一个产生输入迭代器中只要测试函数返回true的项的迭代器.
 
 .. code-block:: python
 

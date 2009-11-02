@@ -75,6 +75,15 @@
     documents/hashlib.rst
     documents/unittest.rst
     documents/heapq.rst
+    
+    documents/gzip/index.rst
+    documents/platform/index.rst
+    documents/timeit/index.rst
+    documents/signal/index.rst
+    documents/subprocess/index.rst
+    documents/shlex/index.rst
+    documents/filecmp/index.rst
+    documents/difflib/index.rst
 
 索引表
 ==================
