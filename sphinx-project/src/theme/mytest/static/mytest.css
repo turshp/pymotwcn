@@ -38,6 +38,7 @@ div.bodywrapper {
 }
 
 div.body {
+    border-left:20px solid #2D4877;
     margin: 0;
     padding: 0.5em 20px 20px 20px;
 }
@@ -320,5 +321,5 @@ div.versioninfo {
 }
 
 div.sphinxsidebar input {
-    border:1px solid #6F88CF;
+    border:1px solid #2777C2;
 }
