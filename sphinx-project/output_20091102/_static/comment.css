@@ -1,14 +1,19 @@
-div.comment a.comment_link {
+div.comment a {
     cursor: pointer;
     color: white;
     text-decoration:none;
 }
-div.comment a.comment_link div {
+div.comment a div {
     height: 16px;
     width: 16px;
-    background: #2D4877 url(../_static/comment_blue_yellow.gif) no-repeat -16px 0;
 }
-div.comment a.comment_link div:hover {
+div.comment a.comment_link div {
+    background: #2D4877 url(../_static/comment_white_yellow.gif) no-repeat -16px 0;
+}
+div.comment a.email_link div {
+    background: #2D4877 url(../_static/email.gif) no-repeat -16px 0;
+}
+div.comment a div:hover{
     background-position:0 0;
 }
 div.comment {
@@ -41,11 +46,14 @@ div#loading {
 }
 div.commentbox hr {
     margin:0;
+    border:1px dashed #AABBCC;
 }
 div.commentbox dl {
     margin: 10px auto;
 }
 div.commentbox dd {
     margin:3px auto 3px 30px;
+    
 }
+
 
