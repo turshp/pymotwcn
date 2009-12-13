@@ -1,5 +1,5 @@
 ====================================
-dircache -- Cache directory listings
+dircache -- 缓存目录中清单
 ====================================
 
 .. module:: dircache
@@ -8,7 +8,7 @@ dircache -- Cache directory listings
 :Purpose: Cache directory listings, updating when the modification time of a directory changes.
 :Python Version: 1.4 and later
 
-Listing Directory Contents
+列出目录内容
 ==========================
 
 The main function in the dircache API is listdir(), a wrapper around
