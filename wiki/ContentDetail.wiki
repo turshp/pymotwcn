@@ -70,7 +70,7 @@
     * *gdbm*
     * [http://www.vbarter.cn/pymotw/documents/pickle.html pickle and cPickle] ~ 100% by vbarter/liz
     * [http://www.vbarter.cn/pymotw/documents/shelve.html shelve] ~ 100% by vbarter/liz
-    * *whichdb* 
+    * _whichdb_ 
   * Generic Operating System Services
     * [http://www.vbarter.cn/pymotw/documents/os.html os] ~ 100% by vbarter/liz
     * [http://www.vbarter.cn/pymotw/documents/os2.html os2] ~ 100% by vbarter/liz
@@ -160,6 +160,7 @@
 
 || PyMOTW: multiprocessing(basics, communication, mapreduce) || 初译ing || liz || - ||
 || PyMOTW: copy || 初译ing || wwwjfy || - ||
+|| PyMOTW: whichdb || 初译ing || Mafiacyj || - ||
 || 标题  ||  状态 ||  翻译者   ||   校验者   ||
 
 附上状态说明
