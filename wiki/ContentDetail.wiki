@@ -100,7 +100,7 @@
   * Internet Protocols and Support
     * [http://www.vbarter.cn/pymotw/documents/BaseHTTPServer.html BaseHTTPServer] ~ 100% by vbarter/liz
     * [http://www.vbarter.cn/pymotw/documents/Cookie.html Cookie] ~ 100% by vbarter/liz
-    * *imaplib*
+    * _imaplib_
     * *SimpleXMLRPCServer* 
     * *smtpd*
     * [http://www.vbarter.cn/pymotw/documents/smtplib.html smtplib] ~ 100% by vbarter/liz
@@ -161,6 +161,7 @@
 
 || PyMOTW: multiprocessing(basics, communication, mapreduce) || 初译ing || liz || - ||
 || PyMOTW: copy || 初译ing || wwwjfy || - ||
+|| PyMOTW: imaplib || 初译ing || mafiacyj || - ||
 || 标题  ||  状态 ||  翻译者   ||   校验者   ||
 
 附上状态说明
