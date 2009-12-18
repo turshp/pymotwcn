@@ -156,11 +156,11 @@
 || PyMOTW: in-memorys data structure || 初译done || liz || - ||
 || PyMOTW: Text Processing Tools || 初译done || liz || - ||
 || PyMOTW: dircache || 初译done|| Mafiacyj || - ||
+|| PyMOTW: whichdb || 初译done || Mafiacyj || - ||
 || - || - || - || - ||
 
 || PyMOTW: multiprocessing(basics, communication, mapreduce) || 初译ing || liz || - ||
 || PyMOTW: copy || 初译ing || wwwjfy || - ||
-|| PyMOTW: whichdb || 初译ing || Mafiacyj || - ||
 || 标题  ||  状态 ||  翻译者   ||   校验者   ||
 
 附上状态说明
