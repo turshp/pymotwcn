@@ -61,8 +61,8 @@ Queue提供了FIFO功能, 一般常用于多线程编程, 它可以在生产者�
             url = q.get()
             print '%s: Downloading:' % i, url 
             time.sleep(i + 2) # instead of really downloading the URL, we just pretend
-        
-        q.task_done()
+            
+            q.task_done()
 
 一旦定义好目标函数, 我们就可以启动工作线程. 注意, 函数downloadEnclosures()在"url = q.get()"会阻塞, 直到队列有东西返回, 因此, 当队列中有东西时, 启动线程总是安全的.
 
