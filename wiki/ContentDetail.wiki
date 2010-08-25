@@ -138,7 +138,7 @@
 
 = 处理中的章节 =
 || 标题  ||  状态s ||  翻译者s   ||   校验者s   ||
-|| PyMOTW: difflib || 初译ing || walker || vbarter ||
+|| PyMOTW: difflib || 初译done || walker || vbarter ||
 || PyMOTW: filecmp || 初译done || liz || vbarter ||
 || PyMOTW: pipes || 初译done || liz || - ||
 || PyMOTW: hmac || 初译done || liz || - ||
