@@ -1,0 +1,2 @@
+  * 项目:[PyMOTW的Blog好文](PyMotwBlogZh.md)
+  * 原文: [Multi-processing techniques in Python | And Now For Something Completely Different](http://www.doughellmann.com/articles/CompletelyDifferent-2007-10-multiprocessing/index.htm)
